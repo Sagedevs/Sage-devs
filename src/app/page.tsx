@@ -191,19 +191,54 @@ export default function Home() {
   return (
     <>
       <main className="flex-grow flex flex-col items-center h-full relative pt-20 w-full overflow-x-hidden">
-        {/* Hero Text with Moving Gradient Background */}
+       {/* Enhanced Hero Banner Background - Blue, Black, White Theme */}
+<div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-black to-slate-900" />
+<div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-slate-800/20 to-cyan-900/30" />
+<div className="absolute inset-0 bg-gradient-to-br from-blue-800/10 to-slate-900/20" />
+<div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black/40" />
+
+{/* Luxury mesh gradient overlay for banner */}
+<div className="absolute top-0 left-0 right-0 h-screen bg-gradient-to-br from-blue-400/8 via-cyan-400/12 to-slate-600/15" />
+<div className="absolute top-0 left-0 right-0 h-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-cyan-500/5 to-transparent" />
+<div className="absolute top-0 left-0 right-0 h-screen bg-[conic-gradient(at_center,_var(--tw-gradient-stops))] from-blue-400/5 via-cyan-400/8 to-white/8" />
+
+{/* Static Background Gradient for Performance */}
+<div className="absolute inset-0 z-0 opacity-40 mix-blend-screen bg-gradient-to-br from-violet-500/20 via-blue-500/10 to-transparent" />
+
+{/* Hero Text with Moving Gradient Background */}
 <div className="w-full flex justify-center items-center my-4 md:mt-15 text-center relative px-5 md:px-0 z-10">
-  {/* Moving Gradient Background */}
-  <div className="absolute inset-0 -m-20">
-    <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 via-purple-600/30 via-cyan-500/30 to-blue-600/30 bg-[length:400%_100%] animate-gradient-x blur-3xl opacity-60"></div>
-    <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 via-blue-500/20 via-purple-500/20 to-cyan-400/20 bg-[length:300%_300%] animate-gradient-xy blur-2xl opacity-40"></div>
+  <div className="relative inline-block">
+    {/* Moving Gradient Behind Text */}
+    <div className="absolute -inset-6 md:-inset-10 lg:-inset-12">
+      <div 
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500/50 via-purple-500/50 via-cyan-500/50 to-transparent blur-2xl"
+        style={{
+          backgroundSize: '400% 100%',
+          animation: 'gradientMove 6s ease-in-out infinite'
+        }}
+      />
+      <div 
+        className="absolute inset-0 bg-gradient-to-l from-transparent via-cyan-400/30 to-transparent blur-xl"
+        style={{
+          backgroundSize: '300% 100%',
+          animation: 'gradientMove 4s ease-in-out infinite reverse'
+        }}
+      />
+    </div>
+    
+    <h1 className="relative lg:text-9xl md:text-7xl text-4xl font-black tracking-tight text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
+      Sage Devs
+    </h1>
   </div>
-  
-  {/* Main Heading */}
-  <h1 className="relative lg:text-9xl md:text-7xl text-4xl font-extrabold tracking-tight bg-gradient-to-r from-white via-cyan-200 via-blue-200 to-purple-200 bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(59,130,246,0.5)] filter contrast-125 brightness-110">
-    Sage Devs
-  </h1>
 </div>
+
+<style jsx>{`
+  @keyframes gradientMove {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+`}</style>
+
         <motion.div
           className="font-bold text-center mt-1 md:mt-3 z-10 px-5 md:px-0"
           initial={{ opacity: 0 }}
