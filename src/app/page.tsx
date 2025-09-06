@@ -208,36 +208,16 @@ export default function Home() {
 {/* Hero Text with Moving Gradient Background */}
 <div className="w-full flex justify-center items-center my-4 md:mt-15 text-center relative px-5 md:px-0 z-10">
   <div className="relative inline-block">
-    {/* Moving Gradient Behind Text */}
-    <div className="absolute -inset-6 md:-inset-10 lg:-inset-12">
-      <div 
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500/50 via-purple-500/50 via-cyan-500/50 to-transparent blur-2xl"
-        style={{
-          backgroundSize: '400% 100%',
-          animation: 'gradientMove 6s ease-in-out infinite'
-        }}
-      />
-      <div 
-        className="absolute inset-0 bg-gradient-to-l from-transparent via-cyan-400/30 to-transparent blur-xl"
-        style={{
-          backgroundSize: '300% 100%',
-          animation: 'gradientMove 4s ease-in-out infinite reverse'
-        }}
-      />
+    
     </div>
     
     <h1 className="relative lg:text-9xl md:text-7xl text-4xl font-black tracking-tight text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
       Sage Devs
     </h1>
   </div>
-</div>
 
-<style jsx>{`
-  @keyframes gradientMove {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-`}</style>
+
+
 
         <motion.div
           className="font-bold text-center mt-1 md:mt-3 z-10 px-5 md:px-0"
