@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 // Import your components and blocks
 import TrueFocus from "@/blocks/TextAnimations/TrueFocus/TrueFocus";
 import TestimonialSlider from "@/components/TestimonialSlider";
+import { InfiniteSlider } from "@/components/InfiniteSlider";
 
 // Featured Case Studies data
 const featuredCaseStudies = [
@@ -218,24 +219,29 @@ export default function Home() {
           </motion.div>
 
           {/* Microtrust - Trusted by */}
-          <motion.div
-            className="mt-8 text-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1 }}
-          >
-            <p className="text-gray-500 text-sm mb-4">Trusted by startups and enterprises worldwide</p>
-            <div className="flex items-center justify-center gap-8 opacity-40">
-              <span className="text-xs font-semibold tracking-wider">STARTUPS</span>
-              <span className="text-xs font-semibold tracking-wider">ENTERPRISES</span>
-              <span className="text-xs font-semibold tracking-wider">AGENCIES</span>
-            </div>
-          </motion.div>
+        <motion.div
+          className="mt-8 text-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1 }}
+        >
+          <p className="text-gray-500 text-sm mb-4">Trusted by startups and enterprises worldwide</p>
+          <InfiniteSlider className="opacity-80" gap={28} duration={28} durationOnHover={12}>
+            <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs">STARTUPS</div>
+            <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs">ENTERPRISES</div>
+            <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs">AGENCIES</div>
+            <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs">FINTECH</div>
+            <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs">HEALTHCARE</div>
+            <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs">ECOMMERCE</div>
+            <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs">EDTECH</div>
+          </InfiniteSlider>
+        </motion.div>
         </section>
 
         <style jsx>{`
           .bg-gradient-radial {
             background: radial-gradient(
+{{ ... }} (rest of the code remains the same)
               circle at center,
               var(--tw-gradient-stops)
             );
