@@ -89,7 +89,7 @@ const testimonials: Testimonial[] = [
     company: "InnovateNow",
     content: "Working with Abdul was a game-changer...",
     image: "https://api.uifaces.co/our-content/donated/FJkauyEa.jpg",
-    rating: 5,
+    rating: 4,
   },
   {
     id: 3,
@@ -111,7 +111,7 @@ const testimonials: Testimonial[] = [
       "Abdul's ability to understand our vision and translate it into a stunning digital experience is remarkable. The project was delivered on time and exceeded our expectations.",
     image:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-    rating: 5,
+    rating: 4,
   },
   {
     id: 5,
@@ -122,7 +122,7 @@ const testimonials: Testimonial[] = [
       "The attention to user experience and modern design principles Abdul brought to our project was outstanding. Our users love the new interface!",
     image:
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
-    rating: 4,
+    rating: 5,
   },
   {
     id: 6,
@@ -144,7 +144,7 @@ const testimonials: Testimonial[] = [
       "The perfect blend of creativity and functionality. Abdul transformed our ideas into a visual masterpiece that our clients absolutely love.",
     image:
       "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=150&h=150&fit=crop&crop=face",
-    rating: 5,
+    rating: 4,
   },
   {
     id: 8,
@@ -534,20 +534,44 @@ export default function EnhancedTestimonialSlider() {
             </button>
           </div>
 
-          {/* --- GOOGLE TRUST BADGE --- */}
-          <div className="flex items-center justify-center mb-8">
-            <div className="bg-black/40 backdrop-blur-md border border-purple-500/30 rounded-2xl px-6 py-4 flex items-center gap-4">
-              <GoogleLogo className="w-8 h-8" />
-              <div className="flex flex-col">
-                <span className="text-white font-semibold text-lg">Google Reviews</span>
-                <span className="text-purple-300 text-sm">100% Trusted Reviews by Google</span>
+          {/* --- ENHANCED GOOGLE TRUST BADGE --- */}
+          <div className="flex items-center justify-center mb-12">
+            <div className="bg-gradient-to-r from-black/60 to-gray-900/60 backdrop-blur-xl border border-purple-500/40 rounded-3xl px-8 py-6 flex items-center gap-6 shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 hover:scale-105">
+              <div className="flex items-center gap-4">
+                <div className="relative">
+                  <GoogleLogo className="w-12 h-12 drop-shadow-lg" />
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+                    <svg className="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-white font-bold text-xl">Google</span>
+                    <span className="text-gray-300 font-medium text-lg">Reviews</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent font-semibold text-sm">
+                      ✓ 100% Verified & Trusted
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center gap-2 ml-2">
-                <span className="text-2xl font-bold text-white">4.9</span>
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                  ))}
+              
+              <div className="h-12 w-px bg-gradient-to-b from-transparent via-purple-500/50 to-transparent"></div>
+              
+              <div className="flex items-center gap-3">
+                <div className="text-right">
+                  <div className="flex items-center gap-2">
+                    <span className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">4.9</span>
+                    <div className="flex">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400 drop-shadow-sm animate-pulse" style={{animationDelay: `${i * 0.1}s`}} />
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-gray-300 text-sm font-medium">Based on 50+ reviews</p>
                 </div>
               </div>
             </div>
