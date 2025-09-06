@@ -452,9 +452,9 @@ export default function RootLayout({
                 />
               </Link>
 
-              {/* Desktop Navigation - Centered absolutely */}
-              <div className="hidden lg:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[10000]">
-                <div className="relative" style={{ height: "70px", width: "min(600px, 80vw)", maxWidth: "720px" }}>
+              {/* Desktop Navigation - Perfectly centered (matches CTA baseline) */}
+              <div className="hidden lg:flex absolute inset-0 items-center justify-center z-[10000] pointer-events-none">
+                <div className="relative pointer-events-auto" style={{ height: "60px", width: "min(600px, 80vw)", maxWidth: "720px" }}>
                   {isClient && (
                     <GooeyNav
                       items={items}
