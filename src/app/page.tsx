@@ -7,11 +7,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 // Import your components and blocks
-import BlurText from "@/blocks/TextAnimations/BlurText/BlurText";
 import TrueFocus from "@/blocks/TextAnimations/TrueFocus/TrueFocus";
-import TiltedCard from "@/blocks/Components/TiltedCard/TiltedCard";
-import SkillTag from "@/components/SkillTag";
-import ProjectCard from "@/components/ProjectCard";
 import TestimonialSlider from "@/components/TestimonialSlider";
 
 // Featured Case Studies data
@@ -387,7 +383,7 @@ export default function Home() {
               Why Choose <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Sage Devs</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              We're not just developers—we're your strategic technology partners
+              We&apos;re not just developers—we&apos;re your strategic technology partners
             </p>
           </motion.div>
 
@@ -571,7 +567,7 @@ export default function Home() {
                 </span>
               </h2>
               <p className="text-gray-300 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
-                Let's transform your ideas into powerful digital experiences that drive real results.
+                Let&apos;s transform your ideas into powerful digital experiences that drive real results.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-6 items-center justify-center">
