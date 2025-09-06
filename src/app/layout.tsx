@@ -495,14 +495,6 @@ export default function RootLayout({
               </div>
 
               <div className="flex items-center gap-3 relative w-auto z-[10001]">
-                {/* Desktop CTA - sticky by virtue of fixed header */}
-                <Link
-                  href="/Contact"
-                  className="hidden lg:inline-flex items-center justify-center h-11 px-5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold border border-white/10 hover:border-cyan-300/40 hover:shadow-lg hover:shadow-cyan-500/20 transition-all"
-                >
-                  Start Your Project
-                </Link>
-
                 {/* Mobile Hamburger - No animations during SSR */}
                 <button
                   className="lg:hidden relative z-[10000] p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400"
