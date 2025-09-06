@@ -47,8 +47,8 @@ const items = [
     label: "Company",
     children: [
       { label: "About Us", href: "/about" },
-      { label: "Team", href: "/company/team" },
-      { label: "Careers", href: "/company/careers" },
+      { label: "Team", href: "/about/team" },
+      { label: "Careers", href: "/about/careers" },
     ],
   },
   {
@@ -494,7 +494,7 @@ export default function RootLayout({
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 relative w-auto z-[10001]">
                 {/* Desktop CTA - sticky by virtue of fixed header */}
                 <Link
                   href="/Contact"
