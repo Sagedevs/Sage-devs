@@ -216,42 +216,51 @@ export default function Home() {
     </h1>
   </div>
 
+  {/* Hero Tagline */}
+  <motion.div
+    className="w-full flex justify-center px-6 md:px-0 z-10"
+    initial={{ opacity: 0, y: 10 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6, delay: 0.2 }}
+  >
+    <p className="text-center text-gray-300 max-w-2xl md:max-w-3xl lg:max-w-4xl text-sm md:text-base lg:text-lg leading-relaxed">
+      Sage Devs is a full stack software agency that builds scalable web apps and delivers world-class UI/UX for startups and businesses.
+    </p>
+  </motion.div>
 
+  <motion.div
+    className="font-bold text-center mt-1 md:mt-3 z-10 px-5 md:px-0"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.8, delay: 0.3 }}
+  >
+    <TrueFocus
+      sentence="Full Stack Developer   UI/UX Designer  Entrepreneur"
+      manualMode
+      blurAmount={5}
+      borderColor="cyan"
+      animationDuration={0.3}
+      pauseBetweenAnimations={1}
+    />
+  </motion.div>
 
+  <style jsx>{`
+    .bg-gradient-radial {
+      background: radial-gradient(
+        circle at center,
+        var(--tw-gradient-stops)
+      );
+    }
+  `}</style>
 
-        <motion.div
-          className="font-bold text-center mt-1 md:mt-3 z-10 px-5 md:px-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          <TrueFocus
-            sentence="Full Stack Developer   UI/UX Designer  Entrepreneur"
-            manualMode
-            blurAmount={5}
-            borderColor="cyan"
-            animationDuration={0.3}
-            pauseBetweenAnimations={1}
-          />
-        </motion.div>
-
-        <style jsx>{`
-          .bg-gradient-radial {
-            background: radial-gradient(
-              circle at center,
-              var(--tw-gradient-stops)
-            );
-          }
-        `}</style>
-
-        {/* CTA Section */}
-        <motion.div
-          className="w-full flex flex-col items-center mt-12 mb-8 z-10 px-5 md:px-0"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+  {/* CTA Section */}
+  <motion.div
+    className="w-full flex flex-col items-center mt-12 mb-8 z-10 px-5 md:px-0"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8, delay: 0.6 }}
+  >
+    <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
             {/* Start Your Project Button */}
 <motion.a
   href="mailto:sagedevs.network@gmail.com"
