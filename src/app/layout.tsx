@@ -142,7 +142,6 @@ export default function RootLayout({
         <meta name="msapplication-config" content="/icons/browserconfig.xml" />
         <meta name="msapplication-TileColor" content="#2B5797" />
         <meta name="msapplication-tap-highlight" content="no" />
-        <meta name="theme-color" content="#000000" />
         <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
         <link
           rel="apple-touch-icon"
@@ -164,14 +163,44 @@ export default function RootLayout({
           href="/icons/safari-pinned-tab.svg"
           color="#5bbad5"
         />
+        
+        {/* Favicon & manifest */}
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="preconnect" href="https://plausible.io" />
-        <title>Abdul Ahad - Full Stack Developer & UI/UX Designer</title>
+
+        {/* Title & Description (company-first, international tone) */}
+        <title>Sage Devs — Full Stack Software Agency & UI/UX Studio</title>
         <meta
           name="description"
-          content="Abdul Ahad's portfolio: A Full Stack Developer and UI/UX Designer crafting seamless digital experiences with Next.js, React, Tailwind CSS, and more. Explore projects, experience, and services."
+          content="Sage Devs is a global software agency specializing in full stack web development and world-class UI/UX design. We deliver scalable, modern, and reliable digital solutions using Next.js, React, and Tailwind CSS."
         />
+
+        {/* SEO keywords */}
+        <meta
+          name="keywords"
+          content="Sage Devs, software agency, software company, full stack development, web development, UI/UX design, Next.js, React, Tailwind CSS, digital solutions, tech studio"
+        />
+        <meta name="author" content="Sage Devs" />
+
+        {/* Open Graph (for LinkedIn/Facebook share cards) */}
+        <meta property="og:title" content="Sage Devs — Full Stack Software Agency & UI/UX Studio" />
+        <meta property="og:description" content="We are Sage Devs, a global software agency delivering scalable web apps and exceptional UI/UX design with modern technologies like Next.js, React, and Tailwind CSS." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://sage-devs.vercel.app" />
+        <meta property="og:image" content="https://sage-devs.vercel.app/og-image.png" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Sage Devs — Full Stack Software Agency & UI/UX Studio" />
+        <meta name="twitter:description" content="Sage Devs builds modern, reliable, and scalable digital solutions with a focus on web development and UI/UX design." />
+        <meta name="twitter:image" content="https://sage-devs.vercel.app/og-image.png" />
+
+        {/* Theme color (browser bar + PWA style) */}
+        <meta name="theme-color" content="#0f172a" />
+
+        {/* Canonical (avoid SEO duplicate issues) */}
+        <link rel="canonical" href="https://sage-devs.vercel.app" />
         {/* Plausible Analytics */}
         <Script
           defer
