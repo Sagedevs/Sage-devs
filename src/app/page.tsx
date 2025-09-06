@@ -206,9 +206,9 @@ export default function Home() {
         <div className="absolute inset-0 z-0 opacity-40 mix-blend-screen bg-gradient-to-br from-violet-500/20 via-blue-500/10 to-transparent" />
 
         {/* Hero Text - Simplified for Performance */}
-        <div className="w-full flex justify-center items-center my-4 md:mt-15 text-center font-bold relative px-5 md:px-0 z-10">
-          <h1 className="lg:text-9xl md:text-7xl text-4xl text-center bg-gradient-to-r from-white via-blue-300 to-purple-300 bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(255,255,255,0.6)] filter brightness-110">
-            Sage devs
+        <div className="w-full flex justify-center items-center my-4 md:mt-15 text-center relative px-5 md:px-0 z-10">
+          <h1 className="lg:text-9xl md:text-7xl text-4xl font-extrabold tracking-tight bg-gradient-to-r from-purple-300 via-blue-300 to-cyan-300 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(99,102,241,0.35)]">
+            Sage Devs
           </h1>
         </div>
 
@@ -250,7 +250,7 @@ export default function Home() {
               href="mailto:sagedevs.network@gmail.com"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="relative group bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 overflow-hidden"
+              className="relative group inline-flex items-center justify-center h-12 px-6 md:px-8 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm md:text-base font-semibold transition-all duration-300 border border-white/10 hover:border-cyan-300/40 hover:shadow-lg hover:shadow-cyan-500/25 overflow-hidden"
             >
               <span className="relative z-10">Hire Me</span>
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -263,7 +263,7 @@ export default function Home() {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="relative group bg-gradient-to-r from-purple-500 to-pink-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/25 overflow-hidden"
+              className="relative group inline-flex items-center justify-center h-12 px-6 md:px-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-600 text-white text-sm md:text-base font-semibold transition-all duration-300 border border-white/10 hover:border-purple-300/40 hover:shadow-lg hover:shadow-purple-500/25 overflow-hidden"
             >
               <span className="relative z-10">Let&apos;s Build Together</span>
               <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -276,7 +276,7 @@ export default function Home() {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="relative group bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 overflow-hidden flex items-center gap-2"
+              className="relative group inline-flex items-center justify-center h-12 px-6 md:px-8 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 text-white text-sm md:text-base font-semibold transition-all duration-300 border border-white/10 hover:border-green-300/40 hover:shadow-lg hover:shadow-green-500/25 overflow-hidden gap-2"
             >
               <span className="relative z-10">WhatsApp</span>
               <svg className="w-5 h-5 relative z-10" fill="currentColor" viewBox="0 0 24 24">
@@ -565,9 +565,9 @@ export default function Home() {
                     "0 10px 20px rgba(6, 182, 212, 0.15), 0 0 30px rgba(6, 182, 212, 0.1)",
                 }}
                 whileTap={{ scale: 0.95 }}
-                className="relative group bg-gradient-to-r from-gray-900/80 to-gray-800/60 border-2 border-white/20 text-white px-8 py-4 rounded-lg font-medium text-lg transition-all duration-300 hover:border-cyan-400 hover:text-cyan-400 overflow-hidden backdrop-blur-sm"
+                className="relative group inline-flex items-center justify-center h-12 px-6 md:px-8 rounded-full bg-gradient-to-r from-gray-900/80 to-gray-800/60 text-white text-sm md:text-base font-semibold transition-all duration-300 border border-white/10 hover:border-cyan-300/40 hover:text-cyan-300 overflow-hidden backdrop-blur-sm"
               >
-                <span className="relative z-10 flex items-center space-x-2">
+                <span className="relative z-10 flex items-center gap-2">
                   <span>View All Projects</span>
                   <motion.svg
                     width="20"
@@ -583,13 +583,7 @@ export default function Home() {
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </motion.svg>
                 </span>
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 to-blue-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: "0%" }}
-                  transition={{ duration: 0.3 }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-blue-500/5 to-purple-500/5 rounded-lg" />
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 to-blue-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </motion.button>
             </Link>
           </motion.div>
