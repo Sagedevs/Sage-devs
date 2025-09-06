@@ -616,7 +616,7 @@ export default function Home() {
                 viewport={{ once: true }}
               >
                 <p className="text-gray-400 text-sm mb-6">
-                  Prefer to reach out directly? We'd love to hear from you.
+                  Prefer to reach out directly? We&apos;d love to hear from you.
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
                   <a 
