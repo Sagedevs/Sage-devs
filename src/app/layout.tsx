@@ -11,14 +11,56 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { gilroy } from "@/fonts/fonts"; // Assuming this path is correct
 import Footer from "@/components/Footer"; // Assuming this path is correct
-// Memoize static data to prevent re-creation on every render
+// Navigation items for GooeyNav (desktop center)
 const items = [
   { label: "Home", href: "/" },
-  { label: "Achievements", href: "/Achievements" },
-  { label: "About Me", href: "/about" },
+  {
+    label: "Services",
+    children: [
+      { label: "Web & App Development", href: "/services/web-app-development" },
+      { label: "UI/UX Design", href: "/services/ui-ux-design" },
+      { label: "E-commerce (WordPress & Shopify)", href: "/services/ecommerce" },
+      { label: "SaaS & Product Dev", href: "/services/saas-product" },
+      { label: "Cloud & DevOps", href: "/services/cloud-devops" },
+      { label: "Maintenance & Support", href: "/services/maintenance-support" },
+    ],
+  },
+  {
+    label: "Case Studies",
+    children: [
+      { label: "Web Apps", href: "/case-studies/web-apps" },
+      { label: "SaaS", href: "/case-studies/saas" },
+      { label: "E-commerce", href: "/case-studies/ecommerce" },
+      { label: "Enterprise", href: "/case-studies/enterprise" },
+    ],
+  },
   { label: "Pricing & Plans", href: "/pricing" },
   { label: "Portfolio", href: "/portfolios" },
-  { label: "Contact", href: "/Contact" },
+  {
+    label: "Resources",
+    children: [
+      { label: "Blog / Insights", href: "/blog" },
+      { label: "Guides & Templates", href: "/resources/guides-templates" },
+      { label: "Webinars / Talks", href: "/resources/webinars" },
+    ],
+  },
+  {
+    label: "Company",
+    children: [
+      { label: "About Us", href: "/about" },
+      { label: "Team", href: "/company/team" },
+      { label: "Careers", href: "/company/careers" },
+    ],
+  },
+  {
+    label: "Contact",
+    cta: true,
+    children: [
+      { label: "Get in Touch (form)", href: "/Contact" },
+      { label: "FAQs", href: "/faq" },
+      { label: "Book a Call", href: "https://calendly.com/abdul-ahadt732", external: true },
+    ],
+  },
 ];
 
 const socialLinks = [
@@ -60,14 +102,18 @@ export default function RootLayout({
     setIsClient(true);
   }, []);
 
-  // Memoize activeIndex calculation
+  // Memoize activeIndex calculation (supports dropdown items)
   const activeIndex = useMemo(() => {
     const index = items.findIndex((item) => {
-      return item.href === "/"
-        ? pathname === "/"
-        : pathname.startsWith(item.href);
+      if (item.href) {
+        return item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+      }
+      if ((item as any).children) {
+        return (item as any).children.some((c: any) => c.href && pathname.startsWith(c.href));
+      }
+      return false;
     });
-    return index;
+    return index === -1 ? 0 : index;
   }, [pathname]);
 
   // Optimized scroll handler with throttling
@@ -426,50 +472,70 @@ export default function RootLayout({
                   {/* Fallback navigation for SSR */}
                   {!isClient && (
                     <nav className="flex items-center space-x-4">
-                      {items.map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          className={`text-sm font-medium transition-all duration-200 hover:text-cyan-400 whitespace-nowrap px-3 py-2 rounded-md ${
-                            pathname === item.href ||
-                            (item.href !== "/" &&
-                              pathname.startsWith(item.href))
-                              ? "text-cyan-400 bg-cyan-400/10"
-                              : "text-white"
-                          }`}
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
+                      {items.map((item) => {
+                        const isActive = item.href
+                          ? item.href === "/"
+                            ? pathname === "/"
+                            : pathname.startsWith(item.href)
+                          : false;
+                        return item.href ? (
+                          <Link
+                            key={item.label}
+                            href={item.href}
+                            className={`text-sm font-medium transition-all duration-200 hover:text-cyan-400 whitespace-nowrap px-3 py-2 rounded-md ${
+                              isActive ? "text-cyan-400 bg-cyan-400/10" : "text-white"
+                            }`}
+                          >
+                            {item.label}
+                          </Link>
+                        ) : (
+                          <span
+                            key={item.label}
+                            className="text-sm font-medium text-white/80 whitespace-nowrap px-3 py-2 rounded-md"
+                          >
+                            {item.label}
+                          </span>
+                        );
+                      })}
                     </nav>
                   )}
                 </div>
               </div>
 
-              {/* Mobile Hamburger - No animations during SSR */}
-              <button
-                className="lg:hidden relative z-[10000] p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400"
-                onClick={toggleMobileMenu}
-                aria-label="Toggle mobile menu"
-              >
-                <div className="w-6 h-5 relative flex flex-col justify-between">
-                  <span
-                    className={`w-full h-0.5 bg-white block transform origin-center transition-all duration-200 ${
-                      mobileMenuOpen ? "rotate-45 translate-y-2" : ""
-                    }`}
-                  />
-                  <span
-                    className={`w-full h-0.5 bg-white block transition-all duration-200 ${
-                      mobileMenuOpen ? "opacity-0" : "opacity-100"
-                    }`}
-                  />
-                  <span
-                    className={`w-full h-0.5 bg-white block transform origin-center transition-all duration-200 ${
-                      mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-                    }`}
-                  />
-                </div>
-              </button>
+              <div className="flex items-center gap-3">
+                {/* Desktop CTA - sticky by virtue of fixed header */}
+                <Link
+                  href="/Contact"
+                  className="hidden lg:inline-flex items-center justify-center h-11 px-5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold border border-white/10 hover:border-cyan-300/40 hover:shadow-lg hover:shadow-cyan-500/20 transition-all"
+                >
+                  Start Your Project
+                </Link>
+
+                {/* Mobile Hamburger - No animations during SSR */}
+                <button
+                  className="lg:hidden relative z-[10000] p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                  onClick={toggleMobileMenu}
+                  aria-label="Toggle mobile menu"
+                >
+                  <div className="w-6 h-5 relative flex flex-col justify-between">
+                    <span
+                      className={`w-full h-0.5 bg-white block transform origin-center transition-all duration-200 ${
+                        mobileMenuOpen ? "rotate-45 translate-y-2" : ""
+                      }`}
+                    />
+                    <span
+                      className={`w-full h-0.5 bg-white block transition-all duration-200 ${
+                        mobileMenuOpen ? "opacity-0" : "opacity-100"
+                      }`}
+                    />
+                    <span
+                      className={`w-full h-0.5 bg-white block transform origin-center transition-all duration-200 ${
+                        mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
+                      }`}
+                    />
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
         </header>
@@ -482,25 +548,77 @@ export default function RootLayout({
               : "opacity-0 pointer-events-none"
           }`}
         >
-          <div className="flex flex-col items-center justify-center h-full pt-20">
-            <nav className="flex flex-col items-center space-y-8">
-              {items.map((item) => (
-                <div key={item.href}>
-                  <Link
-                    href={item.href}
-                    className={`text-white text-2xl md:text-3xl font-medium transition-all duration-200 ${
-                      pathname === item.href ||
-                      (item.href !== "/" && pathname.startsWith(item.href))
-                        ? "text-cyan-400"
-                        : ""
-                    }`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
+          <div className="h-full overflow-y-auto pt-24 pb-12 px-6">
+            {/* Mobile grouped menu */}
+            <div className="space-y-8 max-w-xl mx-auto">
+              <div>
+                <Link href="/" onClick={() => setMobileMenuOpen(false)} className="text-white text-2xl font-semibold">Home</Link>
+              </div>
+
+              <div>
+                <div className="text-gray-300 uppercase tracking-wider text-xs mb-3">Services</div>
+                <div className="space-y-3">
+                  <Link href="/services/web-app-development" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Web & App Development</Link>
+                  <Link href="/services/ui-ux-design" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">UI/UX Design</Link>
+                  <Link href="/services/ecommerce" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">E-commerce (WordPress & Shopify)</Link>
+                  <Link href="/services/saas-product" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">SaaS & Product Dev</Link>
+                  <Link href="/services/cloud-devops" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Cloud & DevOps</Link>
+                  <Link href="/services/maintenance-support" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Maintenance & Support</Link>
                 </div>
-              ))}
-            </nav>
+              </div>
+
+              <div>
+                <div className="text-gray-300 uppercase tracking-wider text-xs mb-3">Case Studies</div>
+                <div className="space-y-3">
+                  <Link href="/case-studies/web-apps" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Web Apps</Link>
+                  <Link href="/case-studies/saas" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">SaaS</Link>
+                  <Link href="/case-studies/ecommerce" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">E-commerce</Link>
+                  <Link href="/case-studies/enterprise" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Enterprise</Link>
+                </div>
+              </div>
+
+              <div>
+                <Link href="/pricing" onClick={() => setMobileMenuOpen(false)} className="text-white text-2xl font-semibold">Pricing</Link>
+              </div>
+
+              <div>
+                <div className="text-gray-300 uppercase tracking-wider text-xs mb-3">Resources</div>
+                <div className="space-y-3">
+                  <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Blog / Insights</Link>
+                  <Link href="/resources/guides-templates" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Guides & Templates</Link>
+                  <Link href="/resources/webinars" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Webinars / Talks</Link>
+                </div>
+              </div>
+
+              <div>
+                <div className="text-gray-300 uppercase tracking-wider text-xs mb-3">Company</div>
+                <div className="space-y-3">
+                  <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">About Us</Link>
+                  <Link href="/company/team" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Team</Link>
+                  <Link href="/company/careers" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Careers</Link>
+                </div>
+              </div>
+
+              <div>
+                <div className="text-gray-300 uppercase tracking-wider text-xs mb-3">Contact</div>
+                <div className="space-y-3">
+                  <Link href="/Contact" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Get in Touch (form)</Link>
+                  <Link href="/faq" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">FAQs</Link>
+                  <a href="https://calendly.com/abdul-ahadt732" target="_blank" rel="noopener noreferrer" className="block text-white text-xl">Book a Call ↗</a>
+                </div>
+              </div>
+
+              {/* Mobile CTA */}
+              <div className="pt-4">
+                <Link
+                  href="/Contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="inline-flex w-full items-center justify-center h-12 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold border border-white/10 hover:border-cyan-300/40 hover:shadow-lg hover:shadow-cyan-500/20 transition-all"
+                >
+                  Start Your Project
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
 

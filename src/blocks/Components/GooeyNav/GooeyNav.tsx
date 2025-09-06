@@ -1,9 +1,17 @@
 import React, { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import Link from "next/link";
 
-interface GooeyNavItem {
+interface GooeyNavChildItem {
   label: string;
   href: string;
+  external?: boolean;
+}
+
+interface GooeyNavItem {
+  label: string;
+  href?: string;
+  children?: GooeyNavChildItem[];
+  cta?: boolean;
 }
 
 export interface GooeyNavProps {
@@ -236,21 +244,89 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
               bg-transparent
             `}
           >
-            {items.map((item, index) => (
-              <li
-                key={`${item.href}-${index}`}
-                className={`gooey-nav-item text-xs sm:text-sm md:text-base cursor-pointer ${activeIndex === index ? "active" : ""}`}
-                onClick={(e) => handleClick(e, index)}
-              >
-                <Link
-                  href={item.href}
-                  onKeyDown={(e) => handleKeyDown(e, index)}
-                  className="gooey-nav-link"
+            {items.map((item, index) => {
+              const hasChildren = Array.isArray(item.children) && item.children.length > 0;
+              return (
+                <li
+                  key={`${item.label}-${index}`}
+                  className={`group relative gooey-nav-item text-xs sm:text-sm md:text-base cursor-pointer ${
+                    activeIndex === index ? "active" : ""
+                  } ${item.cta ? "!text-black !bg-white/95 font-semibold" : ""}`}
+                  onClick={(e) => handleClick(e as unknown as React.MouseEvent<HTMLLIElement>, index)}
                 >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+                  {item.href ? (
+                    <Link
+                      href={item.href}
+                      onKeyDown={(e) => handleKeyDown(e, index)}
+                      className={`gooey-nav-link ${item.cta ? "!text-black" : ""}`}
+                    >
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <span className={`gooey-nav-link flex items-center gap-1 ${item.cta ? "!text-black" : ""}`}>
+                      {item.label}
+                      {hasChildren && <span className="text-[10px] opacity-80">▾</span>}
+                    </span>
+                  )}
+
+                  {/* Dropdown - desktop hover */}
+                  {hasChildren && (
+                    <ul
+                      className="hidden lg:flex absolute top-[110%] left-1/2 -translate-x-1/2 min-w-[220px] flex-col bg-black/80 backdrop-blur-xl border border-white/10 rounded-xl p-2 shadow-xl group-hover:flex z-30"
+                    >
+                      {item.children!.map((child) => (
+                        <li key={child.label}>
+                          {child.external ? (
+                            <a
+                              href={child.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block w-full text-left px-3 py-2 rounded-lg text-sm text-white/90 hover:text-cyan-300 hover:bg-white/5"
+                            >
+                              {child.label} ↗
+                            </a>
+                          ) : (
+                            <Link
+                              href={child.href}
+                              className="block w-full text-left px-3 py-2 rounded-lg text-sm text-white/90 hover:text-cyan-300 hover:bg-white/5"
+                            >
+                              {child.label}
+                            </Link>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {/* Submenu for mobile/tablet when nav is open (stacked) */}
+                  {hasChildren && (
+                    <ul className="lg:hidden mt-2 space-y-1">
+                      {item.children!.map((child) => (
+                        <li key={child.label}>
+                          {child.external ? (
+                            <a
+                              href={child.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block px-3 py-2 rounded-lg text-sm text-white/90 hover:text-cyan-300 hover:bg-white/5"
+                            >
+                              {child.label} ↗
+                            </a>
+                          ) : (
+                            <Link
+                              href={child.href}
+                              className="block px-3 py-2 rounded-lg text-sm text-white/90 hover:text-cyan-300 hover:bg-white/5"
+                            >
+                              {child.label}
+                            </Link>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
