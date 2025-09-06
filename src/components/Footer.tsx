@@ -34,7 +34,7 @@ const Footer = () => {
     },
     {
       platform: "Gmail",
-      href: "mailto:abdul.ahadt732@gmail.com",
+      href: "mailto:sagedevs.network@gmail.com",
       iconPath: "/icons/gmail_icon.svg",
       color: "hover:text-white hover:bg-red-500",
     },
@@ -78,9 +78,9 @@ const Footer = () => {
   const contactInfo = [
     {
       label: "Email",
-      value: "abdul.ahadt732@gmail.com",
+      value: "sagedevs.network@gmail.com",
       icon: "📧",
-      href: "mailto:abdul.ahadt732@gmail.com",
+      href: "mailto:sagedevs.network@gmail.com",
     },
     {
       label: "Location",

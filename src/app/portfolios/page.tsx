@@ -284,7 +284,7 @@ Best regards,
 [Your Phone Number]`);
 
     window.open(
-      `mailto:abdul.ahadt732@gmail.com?subject=${subject}&body=${body}`,
+      `mailto:sagedevs.network@gmail.com?subject=${subject}&body=${body}`,
       "_blank"
     );
   };

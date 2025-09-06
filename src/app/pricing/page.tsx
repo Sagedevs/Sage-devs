@@ -448,18 +448,18 @@ const HireMePage = () => {
       const body = encodeURIComponent(
         "Hi! I would like to book a consultation for my project."
       );
-      const mailtoLink = `mailto:abdul.ahadt732@gmail.com?subject=${subject}&body=${body}`;
+      const mailtoLink = `mailto:sagedevs.network@gmail.com?subject=${subject}&body=${body}`;
 
       const emailWindow = window.open(mailtoLink, "_blank");
 
       if (!emailWindow || emailWindow.closed || typeof emailWindow.closed == "undefined") {
-        alert("Your browser might be blocking pop-ups. Please allow pop-ups for this site or email me directly at: abdul.ahadt732@gmail.com");
+        alert("Your browser might be blocking pop-ups. Please allow pop-ups for this site or email me directly at: sagedevs.network@gmail.com");
       } else {
         console.log("Email client opened successfully");
       }
     } catch (error) {
       console.error("Error opening email:", error);
-      alert("Please email me directly at: abdul.ahadt732@gmail.com");
+      alert("Please email me directly at: sagedevs.network@gmail.com");
     }
   };
 
@@ -508,7 +508,7 @@ const HireMePage = () => {
 ${formData.projectDetails}`
       );
 
-      const mailtoLink = `mailto:abdul.ahadt732@gmail.com?subject=${subject}&body=${body}`;
+      const mailtoLink = `mailto:sagedevs.network@gmail.com?subject=${subject}&body=${body}`;
 
       const emailWindow = window.open(mailtoLink, "_blank");
 
@@ -517,7 +517,7 @@ ${formData.projectDetails}`
         emailWindow.closed ||
         typeof emailWindow.closed == "undefined"
       ) {
-        alert("Your browser might be blocking pop-ups. Please allow pop-ups for this site or email me directly at: abdul.ahadt732@gmail.com with your project details.");
+        alert("Your browser might be blocking pop-ups. Please allow pop-ups for this site or email me directly at: sagedevs.network@gmail.com with your project details.");
       } else {
         alert(
           "Thank you! Your email client should open with your message. I'll get back to you within 24 hours."
@@ -530,7 +530,7 @@ ${formData.projectDetails}`
     } catch (error) {
       console.error("Error submitting form:", error);
       alert(
-        "There was an error. Please email me directly at abdul.ahadt732@gmail.com with your project details."
+        "There was an error. Please email me directly at sagedevs.network@gmail.com with your project details."
       );
     }
   };

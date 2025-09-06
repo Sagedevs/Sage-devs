@@ -19,13 +19,13 @@ const socialLinks = [
   },
   {
     platform: "Gmail",
-    href: "mailto:abdul.ahadt732@gmail.com",
+    href: "mailto:sagedevs.network@gmail.com",
     iconPath: "/icons/gmail_icon.svg",
   },
 ];
 
 const contactInfo = {
-  email: "abdul.ahadt732@gmail.com",
+  email: "sagedevs.network@gmail.com",
   phone: "+92 3259684493",
   location: "Lahore, Punjab, Pakistan",
 };
