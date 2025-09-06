@@ -216,17 +216,18 @@ export default function Home() {
     </h1>
   </div>
 
-  {/* Hero Tagline */}
-  <motion.div
-    className="w-full flex justify-center px-6 md:px-0 z-10"
-    initial={{ opacity: 0, y: 10 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6, delay: 0.2 }}
-  >
-    <p className="text-center text-gray-300 max-w-2xl md:max-w-3xl lg:max-w-4xl text-sm md:text-base lg:text-lg leading-relaxed">
-      Sage Devs is a full stack software agency that builds scalable web apps and delivers world-class UI/UX for startups and businesses.
-    </p>
-  </motion.div>
+ {/* Hero Tagline */}
+<motion.div
+  className="w-full flex justify-center px-6 md:px-0 z-10"
+  initial={{ opacity: 0, y: 10 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, delay: 0.2 }}
+>
+  <p className="text-center text-gray-300 max-w-3xl md:max-w-4xl lg:max-w-5xl text-base md:text-lg lg:text-xl leading-relaxed">
+    Sage Devs is a full stack software agency that builds scalable web apps and delivers world-class UI/UX for startups and businesses.
+  </p>
+</motion.div>
+
 
   <motion.div
     className="font-bold text-center mt-1 md:mt-3 z-10 px-5 md:px-0"
