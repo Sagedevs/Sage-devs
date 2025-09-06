@@ -252,9 +252,9 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
                 <li
                   key={`${item.label}-${index}`}
                   className={`group relative gooey-nav-item text-xs sm:text-sm md:text-base cursor-pointer ${
-                    activeIndex === index ? "active" : ""
-                  } ${item.cta ? "!text-black !bg-white/95 font-semibold" : ""}`}
-                  onClick={(e) => handleClick(e as unknown as React.MouseEvent<HTMLLIElement>, index)}
+                    item.href && activeIndex === index ? "active" : ""
+                  } ${item.cta ? "ring-1 ring-white/20 font-semibold" : ""}`}
+                  
                   onMouseEnter={() => setHoverIndex(index)}
                   onMouseLeave={() => setHoverIndex((prev) => (prev === index ? null : prev))}
                 >
@@ -262,12 +262,20 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
                     <Link
                       href={item.href}
                       onKeyDown={(e) => handleKeyDown(e, index)}
-                      className={`gooey-nav-link ${item.cta ? "!text-black" : ""}`}
+                      onClick={(e) => {
+                        const liEl = e.currentTarget.parentElement as HTMLLIElement | null;
+                        if (liEl) {
+                          setActiveIndex(index);
+                          updateFilterPosition(liEl);
+                          setOpen(false);
+                        }
+                      }}
+                      className={`gooey-nav-link`}
                     >
                       {item.label}
                     </Link>
                   ) : (
-                    <span className={`gooey-nav-link flex items-center gap-1 ${item.cta ? "!text-black" : ""}`}>
+                    <span className={`gooey-nav-link flex items-center gap-1`}>
                       {item.label}
                       {hasChildren && <span className="text-[10px] opacity-80">▾</span>}
                     </span>
