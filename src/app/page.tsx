@@ -245,14 +245,14 @@ export default function Home() {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
-            {/* Hire Me Button */}
+            {/* Start Your Project Button */}
             <motion.a
               href="mailto:sagedevs.network@gmail.com"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="relative group inline-flex items-center justify-center h-12 px-6 md:px-8 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm md:text-base font-semibold transition-all duration-300 border border-white/10 hover:border-cyan-300/40 hover:shadow-lg hover:shadow-cyan-500/25 overflow-hidden"
             >
-              <span className="relative z-10">Hire Me</span>
+              <span className="relative z-10">Start Your Project</span>
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.a>
 
