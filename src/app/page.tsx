@@ -4,6 +4,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 // Import your components and blocks
@@ -226,14 +227,28 @@ export default function Home() {
           transition={{ duration: 0.6, delay: 1 }}
         >
           <p className="text-gray-500 text-sm mb-4">Trusted by startups and enterprises worldwide</p>
-          <InfiniteSlider className="opacity-80" gap={28} duration={28} durationOnHover={12}>
-            <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs">STARTUPS</div>
-            <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs">ENTERPRISES</div>
-            <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs">AGENCIES</div>
-            <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs">FINTECH</div>
-            <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs">HEALTHCARE</div>
-            <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs">ECOMMERCE</div>
-            <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-xs">EDTECH</div>
+          <InfiniteSlider className="opacity-90" gap={40} duration={30} durationOnHover={14}>
+            <div className="flex items-center justify-center px-6">
+              <Image src="https://html.tailus.io/blocks/customers/nvidia.svg" alt="Nvidia" width={120} height={24} className="h-6 w-auto opacity-80 invert dark:invert-0" />
+            </div>
+            <div className="flex items-center justify-center px-6">
+              <Image src="https://html.tailus.io/blocks/customers/github.svg" alt="GitHub" width={110} height={22} className="h-5 w-auto opacity-80 invert dark:invert-0" />
+            </div>
+            <div className="flex items-center justify-center px-6">
+              <Image src="https://html.tailus.io/blocks/customers/nike.svg" alt="Nike" width={110} height={22} className="h-5 w-auto opacity-80 invert dark:invert-0" />
+            </div>
+            <div className="flex items-center justify-center px-6">
+              <Image src="https://html.tailus.io/blocks/customers/lemonsqueezy.svg" alt="Lemon Squeezy" width={140} height={28} className="h-7 w-auto opacity-80 invert dark:invert-0" />
+            </div>
+            <div className="flex items-center justify-center px-6">
+              <Image src="https://html.tailus.io/blocks/customers/openai.svg" alt="OpenAI" width={120} height={24} className="h-6 w-auto opacity-80 invert dark:invert-0" />
+            </div>
+            <div className="flex items-center justify-center px-6">
+              <Image src="https://html.tailus.io/blocks/customers/laravel.svg" alt="Laravel" width={110} height={22} className="h-5 w-auto opacity-80 invert dark:invert-0" />
+            </div>
+            <div className="flex items-center justify-center px-6">
+              <Image src="https://html.tailus.io/blocks/customers/column.svg" alt="Column" width={110} height={22} className="h-5 w-auto opacity-80 invert dark:invert-0" />
+            </div>
           </InfiniteSlider>
         </motion.div>
         </section>
