@@ -16,6 +16,7 @@ const items = [
   { label: "Home", href: "/" },
   {
     label: "Services",
+    href: "/services",
     children: [
       { label: "Web & App Development", href: "/services/web-app-development" },
       { label: "UI/UX Design", href: "/services/ui-ux-design" },
@@ -27,6 +28,7 @@ const items = [
   },
   {
     label: "Case Studies",
+    href: "/case-studies",
     children: [
       { label: "Web Apps", href: "/case-studies/web-apps" },
       { label: "SaaS", href: "/case-studies/saas" },
@@ -37,6 +39,7 @@ const items = [
   { label: "Pricing & Plans", href: "/pricing" },
   {
     label: "Resources",
+    href: "/resources",
     children: [
       { label: "Blog / Insights", href: "/blog" },
       { label: "Guides & Templates", href: "/resources/guides-templates" },
@@ -44,9 +47,9 @@ const items = [
     ],
   },
   {
-    label: "Company",
+    label: "About Us",
+    href: "/about",
     children: [
-      { label: "About Us", href: "/about" },
       { label: "Team", href: "/about/team" },
       { label: "Careers", href: "/about/careers" },
     ],

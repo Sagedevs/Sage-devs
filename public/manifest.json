@@ -4,8 +4,8 @@
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
-  "name": "AbdulAhad-dev",
-  "short_name": "Ahad-dev",
+  "name": "Sage-Devs",
+  "short_name": "Sage-Devs",
   "icons": [
     {
       "src": "/icons/icon-192x192.png",
