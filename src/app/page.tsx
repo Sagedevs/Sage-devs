@@ -204,80 +204,23 @@ export default function Home() {
         <div className="absolute top-0 left-0 right-0 h-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-cyan-500/5 to-transparent" />
         <div className="absolute top-0 left-0 right-0 h-screen bg-[conic-gradient(at_center,_var(--tw-gradient-stops))] from-blue-400/5 via-cyan-400/8 to-white/8" />
 
-        {/* Dynamic Glowing Orb/Gradient for Hero Background */}
-        <motion.div
-          className="absolute inset-0 z-0 opacity-40 mix-blend-screen"
-          animate={{
-            background: [
-              "radial-gradient(circle at 20% 80%, rgba(139,92,246,0.3) 0%, rgba(59,130,246,0.1) 50%, transparent 100%)",
-              "radial-gradient(circle at 80% 20%, rgba(59,130,246,0.3) 0%, rgba(139,92,246,0.1) 50%, transparent 100%)",
-              "radial-gradient(circle at 20% 80%, rgba(139,92,246,0.3) 0%, rgba(59,130,246,0.1) 50%, transparent 100%)",
-            ],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
+        {/* Static Background Gradient for Performance */}
+        <div className="absolute inset-0 z-0 opacity-40 mix-blend-screen bg-gradient-to-br from-violet-500/20 via-blue-500/10 to-transparent" />
 
-        {/* Hero Text with Premium Luxury Gradient */}
-        <motion.div
-          className="w-full flex justify-center items-center my-4 md:mt-15 text-center font-bold relative px-5 md:px-0 z-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          <BlurText
-            text="Sage devs"
-            delay={150}
-            animateBy="letters"
-            direction="top"
-            onAnimationComplete={handleAnimationComplete}
-            className="lg:text-9xl md:text-7xl text-4xl text-center bg-gradient-to-r from-white via-blue-300 to-purple-300 bg-clip-text drop-shadow-[0_0_40px_rgba(255,255,255,0.6)] animate-gradient-luxury filter brightness-110"
-          />
-        </motion.div>
+        {/* Hero Text - Simplified for Performance */}
+        <div className="w-full flex justify-center items-center my-4 md:mt-15 text-center font-bold relative px-5 md:px-0 z-10">
+          <h1 className="lg:text-9xl md:text-7xl text-4xl text-center bg-gradient-to-r from-white via-blue-300 to-purple-300 bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(255,255,255,0.6)] filter brightness-110">
+            Sage devs
+          </h1>
+        </div>
 
-        <motion.div
-          className="font-bold text-center mt-1 md:mt-3 z-10 px-5 md:px-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          <TrueFocus
-            sentence="Full Stack Developer   UI/UX Designer  Entrepreneur"
-            manualMode
-            blurAmount={5}
-            borderColor="cyan"
-            animationDuration={0.3}
-            pauseBetweenAnimations={1}
-          />
-        </motion.div>
+        <div className="font-bold text-center mt-1 md:mt-3 z-10 px-5 md:px-0">
+          <p className="text-lg md:text-xl text-gray-300">
+            Full Stack Developer • UI/UX Designer • Entrepreneur
+          </p>
+        </div>
 
         <style jsx>{`
-          @keyframes gradient-luxury {
-            0%,
-            100% {
-              background-size: 300% 300%;
-              background-position: 0% 50%;
-            }
-            25% {
-              background-size: 300% 300%;
-              background-position: 100% 50%;
-            }
-            50% {
-              background-size: 300% 300%;
-              background-position: 50% 100%;
-            }
-            75% {
-              background-size: 300% 300%;
-              background-position: 50% 0%;
-            }
-          }
-          .animate-gradient-luxury {
-            background-size: 300% 300%;
-            animation: gradient-luxury 12s ease infinite;
-          }
           .bg-gradient-radial {
             background: radial-gradient(
               circle at center,
@@ -286,33 +229,20 @@ export default function Home() {
           }
         `}</style>
 
-        {/* Circular Scroll Cue + Logo */}
-        <motion.div
-          className="hidden md:block w-full relative h-[300px] mt-8 mb-4 items-center z-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <CircularText
-            text="SCROLL-DOWN*SCROLL-DOWN*"
-            onHover="slowDown"
-            spinDuration={5}
-            className="absolute left-45 bottom-10"
-          />
-          <motion.div
-            whileHover={{ scale: 1.2 }}
-            transition={{ duration: 0.3 }}
-          >
+        {/* Simplified Scroll Cue */}
+        <div className="hidden md:block w-full relative h-[200px] mt-8 mb-4 items-center z-10">
+          <div className="absolute left-1/2 transform -translate-x-1/2 bottom-10">
             <Image
               src="/logo/logofixxed.svg"
               alt="Logo"
-              width={20}
-              height={20}
-              className="absolute left-44 bottom-9 m-10"
+              width={40}
+              height={40}
+              loading="lazy"
+              className="mx-auto"
             />
-          </motion.div>
-        </motion.div>
-
+            <p className="text-gray-400 text-sm mt-2 text-center">Scroll Down</p>
+          </div>
+        </div>
         {/* Tech & Design Cards + Who Am I Section */}
         <motion.div
           className="flex-grow flex flex-col lg:flex-row items-center lg:items-start justify-center w-full max-w-[1400px] lg:mt-35 mt-10 lg:space-x-12 px-5 md:px-0 z-10"

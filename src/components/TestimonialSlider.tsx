@@ -567,7 +567,7 @@ export default function EnhancedTestimonialSlider() {
                     <span className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">4.9</span>
                     <div className="flex">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400 drop-shadow-sm animate-pulse" style={{animationDelay: `${i * 0.1}s`}} />
+                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400 drop-shadow-sm" />
                       ))}
                     </div>
                   </div>

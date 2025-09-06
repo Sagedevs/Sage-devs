@@ -420,7 +420,8 @@ export default function RootLayout({
                   width={200}
                   height={200}
                   priority
-                  className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 xl:w-36 xl:h-36 transition-all duration-200 hover:scale-105 hover:rotate-3 hover:brightness-110"
+                  fetchPriority="high"
+                  className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 xl:w-36 xl:h-36"
                 />
               </Link>
 

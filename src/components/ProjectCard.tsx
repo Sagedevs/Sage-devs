@@ -103,6 +103,7 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo(
                   width={24}
                   height={24}
                   className="object-contain"
+                  loading="lazy"
                 />
               ))}
             </div>
@@ -121,8 +122,9 @@ const ProjectCard: React.FC<ProjectCardProps> = React.memo(
               alt={`${project.title} preview`}
               width={800}
               height={500}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover w-full h-full"
-              priority
+              loading="lazy"
             />
           </motion.div>
         </div>
