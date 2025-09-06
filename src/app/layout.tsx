@@ -167,8 +167,6 @@ export default function RootLayout({
         {/* Favicon & manifest */}
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
-        <link rel="preconnect" href="https://plausible.io" />
-
         {/* Title & Description (company-first, international tone) */}
         <title>Sage Devs — Full Stack Software Agency & UI/UX Studio</title>
         <meta
@@ -201,20 +199,6 @@ export default function RootLayout({
 
         {/* Canonical (avoid SEO duplicate issues) */}
         <link rel="canonical" href="https://sage-devs.vercel.app" />
-        {/* Plausible Analytics */}
-        <Script
-          defer
-          data-domain="portfolio-prei.vercel.app"
-          src="https://plausible.io/js/script.file-downloads.outbound-links.pageview-props.tagged-events.js"
-          strategy="afterInteractive"
-        />
-        <Script id="plausible-init" strategy="afterInteractive">
-          {`
-            window.plausible = window.plausible || function() {
-              (window.plausible.q = window.plausible.q || []).push(arguments)
-            }
-          `}
-        </Script>
       </head>
 
       {/*
