@@ -3,7 +3,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -266,7 +265,7 @@ export default function Home() {
               whileTap={{ scale: 0.95 }}
               className="relative group bg-gradient-to-r from-purple-500 to-pink-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/25 overflow-hidden"
             >
-              <span className="relative z-10">Let's Build Together</span>
+              <span className="relative z-10">Let&apos;s Build Together</span>
               <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.a>
 
