@@ -223,28 +223,28 @@ export default function Home() {
   animate={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.6, delay: 0.2 }}
 >
-  <p className="text-center text-gray-300 max-w-3xl md:max-w-4xl lg:max-w-5xl text-base md:text-lg lg:text-xl leading-relaxed">
+  <p className="text-center text-gray-400 max-w-3xl md:max-w-4xl lg:max-w-5xl text-base md:text-lg lg:text-xl leading-relaxed">
     Sage Devs is a full stack software agency that builds scalable web apps and delivers world-class UI/UX for startups and businesses.
   </p>
 </motion.div>
 
 
-  <motion.div
-    className="font-bold text-center mt-1 md:mt-3 z-10 px-5 md:px-0"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.8, delay: 0.3 }}
-  >
-    <TrueFocus
-     sentence="FullStackDevelopment UIUXDesign WordPressDevelopment EcommerceStores SaaSSolutions Cloud&DevOps EnterpriseApps"
+<motion.div
+  className="font-bold text-center mt-1 md:mt-3 z-10 px-2 sm:px-5 md:px-10 lg:px-20 xl:px-28"
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.8, delay: 0.3 }}
+>
+  <TrueFocus
+    sentence="FullStackDevelopment UIUXDesign WordPressDevelopment EcommerceStores SaaSSolutions Cloud&DevOps EnterpriseApps"
+    manualMode
+    blurAmount={5}
+    borderColor="cyan"
+    animationDuration={0.3}
+    pauseBetweenAnimations={1}
+  />
+</motion.div>
 
-      manualMode
-      blurAmount={5}
-      borderColor="cyan"
-      animationDuration={0.3}
-      pauseBetweenAnimations={1}
-    />
-  </motion.div>
 
   <style jsx>{`
     .bg-gradient-radial {
