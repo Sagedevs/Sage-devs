@@ -253,7 +253,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
                   key={`${item.label}-${index}`}
                   className={`group relative gooey-nav-item text-xs sm:text-sm md:text-base cursor-pointer ${
                     item.href && activeIndex === index ? "active" : ""
-                  } ${item.cta ? "ring-1 ring-white/20 font-semibold" : ""}`}
+                  }`}
                   
                   onMouseEnter={() => setHoverIndex(index)}
                   onMouseLeave={() => setHoverIndex((prev) => (prev === index ? null : prev))}
@@ -270,9 +270,10 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
                           setOpen(false);
                         }
                       }}
-                      className={`gooey-nav-link`}
+                      className={`gooey-nav-link flex items-center gap-1`}
                     >
                       {item.label}
+                      {hasChildren && <span className="text-[10px] opacity-80">▾</span>}
                     </Link>
                   ) : (
                     <span className={`gooey-nav-link flex items-center gap-1`}>
