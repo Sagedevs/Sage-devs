@@ -247,7 +247,7 @@ export default function Contact() {
             <h2 className="text-3xl sm:text-4xl font-bold mb-8 bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
               Send a Message
             </h2>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form id="contact-form" onSubmit={handleSubmit} className="space-y-6 scroll-mt-28">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label

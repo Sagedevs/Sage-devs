@@ -58,7 +58,7 @@ const items = [
     label: "Contact",
     cta: true,
     children: [
-      { label: "Get in Touch (form)", href: "/Contact" },
+      { label: "Get in Touch (form)", href: "/Contact#contact-form" },
       { label: "FAQs", href: "/faq" },
       { label: "Book a Call", href: "https://calendly.com/abdul-ahadt732", external: true },
     ],
