@@ -9,8 +9,6 @@ import { motion } from "framer-motion";
 
 // Import your components and blocks
 import BlurText from "@/blocks/TextAnimations/BlurText/BlurText";
-import TrueFocus from "@/blocks/TextAnimations/TrueFocus/TrueFocus";
-import CircularText from "@/blocks/TextAnimations/CircularText/CircularText";
 import TiltedCard from "@/blocks/Components/TiltedCard/TiltedCard";
 import ExperienceTimeline from "@/components/ExperienceTimeline";
 import SkillTag from "@/components/SkillTag";
