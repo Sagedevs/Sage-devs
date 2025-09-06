@@ -35,6 +35,8 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
 
   // Toggle state for mobile/tablet nav
   const [open, setOpen] = useState(false);
+  // Track which dropdown is hovered on desktop
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
   const updateFilterPosition = useCallback((element: HTMLElement) => {
     if (!containerRef.current) return;
@@ -253,6 +255,8 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
                     activeIndex === index ? "active" : ""
                   } ${item.cta ? "!text-black !bg-white/95 font-semibold" : ""}`}
                   onClick={(e) => handleClick(e as unknown as React.MouseEvent<HTMLLIElement>, index)}
+                  onMouseEnter={() => setHoverIndex(index)}
+                  onMouseLeave={() => setHoverIndex((prev) => (prev === index ? null : prev))}
                 >
                   {item.href ? (
                     <Link
@@ -270,9 +274,9 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
                   )}
 
                   {/* Dropdown - desktop hover */}
-                  {hasChildren && (
+                  {hasChildren && hoverIndex === index && (
                     <ul
-                      className="hidden lg:flex absolute top-[110%] left-1/2 -translate-x-1/2 min-w-[220px] flex-col bg-black/80 backdrop-blur-xl border border-white/10 rounded-xl p-2 shadow-xl group-hover:flex z-30"
+                      className="hidden lg:flex absolute top-[110%] left-1/2 -translate-x-1/2 min-w-[220px] flex-col bg-black/80 backdrop-blur-xl border border-white/10 rounded-xl p-2 shadow-xl z-30"
                     >
                       {item.children!.map((child) => (
                         <li key={child.label}>

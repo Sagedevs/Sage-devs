@@ -35,7 +35,6 @@ const items = [
     ],
   },
   { label: "Pricing & Plans", href: "/pricing" },
-  { label: "Portfolio", href: "/portfolios" },
   {
     label: "Resources",
     children: [
@@ -439,7 +438,7 @@ export default function RootLayout({
           )}
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="flex items-center justify-between h-20 lg:h-24">
+            <div className="flex items-center justify-between h-20 lg:h-24 relative">
               {/* Logo */}
               <Link href="/" className="flex-shrink-0 z-[10000]">
                 <Image
@@ -453,16 +452,9 @@ export default function RootLayout({
                 />
               </Link>
 
-              {/* Desktop Navigation - Only render GooeyNav on client */}
-              <div className="hidden lg:flex items-center justify-center flex-1 z-[10000]">
-                <div
-                  className="relative"
-                  style={{
-                    height: "70px",
-                    width: "min(500px, 80vw)",
-                    maxWidth: "650px",
-                  }}
-                >
+              {/* Desktop Navigation - Centered absolutely */}
+              <div className="hidden lg:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[10000]">
+                <div className="relative" style={{ height: "70px", width: "min(600px, 80vw)", maxWidth: "720px" }}>
                   {isClient && (
                     <GooeyNav
                       items={items}
