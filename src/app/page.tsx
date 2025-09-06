@@ -264,7 +264,7 @@ export default function Home() {
 
 {/* Let's Build Together Button */}
 <motion.a
-  href="https://calendly.com/abdul-ahadt732"
+  href="mailto:sagedevs.network@gmail.com"
   target="_blank"
   rel="noopener noreferrer"
   whileHover={{ scale: 1.05, y: -2 }}
