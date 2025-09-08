@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import TrueFocus from "@/blocks/TextAnimations/TrueFocus/TrueFocus";
 import TestimonialSlider from "@/components/TestimonialSlider";
 import { InfiniteSlider } from "@/components/InfiniteSlider";
+import OptimizedGalaxy from "@/components/Galaxy";
 
 // Featured Case Studies data
 const featuredCaseStudies = [
@@ -86,7 +87,7 @@ const techLogos = [
   { name: "Next.js", src: "/techstack/nextjs.svg" },
   { name: "WordPress", src: "/techstack/wordpress.svg" },
   { name: "Shopify", src: "/techstack/shopify.svg" },
-  { name: "Node.js", src: "/techstack/nodejs.svg" },
+  { name: "Node.js", src: "/techstack/js.svg" },
   { name: "TypeScript", src: "/techstack/ts.svg" },
 ];
 
@@ -103,125 +104,249 @@ const differentiators = [
 export default function Home() {
   return (
     <>
-      <main className="flex-grow flex flex-col items-center h-full relative pt-20 w-full overflow-x-hidden">
-        {/* Enhanced Hero Banner Background - Blue, Black, White Theme */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-black to-slate-900" />
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-slate-800/20 to-cyan-900/30" />
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-800/10 to-slate-900/20" />
-        <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black/40" />
+      <main className="flex-grow flex flex-col items-center h-full relative w-full overflow-x-hidden">
+{/* HERO SECTION - Professional Agency Design */}
+<section className="relative w-full min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-24 sm:py-32 overflow-hidden">
+  {/* Galaxy Background - Only for Hero */}
+  {/* See notes below on how to make this component responsive */}
+  <OptimizedGalaxy 
+    starCount={150}
+    animationSpeed={0.6}
+    enableMouseInteraction={true}
+    enableTwinkle={false}
+    className="absolute inset-0 -z-10"
+  />
+  
+  {/* Gradient Overlay for better text contrast */}
+  <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 -z-5"></div>
+  
+  {/* Main Hero Content */}
+  <div className="w-full max-w-7xl mx-auto flex flex-col items-center justify-center text-center relative z-10">
+    
+{/* Trust Badge with Real Small-Business Logos */}
+<motion.div
+  className="mb-8"
+  initial={{ opacity: 0, y: -20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+>
+  <div className="inline-flex items-center gap-2 px-6 py-3 
+                  rounded-full bg-gradient-to-r from-blue-500/10 
+                  to-cyan-500/10 border border-blue-400/20 
+                  backdrop-blur-sm">
+    <div className="flex -space-x-2">
+      <img
+        src="https://wisdomcoders.us/wp-content/uploads/2024/08/GSK-Group-Logo.webp"
+        alt="GSK Group"
+        className="w-6 h-6 rounded-full border-2 border-white/20 
+                   bg-white p-[2px] object-contain"
+      />
+      <img
+        src="https://wisdomcoders.us/wp-content/uploads/2024/08/sara-smith-logo-300x300.webp"
+        alt="Sara Smith"
+        className="w-6 h-6 rounded-full border-2 border-white/20 
+                   bg-white p-[2px] object-contain"
+      />
+      <img
+        src="https://wisdomcoders.us/wp-content/uploads/2024/08/A1-Taxis-300x274.webp"
+        alt="A1 Taxis"
+        className="w-6 h-6 rounded-full border-2 border-white/20 
+                   bg-white p-[2px] object-contain"
+      />
+    </div>
+    <span className="text-gray-300 text-sm font-medium">
+      Trusted by diverse software partners
+    </span>
+  </div>
+</motion.div>
 
-        {/* Luxury mesh gradient overlay for banner */}
-        <div className="absolute top-0 left-0 right-0 h-screen bg-gradient-to-br from-blue-400/8 via-cyan-400/12 to-slate-600/15" />
-        <div className="absolute top-0 left-0 right-0 h-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-cyan-500/5 to-transparent" />
-        <div className="absolute top-0 left-0 right-0 h-screen bg-[conic-gradient(at_center,_var(--tw-gradient-stops))] from-blue-400/5 via-cyan-400/8 to-white/8" />
+    {/* Hero Headline */}
+    <motion.div
+      className="mb-6"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.1 }}
+    >
+      {/* IMPROVED: Responsive font sizes and leading */}
+      <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white drop-shadow-[0_8px_24px_rgba(0,0,0,0.6)] max-w-5xl leading-tight sm:leading-tight md:leading-snug mb-4">
+        Transform Ideas Into
+        <br />
+        <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+          Digital Excellence
+        </span>
+      </h1>
+    </motion.div>
 
-        {/* Static Background Gradient for Performance */}
-        <div className="absolute inset-0 z-0 opacity-40 mix-blend-screen bg-gradient-to-br from-violet-500/20 via-blue-500/10 to-transparent" />
+    {/* Hero Subheadline */}
+    <motion.div
+      className="mb-8"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.3 }}
+    >
+      <p className="text-center text-gray-300 max-w-3xl text-base sm:text-lg md:text-xl leading-relaxed font-medium">
+        We're Sage Devs—a premium full-stack development agency that partners with ambitious businesses to create 
+        <span className="text-cyan-300"> scalable web applications</span> and 
+        <span className="text-blue-300"> award-winning user experiences</span> that drive measurable growth.
+      </p>
+    </motion.div>
 
-        {/* HERO SECTION */}
-        <section className="w-full flex flex-col items-center justify-center min-h-screen relative z-10 px-5 md:px-0">
-          {/* Hero Headline */}
-          <motion.div
-            className="w-full flex justify-center items-center text-center relative"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="relative lg:text-8xl md:text-6xl text-4xl font-black tracking-tight text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)] max-w-6xl leading-tight">
-              We build scalable web apps &{" "}
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                world-class UI/UX
-              </span>
-            </h1>
-          </motion.div>
+    {/* Key Metrics */}
+    <motion.div
+      // IMPROVED: Added a max-width and adjusted gaps for better responsive behavior
+      className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-10 w-full max-w-2xl"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.4 }}
+    >
+      <div className="text-center">
+        <div className="text-2xl md:text-3xl font-bold text-cyan-400">200+</div>
+        <div className="text-sm text-gray-400 font-medium">Projects Delivered</div>
+      </div>
+      <div className="text-center">
+        <div className="text-2xl md:text-3xl font-bold text-blue-400">4.9★</div>
+        <div className="text-sm text-gray-400 font-medium">Client Satisfaction</div>
+      </div>
+      <div className="text-center">
+        <div className="text-2xl md:text-3xl font-bold text-purple-400">50+</div>
+        <div className="text-sm text-gray-400 font-medium">Global Clients</div>
+      </div>
+      <div className="text-center">
+        <div className="text-2xl md:text-3xl font-bold text-emerald-400">24/7</div>
+        <div className="text-sm text-gray-400 font-medium">Support</div>
+      </div>
+    </motion.div>
 
-          {/* Hero Subheadline */}
-          <motion.div
-            className="w-full flex justify-center mt-6"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <p className="text-center text-gray-300 max-w-4xl text-lg md:text-xl leading-relaxed">
-              Sage Devs is a global full stack software agency that builds scalable web apps and delivers world-class UI/UX for startups and businesses.
-            </p>
-          </motion.div>
+    {/* Hero CTAs */}
+    <motion.div
+      // NOTE: `flex-col sm:flex-row` is a great responsive pattern for buttons.
+      className="flex flex-col sm:flex-row gap-4 items-center justify-center mb-16"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.6 }}
+    >
+      {/* Primary & Secondary CTAs - no changes needed, they are well-structured */}
+      <motion.a href="#contact" whileHover={{ scale: 1.05, y: -3 }} whileTap={{ scale: 0.95 }} className="relative group inline-flex items-center justify-center h-14 px-10 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 text-white text-lg font-bold transition-all duration-500 border border-blue-400/30 hover:border-cyan-300/50 hover:shadow-2xl hover:shadow-cyan-500/40 overflow-hidden backdrop-blur-sm w-full sm:w-auto">
+        <span className="relative z-10 flex items-center gap-3">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+          Start Your Project
+        </span>
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-all duration-500" />
+      </motion.a>
 
-          {/* TrueFocus Animation - Keep as requested */}
-          <motion.div
-            className="font-bold text-center mt-1 md:mt-3 z-10 px-2 sm:px-5 md:px-10 lg:px-20 xl:px-28"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <TrueFocus
-              sentence="FullStackDevelopment UIUXDesign WordPressDevelopment EcommerceStores SaaSSolutions Cloud&DevOps EnterpriseApps"
-              manualMode
-              blurAmount={5}
-              borderColor="cyan"
-              animationDuration={0.3}
-              pauseBetweenAnimations={1}
-            />
-          </motion.div>
+      <motion.a href="https://calendly.com/sagedevs" target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.05, y: -3 }} whileTap={{ scale: 0.95 }} className="relative group inline-flex items-center justify-center h-14 px-10 rounded-xl bg-white/5 text-white text-lg font-semibold transition-all duration-500 border-2 border-white/20 hover:border-purple-300/50 hover:shadow-xl hover:shadow-purple-500/30 backdrop-blur-sm w-full sm:w-auto">
+        <span className="relative z-10 flex items-center gap-3">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+          Book Strategy Call
+        </span>
+      </motion.a>
+    </motion.div>
 
-          {/* Hero CTAs */}
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 items-center justify-center mt-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            {/* Primary CTA */}
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative group inline-flex items-center justify-center h-16 px-10 rounded-2xl bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 text-white text-lg font-bold transition-all duration-500 border border-blue-400/30 hover:border-cyan-300/50 hover:shadow-xl hover:shadow-cyan-500/30 overflow-hidden backdrop-blur-sm"
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                🚀 Start Your Project
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-all duration-500" />
-            </motion.a>
+    {/* TrueFocus Animation - Repositioned with better styling */}
+    <motion.div
+      // IMPROVED: Adjusted margins and max-width for better flow.
+      className="w-full max-w-5xl mx-auto mb-16"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8, delay: 0.8 }}
+    >
+      <div className="relative">
+        <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-purple-500/10 rounded-3xl blur-xl"></div>
+        {/* IMPROVED: Responsive padding */}
+        <div className="relative bg-black/30 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8">
+          {/* FIXED: Pass an array of strings to TrueFocus.
+            This treats multi-word services like "Full-Stack Development" as a single, unbreakable unit.
+            Your TrueFocus component will need to accept an array for its 'sentence' prop.
+          */}
+          <TrueFocus
+             sentence="Full-StackDevelopment • UI/UX-Design • WordPress-Solutions • E-commerceStores • SaaS-Platforms • Cloud&DevOps • Enterprise-Applications • Mobile-Development"
+             manualMode
+             blurAmount={8}
+             borderColor="cyan"
+             animationDuration={0.4}
+             pauseBetweenAnimations={1.2}
+          />
+        </div>
+      </div>
+    </motion.div>
 
-            {/* Secondary CTA */}
-            <motion.a
-              href="#pricing"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative group inline-flex items-center justify-center h-16 px-8 rounded-2xl bg-transparent text-white text-lg font-semibold transition-all duration-500 border-2 border-white/20 hover:border-cyan-300/50 hover:shadow-lg hover:shadow-cyan-500/20"
-            >
-              <span className="relative z-10">Get a Quote</span>
-            </motion.a>
+    {/* Value Proposition Cards */}
+    <motion.div
+      className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 1 }}
+    >
+      {/* Cards are well-structured for responsiveness */}
+      <div className="group relative p-6 rounded-2xl bg-gradient-to-br from-blue-900/20 to-cyan-900/10 backdrop-blur-sm border border-blue-400/20 hover:border-blue-300/40 transition-all duration-500 hover:transform hover:-translate-y-2">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div className="relative z-10">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center mb-4">
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+          </div>
+          <h3 className="text-xl font-bold text-white mb-2">Lightning Fast</h3>
+          <p className="text-gray-300 text-sm leading-relaxed">Optimized performance and rapid deployment cycles that keep you ahead of competition.</p>
+        </div>
+      </div>
 
-            {/* Tertiary CTA */}
-            <motion.a
-              href="https://calendly.com/sagedevs"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-cyan-300 hover:text-cyan-200 text-sm font-medium underline underline-offset-4 hover:underline-offset-8 transition-all duration-300"
-            >
-              📅 Book a Call
-            </motion.a>
-          </motion.div>
+      <div className="group relative p-6 rounded-2xl bg-gradient-to-br from-purple-900/20 to-pink-900/10 backdrop-blur-sm border border-purple-400/20 hover:border-purple-300/40 transition-all duration-500 hover:transform hover:-translate-y-2">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div className="relative z-10">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center mb-4">
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+          </div>
+          <h3 className="text-xl font-bold text-white mb-2">Innovation First</h3>
+          <p className="text-gray-300 text-sm leading-relaxed">Cutting-edge technologies and creative solutions that set new industry standards.</p>
+        </div>
+      </div>
 
-          {/* Tech Logos */}
-          <motion.div
-            className="flex flex-wrap items-center justify-center gap-6 mt-12 opacity-60"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.6 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-          >
-            {techLogos.map((tech) => (
-              <div key={tech.name} className="flex items-center justify-center w-12 h-12 grayscale hover:grayscale-0 transition-all duration-300">
-                <img src={tech.src} alt={tech.name} className="w-8 h-8" />
-              </div>
-            ))}
-          </motion.div>
+      <div className="group relative p-6 rounded-2xl bg-gradient-to-br from-emerald-900/20 to-teal-900/10 backdrop-blur-sm border border-emerald-400/20 hover:border-emerald-300/40 transition-all duration-500 hover:transform hover:-translate-y-2">
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div className="relative z-10">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center mb-4">
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+          </div>
+          <h3 className="text-xl font-bold text-white mb-2">Enterprise Grade</h3>
+          <p className="text-gray-300 text-sm leading-relaxed">Secure, scalable architecture with 99.9% uptime and comprehensive support.</p>
+        </div>
+      </div>
+    </motion.div>
 
-          {/* Microtrust - Trusted by */}
+    {/* Scroll Indicator - Shows on small screens and up
+<motion.div
+  className="absolute left-1/2 -translate-x-1/2 hidden sm:block sm:bottom-12 md:bottom-16 lg:bottom-20"
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.8, delay: 1.5 }}
+>
+  <motion.div
+    animate={{ y: [0, 10, 0] }}
+    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+    className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-1"
+  >
+    <div className="w-1 h-2 bg-gradient-to-b from-cyan-400 to-blue-400 rounded-full"></div>
+  </motion.div>
+</motion.div> */}
+
+  </div>
+</section>
+        {/* Tech Logos */}
         <motion.div
-          className="mt-8 text-center"
+          className="flex flex-wrap items-center justify-center gap-6 mt-12 opacity-60 z-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+        >
+          {techLogos.map((tech) => (
+            <div key={tech.name} className="flex items-center justify-center w-12 h-12 grayscale hover:grayscale-0 transition-all duration-300">
+              <img src={tech.src} alt={tech.name} className="w-8 h-8" />
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Microtrust - Trusted by */}
+        <motion.div
+          className="mt-8 text-center z-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1 }}
@@ -251,17 +376,6 @@ export default function Home() {
             </div>
           </InfiniteSlider>
         </motion.div>
-        </section>
-
-        <style jsx>{`
-          .bg-gradient-radial {
-            background: radial-gradient(
-{{ ... }} (rest of the code remains the same)
-              circle at center,
-              var(--tw-gradient-stops)
-            );
-          }
-        `}</style>
 
         {/* SERVICE SNAPSHOT SECTION */}
         <section className="w-full max-w-7xl mx-auto px-5 py-20 relative z-10">

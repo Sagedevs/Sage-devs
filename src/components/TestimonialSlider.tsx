@@ -79,7 +79,7 @@ const testimonials: Testimonial[] = [
     role: "CEO",
     company: "TechStart Inc",
     content: "Abdul's work exceeded all expectations...",
-    image: "https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg",
+    image: "/icons/logo.png",
     rating: 5,
   },
   {
@@ -88,7 +88,7 @@ const testimonials: Testimonial[] = [
     role: "CTO",
     company: "InnovateNow",
     content: "Working with Abdul was a game-changer...",
-    image: "https://api.uifaces.co/our-content/donated/FJkauyEa.jpg",
+    image: "/icons/logo.png",
     rating: 4,
   },
   {
@@ -98,8 +98,7 @@ const testimonials: Testimonial[] = [
     company: "GrowthLab",
     content:
       "The website Abdul created for us is not just beautiful, it's incredibly functional. Our conversion rates improved by 250% within the first month!",
-    image:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 5,
   },
   {
@@ -109,8 +108,7 @@ const testimonials: Testimonial[] = [
     company: "StartupVision",
     content:
       "Abdul's ability to understand our vision and translate it into a stunning digital experience is remarkable. The project was delivered on time and exceeded our expectations.",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 4,
   },
   {
@@ -120,8 +118,7 @@ const testimonials: Testimonial[] = [
     company: "DigitalFlow",
     content:
       "The attention to user experience and modern design principles Abdul brought to our project was outstanding. Our users love the new interface!",
-    image:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 5,
   },
   {
@@ -131,8 +128,7 @@ const testimonials: Testimonial[] = [
     company: "CodeCraft",
     content:
       "Abdul's technical skills are top-notch. He delivered a complex web application that performs flawlessly. Highly recommend his services!",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 5,
   },
   {
@@ -142,8 +138,7 @@ const testimonials: Testimonial[] = [
     company: "DesignStudio",
     content:
       "The perfect blend of creativity and functionality. Abdul transformed our ideas into a visual masterpiece that our clients absolutely love.",
-    image:
-      "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 4,
   },
   {
@@ -153,8 +148,7 @@ const testimonials: Testimonial[] = [
     company: "EcomSuccess",
     content:
       "Our e-commerce platform built by Abdul has been a huge success. Sales increased by 180% and customer satisfaction is at an all-time high.",
-    image:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 5,
   },
   {
@@ -164,8 +158,7 @@ const testimonials: Testimonial[] = [
     company: "StreamlineOps",
     content:
       "The workflow automation Abdul implemented saved us countless hours. His solutions are elegant, efficient, and incredibly user-friendly.",
-    image:
-      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 4,
   },
   {
@@ -175,8 +168,7 @@ const testimonials: Testimonial[] = [
     company: "FutureTech",
     content:
       "Abdul's code quality is exceptional. Clean, well-documented, and scalable. The architecture he designed will serve us for years to come.",
-    image:
-      "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 5,
   },
   {
@@ -186,8 +178,7 @@ const testimonials: Testimonial[] = [
     company: "UserFirst",
     content:
       "Collaborating with Abdul was seamless. He understood our design vision perfectly and brought it to life with incredible attention to detail.",
-    image:
-      "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 4,
   },
   {
@@ -197,8 +188,7 @@ const testimonials: Testimonial[] = [
     company: "NextGen Solutions",
     content:
       "Abdul helped us launch our MVP in record time. His expertise in modern web technologies and agile development practices is impressive.",
-    image:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 5,
   },
   {
@@ -208,8 +198,7 @@ const testimonials: Testimonial[] = [
     company: "BrandBoost",
     content:
       "The website Abdul created for our agency is not only stunning but also highly optimized for conversions. Our client acquisition has doubled!",
-    image:
-      "https://images.unsplash.com/photo-1554151228-14d9def656e4?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 5,
   },
   {
@@ -219,8 +208,7 @@ const testimonials: Testimonial[] = [
     company: "AgileWorks",
     content:
       "Professional, reliable, and incredibly talented. Abdul delivered our complex project on time and within budget. Will definitely work with him again!",
-    image:
-      "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 4,
   },
   {
@@ -230,8 +218,7 @@ const testimonials: Testimonial[] = [
     company: "CreativeLabs",
     content:
       "Abdul's creative approach to our branding website was phenomenal. The site now perfectly reflects our brand identity and has increased our leads by 400%.",
-    image:
-      "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 5,
   },
   {
@@ -241,8 +228,7 @@ const testimonials: Testimonial[] = [
     company: "TechPioneer",
     content:
       "The scalable architecture Abdul designed for our platform is brilliant. It handles millions of users effortlessly and the performance is outstanding.",
-    image:
-      "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 5,
   },
   {
@@ -252,8 +238,7 @@ const testimonials: Testimonial[] = [
     company: "ShopSmart",
     content:
       "Our online store transformation by Abdul was incredible. The new design increased our sales by 320% and customer retention by 85%.",
-    image:
-      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 5,
   },
   {
@@ -263,8 +248,7 @@ const testimonials: Testimonial[] = [
     company: "InnovateTech",
     content:
       "Abdul's full-stack expertise saved our startup months of development time. His solutions are modern, secure, and perfectly aligned with our business goals.",
-    image:
-      "https://images.unsplash.com/photo-1558222218-b7b54eede3f3?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 5,
   },
   {
@@ -274,8 +258,7 @@ const testimonials: Testimonial[] = [
     company: "GrowthHackers",
     content:
       "The analytics dashboard Abdul built for us is a game-changer. Real-time insights have helped us optimize our campaigns and increase ROI by 275%.",
-    image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 4,
   },
   {
@@ -285,8 +268,7 @@ const testimonials: Testimonial[] = [
     company: "CloudVision",
     content:
       "Abdul's cloud infrastructure setup is flawless. Our app now handles 10x more traffic with zero downtime. His DevOps skills are world-class.",
-    image:
-      "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 5,
   },
   {
@@ -296,8 +278,7 @@ const testimonials: Testimonial[] = [
     company: "TechForward",
     content:
       "Working with Abdul was transformative. His AI-powered features revolutionized our user experience and positioned us as industry leaders.",
-    image:
-      "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 5,
   },
   {
@@ -307,8 +288,7 @@ const testimonials: Testimonial[] = [
     company: "GlobalTech",
     content:
       "Abdul's enterprise-grade solution exceeded all expectations. The system he built processes millions of transactions daily with remarkable efficiency.",
-    image:
-      "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face",
+    image: "/icons/logo.png",
     rating: 5,
   },
 ];
