@@ -185,7 +185,7 @@ export default function Home() {
       transition={{ duration: 0.6, delay: 0.3 }}
     >
       <p className="text-center text-gray-300 max-w-3xl text-base sm:text-lg md:text-xl leading-relaxed font-medium">
-        We're Sage Devs—a premium full-stack development agency that partners with ambitious businesses to create 
+        We&apos;re Sage Devs—a premium full-stack development agency that partners with ambitious businesses to create 
         <span className="text-cyan-300"> scalable web applications</span> and 
         <span className="text-blue-300"> award-winning user experiences</span> that drive measurable growth.
       </p>
@@ -330,6 +330,7 @@ export default function Home() {
 
   </div>
 </section>
+
         {/* Tech Logos */}
         <motion.div
           className="flex flex-wrap items-center justify-center gap-6 mt-12 opacity-60 z-10"

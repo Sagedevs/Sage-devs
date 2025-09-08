@@ -207,7 +207,10 @@ const FallingText: React.FC<FallingTextProps> = ({
 			Runner.stop(runner);
 			const canvas = render.canvas; // Capture canvas before cleanup
 			if (canvas && canvasContainerRef.current) {
-				canvasContainerRef.current.removeChild(canvas);
+				const currentCanvasContainer = canvasContainerRef.current;
+				if (currentCanvasContainer) {
+					currentCanvasContainer.removeChild(canvas);
+				}
 			}
 			World.clear(engine.world, false);
 			Engine.clear(engine);

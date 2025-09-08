@@ -7,7 +7,6 @@ interface TrueFocusProps {
     manualMode?: boolean;
     blurAmount?: number;
     borderColor?: string;
-    glowColor?: string;
     animationDuration?: number;
     pauseBetweenAnimations?: number;
 }
@@ -25,7 +24,6 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
     manualMode = false,
     blurAmount = 1,
     borderColor = "cyan",
-    glowColor = "rgba(0, 255, 255, 0.6)",
     animationDuration = 0.5,
     pauseBetweenAnimations = 1,
 }) => {
