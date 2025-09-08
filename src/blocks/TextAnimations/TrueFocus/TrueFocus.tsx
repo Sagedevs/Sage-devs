@@ -20,10 +20,10 @@ interface FocusRect {
 const TrueFocus: React.FC<TrueFocusProps> = ({
   sentence,
   services,
-  blurAmount = 2,
+  blurAmount = 1.2, // 👈 blur thoda kam kar diya
   borderColor = "cyan",
-  animationDuration = 0.3, // faster
-  pauseBetweenAnimations = 0.8, // shorter pause
+  animationDuration = 0.3, // desktop speed
+  pauseBetweenAnimations = 0.8,
 }) => {
   const words = useMemo(() => {
     if (services && services.length > 0) {
@@ -45,9 +45,9 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
     height: 0,
   });
 
-  const [isPaused, setIsPaused] = useState(false); // 👈 hover pause state
+  const [isPaused, setIsPaused] = useState(false);
 
-  // Auto loop animation
+  // Auto loop
   useEffect(() => {
     if (words.length > 1 && !isPaused) {
       const interval = setInterval(() => {
@@ -57,7 +57,7 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
     }
   }, [animationDuration, pauseBetweenAnimations, words.length, isPaused]);
 
-  // Focus rectangle position
+  // Position focus rect
   useEffect(() => {
     if (
       currentIndex < 0 ||
@@ -86,7 +86,6 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
         justify-center items-center
       "
       ref={containerRef}
-      // 👉 Only desktop hover pauses
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -100,15 +99,13 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
             }}
             className="relative text-lg sm:text-xl md:text-2xl font-semibold text-gray-300 transition-all duration-300"
             style={{
-              opacity: isActive ? 1 : 0.4,
+              opacity: isActive ? 1 : 0.5,
               filter: isActive ? "blur(0px)" : `blur(${blurAmount}px)`,
             }}
           >
-            {/* Dot separator only on desktop/tablet */}
+            {/* Dot separator → ab har jagah show hoga (mobile + desktop) */}
             {index > 0 && (
-              <span className="hidden sm:inline absolute -left-3 text-gray-600">
-                •
-              </span>
+              <span className="absolute -left-3 text-gray-500">•</span>
             )}
             {word}
           </span>
