@@ -24,6 +24,10 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/blocks/customers/**',
       },
+      {
+        protocol: "https",
+        hostname: "wisdomcoders.us",
+      },
     ],
   },
   reactStrictMode: true,

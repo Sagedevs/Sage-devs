@@ -81,15 +81,15 @@ const services = [
   }
 ];
 
-// Tech logos
-const techLogos = [
-  { name: "React", src: "/techstack/react.svg" },
-  { name: "Next.js", src: "/techstack/nextjs.svg" },
-  { name: "WordPress", src: "/techstack/wordpress.svg" },
-  { name: "Shopify", src: "/techstack/shopify.svg" },
-  { name: "Node.js", src: "/techstack/js.svg" },
-  { name: "TypeScript", src: "/techstack/ts.svg" },
-];
+// // Tech logos
+// const techLogos = [
+//   { name: "React", src: "/techstack/react.svg" },
+//   { name: "Next.js", src: "/techstack/nextjs.svg" },
+//   { name: "WordPress", src: "/techstack/wordpress.svg" },
+//   { name: "Shopify", src: "/techstack/shopify.svg" },
+//   { name: "Node.js", src: "/techstack/js.svg" },
+//   { name: "TypeScript", src: "/techstack/ts.svg" },
+// ];
 
 // Differentiators
 const differentiators = [
@@ -330,7 +330,7 @@ export default function Home() {
   </div>
 </section>
 
-        {/* Tech Logos */}
+        {/* Tech Logos
         <motion.div
           className="flex flex-wrap items-center justify-center gap-6 mt-12 opacity-60 z-10"
           initial={{ opacity: 0 }}
@@ -342,42 +342,92 @@ export default function Home() {
               <img src={tech.src} alt={tech.name} className="w-8 h-8" />
             </div>
           ))}
-        </motion.div>
+        </motion.div> */}
+<div className="relative overflow-hidden bg-transparent">
+  {/* Gradient Background with bottom tilt */}
+  <div className="absolute inset-0 z-0">
+  <div
+  className="absolute inset-0 z-0"
+  style={{
+    background: `
+      radial-gradient(circle at 30% 70%, rgba(30, 41, 59, 0.4) 0%, transparent 50%),
+      radial-gradient(circle at 70% 30%, rgba(51, 65, 85, 0.3) 0%, transparent 50%),
+      linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)
+    `,
+    // clipPath: `polygon(0 0, 100% 0, 100% calc(100% - 100px), 0 100%)`
+  }}
+/>
 
-        {/* Microtrust - Trusted by */}
-        <motion.div
-          className="mt-8 text-center z-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1 }}
-        >
-          <p className="text-gray-500 text-sm mb-4">Trusted by startups and enterprises worldwide</p>
-          <InfiniteSlider className="opacity-90" gap={40} duration={30} durationOnHover={14}>
-            <div className="flex items-center justify-center px-6">
-              <Image src="https://html.tailus.io/blocks/customers/nvidia.svg" alt="Nvidia" width={120} height={24} className="h-6 w-auto opacity-80 invert dark:invert-0" />
-            </div>
-            <div className="flex items-center justify-center px-6">
-              <Image src="https://html.tailus.io/blocks/customers/github.svg" alt="GitHub" width={110} height={22} className="h-5 w-auto opacity-80 invert dark:invert-0" />
-            </div>
-            <div className="flex items-center justify-center px-6">
-              <Image src="https://html.tailus.io/blocks/customers/nike.svg" alt="Nike" width={110} height={22} className="h-5 w-auto opacity-80 invert dark:invert-0" />
-            </div>
-            <div className="flex items-center justify-center px-6">
-              <Image src="https://html.tailus.io/blocks/customers/lemonsqueezy.svg" alt="Lemon Squeezy" width={140} height={28} className="h-7 w-auto opacity-80 invert dark:invert-0" />
-            </div>
-            <div className="flex items-center justify-center px-6">
-              <Image src="https://html.tailus.io/blocks/customers/openai.svg" alt="OpenAI" width={120} height={24} className="h-6 w-auto opacity-80 invert dark:invert-0" />
-            </div>
-            <div className="flex items-center justify-center px-6">
-              <Image src="https://html.tailus.io/blocks/customers/laravel.svg" alt="Laravel" width={110} height={22} className="h-5 w-auto opacity-80 invert dark:invert-0" />
-            </div>
-            <div className="flex items-center justify-center px-6">
-              <Image src="https://html.tailus.io/blocks/customers/column.svg" alt="Column" width={110} height={22} className="h-5 w-auto opacity-80 invert dark:invert-0" />
-            </div>
-          </InfiniteSlider>
-        </motion.div>
+    <div
+      className="absolute inset-0 opacity-10"
+      style={{
+        background: `
+          linear-gradient(45deg, transparent 40%, rgba(100, 116, 139, 0.1) 50%, transparent 60%)
+        `,
+        clipPath: "polygon(0 0, 100% 0, 100% 88%, 0% 100%)",
+        animation: "subtle-slide 20s ease-in-out infinite"
+      }}
+    />
+  </div>
 
-        {/* SERVICE SNAPSHOT SECTION */}
+  {/* Content */}
+  <div className="relative z-10 py-16 text-center">
+    <p className="text-gray-300 text-sm mb-4 tracking-wider font-medium">
+      TRUSTED BY
+    </p>
+    <h3 className="text-white text-2xl md:text-3xl font-bold mb-6">
+      Over 1000+ Entrepreneurs
+    </h3>
+    <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full mb-10" />
+
+    {/* Logos Slider */}
+    <InfiniteSlider className="opacity-100" gap={60} duration={25} durationOnHover={35}>
+      {[
+        { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/unnamed-file.webp", alt: "Nvidia" },
+        { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/justroofinc-logo-removebg-preview-300x193.webp", alt: "GitHub" },
+        { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/A1-Taxis-300x274.webp", alt: "Nike" },
+        { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/GSK-Group-Logo.webp", alt: "Lemon Squeezy" },
+        { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/supplement-logo.webp", alt: "OpenAI" },
+        { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/logos-300x110.webp", alt: "Laravel" },
+        { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/eb_logo.webp", alt: "Column" },
+      ].map((logo, i) => (
+        <div key={i} className="flex items-center justify-center px-8">
+          <Image
+            src={logo.src}
+            alt={logo.alt}
+            width={200}
+            height={80}
+            className="h-[55px] w-auto object-contain opacity-80 hover:opacity-100 transition-all duration-300 ease-in-out"
+          />
+        </div>
+      ))}
+    </InfiniteSlider>
+
+    {/* Stats Below Logos */}
+    <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto mt-12 px-6">
+      {[
+        { number: "1000+", label: "Entrepreneurs" },
+        { number: "50+", label: "Countries" },
+        { number: "99%", label: "Satisfaction" }
+      ].map((stat, i) => (
+        <div key={i} className="text-center">
+          <div className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.number}</div>
+          <div className="text-gray-300 text-sm font-medium">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <style jsx>{`
+    @keyframes subtle-slide {
+      0%, 100% { transform: translateX(-100px); }
+      50% { transform: translateX(100px); }
+    }
+  `}</style>
+</div>
+
+
+       {/* SERVICE SNAPSHOT SECTION */}
         <section className="w-full max-w-7xl mx-auto px-5 py-20 relative z-10">
           <motion.div
             className="text-center mb-16"

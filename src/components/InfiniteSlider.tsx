@@ -33,8 +33,8 @@ export function InfiniteSlider({
     let controls: ReturnType<typeof animate> | undefined;
     const size = direction === 'horizontal' ? width : height;
     const contentSize = size + gap;
-    const from = reverse ? -contentSize / 2 : 0;
-    const to = reverse ? 0 : -contentSize / 2;
+    const from = reverse ? -contentSize / 3 : 0;
+    const to = reverse ? 0 : -contentSize / 3;
 
     if (isTransitioning) {
       controls = animate(translation, [translation.get(), to], {
@@ -86,9 +86,9 @@ export function InfiniteSlider({
     : {};
 
   return (
-    <div className={cn('overflow-hidden', className)}>
+    <div className={cn('overflow-hidden rounded-xl py-4', className)}>
       <motion.div
-        className='flex w-max'
+        className="flex w-max"
         style={{
           ...(direction === 'horizontal'
             ? { x: translation }
@@ -99,6 +99,8 @@ export function InfiniteSlider({
         ref={ref}
         {...hoverProps}
       >
+        {/* Duplicate 3x for perfect seamless loop */}
+        {children}
         {children}
         {children}
       </motion.div>
