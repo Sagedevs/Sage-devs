@@ -260,7 +260,6 @@ export default function Home() {
           */}
           <TrueFocus
              sentence="Full-StackDevelopment • UI/UX-Design • WordPress-Solutions • E-commerceStores • SaaS-Platforms • Cloud&DevOps • Enterprise-Applications • Mobile-Development"
-             manualMode
              blurAmount={8}
              borderColor="cyan"
              animationDuration={0.4}
