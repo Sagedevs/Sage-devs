@@ -3,7 +3,6 @@
 "use client";
 
 import React from "react";
-import type { Metadata } from "next";
 
 // Import your components and blocks
 import HeroSection from "@/components/sections/HeroSection";
