@@ -27,7 +27,6 @@ export interface GooeyNavProps {
 const GooeyNav: React.FC<GooeyNavProps> = ({
   items,
   initialActiveIndex = 0,
-  scrolled,
   mobileMenuOpen,
   toggleMobileMenu,
 }) => {
@@ -367,7 +366,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
 
 const GooeyNavWithHeader: React.FC<GooeyNavProps> = ({
   items,
-  initialActiveIndex = 0,
+  // initialActiveIndex = 0, // Removed as it's not used in this component
   scrolled,
   mobileMenuOpen,
   toggleMobileMenu,

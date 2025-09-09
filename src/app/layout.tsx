@@ -14,7 +14,7 @@ import Image from "next/image"; // Import Image for the logo
 // Navigation items for GooeyNav (desktop center)
 const items = [
   { label: "Home", href: "/" },
-  { label: "Let&apos;s Talk AI", href: "/Letstalkai" },
+  { label: "Let's Talk AI", href: "/Letstalkai" },
   {
     label: "Services",
     href: "/services",
@@ -159,7 +159,7 @@ export default function RootLayout({
       return false;
     });
     return index === -1 ? 0 : index;
-  }, [pathname, items]); // Ensure pathname is in dependency array
+  }, [pathname]); // Ensure pathname is in dependency array
 
   const baseBodyClasses = `${geistSans.variable} ${geistMono.variable} ${gilroy.variable} antialiased font-gilroy relative overflow-x-hidden`;
 
