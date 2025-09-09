@@ -14,6 +14,7 @@ import Footer from "@/components/Footer"; // Assuming this path is correct
 // Navigation items for GooeyNav (desktop center)
 const items = [
   { label: "Home", href: "/" },
+  { label: "Let's Talk AI", href: "/Letstalkai" },
   {
     label: "Services",
     href: "/services",
