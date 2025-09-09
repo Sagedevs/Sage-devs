@@ -6,7 +6,6 @@ export type InfiniteSliderProps = {
   children: React.ReactNode[];
   gap?: number;
   duration?: number; // seconds for one full scroll
-  durationOnHover?: number; // seconds for one full scroll when hovered
   className?: string;
 };
 
@@ -14,7 +13,6 @@ export function InfiniteSlider({
   children,
   gap = 16,
   duration = 25,
-  durationOnHover = 35,
   className,
 }: InfiniteSliderProps) {
   const containerRef = useRef<HTMLDivElement>(null);

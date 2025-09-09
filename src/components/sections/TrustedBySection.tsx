@@ -70,7 +70,7 @@ export default function TrustedBySection() {
     controls.start({
       x: [0, -totalWidth],
       transition: {
-        duration: 40,
+        duration: 40, // Set duration for smoother animation
         ease: "linear",
         repeat: Infinity,
       },
@@ -98,13 +98,13 @@ export default function TrustedBySection() {
           <motion.div
             ref={containerRef}
             className="flex items-center will-change-transform"
-            style={{ gap: "80px" }}
+            style={{ gap: "80px" }} // Set gap
             animate={controls}
           >
             {[...clientLogos, ...clientLogos].map((logo, i) => (
               <div
                 key={i}
-                className="flex-shrink-0 flex items-center justify-center w-40 h-24 md:w-52 md:h-28 lg:w-64 lg:h-32 group"
+                className="flex-shrink-0 flex items-center justify-center w-52 h-28 md:w-64 md:h-32 lg:w-72 lg:h-40 group" // Adjusted container size
               >
                 <div className="w-full h-full bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 flex items-center justify-center relative overflow-hidden">
                   {/* Shimmer Effect */}
@@ -112,9 +112,9 @@ export default function TrustedBySection() {
                   <Image
                     src={logo.src}
                     alt={logo.alt}
-                    width={200}
-                    height={100}
-                    className="object-contain w-full h-full opacity-80 group-hover:opacity-100 transition-all duration-300"
+                    fill // Use fill instead of explicit width/height
+                    sizes="(max-width: 768px) 13rem, (max-width: 1024px) 16rem, 18rem" // Responsive sizes
+                    className="object-contain opacity-80 group-hover:opacity-100 transition-all duration-300"
                   />
                 </div>
               </div>

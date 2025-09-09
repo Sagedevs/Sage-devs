@@ -3,13 +3,12 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
+import type { Metadata } from "next";
 
 // Import your components and blocks
 import HeroSection from "@/components/sections/HeroSection";
 import TrustedBySection from "@/components/sections/TrustedBySection";
 import TestimonialSlider from "@/components/TestimonialSlider";
-import { InfiniteSlider } from "@/components/InfiniteSlider";
 import Services from "@/components/sections/Services";
 import CaseStudies from "@/components/sections/CaseStudies";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
