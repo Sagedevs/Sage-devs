@@ -38,12 +38,16 @@ export const heroCards = [
   }
 ];
 
-export const clientLogos: { src: string; alt: string; }[] = [
+export const clientLogos: { src: string; alt: string }[] = [
   { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/GSK-Group-Logo.webp", alt: "GSK Group" },
   { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/sara-smith-logo-300x300.webp", alt: "Sara Smith" },
   { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/A1-Taxis-300x274.webp", alt: "A1 Taxis" },
+  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/supplement-logo.webp", alt: "Supplement" },
+  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/justroofinc-logo-removebg-preview-300x193.webp", alt: "JustRoof Inc" },
+  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/eb_logo.webp", alt: "EB Logo" },
+  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/logos-300x110.webp", alt: "Logos" },
+  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/unnamed-file.webp", alt: "Unnamed" },
 ];
-
 export const stats: { number: string; label: string; }[] = [
   { number: "200+", label: "Projects Delivered" },
   { number: "4.9★", label: "Client Satisfaction" },
