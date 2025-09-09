@@ -151,10 +151,34 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 1 }}
         >
           {heroCards.map((card, index) => (
-            <div key={index} className="group relative p-6 rounded-2xl bg-gradient-to-br from-blue-900/20 to-cyan-900/10 backdrop-blur-sm border border-blue-400/20 hover:border-blue-300/40 transition-all duration-500 hover:transform hover:-translate-y-2">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div key={index} className={`group relative p-6 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:transform hover:-translate-y-2
+              ${
+                index === 0
+                  ? "bg-gradient-to-br from-blue-900/20 to-cyan-900/10 border-blue-400/20 hover:border-blue-300/40"
+                  : index === 1
+                  ? "bg-gradient-to-br from-purple-900/20 to-fuchsia-900/10 border-purple-400/20 hover:border-purple-300/40"
+                  : "bg-gradient-to-br from-emerald-900/20 to-teal-900/10 border-emerald-400/20 hover:border-emerald-300/40"
+              }
+            `}>
+              <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500
+                ${
+                  index === 0
+                    ? "bg-gradient-to-br from-blue-500/5 to-cyan-500/10"
+                    : index === 1
+                    ? "bg-gradient-to-br from-purple-500/5 to-fuchsia-500/10"
+                    : "bg-gradient-to-br from-emerald-500/5 to-teal-500/10"
+                }
+              `}></div>
               <div className="relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center mb-4">
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4
+                  ${
+                    index === 0
+                      ? "bg-gradient-to-r from-blue-500 to-cyan-500"
+                      : index === 1
+                      ? "bg-gradient-to-r from-purple-500 to-fuchsia-500"
+                      : "bg-gradient-to-r from-emerald-500 to-teal-500"
+                  }
+                `}>
                   {card.icon}
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">{card.title}</h3>
