@@ -214,20 +214,30 @@ export default function OptimizedGalaxyLuxury({
         if (star.y > 1.05) star.y = -0.05;
         if (star.y < -0.05) star.y = 1.05;
       });
+// === cursor dark halo - properly visible ===
+if (enableMouseInteraction && mouseRef.current.active) {
+  const cx = smoothedMouse.current.x * W;
+  const cy = smoothedMouse.current.y * H;
+  const r = Math.min(W, H) * 0.22; // bigger radius
 
-      // === cursor halo (soft) ===
-      if (enableMouseInteraction && mouseRef.current.active) {
-        const cx = smoothedMouse.current.x * W;
-        const cy = smoothedMouse.current.y * H;
-        const r = Math.min(W, H) * 0.08;
-        const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-        halo.addColorStop(0, "rgba(80,160,255,0.08)");
-        halo.addColorStop(1, "rgba(80,160,255,0)");
-        ctx.fillStyle = halo;
-        ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, Math.PI * 2);
-        ctx.fill();
-      }
+  ctx.save(); // save current state
+  ctx.globalCompositeOperation = "lighter"; // glow over background
+  ctx.filter = "blur(12px)"; // subtle blur for soft glow
+
+  const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+  halo.addColorStop(0, "rgba(120,160,255,0.35)"); // inner glow stronger
+  halo.addColorStop(0.4, "rgba(40,60,120,0.25)");  // mid glow
+  halo.addColorStop(1, "rgba(10,15,40,0)");        // outer fade
+
+  ctx.fillStyle = halo;
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.restore(); // restore original state (composite + filter)
+}
+
+
 
       rafRef.current = requestAnimationFrame(animate);
     };
