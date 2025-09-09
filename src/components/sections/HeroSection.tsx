@@ -9,15 +9,16 @@ import { clientLogos, stats, heroCards } from "@/data/heroSectionData";
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-24 sm:py-32 overflow-hidden">
-      {/* Galaxy Background - Only for Hero */}
-      <OptimizedGalaxy
-        starCount={150}
-        animationSpeed={0.6}
-        enableMouseInteraction={true}
-        enableTwinkle={false}
-        className="absolute inset-0 -z-10"
-      />
+<section className="relative w-full min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-6 sm:py-12 overflow-hidden">
+
+  {/* Galaxy Background */}
+  <OptimizedGalaxy
+    starCount={150}
+    animationSpeed={0.6}
+    enableMouseInteraction={true}
+    enableTwinkle={false}
+    className="absolute inset-0 -z-10"
+  />
 
       {/* Gradient Overlay for better text contrast */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 -z-5"></div>
@@ -143,50 +144,67 @@ export default function HeroSection() {
           </div>
         </motion.div>
 
-        {/* Value Proposition Cards */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
+       {/* Value Proposition Cards */}
+<motion.div
+  className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl"
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, delay: 1 }}
+>
+  {heroCards.map((card, index) => (
+    <div
+      key={index}
+      className={`group relative p-6 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:transform hover:-translate-y-2
+        ${
+          index === 0
+            ? "bg-gradient-to-br from-blue-900/20 to-cyan-900/10 border-blue-400/20 hover:border-blue-300/40"
+            : index === 1
+            ? "bg-gradient-to-br from-purple-900/20 to-fuchsia-900/10 border-purple-400/20 hover:border-purple-300/40"
+            : "bg-gradient-to-br from-emerald-900/20 to-teal-900/10 border-emerald-400/20 hover:border-emerald-300/40"
+        }
+      `}
+    >
+      <div
+        className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500
+          ${
+            index === 0
+              ? "bg-gradient-to-br from-blue-500/5 to-cyan-500/10"
+              : index === 1
+              ? "bg-gradient-to-br from-purple-500/5 to-fuchsia-500/10"
+              : "bg-gradient-to-br from-emerald-500/5 to-teal-500/10"
+          }
+        `}
+      ></div>
+
+      {/* Flex container */}
+      <div className="relative z-10 flex flex-col md:flex-row md:items-start md:gap-4">
+        {/* Icon box */}
+        <div
+          className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 md:mb-0 flex-shrink-0
+            ${
+              index === 0
+                ? "bg-gradient-to-r from-blue-500 to-cyan-500"
+                : index === 1
+                ? "bg-gradient-to-r from-purple-500 to-fuchsia-500"
+                : "bg-gradient-to-r from-emerald-500 to-teal-500"
+            }
+          `}
         >
-          {heroCards.map((card, index) => (
-            <div key={index} className={`group relative p-6 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:transform hover:-translate-y-2
-              ${
-                index === 0
-                  ? "bg-gradient-to-br from-blue-900/20 to-cyan-900/10 border-blue-400/20 hover:border-blue-300/40"
-                  : index === 1
-                  ? "bg-gradient-to-br from-purple-900/20 to-fuchsia-900/10 border-purple-400/20 hover:border-purple-300/40"
-                  : "bg-gradient-to-br from-emerald-900/20 to-teal-900/10 border-emerald-400/20 hover:border-emerald-300/40"
-              }
-            `}>
-              <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500
-                ${
-                  index === 0
-                    ? "bg-gradient-to-br from-blue-500/5 to-cyan-500/10"
-                    : index === 1
-                    ? "bg-gradient-to-br from-purple-500/5 to-fuchsia-500/10"
-                    : "bg-gradient-to-br from-emerald-500/5 to-teal-500/10"
-                }
-              `}></div>
-              <div className="relative z-10">
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4
-                  ${
-                    index === 0
-                      ? "bg-gradient-to-r from-blue-500 to-cyan-500"
-                      : index === 1
-                      ? "bg-gradient-to-r from-purple-500 to-fuchsia-500"
-                      : "bg-gradient-to-r from-emerald-500 to-teal-500"
-                  }
-                `}>
-                  {card.icon}
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2">{card.title}</h3>
-                <p className="text-gray-300 text-sm leading-relaxed">{card.description}</p>
-              </div>
-            </div>
-          ))}
-        </motion.div>
+          {card.icon}
+        </div>
+
+        {/* Text part */}
+        <div>
+          <h3 className="text-xl font-bold text-white mb-2 text-left">{card.title}</h3>
+          <p className="text-gray-300 text-sm leading-relaxed text-left">
+            {card.description}
+          </p>
+        </div>
+      </div>
+    </div>
+  ))}
+</motion.div>
+
       </div>
     </section>
   );

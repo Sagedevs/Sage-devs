@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 
 interface OptimizedGalaxyProps extends React.CanvasHTMLAttributes<HTMLCanvasElement> {
   starCount?: number;
-  animationSpeed?: number; // overall speed multiplier
-  glowIntensity?: number; // how strong star glow is
+  animationSpeed?: number;
+  glowIntensity?: number;
   enableMouseInteraction?: boolean;
   enableTwinkle?: boolean;
 }
@@ -16,12 +16,126 @@ interface Star {
   speed: number;
   hue: number;
   twinkleOffset: number;
+  velocityX: number;
+  velocityY: number;
 }
 
-export default function OptimizedGalaxyLuxury({
-  starCount = 120,
-  animationSpeed = 0.6,
-  glowIntensity = 0.45,
+// Custom Cursor Follower Component
+const CursorFollower = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isVisible, setIsVisible] = useState(false);
+  const followerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let animationId: number;
+
+    const updateMousePosition = (e: MouseEvent) => {
+      const follower = followerRef.current;
+      if (!follower) return;
+    
+      const parent = follower.parentElement;
+      if (!parent) return;
+    
+      const rect = parent.getBoundingClientRect();
+      const newPosition = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      };
+    
+      setMousePosition(newPosition);
+      if (!isVisible) setIsVisible(true);
+    
+      // let animationId: number;
+    
+      const smoothMove = () => {
+        const currentX = parseFloat(follower.style.left) || newPosition.x;
+        const currentY = parseFloat(follower.style.top) || newPosition.y;
+    
+        const targetX = newPosition.x;
+        const targetY = newPosition.y;
+    
+        const nextX = currentX + (targetX - currentX) * 0.1;
+        const nextY = currentY + (targetY - currentY) * 0.1;
+    
+        follower.style.left = `${nextX}px`;
+        follower.style.top = `${nextY}px`;
+    
+        if (Math.abs(targetX - nextX) > 0.1 || Math.abs(targetY - nextY) > 0.1) {
+          animationId = requestAnimationFrame(smoothMove);
+        }
+      };
+    
+      if (animationId) cancelAnimationFrame(animationId);
+      animationId = requestAnimationFrame(smoothMove);
+    };
+    
+    const handleMouseLeave = () => {
+      setIsVisible(false);
+    };
+    const parent = followerRef.current?.parentElement;
+    if (!parent) return;
+    
+    const handleMouseEnter = () => {
+      setIsVisible(true);
+    };
+
+    document.addEventListener('mousemove', updateMousePosition);
+    document.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener('mouseenter', handleMouseEnter);
+
+    return () => {
+      document.removeEventListener('mousemove', updateMousePosition);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener('mouseenter', handleMouseEnter);
+      if (animationId) cancelAnimationFrame(animationId);
+    };
+  }, [isVisible]);
+
+  return (
+    <div
+    ref={followerRef}
+    className={`absolute pointer-events-none z-50 transition-opacity duration-200 ${
+      isVisible ? 'opacity-100' : 'opacity-0'
+    }`}
+    style={{
+      left: mousePosition.x,
+      top: mousePosition.y,
+      transform: 'translate(-50%, -50%)',
+      width: '50px',
+      height: '50px',
+      background: `radial-gradient(
+        circle,
+        rgba(0, 200, 255, 0.8) 0%,
+        rgba(0, 150, 255, 0.5) 40%,
+        transparent 70%
+      )`,
+      borderRadius: '50%',
+      boxShadow: '0 0 20px rgba(0,200,255,0.6)',
+      filter: 'blur(1px)',
+    }}
+  >
+    <div
+      className="absolute inset-0 rounded-full"
+      style={{
+        background: `radial-gradient(
+          circle,
+          rgba(0, 255, 255, 0.8) 0%,
+          rgba(0, 150, 255, 0.6) 40%,
+          transparent 70%
+        )`,
+        transform: 'scale(0.4)',
+        transformOrigin: 'center',
+      }}
+    />
+  </div>
+  
+  );
+};
+
+export default function OptimizedGalaxy({
+  starCount = 150,
+  animationSpeed = 1.2,
+  glowIntensity = 0.6,
   enableMouseInteraction = true,
   enableTwinkle = true,
   className,
@@ -34,28 +148,30 @@ export default function OptimizedGalaxyLuxury({
   const smoothedMouse = useRef({ x: 0.5, y: 0.5 });
   const [isLowPerf, setIsLowPerf] = useState(false);
 
-  // Performance detection (mobile / low device concurrency)
+  // Performance detection
   useEffect(() => {
-    const canvas = document.createElement("canvas");
-    const gl = canvas.getContext("webgl");
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    const isLowEnd = !gl || (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 3) || isMobile;
-    setIsLowPerf(isLowEnd);
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+    const isLowEnd = navigator.hardwareConcurrency ? navigator.hardwareConcurrency < 4 : false;
+    setIsLowPerf(isMobile || isLowEnd);
   }, []);
 
-  // Generate stars (smaller & subtle for luxe)
+  // Generate stars with movement
   useEffect(() => {
-    const actual = isLowPerf ? Math.min(Math.floor(starCount * 0.5), 70) : starCount;
+    const actual = isLowPerf ? Math.min(Math.floor(starCount * 0.6), 90) : starCount;
     const stars: Star[] = [];
     for (let i = 0; i < actual; i++) {
       stars.push({
         x: Math.random(),
         y: Math.random(),
-        size: Math.random() * 1.0 + 0.25, // small
-        opacity: Math.random() * 0.45 + 0.12, // subtle
-        speed: (Math.random() * 0.25 + 0.02) * (isLowPerf ? 0.6 : 1),
-        hue: 200 + Math.random() * 30 - 10, // blueish hue (200-230)
+        size: Math.random() * 2.5 + 1.0,
+        opacity: Math.random() * 0.6 + 0.2,
+        speed: Math.random() * 2.0 + 0.5,
+        hue: 200 + Math.random() * 80,
         twinkleOffset: Math.random() * Math.PI * 2,
+        velocityX: (Math.random() - 0.5) * 0.0005,
+        velocityY: (Math.random() - 0.5) * 0.0005,
       });
     }
     starsRef.current = stars;
@@ -69,27 +185,22 @@ export default function OptimizedGalaxyLuxury({
 
     let time = 0;
 
-    // blobs config - these are the blurred moving nebula blobs
-    const blobs = [
-      { ox: 0.2, oy: 0.35, radius: 0.7, hue: 205, amp: 0.04, speed: 0.08 }, // left soft blue
-      { ox: 0.75, oy: 0.3, radius: 0.6, hue: 210, amp: 0.05, speed: 0.06 }, // right blue
-      { ox: 0.5, oy: 0.7, radius: 0.9, hue: 195, amp: 0.03, speed: 0.04 }, // bottom subtle darker
-    ];
-
+    // Resize to container only
     const resize = () => {
-      // Use device pixel ratio but cap for perf
-      const dpr = isLowPerf ? 1 : Math.min(window.devicePixelRatio || 1, 2);
-      const rect = canvas.getBoundingClientRect();
-      canvas.width = Math.max(1, Math.floor(rect.width * dpr));
-      canvas.height = Math.max(1, Math.floor(rect.height * dpr));
-      // Reset transform and scale to draw in CSS pixels
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      const parent = canvas.parentElement;
+      if (!parent) return;
+      
+      const rect = parent.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      
       ctx.scale(dpr, dpr);
       canvas.style.width = rect.width + "px";
       canvas.style.height = rect.height + "px";
     };
 
-    // mouse smoothing lerp
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -105,173 +216,179 @@ export default function OptimizedGalaxyLuxury({
     };
 
     const animate = () => {
-      time += 0.008 * (animationSpeed || 1);
+      time += 0.02 * animationSpeed;
 
       const rect = canvas.getBoundingClientRect();
       const W = rect.width;
       const H = rect.height;
 
-      // Smooth mouse position (smoothed follows actual mouse with some easing)
+      // Clear canvas
+      ctx.clearRect(0, 0, W, H);
+
+      // Smooth mouse tracking
       smoothedMouse.current.x = lerp(smoothedMouse.current.x, mouseRef.current.x, 0.08);
       smoothedMouse.current.y = lerp(smoothedMouse.current.y, mouseRef.current.y, 0.08);
 
-      // === Background base gradient (blue dominant) ===
-      const base = ctx.createLinearGradient(0, 0, W, H);
-      base.addColorStop(0, "rgb(6,12,35)");    // very dark navy
-      base.addColorStop(0.45, "rgb(10,20,60)"); // deep blue
-      base.addColorStop(1, "rgb(3,6,20)");     // deep navy
-      ctx.fillStyle = base;
+      // Background gradient
+      const bgGradient = ctx.createLinearGradient(0, 0, W, H);
+      bgGradient.addColorStop(0, "#020618"); 
+      bgGradient.addColorStop(0.3, "#0a1530");
+      bgGradient.addColorStop(0.7, "#051225");
+      bgGradient.addColorStop(1, "#030812");
+      ctx.fillStyle = bgGradient;
       ctx.fillRect(0, 0, W, H);
 
-      // === Blurred moving nebula blobs (use ctx.filter for soft blur) ===
-      // We'll draw each blob on top with blur filter to create soft glow
-      // reduce blur on low perf devices
-      const blurPx = isLowPerf ? 40 : 90;
-      ctx.globalCompositeOperation = "lighter"; // add glow blend
-      ctx.filter = `blur(${blurPx}px)`;
-      blobs.forEach((b, idx) => {
-        // position oscillation + slight mouse offset
-        const mx = (smoothedMouse.current.x - 0.5) * 0.18; // how much mouse moves background
-        const my = (smoothedMouse.current.y - 0.5) * 0.18;
-        const bx = (b.ox + Math.sin(time * b.speed + idx) * b.amp + mx) * W;
-        const by = (b.oy + Math.cos(time * b.speed * 0.9 + idx) * b.amp + my) * H;
-        const radius = Math.max(W, H) * b.radius * 0.6;
-
-        // create radial gradient for the blob
-        const g = ctx.createRadialGradient(bx, by, 0, bx, by, radius);
-        // center soft blue (slightly desaturated) -> outer near transparent
-        g.addColorStop(0, `rgba(${20 + (b.hue - 195) * 0.3}, ${40 + (b.hue - 195) * 0.6}, ${120 + (b.hue - 195)}, 0.45)`);
-        g.addColorStop(0.35, `rgba(18,28,80,0.18)`);
-        g.addColorStop(1, "rgba(2,4,12,0)");
-        ctx.fillStyle = g;
+      // Nebula clouds
+      ctx.globalCompositeOperation = "lighter";
+      ctx.filter = `blur(${isLowPerf ? 25 : 50}px)`;
+      
+      for(let i = 0; i < 2; i++) {
+        const angle = time * 0.2 + i * 2;
+        const cloudX = 0.3 + 0.4 * Math.sin(angle) + (smoothedMouse.current.x - 0.5) * 0.1;
+        const cloudY = 0.3 + 0.4 * Math.cos(angle * 0.7) + (smoothedMouse.current.y - 0.5) * 0.1;
+        
+        const cloudGrad = ctx.createRadialGradient(
+          cloudX * W, cloudY * H, 0,
+          cloudX * W, cloudY * H, Math.min(W, H) * 0.3
+        );
+        cloudGrad.addColorStop(0, `rgba(15, 35, 75, 0.15)`);
+        cloudGrad.addColorStop(0.4, `rgba(8, 20, 50, 0.08)`);
+        cloudGrad.addColorStop(1, "transparent");
+        
+        ctx.fillStyle = cloudGrad;
         ctx.beginPath();
-        ctx.arc(bx, by, radius, 0, Math.PI * 2);
+        ctx.arc(cloudX * W, cloudY * H, Math.min(W, H) * 0.3, 0, Math.PI * 2);
         ctx.fill();
-      });
-      // reset blur and composite
+      }
+
       ctx.filter = "none";
       ctx.globalCompositeOperation = "source-over";
 
-      // === subtle moving overlay (very soft noise layer) ===
-      // Add a subtle translucent gradient that slowly shifts for depth
-      const overlayX = Math.sin(time * 0.12) * 0.03;
-      const overlayY = Math.cos(time * 0.09) * 0.03;
-      const overlayGrad = ctx.createLinearGradient(W * (0.1 + overlayX), H * (0.1 + overlayY), W * (0.9 - overlayX), H * (0.9 - overlayY));
-      overlayGrad.addColorStop(0, "rgba(255,255,255,0.02)");
-      overlayGrad.addColorStop(0.5, "rgba(0,0,0,0)");
-      overlayGrad.addColorStop(1, "rgba(10, 10, 30, 0.06)");
-      ctx.fillStyle = overlayGrad;
-      ctx.fillRect(0, 0, W, H);
-
-      // === Stars (small, soft, slow) ===
+      // Stars
       const stars = starsRef.current;
       stars.forEach((star) => {
-        const x = star.x * W;
-        const y = star.y * H;
+        // Continuous movement
+        star.x += star.velocityX * animationSpeed;
+        star.y += star.velocityY * animationSpeed;
+        
+        // Add subtle orbital movement
+        star.x += Math.sin(time * star.speed * 0.015 + star.twinkleOffset) * 0.0005;
+        star.y += Math.cos(time * star.speed * 0.01 + star.twinkleOffset) * 0.0005;
 
-        // mouse influence: gentle brightening near cursor
-        let influence = 1;
-        if (enableMouseInteraction) {
-          const mx = smoothedMouse.current.x * W;
-          const my = smoothedMouse.current.y * H;
-          const d = Math.hypot(x - mx, y - my);
-          const maxD = Math.min(W, H) * 0.25;
-          influence = 1 + (1 - Math.min(d / maxD, 1)) * 0.4;
-        }
-
-        // twinkle
-        let tw = 1;
-        if (enableTwinkle && !isLowPerf) {
-          tw = 0.85 + 0.15 * Math.sin(time * 1.6 + star.twinkleOffset);
-        }
-
-        const finalOpacity = star.opacity * tw * (0.7 + 0.3 * (glowIntensity || 0.4)) * (influence);
-        const finalSize = star.size * (0.6 + 0.6 * (glowIntensity || 0.4)) * (influence);
-
-        // soft glow
-        const glow = ctx.createRadialGradient(x, y, 0, x, y, finalSize * 8);
-        glow.addColorStop(0, `hsla(${star.hue}, 70%, 85%, ${finalOpacity})`);
-        glow.addColorStop(0.3, `hsla(${star.hue}, 60%, 70%, ${finalOpacity * 0.55})`);
-        glow.addColorStop(1, "transparent");
-        ctx.fillStyle = glow;
-        ctx.beginPath();
-        ctx.arc(x, y, finalSize * 8, 0, Math.PI * 2);
-        ctx.fill();
-
-        // tiny core (very subtle)
-        if (!isLowPerf) {
-          ctx.fillStyle = `hsla(${star.hue}, 85%, 95%, ${Math.min(finalOpacity, 0.95)})`;
-          ctx.beginPath();
-          ctx.arc(x, y, Math.max(0.2, finalSize * 0.2), 0, Math.PI * 2);
-          ctx.fill();
-        }
-
-        // slow drift
-        star.x += Math.sin(time * star.speed + star.twinkleOffset) * 0.00002;
-        star.y += Math.cos(time * star.speed * 0.7 + star.twinkleOffset) * 0.00002;
+        // Wrap around edges
         if (star.x > 1.05) star.x = -0.05;
         if (star.x < -0.05) star.x = 1.05;
         if (star.y > 1.05) star.y = -0.05;
         if (star.y < -0.05) star.y = 1.05;
+
+        const x = star.x * W;
+        const y = star.y * H;
+
+        // Mouse interaction effect - Color change instead of size change
+        let colorShift = 0;
+        let brightnessBoost = 1;
+        
+        if (enableMouseInteraction && mouseRef.current.active) {
+          const mx = smoothedMouse.current.x * W;
+          const my = smoothedMouse.current.y * H;
+          const distance = Math.hypot(x - mx, y - my);
+          const maxDistance = 100; // Larger interaction radius
+          
+          if (distance < maxDistance) {
+            const force = (1 - distance / maxDistance);
+            // Change color instead of size
+            colorShift = force * 120; // Shift hue
+            brightnessBoost = 1 + force * 0.8; // Slight brightness boost
+          }
+        }
+
+        // Twinkling
+        let twinkle = 1;
+        if (enableTwinkle) {
+          twinkle = 0.7 + 0.3 * Math.sin(time * 2 + star.twinkleOffset) * 
+                   Math.cos(time * 1.3 + star.twinkleOffset * 0.5);
+        }
+
+        const finalOpacity = Math.min(star.opacity * twinkle * brightnessBoost, 0.9);
+        const finalHue = (star.hue + colorShift) % 360;
+
+        // Outer glow
+        ctx.globalCompositeOperation = "screen";
+        const outerGlow = ctx.createRadialGradient(x, y, 0, x, y, star.size * 8);
+        outerGlow.addColorStop(0, `hsla(${finalHue}, 70%, 50%, ${finalOpacity * 0.4})`);
+        outerGlow.addColorStop(0.5, `hsla(${finalHue}, 60%, 40%, ${finalOpacity * 0.2})`);
+        outerGlow.addColorStop(1, "transparent");
+        
+        ctx.fillStyle = outerGlow;
+        ctx.beginPath();
+        ctx.arc(x, y, star.size * 8, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Inner glow
+        ctx.globalCompositeOperation = "lighter";
+        const innerGlow = ctx.createRadialGradient(x, y, 0, x, y, star.size * 4);
+        innerGlow.addColorStop(0, `hsla(${finalHue}, 80%, 60%, ${finalOpacity * 0.7})`);
+        innerGlow.addColorStop(0.7, `hsla(${finalHue}, 70%, 50%, ${finalOpacity * 0.3})`);
+        innerGlow.addColorStop(1, "transparent");
+        
+        ctx.fillStyle = innerGlow;
+        ctx.beginPath();
+        ctx.arc(x, y, star.size * 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Core
+        ctx.globalCompositeOperation = "source-over";
+        ctx.fillStyle = `hsla(${finalHue}, 90%, 70%, ${finalOpacity})`;
+        ctx.beginPath();
+        ctx.arc(x, y, Math.max(0.8, star.size * 0.4), 0, Math.PI * 2); // Made core slightly bigger
+        ctx.fill();
       });
-// === cursor dark halo - properly visible ===
-if (enableMouseInteraction && mouseRef.current.active) {
-  const cx = smoothedMouse.current.x * W;
-  const cy = smoothedMouse.current.y * H;
-  const r = Math.min(W, H) * 0.22; // bigger radius
-
-  ctx.save(); // save current state
-  ctx.globalCompositeOperation = "lighter"; // glow over background
-  ctx.filter = "blur(12px)"; // subtle blur for soft glow
-
-  const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-  halo.addColorStop(0, "rgba(120,160,255,0.35)"); // inner glow stronger
-  halo.addColorStop(0.4, "rgba(40,60,120,0.25)");  // mid glow
-  halo.addColorStop(1, "rgba(10,15,40,0)");        // outer fade
-
-  ctx.fillStyle = halo;
-  ctx.beginPath();
-  ctx.arc(cx, cy, r, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.restore(); // restore original state (composite + filter)
-}
-
-
 
       rafRef.current = requestAnimationFrame(animate);
     };
 
-    // init size & start
+    // Initialize
     resize();
     animate();
 
-    window.addEventListener("resize", resize);
+    // Event listeners
+    const resizeObserver = new ResizeObserver(resize);
+    if (canvas.parentElement) {
+      resizeObserver.observe(canvas.parentElement);
+    }
+    
     if (enableMouseInteraction) {
       canvas.addEventListener("mousemove", handleMouseMove);
       canvas.addEventListener("mouseleave", handleMouseLeave);
     }
 
+    // Cleanup
     return () => {
-      window.removeEventListener("resize", resize);
+      resizeObserver.disconnect();
       if (enableMouseInteraction) {
         canvas.removeEventListener("mousemove", handleMouseMove);
         canvas.removeEventListener("mouseleave", handleMouseLeave);
       }
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
     };
   }, [animationSpeed, glowIntensity, enableMouseInteraction, enableTwinkle, isLowPerf]);
 
-  // Render canvas
   return (
-    <canvas
-      ref={canvasRef}
-      className={`absolute inset-0 w-full h-full ${className || ""}`}
-      style={{
-        // fallback background while canvas paints
-        background: "linear-gradient(135deg, #020316 0%, #071233 100%)",
-      }}
-      {...props}
-    />
+    <>
+      {/* Custom Cursor Follower */}
+      <CursorFollower />
+      
+      <canvas
+        ref={canvasRef}
+        className={`absolute inset-0 w-full h-full ${className || ""}`}
+        style={{
+          zIndex: -10,
+          pointerEvents: 'auto',
+        }}
+        {...props}
+      />
+    </>
   );
 }

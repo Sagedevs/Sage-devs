@@ -23,30 +23,82 @@ export const differentiators = [
 export const heroCards = [
   {
     title: "Lightning Fast",
-    description: "Optimized performance and rapid deployment cycles that keep you ahead of competition.",
-    icon: (<svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>)
+    description:
+      "Optimized performance and rapid deployment cycles that keep you ahead of competition.",
+    icon: (
+      <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center">
+        <svg
+          className="w-6 h-6 text-white"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M13 10V3L4 14h7v7l9-11h-7z"
+          />
+        </svg>
+      </div>
+    ),
   },
   {
     title: "Innovation First",
-    description: "Cutting-edge technologies and creative solutions that set new industry standards.",
-    icon: (<svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>)
+    description:
+      "Cutting-edge technologies and creative solutions that set new industry standards.",
+    icon: (
+      <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center">
+        <svg
+          className="w-6 h-6 text-white"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+          />
+        </svg>
+      </div>
+    ),
   },
   {
     title: "Enterprise Grade",
-    description: "Secure, scalable architecture with 99.9% uptime and comprehensive support.",
-    icon: (<svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>)
-  }
+    description:
+      "Secure, scalable architecture with 99.9% uptime and comprehensive support.",
+    icon: (
+      <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center">
+        <svg
+          className="w-6 h-6 text-white"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+          />
+        </svg>
+      </div>
+    ),
+  },
 ];
+
 
 export const clientLogos: { src: string; alt: string }[] = [
   { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/GSK-Group-Logo.webp", alt: "GSK Group" },
   { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/sara-smith-logo-300x300.webp", alt: "Sara Smith" },
   { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/A1-Taxis-300x274.webp", alt: "A1 Taxis" },
-  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/supplement-logo.webp", alt: "Supplement" },
-  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/justroofinc-logo-removebg-preview-300x193.webp", alt: "JustRoof Inc" },
-  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/eb_logo.webp", alt: "EB Logo" },
-  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/logos-300x110.webp", alt: "Logos" },
-  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/unnamed-file.webp", alt: "Unnamed" },
+  // { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/supplement-logo.webp", alt: "Supplement" },
+  // { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/justroofinc-logo-removebg-preview-300x193.webp", alt: "JustRoof Inc" },
+  // { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/eb_logo.webp", alt: "EB Logo" },
+  // { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/logos-300x110.webp", alt: "Logos" },
+  // { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/unnamed-file.webp", alt: "Unnamed" },
 ];
 export const stats: { number: string; label: string; }[] = [
   { number: "200+", label: "Projects Delivered" },

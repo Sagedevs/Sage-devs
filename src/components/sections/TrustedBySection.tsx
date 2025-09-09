@@ -16,7 +16,7 @@ const clientLogos = [
   { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/unnamed-file.webp", alt: "Unnamed" },
 ];
 
-// Stats Section
+// Stats Section (kept same)
 const statsData = [
   {
     number: "50+",
@@ -57,20 +57,21 @@ const statsData = [
 ];
 
 export default function TrustedBySection() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  // typed ref so TS won't complain about scrollWidth
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const controls = useAnimation();
 
   // Smooth infinite carousel
   useEffect(() => {
     if (!containerRef.current) return;
     const totalLogos = clientLogos.length;
-    const logoWidth = 220; // px including gap
+    const logoWidth = 220; // px including gap estimate
     const totalWidth = totalLogos * logoWidth;
 
     controls.start({
       x: [0, -totalWidth],
       transition: {
-        duration: 40, // Set duration for smoother animation
+        duration: 40, // slower for smoothness
         ease: "linear",
         repeat: Infinity,
       },
@@ -78,17 +79,40 @@ export default function TrustedBySection() {
   }, [controls]);
 
   return (
-    <div className="relative w-full bg-gradient-to-br from-[#0a0f2e] via-[#1a1f3a] to-[#0f1429] overflow-hidden">
+    <div className="relative w-full bg-gradient-to-br from-[#020618] via-[#051225] to-[#0a1530] overflow-hidden">
       {/* Background Glow */}
       <div className="absolute top-1/2 left-0 w-full h-[300px] -translate-y-1/2 bg-gradient-to-r from-cyan-400/20 via-blue-500/10 to-purple-400/20 blur-3xl" />
 
-      {/* Logos Section */}
-      <div className="relative z-10 py-16">
-        <div className="text-center mb-10">
-          <p className="text-gray-300 text-sm tracking-[0.2em] font-medium">
-            TRUSTED BY GLOBAL BRANDS & ENTERPRISES
-          </p>
-        </div>
+      {/* Logos Section - reduced vertical padding */}
+      <div className="relative z-10 py-8"> {/* <-- reduced from py-12 */}
+        {/* ===== Improved Heading Block ===== */}
+<div className="text-center mb-6">
+  {/* small decorative strokes + tiny label */}
+  <div className="flex items-center justify-center gap-4 mb-3">
+    <span className="w-12 h-0.5 rounded-full bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-600" />
+    <span className="text-xs tracking-wider text-gray-300 uppercase font-medium">Trusted by</span>
+    <span className="w-12 h-0.5 rounded-full bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-600" />
+  </div>
+
+  {/* main heading — parts highlighted with gradient */}
+  <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-extrabold leading-tight">
+    {/* <span className="block">Trusted by</span> */}
+    <span className="block">
+      <span className="text-white mr-2"> </span>
+      <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">
+        Global Brands
+      </span>
+      <span className="text-white mx-2">&</span>
+      <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
+        Enterprises
+      </span>
+    </span>
+  </h3>
+
+  {/* slim gradient underline */}
+  <div className="w-28 h-1 mx-auto rounded-full mt-4 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-600" />
+</div>
+
 
         {/* Infinite Carousel */}
         <div className="relative overflow-hidden">
@@ -97,25 +121,33 @@ export default function TrustedBySection() {
 
           <motion.div
             ref={containerRef}
-            className="flex items-center will-change-transform"
-            style={{ gap: "80px" }} // Set gap
+            className="flex items-center will-change-transform -mt-3 md:-mt-6" /* <-- pulled up a bit */
+            style={{ gap: "60px" }} /* <-- reduced from 80px */
             animate={controls}
           >
+            {/* duplicate logos for smoother loop */}
             {[...clientLogos, ...clientLogos].map((logo, i) => (
               <div
                 key={i}
-                className="flex-shrink-0 flex items-center justify-center w-52 h-28 md:w-64 md:h-32 lg:w-72 lg:h-40 group" // Adjusted container size
+                className="flex-shrink-0 flex items-center justify-center w-52 h-28 md:w-64 md:h-32 lg:w-72 lg:h-40 group"
               >
                 <div className="w-full h-full bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 flex items-center justify-center relative overflow-hidden">
-                  {/* Shimmer Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
-                  <Image
-                    src={logo.src}
-                    alt={logo.alt}
-                    fill // Use fill instead of explicit width/height
-                    sizes="(max-width: 768px) 13rem, (max-width: 1024px) 16rem, 18rem" // Responsive sizes
-                    className="object-contain opacity-80 group-hover:opacity-100 transition-all duration-300"
-                  />
+                  {/* === STRONGER WHITE GLOW UNDER LOGO === */}
+                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-11/12 md:w-3/4 h-10 md:h-12 bg-white/90 rounded-full blur-3xl z-0 pointer-events-none" />
+
+                  {/* Shimmer overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out z-10"></div>
+
+                  {/* Image sits above glow */}
+                  <div className="relative z-20 w-11/12 h-3/4 flex items-center justify-center">
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      fill
+                      sizes="(max-width: 768px) 10rem, (max-width: 1024px) 14rem, 18rem"
+                      className="object-contain opacity-95 group-hover:opacity-100 transition-all duration-300 relative z-20"
+                    />
+                  </div>
                 </div>
               </div>
             ))}
@@ -144,9 +176,8 @@ export default function TrustedBySection() {
               From building pixel-perfect web experiences to deploying intelligent AI models,
               our mission is simple:{" "}
               <span className="font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                SageDevs
-              </span>{" "}
-              helps devs & businesses crush it with tech that actually works.
+                SageDevs helps devs & businesses crush it with tech that actually works.
+              </span>
             </p>
           </div>
 
@@ -165,9 +196,7 @@ export default function TrustedBySection() {
                     {stat.title}
                   </h3>
                 </div>
-                <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-                  {stat.description}
-                </p>
+                <p className="text-gray-300 leading-relaxed text-sm md:text-base">{stat.description}</p>
               </div>
             ))}
           </div>
@@ -182,9 +211,7 @@ export default function TrustedBySection() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5-5 5M6 12h12" />
                     </svg>
                   </div>
-                  <span className="text-white text-lg font-medium">
-                    Ready to build something legendary?
-                  </span>
+                  <span className="text-white text-lg font-medium">Ready to build something legendary?</span>
                 </div>
                 <Link href="/contact">
                   <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
