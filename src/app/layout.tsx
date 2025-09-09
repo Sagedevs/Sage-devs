@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import GooeyNav from "@/blocks/Components/GooeyNav/GooeyNav";
+import GooeyNavWithHeader from "@/blocks/Components/GooeyNav/GooeyNav";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -11,10 +10,11 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { gilroy } from "@/fonts/fonts"; // Assuming this path is correct
 import Footer from "@/components/Footer"; // Assuming this path is correct
+import Image from "next/image"; // Import Image for the logo
 // Navigation items for GooeyNav (desktop center)
 const items = [
   { label: "Home", href: "/" },
-  { label: "Let's Talk AI", href: "/Letstalkai" },
+  { label: "Let&apos;s Talk AI", href: "/Letstalkai" },
   {
     label: "Services",
     href: "/services",
@@ -100,40 +100,21 @@ export default function RootLayout({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isClient, setIsClient] = useState(false);
-  const pathname = usePathname();
+  const pathname = usePathname(); // Move usePathname to top level
 
   // Ensure client-side rendering is complete
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  // Memoize activeIndex calculation (supports dropdown items)
-  const activeIndex = useMemo(() => {
-    const index = items.findIndex((item) => {
-      if (item.href) {
-        return item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
-      }
-      if ((item as any).children) {
-        return (item as any).children.some((c: any) => c.href && pathname.startsWith(c.href));
-      }
-      return false;
-    });
-    return index === -1 ? 0 : index;
-  }, [pathname]);
-
   // Optimized scroll handler with throttling
   const handleScroll = useCallback(() => {
-    // This check is redundant if useEffect is guarded, but harmless.
-    // if (typeof window === "undefined") return;
     const scrollY = window.scrollY;
     setScrolled(scrollY > 20);
   }, []);
 
   useEffect(() => {
-    // Only attach event listener on the client side
     if (!isClient) return;
-
-    // More efficient throttle implementation
     let ticking = false;
     const throttledScroll = () => {
       if (!ticking) {
@@ -144,37 +125,43 @@ export default function RootLayout({
         ticking = true;
       }
     };
-
     window.addEventListener("scroll", throttledScroll, { passive: true });
     return () => window.removeEventListener("scroll", throttledScroll);
-  }, [handleScroll, isClient]); // Add isClient to dependency array
+  }, [handleScroll, isClient]);
 
   // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
-  }, [pathname]);
+  }, [pathname]); // Use pathname variable here
 
   // Handle body overflow - only on client
   useEffect(() => {
-    // Only run on client
     if (!isClient) return;
-
     document.body.style.overflow = mobileMenuOpen ? "hidden" : "unset";
     return () => {
       document.body.style.overflow = "unset";
     };
-  }, [mobileMenuOpen, isClient]); // Add isClient to dependency array
+  }, [mobileMenuOpen, isClient]);
 
-  // Memoize mobile menu handler
   const toggleMobileMenu = useCallback(() => {
     setMobileMenuOpen((prev) => !prev);
   }, []);
 
-  // Base classes that don't change based on state - CONSISTENT FOR SSR
-  const baseBodyClasses = `${geistSans.variable} ${geistMono.variable} ${gilroy.variable} antialiased font-gilroy relative overflow-x-hidden`;
+  // Memoize activeIndex calculation (supports dropdown items)
+  const activeIndex = useMemo(() => {
+    const index = items.findIndex((item) => {
+      if (item.href) {
+        return item.href === "/" ? pathname === "/" : pathname.startsWith(item.href); // Use pathname variable
+      }
+      if ((item as any).children) {
+        return (item as any).children.some((c: any) => c.href && pathname.startsWith(c.href)); // Use pathname variable
+      }
+      return false;
+    });
+    return index === -1 ? 0 : index;
+  }, [pathname, items]); // Ensure pathname is in dependency array
 
-  // FIXED: Use consistent classes for header during SSR - no conditional rendering
-  const headerClasses = `fixed top-0 left-0 right-0 z-[9999] transition-all duration-200 bg-transparent`;
+  const baseBodyClasses = `${geistSans.variable} ${geistMono.variable} ${gilroy.variable} antialiased font-gilroy relative overflow-x-hidden`;
 
   return (
     <html lang="en">
@@ -430,187 +417,23 @@ export default function RootLayout({
           </div>
         )}
 
-        {/* Header - NO conditional classes for SSR consistency */}
-        <header className={headerClasses}>
-          {/* Client-side header background overlay */}
-          {isClient && (
-            <div
-              className={`absolute inset-0 transition-all duration-200 ${
-                scrolled || mobileMenuOpen
-                  ? "bg-black/80 backdrop-blur-xl border-b border-white/10"
-                  : ""
-              }`}
-            />
-          )}
-
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="flex items-center justify-between h-20 lg:h-24 relative">
-              {/* Logo */}
-              <Link href="/" className="flex-shrink-0 z-[10000]">
-                <Image
-                  src="/logo/logofixxed.svg"
-                  alt="Sage Devs Logo"
-                  width={200}
-                  height={200}
-                  priority
-                  fetchPriority="high"
-                  className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 xl:w-36 xl:h-36"
-                />
-              </Link>
-
-              {/* Desktop Navigation - Perfectly centered (matches CTA baseline) */}
-              <div className="hidden lg:flex absolute inset-0 items-center justify-center z-[10000] pointer-events-none">
-                <div className="relative pointer-events-auto" style={{ height: "60px", width: "min(600px, 80vw)", maxWidth: "720px" }}>
-                  {isClient && (
-                    <GooeyNav
-                      items={items}
-                      initialActiveIndex={activeIndex !== -1 ? activeIndex : 0}
-                    />
-                  )}
-                  {/* Fallback navigation for SSR */}
-                  {!isClient && (
-                    <nav className="flex items-center space-x-4">
-                      {items.map((item) => {
-                        const isActive = item.href
-                          ? item.href === "/"
-                            ? pathname === "/"
-                            : pathname.startsWith(item.href)
-                          : false;
-                        return item.href ? (
-                          <Link
-                            key={item.label}
-                            href={item.href}
-                            className={`text-sm font-medium transition-all duration-200 hover:text-cyan-400 whitespace-nowrap px-3 py-2 rounded-md ${
-                              isActive ? "text-cyan-400 bg-cyan-400/10" : "text-white"
-                            }`}
-                          >
-                            {item.label}
-                          </Link>
-                        ) : (
-                          <span
-                            key={item.label}
-                            className="text-sm font-medium text-white/80 whitespace-nowrap px-3 py-2 rounded-md"
-                          >
-                            {item.label}
-                          </span>
-                        );
-                      })}
-                    </nav>
-                  )}
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 relative w-auto z-[10001]">
-                {/* Mobile Hamburger - No animations during SSR */}
-                <button
-                  className="lg:hidden relative z-[10000] p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400"
-                  onClick={toggleMobileMenu}
-                  aria-label="Toggle mobile menu"
-                >
-                  <div className="w-6 h-5 relative flex flex-col justify-between">
-                    <span
-                      className={`w-full h-0.5 bg-white block transform origin-center transition-all duration-200 ${
-                        mobileMenuOpen ? "rotate-45 translate-y-2" : ""
-                      }`}
-                    />
-                    <span
-                      className={`w-full h-0.5 bg-white block transition-all duration-200 ${
-                        mobileMenuOpen ? "opacity-0" : "opacity-100"
-                      }`}
-                    />
-                    <span
-                      className={`w-full h-0.5 bg-white block transform origin-center transition-all duration-200 ${
-                        mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-                      }`}
-                    />
-                  </div>
-                </button>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        {/* Mobile Overlay Menu - Consistent for SSR */}
-        <div
-          className={`lg:hidden fixed inset-0 bg-black/95 backdrop-blur-lg z-[9998] transition-opacity duration-200 ${
-            mobileMenuOpen
-              ? "opacity-100 pointer-events-auto"
-              : "opacity-0 pointer-events-none"
-          }`}
+        <GooeyNavWithHeader
+          items={items}
+          scrolled={scrolled}
+          mobileMenuOpen={mobileMenuOpen}
+          toggleMobileMenu={toggleMobileMenu}
+          initialActiveIndex={activeIndex !== -1 ? activeIndex : 0}
         >
-          <div className="h-full overflow-y-auto pt-24 pb-12 px-6">
-            {/* Mobile grouped menu */}
-            <div className="space-y-8 max-w-xl mx-auto">
-              <div>
-                <Link href="/" onClick={() => setMobileMenuOpen(false)} className="text-white text-2xl font-semibold">Home</Link>
-              </div>
-
-              <div>
-                <div className="text-gray-300 uppercase tracking-wider text-xs mb-3">Services</div>
-                <div className="space-y-3">
-                  <Link href="/services/web-app-development" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Web & App Development</Link>
-                  <Link href="/services/ui-ux-design" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">UI/UX Design</Link>
-                  <Link href="/services/ecommerce" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">E-commerce (WordPress & Shopify)</Link>
-                  <Link href="/services/saas-product" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">SaaS & Product Dev</Link>
-                  <Link href="/services/cloud-devops" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Cloud & DevOps</Link>
-                  <Link href="/services/maintenance-support" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Maintenance & Support</Link>
-                </div>
-              </div>
-
-              <div>
-                <div className="text-gray-300 uppercase tracking-wider text-xs mb-3">Case Studies</div>
-                <div className="space-y-3">
-                  <Link href="/case-studies/web-apps" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Web Apps</Link>
-                  <Link href="/case-studies/saas" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">SaaS</Link>
-                  <Link href="/case-studies/ecommerce" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">E-commerce</Link>
-                  <Link href="/case-studies/enterprise" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Enterprise</Link>
-                </div>
-              </div>
-
-              <div>
-                <Link href="/pricing" onClick={() => setMobileMenuOpen(false)} className="text-white text-2xl font-semibold">Pricing</Link>
-              </div>
-
-              <div>
-                <div className="text-gray-300 uppercase tracking-wider text-xs mb-3">Resources</div>
-                <div className="space-y-3">
-                  <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Blog / Insights</Link>
-                  <Link href="/resources/guides-templates" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Guides & Templates</Link>
-                  <Link href="/resources/webinars" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Webinars / Talks</Link>
-                </div>
-              </div>
-
-              <div>
-                <div className="text-gray-300 uppercase tracking-wider text-xs mb-3">Company</div>
-                <div className="space-y-3">
-                  <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">About Us</Link>
-                  <Link href="/company/team" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Team</Link>
-                  <Link href="/company/careers" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Careers</Link>
-                </div>
-              </div>
-
-              <div>
-                <div className="text-gray-300 uppercase tracking-wider text-xs mb-3">Contact</div>
-                <div className="space-y-3">
-                  <Link href="/Contact" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">Get in Touch (form)</Link>
-                  <Link href="/faq" onClick={() => setMobileMenuOpen(false)} className="block text-white text-xl">FAQs</Link>
-                  <a href="https://calendly.com/abdul-ahadt732" target="_blank" rel="noopener noreferrer" className="block text-white text-xl">Book a Call ↗</a>
-                </div>
-              </div>
-
-              {/* Mobile CTA */}
-              <div className="pt-4">
-                <Link
-                  href="/Contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="inline-flex w-full items-center justify-center h-12 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold border border-white/10 hover:border-cyan-300/40 hover:shadow-lg hover:shadow-cyan-500/20 transition-all"
-                >
-                  Start Your Project
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
+          <Image
+            src="/logo/logofixxed.svg"
+            alt="Sage Devs Logo"
+            width={200}
+            height={200}
+            priority
+            fetchPriority="high"
+            className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 xl:w-36 xl:h-36"
+          />
+        </GooeyNavWithHeader>
 
         {/* Main Content */}
         <main className="pt-20 lg:pt-24 relative z-[1]">{children}</main>

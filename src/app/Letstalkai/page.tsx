@@ -4,7 +4,7 @@ const LetsTalkAI: React.FC = () => {
   return (
     <section className="py-20 bg-gradient-to-r from-blue-900 via-purple-800 to-indigo-700 text-white">
       <div className="container mx-auto px-6 text-center">
-        <h2 className="text-4xl font-extrabold mb-6">Let's Talk AI</h2>
+        <h2 className="text-4xl font-extrabold mb-6">Let&apos;s Talk AI</h2>
         <p className="text-lg mb-12">
           Discover how we seamlessly integrate AI into websites and platforms, enhancing user experiences and driving innovation.
         </p>
