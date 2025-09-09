@@ -2,6 +2,7 @@
 import React, { useRef, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 // Client Logos
 const clientLogos = [
@@ -18,39 +19,45 @@ const clientLogos = [
 // Stats Section
 const statsData = [
   {
-    number: "35+",
-    title: "Industries Mastered",
-    description: "From healthcare to fintech, we’ve delivered impactful digital products tailored to every industry.",
+    number: "50+",
+    title: "Digital Platforms Delivered",
+    description:
+      "From SaaS dashboards to custom marketplaces, SageDevs has built scalable and reliable platforms for diverse industries.",
   },
   {
-    number: "1600+",
-    title: "Tech Evangelists",
-    description: "Our squad of certified cloud architects, web dev ninjas & AI/ML specialists is obsessed with results.",
+    number: "25+",
+    title: "AI & ML Projects Launched",
+    description:
+      "Deployed intelligent solutions ranging from chatbots to predictive models, tailored to solve real business challenges.",
   },
   {
-    number: "150+",
-    title: "AI Models Deployed",
-    description: "Predictive analytics, LLMs & generative AI – all working live in production for clients worldwide.",
+    number: "100+",
+    title: "Clients Served",
+    description:
+      "Startups, agencies, and enterprises across the globe trust SageDevs as their technology partner for growth and innovation.",
   },
   {
-    number: "3000+",
-    title: "Solutions Delivered",
-    description: "From MVPs to enterprise-grade systems, we’ve built scalable tech trusted by thousands of users.",
+    number: "∞",
+    title: "Code Shipped",
+    description:
+      "We measure success not by lines of code, but by the lasting impact of the products and systems we deliver.",
   },
   {
-    number: "500+",
-    title: "Legacy Processes Transformed",
-    description: "We turn outdated systems into future-ready digital powerhouses with AI & automation.",
+    number: "15+",
+    title: "Industries Covered",
+    description:
+      "Successfully delivered solutions across healthcare, fintech, logistics, education, and more.",
   },
   {
-    number: "10+",
-    title: "Strategic Partnerships",
-    description: "Working hand-in-hand with governments, startups & enterprises to create next-gen innovations.",
-  }
+    number: "24/7",
+    title: "Technical Support",
+    description:
+      "Dedicated to ensuring reliability and continuity, with round-the-clock support for mission-critical projects.",
+  },
 ];
 
 export default function TrustedBySection() {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const controls = useAnimation();
 
   // Smooth infinite carousel
@@ -107,7 +114,7 @@ export default function TrustedBySection() {
                     alt={logo.alt}
                     width={200}
                     height={100}
-                    className="object-contain opacity-80 group-hover:opacity-100 transition-all duration-300"
+                    className="object-contain w-full h-full opacity-80 group-hover:opacity-100 transition-all duration-300"
                   />
                 </div>
               </div>
@@ -135,7 +142,11 @@ export default function TrustedBySection() {
             </h2>
             <p className="text-gray-300 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed">
               From building pixel-perfect web experiences to deploying intelligent AI models,
-              our mission is simple: **help devs & businesses crush it with tech that actually works.**
+              our mission is simple:{" "}
+              <span className="font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+                SageDevs
+              </span>{" "}
+              helps devs & businesses crush it with tech that actually works.
             </p>
           </div>
 
@@ -175,9 +186,11 @@ export default function TrustedBySection() {
                     Ready to build something legendary?
                   </span>
                 </div>
-                <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
-                  Partner With Us
-                </button>
+                <Link href="/contact">
+                  <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
+                    Partner With Us
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

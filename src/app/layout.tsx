@@ -56,13 +56,15 @@ const items = [
   },
   {
     label: "Contact",
+    href: "/Contact",   // 👈 yeh parent pe direct link
     cta: true,
     children: [
-      { label: "Get in Touch (form)", href: "/Contact#contact-form" },
+      { label: "Get in Touch (form)", href: "/contact#contact-form" },
       { label: "FAQs", href: "/faq" },
       { label: "Book a Call", href: "https://calendly.com/abdul-ahadt732", external: true },
     ],
-  },
+  }
+  
 ];
 
 const socialLinks = [
