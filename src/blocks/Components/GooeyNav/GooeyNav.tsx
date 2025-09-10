@@ -1046,16 +1046,16 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
           onClick={toggleMobileMenu}
         >
           <svg
-            className={`h-6 w-6 transition-transform duration-200 ${mobileMenuOpen ? "rotate-90" : ""}`}
+            className="h-6 w-6 transition-all duration-200"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
             strokeWidth={2}
           >
             {mobileMenuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6 M6 6L18 18" />
             ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16 M4 12h16 M4 18h16" />
             )}
           </svg>
         </button>
@@ -1221,6 +1221,11 @@ const GooeyNavWithHeader: React.FC<GooeyNavProps> = ({
   const pathname = usePathname();
   const [openMobileDropdowns, setOpenMobileDropdowns] = useState<{[key: string]: boolean}>({});
 
+  // Debugging: Log mobileMenuOpen state
+  useEffect(() => {
+    console.log("mobileMenuOpen:", mobileMenuOpen);
+  }, [mobileMenuOpen]);
+
   // Reset open dropdowns when mobile menu closes
   useEffect(() => {
     if (!mobileMenuOpen) {
@@ -1292,23 +1297,21 @@ const GooeyNavWithHeader: React.FC<GooeyNavProps> = ({
               onClick={toggleMobileMenu}
               aria-label="Toggle mobile menu"
             >
-              <div className="w-6 h-5 relative flex flex-col justify-between">
-                <span
-                  className={`w-full h-0.5 bg-white block transform origin-center transition-all duration-500 ${
-                    mobileMenuOpen ? "rotate-45 translate-y-3" : ""
-                  }`}
-                />
-                <span
-                  className={`w-full h-0.5 bg-white block transition-all duration-500 ${
-                    mobileMenuOpen ? "opacity-0" : "opacity-100"
-                  }`}
-                />
-                <span
-                  className={`w-full h-0.5 bg-white block transform origin-center transition-all duration-500 ${
-                    mobileMenuOpen ? "-rotate-45 -translate-y-3" : ""
-                  }`}
-                />
-              </div>
+              <svg
+                className={`h-6 w-6 transition-transform duration-200 ${
+                  mobileMenuOpen ? "rotate-90" : ""
+                }`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+              >
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
             </button>
           </div>
         </div>
