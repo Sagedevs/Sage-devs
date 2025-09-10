@@ -762,6 +762,27 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         pointer-events: auto;
       }
       
+      /* Custom Scrollbar for Mega Menu */
+      .mega-menu::-webkit-scrollbar {
+        width: 5px; /* Adjust as needed */
+        height: 3px; /* For horizontal scrollbar, if any */
+      }
+
+      .mega-menu::-webkit-scrollbar-track {
+        background: #2a334a; /* Darker track */
+        border-radius: 10px;
+      }
+
+      .mega-menu::-webkit-scrollbar-thumb {
+        background-color: #60a5fa; /* Blue thumb */
+        border-radius: 10px;
+        border: 1px solid #2a334a; /* Padding around thumb */
+      }
+
+      .mega-menu::-webkit-scrollbar-thumb:hover {
+        background-color: #3b82f6; /* Darker blue on hover */
+      }
+      
       /* AppInventiv Style Layout */
       .appinventiv-layout {
         max-width: 1400px;
