@@ -752,7 +752,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         transform: translateY(-10px);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         pointer-events: none;
-        max-height: 80vh;
+        max-height: 60vh;
         overflow-y: auto;
       }
       
@@ -760,6 +760,10 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         opacity: 1;
         transform: translateY(0);
         pointer-events: auto;
+        width: 70rem;
+        transform: translate(-100px, 20px);
+        border-radius: 20px;
+        box-shadow: 2px 2px 10px #fff;
       }
       
       /* Custom Scrollbar for Mega Menu */
