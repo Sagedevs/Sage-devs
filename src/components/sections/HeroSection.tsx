@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 import TrueFocus from "@/blocks/TextAnimations/TrueFocus/TrueFocus";
 import OptimizedGalaxy from "@/components/Galaxy";
-import { clientLogos, stats, heroCards } from "@/data/heroSectionData";
+import { clientLogos, heroCards } from "@/data/heroSectionData";
 
 export default function HeroSection() {
   return (
