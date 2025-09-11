@@ -301,7 +301,7 @@ const StarRating = ({ rating }: { rating: number }) => {
           key={i}
           className={`w-5 h-5 transition-all duration-300 ${
             i < rating
-              ? "text-purple-400 fill-purple-400 drop-shadow-sm"
+              ? "text-blue-400 fill-blue-400 drop-shadow-sm"
               : "text-gray-500"
           }`}
         />
@@ -362,7 +362,7 @@ const PlayIcon = ({ className }: { className?: string }) => (
 const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
   return (
     <motion.div
-      className="h-full bg-black/30 backdrop-blur-2xl border border-purple-500/30 rounded-3xl p-4 md:p-6 hover:bg-purple-900/20 hover:border-purple-400/50 transition-all duration-700 flex flex-col"
+      className="h-full bg-black/30 backdrop-blur-2xl border border-blue-500/30 rounded-3xl p-4 md:p-6 hover:bg-blue-900/20 hover:border-blue-400/50 transition-all duration-700 flex flex-col"
       whileHover={{ scale: 1.02 }}
     >
       <div className="flex items-center justify-between mb-4">
@@ -386,7 +386,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
           <span className="font-bold text-white text-sm md:text-base truncate">
             {testimonial.author}
           </span>
-          <p className="text-purple-300 text-xs md:text-sm truncate">
+          <p className="text-blue-300 text-xs md:text-sm truncate">
             {testimonial.role}
           </p>
           <p className="text-gray-400 text-xs truncate">
@@ -443,19 +443,19 @@ export default function EnhancedTestimonialSlider() {
   return (
     <section className="py-12 md:py-24 relative overflow-hidden w-screen ml-[calc(-50vw+50%)]">
       <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
-      <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/30 via-transparent to-purple-600/10"></div>
+      <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/30 via-transparent to-blue-600/10"></div>
 
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 w-40 h-40 bg-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-20 left-10 w-40 h-40 bg-blue-600/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute top-40 right-20 w-32 h-32 bg-white/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-32 left-1/4 w-48 h-48 bg-purple-500/25 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        <div className="absolute bottom-32 left-1/4 w-48 h-48 bg-blue-500/25 rounded-full blur-3xl animate-pulse delay-2000"></div>
         <div className="absolute bottom-20 right-1/3 w-36 h-36 bg-gray-500/15 rounded-full blur-2xl animate-pulse delay-3000"></div>
-        <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-purple-400/20 rounded-full blur-xl animate-bounce"></div>
+        <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-blue-400/20 rounded-full blur-xl animate-bounce"></div>
 
         {particles.map((particle, i) => (
           <div
             key={i}
-            className="absolute w-2 h-2 bg-purple-400/30 rounded-full animate-pulse"
+            className="absolute w-2 h-2 bg-blue-400/30 rounded-full animate-pulse"
             style={{
               left: particle.left,
               top: particle.top,
@@ -466,7 +466,7 @@ export default function EnhancedTestimonialSlider() {
         ))}
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-5 md:px-8">
+      <div className="relative z-10 max-w-6xl mx-auto px-8 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -487,15 +487,15 @@ export default function EnhancedTestimonialSlider() {
           <div className="flex justify-center gap-4 mb-8">
             <button
               onClick={() => paginate(-1)}
-              className="group bg-black/40 backdrop-blur-md border border-purple-500/40 rounded-full p-4 hover:bg-purple-600/30 hover:border-purple-400/60 transition-all duration-500"
+              className="group bg-black/40 backdrop-blur-md border border-blue-500/40 rounded-full p-4 hover:bg-blue-600/30 hover:border-blue-400/60 transition-all duration-500"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-6 h-6 text-white group-hover:text-purple-200" />
             </button>
             <button
               onClick={toggleAutoPlay}
-              className={`group bg-black/40 backdrop-blur-md border border-purple-500/40 rounded-full p-4 hover:bg-purple-600/30 hover:border-purple-400/60 transition-all duration-500 ${
-                !isAutoPlay ? "bg-purple-600/30" : ""
+              className={`group bg-black/40 backdrop-blur-md border border-blue-500/40 rounded-full p-4 hover:bg-blue-600/30 hover:border-blue-400/60 transition-all duration-500 ${
+                !isAutoPlay ? "bg-blue-600/30" : ""
               }`}
               aria-label={isAutoPlay ? "Pause autoplay" : "Resume autoplay"}
             >
@@ -507,7 +507,7 @@ export default function EnhancedTestimonialSlider() {
             </button>
             <button
               onClick={() => paginate(1)}
-              className="group bg-black/40 backdrop-blur-md border border-purple-500/40 rounded-full p-4 hover:bg-purple-600/30 hover:border-purple-400/60 transition-all duration-500"
+              className="group bg-black/40 backdrop-blur-md border border-blue-500/40 rounded-full p-4 hover:bg-blue-600/30 hover:border-blue-400/60 transition-all duration-500"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-6 h-6 text-white group-hover:text-purple-200" />
@@ -516,8 +516,8 @@ export default function EnhancedTestimonialSlider() {
 
           {/* --- ENHANCED GOOGLE TRUST BADGE --- */}
           <div className="flex items-center justify-center mb-12">
-            <div className="bg-gradient-to-r from-black/60 to-gray-900/60 backdrop-blur-xl border border-purple-500/40 rounded-3xl px-8 py-6 flex items-center gap-6 shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 hover:scale-105">
-              <div className="flex items-center gap-4">
+            <div className="bg-gradient-to-r from-black/60 to-gray-900/60 backdrop-blur-xl border border-blue-500/40 rounded-3xl px-2 py-4 sm:px-6 sm:py-6 flex flex-col sm:flex-row items-center gap-6 shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 hover:scale-105">
+              <div className="flex flex-col sm:flex-row items-center gap-4">
                 <div className="relative">
                   <GoogleLogo className="w-12 h-12 drop-shadow-lg" />
                   <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
@@ -539,11 +539,11 @@ export default function EnhancedTestimonialSlider() {
                 </div>
               </div>
               
-              <div className="h-12 w-px bg-gradient-to-b from-transparent via-purple-500/50 to-transparent"></div>
+              <div className="h-12 w-px bg-gradient-to-b from-transparent via-blue-500/50 to-transparent sm:block hidden"></div>
               
-              <div className="flex items-center gap-3">
-                <div className="text-right">
-                  <div className="flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row items-center gap-3">
+                <div className="text-center sm:text-right">
+                  <div className="flex items-center justify-center sm:justify-end gap-2">
                     <span className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">4.9</span>
                     <div className="flex">
                       {[...Array(5)].map((_, i) => (
@@ -585,7 +585,7 @@ export default function EnhancedTestimonialSlider() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.8 }}
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mt-10 md:mt-20 pt-10 md:pt-20 border-t border-purple-500/30"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mt-10 md:mt-20 pt-10 md:pt-20 border-t border-blue-500/30"
         >
           <AnimatedCounter value={50} suffix="+" label="Happy Clients" />
           <AnimatedCounter value={4.9} label="Average Rating" decimal />
