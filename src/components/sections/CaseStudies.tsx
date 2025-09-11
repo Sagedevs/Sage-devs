@@ -65,7 +65,7 @@ const caseStudies: CaseStudy[] = [
     title: "Ahad Dev Portfolio",
     subtitle: "Personal Developer Portfolio & Brand",
     category: "Personal Branding",
-    image: "/proj/portfolio.webp",
+    image: "/proj/portfolio.jpg",
     link: "https://ahad-dev.vercel.app/",
     outcome: "Secured 5+ high-value clients",
     challenge: "Creating a standout developer portfolio that showcases technical expertise while maintaining elegant design and optimal performance.",
