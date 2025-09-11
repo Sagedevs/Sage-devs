@@ -47,7 +47,6 @@ interface MegaMenuFeatured {
 
 interface MegaMenuArticle {
   title: string;
-  description: string;
   image: string;
   href: string;
   category?: string;
@@ -88,36 +87,31 @@ const megaMenuContent: MegaMenuContentMap = {
     articles: [
       {
         title: "Custom AI or Off-the-Shelf AI – Which Is the Right Solution for Your Business?",
-        description: "Explore the key differences and make informed decisions",
-        image: "🤖",
+        image: "/blog/download (1).webp",
         href: "/blog/custom-vs-off-shelf-ai",
         category: "AI Strategy"
       },
       {
         title: "10 Ways AI is Revolutionizing Mining Operations in Australia",
-        description: "Discover how AI transforms traditional mining processes",
-        image: "⛏️",
+        image: "/blog/download (2).webp",
         href: "/blog/ai-mining-operations",
         category: "Industry Applications"
       },
       {
         title: "15 Use Cases and Examples of How AI Is Transforming the Fitness Industry",
-        description: "From personalized workouts to health monitoring",
-        image: "💪",
+        image: "/blog/download (3).webp",
         href: "/blog/ai-fitness-industry",
         category: "Healthcare & Fitness"
       },
       {
         title: "15 AI Business Ideas in Australia to Kickstart Your Entrepreneurial Journey",
-        description: "Innovative AI business opportunities for entrepreneurs",
-        image: "💡",
+        image: "/blog/download (4).webp",
         href: "/blog/ai-business-ideas",
         category: "Business Innovation"
       },
       {
         title: "How to Scale Your AI Project without Overspending?",
-        description: "Cost-effective strategies for AI implementation",
-        image: "📈",
+        image: "/blog/download (5).webp",
         href: "/blog/scale-ai-project",
         category: "Project Management"
       }
@@ -183,7 +177,13 @@ const megaMenuContent: MegaMenuContentMap = {
           { label: "Web & App Development", href: "/services/web-app-development", description: "Custom web and mobile applications" },
           { label: "SaaS & Product Dev", href: "/services/saas-product", description: "Scalable software solutions" },
           { label: "E-commerce Solutions", href: "/services/ecommerce", description: "WordPress & Shopify stores" },
-          { label: "Cloud & DevOps", href: "/services/cloud-devops", description: "Infrastructure & deployment" }
+          { label: "Cloud & DevOps", href: "/services/cloud-devops", description: "Infrastructure & deployment" },
+          {
+            label: "WordPress Services",
+            href: "/services/wordpress",
+            description: "Custom WordPress sites, themes, plugins & maintenance"
+          }
+          
         ]
       },
       {
@@ -220,7 +220,8 @@ const megaMenuContent: MegaMenuContentMap = {
           { label: "Web Apps", href: "/case-studies/web-apps", description: "Custom web applications" },
           { label: "SaaS Platforms", href: "/case-studies/saas", description: "Scalable software solutions" },
           { label: "E-commerce", href: "/case-studies/ecommerce", description: "Online retail success" },
-          { label: "Enterprise", href: "/case-studies/enterprise", description: "Large-scale implementations" }
+          { label: "Enterprise", href: "/case-studies/enterprise", description: "Large-scale implementations" },
+          { label: "WordPress Projects", href: "/case-studies/wordpress", description: "Custom WordPress sites & plugins" } // Added WordPress
         ]
       },
       {
@@ -229,9 +230,12 @@ const megaMenuContent: MegaMenuContentMap = {
           { label: "React & Next.js", href: "/case-studies/react", description: "Modern web frameworks" },
           { label: "Mobile Apps", href: "/case-studies/mobile", description: "iOS & Android development" },
           { label: "AI & ML", href: "/case-studies/ai-ml", description: "Machine learning projects" },
-          { label: "Blockchain", href: "/case-studies/blockchain", description: "Decentralized solutions" }
+          { label: "Blockchain", href: "/case-studies/blockchain", description: "Decentralized solutions" },
+          { label: "WordPress & PHP", href: "/case-studies/wordpress-php", description: "WordPress, plugins & theme development" }, // Added WordPress tech
+          { label: "Frontend Web", href: "/case-studies/frontend-web", description: "HTML, CSS, JS, and modern frameworks" } // Added general web
         ]
       }
+      
     ],
     cta: {
       title: "See Your Project Here?",
@@ -426,11 +430,10 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
             onClick={closeMegaMenu}
           >
             <div className="article-image">
-              {article.image}
+              <img src={article.image} alt={article.title} className="w-full h-full object-cover rounded-md" />
             </div>
             <div className="article-content">
               <h5>{article.title}</h5>
-              <p>{article.description}</p>
             </div>
           </Link>
         ))}
@@ -793,8 +796,8 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         margin: 0 auto;
         padding: 2.5rem;
         display: grid;
-        grid-template-columns: 300px 1fr 350px;
-        gap: 3rem;
+        grid-template-columns: 250px 1.5fr 350px;
+        gap: 1.5rem;
         min-height: 500px;
       }
       
@@ -864,6 +867,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         border-radius: 8px;
         font-weight: 500;
         font-size: 0.9rem;
+        white-space: nowrap;
         transition: all 0.2s ease;
         border: none;
         cursor: pointer;
@@ -900,8 +904,8 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
       .mega-menu-articles {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 1.5rem;
-        padding: 0.5rem;
+        gap: 0.5rem;
+        padding: 0;
       }
       
       .article-card {
@@ -927,12 +931,13 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         width: 80px;
         height: 80px;
         border-radius: 8px;
-        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2rem;
+        overflow: hidden; /* Ensure image corners are rounded */
         flex-shrink: 0;
+      }
+      .article-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
       
       .article-content {

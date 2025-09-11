@@ -28,6 +28,12 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "wisdomcoders.us",
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.pixabay.com',
+        port: '',
+        pathname: '/photo/**',
+      },
     ],
   },
   reactStrictMode: true,
