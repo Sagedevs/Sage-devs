@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Code, 
@@ -18,6 +18,7 @@ import {
   Layers,
   Settings
 } from 'lucide-react';
+import Link from 'next/link';
 
 interface ServiceItem {
   title: string;
@@ -159,6 +160,19 @@ const services: ServiceCategory[] = [
 ];
 
 const AnimatedBackground = () => {
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      setDimensions({ width: window.innerWidth, height: window.innerHeight });
+    };
+    updateDimensions(); // Set initial dimensions
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
+  if (dimensions.width === 0) return null; // Don't render on server or before client-side dimensions are known
+
   return (
     <div className="absolute inset-0 overflow-hidden">
       {/* Moving Dots Pattern */}
@@ -168,8 +182,8 @@ const AnimatedBackground = () => {
             key={i}
             className="absolute w-1 h-1 bg-blue-400/20 rounded-full"
             animate={{
-              x: [Math.random() * window.innerWidth, Math.random() * window.innerWidth],
-              y: [Math.random() * window.innerHeight, Math.random() * window.innerHeight],
+              x: [Math.random() * dimensions.width, Math.random() * dimensions.width],
+              y: [Math.random() * dimensions.height, Math.random() * dimensions.height],
             }}
             transition={{
               duration: Math.random() * 20 + 10,
@@ -185,51 +199,9 @@ const AnimatedBackground = () => {
       </div>
 
       {/* Large Floating Shapes */}
-      <motion.div
-        className="absolute w-96 h-96 border border-blue-500/10 rounded-full"
-        animate={{
-          x: [0, 200, 0],
-          y: [0, -100, 0],
-          rotate: [0, 360],
-        }}
-        transition={{
-          duration: 30,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-        style={{ top: '5%', left: '5%' }}
-      />
       
-      <motion.div
-        className="absolute w-64 h-64 bg-blue-500/5 rounded-2xl rotate-45"
-        animate={{
-          x: [0, -150, 0],
-          y: [0, 100, 0],
-          rotate: [45, 405],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-        style={{ top: '50%', right: '10%' }}
-      />
-
-      <motion.div
-        className="absolute w-80 h-80 border-2 border-blue-400/10 rounded-3xl"
-        animate={{
-          x: [0, 100, 0],
-          y: [0, -80, 0],
-          rotate: [0, -360],
-        }}
-        transition={{
-          duration: 35,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-        style={{ bottom: '10%', left: '10%' }}
-      />
-
+      
+      
       {/* Gradient Background Orbs */}
       <div className="absolute top-1/4 left-1/3 w-[600px] h-[600px] bg-gradient-radial from-blue-500/10 via-blue-500/5 to-transparent rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 right-1/3 w-[500px] h-[500px] bg-gradient-radial from-purple-500/8 via-purple-500/4 to-transparent rounded-full blur-3xl" />
@@ -244,10 +216,6 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
   return (
     <motion.div
       className="group relative h-full cursor-pointer"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      viewport={{ once: true }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       whileHover={{ y: -8 }}
@@ -319,10 +287,6 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
                 <motion.div
                   key={idx}
                   className="flex items-center text-xs text-gray-400"
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.1 }}
-                  viewport={{ once: true }}
                 >
                   <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 flex-shrink-0" />
                   {feature}
@@ -395,87 +359,41 @@ export default function Services() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-24">
         {/* Header Section */}
         <motion.div
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          className="text-center mb-20 relative"
         >
+          
           <motion.div
             className="inline-block mb-8"
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
           >
             <div className="px-6 py-3 bg-gradient-to-r from-blue-500/20 to-blue-600/20 border border-blue-500/30 rounded-full backdrop-blur-sm">
               <span className="text-blue-400 font-bold tracking-wide">Our Services</span>
             </div>
           </motion.div>
           
-          <motion.h2 
+          <h2 
             className="text-5xl md:text-7xl font-bold text-white mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            viewport={{ once: true }}
           >
             Transform Your{' '}
             <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
               Digital Vision
             </span>
-          </motion.h2>
+          </h2>
           
-          <motion.p 
+          <p 
             className="text-gray-400 text-xl max-w-4xl mx-auto leading-relaxed"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            viewport={{ once: true }}
           >
             From innovative development to strategic design, we deliver comprehensive solutions 
             that accelerate growth, enhance user experience, and future-proof your business
-          </motion.p>
+          </p>
         </motion.div>
 
         {/* Services Categories */}
         <div className="space-y-20">
-          {services.map((category, categoryIndex) => (
-            <motion.div 
-              key={category.category}
-              className="space-y-12"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: categoryIndex * 0.1 }}
-              viewport={{ once: true }}
-            >
-              {/* Category Header */}
-              <div className="text-center space-y-4 mb-12">
-                <motion.h3 
-                  className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent"
-                  whileInView={{ 
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }}
-                  transition={{ duration: 4, repeat: Infinity }}
-                  style={{
-                    backgroundSize: '200% 100%'
-                  }}
-                >
-                  {category.category}
-                </motion.h3>
-                <p className="text-gray-400 text-lg max-w-3xl mx-auto">
-                  {category.description}
-                </p>
-                <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-blue-400 rounded-full mx-auto" />
-              </div>
-              
+          
+          
               {/* Services Grid */}
-              <div className={`grid gap-8 ${
-                category.items.length === 1 ? 'grid-cols-1 max-w-2xl mx-auto' :
-                category.items.length === 2 ? 'grid-cols-1 lg:grid-cols-2' :
-                'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-              }`}>
-                {category.items.map((service, serviceIndex) => (
+              <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                {services.flatMap(category => category.items).map((service: ServiceItem, serviceIndex: number) => (
                   <ServiceCard
                     key={service.title}
                     service={service}
@@ -483,51 +401,14 @@ export default function Services() {
                   />
                 ))}
               </div>
-            </motion.div>
-          ))}
+          
         </div>
 
-        {/* Call to Action */}
-        <motion.div
-          className="text-center mt-24 pt-16 border-t border-gray-800/50"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <div className="max-w-4xl mx-auto">
-            <h3 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Ready to <span className="text-blue-400">Get Started?</span>
-            </h3>
-            <p className="text-gray-400 text-xl mb-12 max-w-3xl mx-auto leading-relaxed">
-              Let's discuss how our comprehensive services can accelerate your digital transformation 
-              and deliver exceptional results for your business
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <motion.button
-                className="px-10 py-5 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold text-lg rounded-2xl hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-300"
-                whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: "0 25px 50px -12px rgba(59, 130, 246, 0.4)"
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Start Your Project
-              </motion.button>
-              
-              <motion.button
-                className="px-10 py-5 border-2 border-blue-500/40 text-blue-400 font-bold text-lg rounded-2xl hover:bg-blue-500/10 hover:border-blue-500/60 transition-all duration-300"
-                whileHover={{ 
-                  scale: 1.05,
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
-                View Portfolio
-              </motion.button>
-            </div>
-          </div>
-        </motion.div>
+        <div className="text-center mt-20">
+          <Link href="/services" className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold rounded-full text-lg hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300">
+            View All Services →
+          </Link>
+        </div>
       </div>
     </section>
   );
