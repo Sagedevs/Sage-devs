@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 interface GooeyNavChildItem {
@@ -430,7 +431,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
             onClick={closeMegaMenu}
           >
             <div className="article-image">
-              <img src={article.image} alt={article.title} className="w-full h-full object-cover rounded-md" />
+              <Image src={article.image} alt={article.title} width={80} height={80} className="w-full h-full object-cover rounded-md" />
             </div>
             <div className="article-content">
               <h5>{article.title}</h5>
@@ -1041,7 +1042,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
       }
       `
     }),
-    [closeMegaMenu]
+    []
   );
 
   return (

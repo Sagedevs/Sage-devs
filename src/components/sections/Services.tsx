@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Code, 
-  Smartphone, 
   Cloud, 
   ShoppingCart, 
   Globe,
@@ -10,13 +9,7 @@ import {
   Target,
   Sparkles,
   Wrench,
-  Server,
-  Database,
-  Zap,
-  TrendingUp,
-  Users,
-  Layers,
-  Settings
+  Zap
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -39,7 +32,6 @@ interface ServiceCategory {
 
 interface ServiceCardProps {
   service: ServiceItem;
-  index: number;
 }
 
 const services: ServiceCategory[] = [
@@ -209,7 +201,7 @@ const AnimatedBackground = () => {
   );
 };
 
-const ServiceCard = ({ service, index }: ServiceCardProps) => {
+const ServiceCard = ({ service }: ServiceCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const IconComponent = service.icon;
 
@@ -393,11 +385,10 @@ export default function Services() {
           
               {/* Services Grid */}
               <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                {services.flatMap(category => category.items).map((service: ServiceItem, serviceIndex: number) => (
+                {services.flatMap(category => category.items).map((service: ServiceItem) => (
                   <ServiceCard
                     key={service.title}
                     service={service}
-                    index={serviceIndex}
                   />
                 ))}
               </div>

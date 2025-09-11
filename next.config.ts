@@ -39,9 +39,11 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 };
 
-export default withPWA({
-  dest: 'public',
-  register: true,
-  skipWaiting: true,
-  disable: !isProduction,
-})(nextConfig);
+// export default withPWA({
+//   dest: 'public',
+//   register: true,
+//   skipWaiting: true,
+//   disable: !isProduction,
+// })(nextConfig);
+
+export default nextConfig;
