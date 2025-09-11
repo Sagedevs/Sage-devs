@@ -1277,7 +1277,7 @@ const GooeyNavWithHeader: React.FC<GooeyNavProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex items-center justify-between h-20 lg:h-24 relative">
           {/* Logo - moved to left */}
-          <div className="flex-shrink-0 z-[10000]" style={{ transform: 'translateX(-40px)' }}>
+          <div className="flex-shrink-0 z-[10000] ml-[-1rem] lg:ml-0 lg:-translate-x-10">
             <Link href="/" className="block">
               {children}
             </Link>
