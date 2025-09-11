@@ -763,8 +763,8 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         opacity: 1;
         transform: translateY(0);
         pointer-events: auto;
-        width: 70rem;
-        transform: translate(-100px, 20px);
+        width: 77rem;
+        transform: translate(-205px, 20px);
         border-radius: 20px;
         box-shadow: 2px 2px 10px #fff;
       }
@@ -1276,14 +1276,14 @@ const GooeyNavWithHeader: React.FC<GooeyNavProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex items-center justify-between h-20 lg:h-24 relative">
           {/* Logo - moved to left */}
-          <div className="flex-shrink-0 z-[10000]">
+          <div className="flex-shrink-0 z-[10000]" style={{ transform: 'translateX(-40px)' }}>
             <Link href="/" className="block">
               {children}
             </Link>
           </div>
 
           {/* Desktop Navigation - Centered */}
-          <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 ml-12 z-[10000]">
+          <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 ml-12 z-[10000]" style={{ transform: 'translateX(60px)' }}>
             <GooeyNav
               items={items}
               initialActiveIndex={activeIndex !== -1 ? activeIndex : 0}
