@@ -140,7 +140,7 @@ export default function CaseStudies() {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          {caseStudies.map((study, index) => (
+          {caseStudies.map((study) => (
             <motion.div
               key={study.id}
               variants={itemVariants}
@@ -213,9 +213,12 @@ export default function CaseStudies() {
 
                 {/* Hero Image */}
                 <div className="aspect-[16/9] overflow-hidden relative">
-                  <img 
+                  <Image 
                     src={selectedCase.image} 
                     alt={selectedCase.title}
+                    width={900} 
+                    height={500} 
+                    priority={true} 
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent" />
