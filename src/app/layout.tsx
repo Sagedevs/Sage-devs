@@ -151,10 +151,12 @@ export default function RootLayout({
   const activeIndex = useMemo(() => {
     const index = items.findIndex((item) => {
       if (item.href) {
-        return item.href === "/" ? pathname === "/" : pathname.startsWith(item.href); // Use pathname variable
+        const currentPath = pathname || ''; // Ensure pathname is a string
+        return item.href === "/" ? currentPath === "/" : currentPath.startsWith(item.href);
       }
       if ((item as any).children) {
-        return (item as any).children.some((c: any) => c.href && pathname.startsWith(c.href)); // Use pathname variable
+        const currentPath = pathname || ''; // Ensure pathname is a string
+        return (item as any).children.some((c: any) => c.href && currentPath.startsWith(c.href));
       }
       return false;
     });

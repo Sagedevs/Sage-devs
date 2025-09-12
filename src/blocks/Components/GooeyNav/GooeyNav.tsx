@@ -1253,10 +1253,12 @@ const GooeyNavWithHeader: React.FC<GooeyNavProps> = ({
   const activeIndex = useMemo(() => {
     const index = items.findIndex((item) => {
       if (item.href) {
-        return item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+        const currentPath = pathname || '';
+        return item.href === "/" ? currentPath === "/" : currentPath.startsWith(item.href);
       }
       if ((item as any).children) {
-        return (item as any).children.some((c: any) => c.href && pathname.startsWith(c.href));
+        const currentPath = pathname || '';
+        return (item as any).children.some((c: any) => c.href && currentPath.startsWith(c.href));
       }
       return false;
     });

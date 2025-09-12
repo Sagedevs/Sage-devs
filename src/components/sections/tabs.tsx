@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 
 // Define the data structure for our tech capabilities
 interface TechItem {
@@ -246,14 +247,16 @@ const TechCapabilitiesTabs: React.FC = () => {
                           <div className={`p-3 rounded-lg transition-all duration-300 ${
                             activeTab === tab.id ? 'bg-blue-800/40' : 'bg-white/5'
                           }`}>
-                            <img 
-                              src={tab.icon} 
+                            <Image
+                              src={tab.icon}
                               alt={tab.title}
                               className="w-6 h-6 object-contain opacity-90"
                               style={{ filter: 'brightness(0) invert(1)' }}
                               onError={(e) => {
                                 e.currentTarget.style.display = 'none';
                               }}
+                              width={24} // Specify appropriate width
+                              height={24} // Specify appropriate height
                             />
                           </div>
                           <span className={`text-lg font-semibold transition-colors duration-300 ${
@@ -286,7 +289,7 @@ const TechCapabilitiesTabs: React.FC = () => {
                 {currentTabData.sections ? (
                   // AI tab with sections – keep item boxes white (not whole section)
                   <div className="space-y-8">
-                    {currentTabData.sections.map((section, sectionIndex) => (
+                    {currentTabData.sections.map((section) => (
                       <div key={section.title} className="bg-transparent">
                         <div className="mb-4">
                           <h4 className="text-lg font-semibold text-white/90 mb-1">{section.title}</h4>
@@ -304,7 +307,7 @@ const TechCapabilitiesTabs: React.FC = () => {
                             >
                               <div className="flex flex-col items-center text-center space-y-3">
                                 <div className="w-12 h-12 flex items-center justify-center">
-                                  <img src={item.logo} alt={item.name} className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+                                  <Image src={item.logo} alt={item.name} className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300" onError={(e) => { e.currentTarget.style.display = 'none'; }} width={48} height={48} />
                                 </div>
                                 <span className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-300">{item.name}</span>
                               </div>
@@ -331,13 +334,15 @@ const TechCapabilitiesTabs: React.FC = () => {
                         >
                           <div className="flex flex-col items-center text-center space-y-4">
                             <div className="w-16 h-16 flex items-center justify-center">
-                              <img 
-                                src={item.logo} 
+                              <Image
+                                src={item.logo}
                                 alt={item.name}
                                 className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300"
                                 onError={(e) => {
                                   e.currentTarget.style.display = 'none';
                                 }}
+                                width={64} // Specify appropriate width
+                                height={64} // Specify appropriate height
                               />
                             </div>
                             <span className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 const SagedevsPartnerships = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -96,10 +97,12 @@ const SagedevsPartnerships = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div className="relative z-10 text-center">
               <div className="mb-6 flex justify-center">
-                <img 
-                  src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/aws-partner.svg" 
+                <Image
+                  src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/aws-partner.svg"
                   alt="Amazon Web Services"
                   className="h-16 w-auto"
+                  width={64} // Assuming a reasonable width for h-16
+                  height={64} // Assuming a reasonable height for h-16
                 />
               </div>
               <p className="text-gray-400 text-lg">Amazon Web Services</p>
@@ -111,10 +114,12 @@ const SagedevsPartnerships = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-green-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div className="relative z-10 text-center">
               <div className="mb-6 flex justify-center">
-                <img 
-                  src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/mongodb-partner.svg" 
+                <Image
+                  src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/mongodb-partner.svg"
                   alt="MongoDB"
                   className="h-16 w-auto"
+                  width={64} // Assuming a reasonable width for h-16
+                  height={64} // Assuming a reasonable height for h-16
                 />
               </div>
               <p className="text-gray-400 text-lg">MongoDB</p>
@@ -126,10 +131,12 @@ const SagedevsPartnerships = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div className="relative z-10 text-center">
               <div className="mb-6 flex justify-center">
-                <img 
-                  src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/google-cloud-partner.svg" 
+                <Image
+                  src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/google-cloud-partner.svg"
                   alt="Google Cloud Platform"
                   className="h-16 w-auto"
+                  width={64} // Assuming a reasonable width for h-16
+                  height={64} // Assuming a reasonable height for h-16
                 />
               </div>
               <p className="text-gray-400 text-lg">Google Cloud Platform</p>
@@ -141,10 +148,12 @@ const SagedevsPartnerships = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div className="relative z-10 text-center">
               <div className="mb-6 flex justify-center">
-                <img 
-                  src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/cloudinary-partner.svg" 
+                <Image
+                  src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/cloudinary-partner.svg"
                   alt="Cloudinary"
                   className="h-16 w-auto"
+                  width={64} // Assuming a reasonable width for h-16
+                  height={64} // Assuming a reasonable height for h-16
                 />
               </div>
               <p className="text-gray-400 text-lg">Cloudinary</p>
@@ -162,10 +171,12 @@ const SagedevsPartnerships = () => {
               <div className="relative z-10">
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
-                    <img 
-                      src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/aws-sagemaker.svg" 
+                    <Image
+                      src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/aws-sagemaker.svg"
                       alt="AWS Sagemaker"
                       className="h-12 w-12"
+                      width={48} // h-12 w-12 suggests 48x48
+                      height={48}
                     />
                   </div>
                   <div className="flex-1">
@@ -185,10 +196,12 @@ const SagedevsPartnerships = () => {
               <div className="relative z-10">
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
-                    <img 
-                      src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/aws-bedrock.svg" 
+                    <Image
+                      src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/aws-bedrock.svg"
                       alt="AWS Bedrock"
                       className="h-12 w-12"
+                      width={48} // h-12 w-12 suggests 48x48
+                      height={48}
                     />
                   </div>
                   <div className="flex-1">
@@ -237,10 +250,12 @@ const SagedevsPartnerships = () => {
                     </div>
                     <div className="relative z-10">
                       <div className="flex items-center mb-6">
-                        <img 
-                          src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/business-card-icon.svg" 
+                        <Image
+                          src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/business-card-icon.svg"
                           alt={challenge.title}
                           className="w-12 h-12 mr-4"
+                          width={48} // w-12 h-12 suggests 48x48
+                          height={48}
                         />
                         <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
                       </div>
