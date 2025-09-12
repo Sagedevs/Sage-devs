@@ -34,6 +34,42 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/photo/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn-icons-png.flaticon.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'woocommerce.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 's.w.org',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.worldvectorlogo.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'strapi.io',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'ghost.org',
+        pathname: '/**',
+      },
     ],
   },
   reactStrictMode: true,

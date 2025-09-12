@@ -72,39 +72,6 @@ const tabsData: TabData[] = [
       }
     ]
   },
-  // Push E-Commerce and CMS to the end
-  {
-    id: 'ecom',
-    title: 'E-Commerce',
-    icon: 'https://cdn-icons-png.flaticon.com/512/2331/2331966.png',
-    items: [
-      { id: 'shopify', name: 'Shopify', logo: 'https://cdn.worldvectorlogo.com/logos/shopify.svg', website: 'https://shopify.com' },
-      { id: 'woocommerce', name: 'WooCommerce', logo: 'https://woocommerce.com/wp-content/themes/woo/images/logo-woocommerce@2x.png', website: 'https://woocommerce.com' },
-      { id: 'magento', name: 'Magento', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magento_Logo.svg/2560px-Magento_Logo.svg.png', website: 'https://magento.com' },
-      { id: 'bigcommerce', name: 'BigCommerce', logo: '/tabs/bigcommerce.png', website: 'https://bigcommerce.com' },
-      { id: 'prestashop', name: 'PrestaShop', logo: '/tabs/download(19).png', website: 'https://prestashop.com' },
-      { id: 'opencart', name: 'OpenCart', logo: '/tabs/opencart.png', website: 'https://opencart.com' },
-      { id: 'spree', name: 'Spree Commerce', logo: '/tabs/download(26).png', website: 'https://spreecommerce.org' },
-      { id: 'commercejs', name: 'Commerce.js', logo: '/tabs/download(22).png', website: 'https://commercejs.com' }
-    ]
-  },
-  {
-    id: 'cms',
-    title: 'CMS Integration',
-    icon: '/tabs/cms.png',
-    items: [
-      { id: 'wordpress', name: 'WordPress', logo: 'https://s.w.org/style/images/about/WordPress-logotype-standard.png', website: 'https://wordpress.org' },
-      { id: 'drupal', name: 'Drupal', logo: '/tabs/drola.png', website: 'https://drupal.org' },
-      { id: 'joomla', name: 'Joomla', logo: '/tabs/cru.png', website: 'https://joomla.org' },
-      { id: 'strapi', name: 'Strapi', logo: 'https://strapi.io/assets/strapi-logo-light.svg', website: 'https://strapi.io' },
-      { id: 'contentful', name: 'Contentful', logo: '/tabs/contentful.png', website: 'https://contentful.com' },
-      { id: 'sanity', name: 'Sanity', logo: '/tabs/sanity.png', website: 'https://sanity.io' },
-      { id: 'ghost', name: 'Ghost', logo: 'https://ghost.org/images/logos/ghost-logo-dark.png', website: 'https://ghost.org' },
-      { id: 'keystone', name: 'KeystoneJS', logo: '/tabs/key.png', website: 'https://keystonejs.com' }
-    ]
-  },
-  
-  
   {
     id: 'fpl',
     title: 'Frontend Programming Languages',
@@ -202,6 +169,36 @@ const tabsData: TabData[] = [
       { id: 'jenkins', name: 'Jenkins', logo: 'https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/gitlab.svg', website: 'https://jenkins.io' },
       { id: 'aws-devtools', name: 'AWS Developer Tools', logo: 'https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/aws-developer-tools.svg', website: 'https://aws.amazon.com/products/developer-tools/' }
     ]
+  },
+  {
+    id: 'ecom',
+    title: 'E-Commerce',
+    icon: '/tabs/ecomerce.png',
+    items: [
+      { id: 'shopify', name: 'Shopify', logo: 'https://cdn.worldvectorlogo.com/logos/shopify.svg', website: 'https://shopify.com' },
+      { id: 'woocommerce', name: 'WooCommerce', logo: 'https://woocommerce.com/wp-content/themes/woo/images/logo-woocommerce@2x.png', website: 'https://woocommerce.com' },
+      { id: 'magento', name: 'Magento', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magento_Logo.svg/2560px-Magento_Logo.svg.png', website: 'https://magento.com' },
+      { id: 'bigcommerce', name: 'BigCommerce', logo: '/tabs/bigcommerce.png', website: 'https://bigcommerce.com' },
+      { id: 'prestashop', name: 'PrestaShop', logo: '/tabs/download(19).png', website: 'https://prestashop.com' },
+      { id: 'opencart', name: 'OpenCart', logo: '/tabs/opencart.png', website: 'https://opencart.com' },
+      { id: 'spree', name: 'Spree Commerce', logo: '/tabs/download(26).png', website: 'https://spreecommerce.org' },
+      { id: 'commercejs', name: 'Commerce.js', logo: '/tabs/download(22).png', website: 'https://commercejs.com' }
+    ]
+  },
+  {
+    id: 'cms',
+    title: 'CMS Integration',
+    icon: '/tabs/cms.png',
+    items: [
+      { id: 'wordpress', name: 'WordPress', logo: 'https://s.w.org/style/images/about/WordPress-logotype-standard.png', website: 'https://wordpress.org' },
+      { id: 'drupal', name: 'Drupal', logo: '/tabs/drola.png', website: 'https://drupal.org' },
+      { id: 'joomla', name: 'Joomla', logo: '/tabs/cru.png', website: 'https://joomla.org' },
+      { id: 'strapi', name: 'Strapi', logo: 'https://strapi.io/assets/strapi-logo-light.svg', website: 'https://strapi.io' },
+      { id: 'contentful', name: 'Contentful', logo: '/tabs/contentful.png', website: 'https://contentful.com' },
+      { id: 'sanity', name: 'Sanity', logo: '/tabs/sanity.png', website: 'https://sanity.io' },
+      { id: 'ghost', name: 'Ghost', logo: 'https://ghost.org/images/logos/ghost-logo-dark.png', website: 'https://ghost.org' },
+      { id: 'keystone', name: 'KeystoneJS', logo: '/tabs/key.png', website: 'https://keystonejs.com' }
+    ]
   }
 ];
 
@@ -250,7 +247,7 @@ const TechCapabilitiesTabs: React.FC = () => {
                             <Image
                               src={tab.icon}
                               alt={tab.title}
-                              className="w-6 h-6 object-contain opacity-90"
+                              className="w-6 h-6 object-contain opacity-90 filter invert"
                               style={{ filter: 'brightness(0) invert(1)' }}
                               onError={(e) => {
                                 e.currentTarget.style.display = 'none';
@@ -319,15 +316,14 @@ const TechCapabilitiesTabs: React.FC = () => {
                   </div>
                 ) : (
                   // Regular tabs with single grid
-                  <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
                       {currentTabData.items.map((item, index) => (
                         <a
                           key={item.id}
                           href={item.website}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group p-6 rounded-xl bg-white border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg hover:shadow-blue-100 hover:scale-105 transform"
+                          className="group p-4 rounded-xl bg-white border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg hover:shadow-blue-100 hover:scale-105 transform"
                           style={{
                             animationDelay: `${index * 50}ms`
                           }}
@@ -352,7 +348,6 @@ const TechCapabilitiesTabs: React.FC = () => {
                         </a>
                       ))}
                     </div>
-                  </div>
                 )}
                 </div>
               </div>
