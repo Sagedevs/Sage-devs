@@ -441,7 +441,7 @@ export default function RootLayout({
         <main className="pt-20 lg:pt-24 relative z-[1]">{children}</main>
 
         {/* Social Icons - Consistent for SSR */}
-        <div className="fixed bottom-4 right-4 lg:bottom-8 lg:right-8 z-[100]">
+        <div className="fixed bottom-4 right-4 lg:bottom-8 lg:right-8">
           <div className="bg-black/70 border border-white/20 border-dashed rounded-full p-3 lg:p-4 backdrop-blur-sm">
             <div className="flex flex-col items-center space-y-4 lg:space-y-5">
               {socialLinks.map((link) => (
@@ -467,7 +467,7 @@ export default function RootLayout({
         </div>
         <Footer />
         <Analytics />
-        
+        <div id="modal-root"></div>
       </body>
     </html>
   );

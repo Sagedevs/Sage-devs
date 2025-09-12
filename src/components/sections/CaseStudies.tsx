@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import ReactDOM from "react-dom"; // Import ReactDOM
 
 // Define the CaseStudy type
 interface CaseStudy {
@@ -186,9 +187,9 @@ export default function CaseStudies() {
 
         {/* Modal for Detailed Case Study */}
         <AnimatePresence>
-          {selectedCase && (
+          {selectedCase && ReactDOM.createPortal(
             <motion.div
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[99999] flex items-center justify-center p-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -301,7 +302,8 @@ export default function CaseStudies() {
                   </div>
                 </div>
               </motion.div>
-            </motion.div>
+            </motion.div>,
+            document.getElementById('modal-root') as HTMLElement
           )}
         </AnimatePresence>
 

@@ -209,7 +209,7 @@ const TechCapabilitiesTabs: React.FC = () => {
   const currentTabData = tabsData.find(tab => tab.id === activeTab) || tabsData[0];
 
   return (
-    <div className="min-h-screen w-full bg-[#0b1020] text-gray-100 relative overflow-hidden">
+    <div className="min-h-screen w-full bg-[#0b1020] text-gray-100 relative overflow-hidden z-0">
       {/* Soft gradient background like reference */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0b1020] via-[#0d1430] to-[#0b1020]" />
 

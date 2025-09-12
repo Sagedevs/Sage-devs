@@ -53,7 +53,7 @@ This message was sent from the SageDevs contact form.
   };
 
   return (
-    <section id="contact" className="relative min-h-screen bg-black overflow-hidden flex items-center w-screen ml-[calc(-50vw+50%)]">
+    <section id="contact" className="relative min-h-screen bg-black overflow-hidden flex items-center w-screen ml-[calc(-50vw+50%)] z-0">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         {/* Primary gradient overlay */}

@@ -70,7 +70,7 @@ const SagedevsPartnerships = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden w-screen ml-[calc(-50vw+50%)]">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden w-screen ml-[calc(-50vw+50%)] z-0">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-64 h-64 bg-blue-500/10 rounded-full animate-pulse"></div>

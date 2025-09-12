@@ -441,7 +441,7 @@ export default function EnhancedTestimonialSlider() {
   }, []);
 
   return (
-    <section className="py-12 md:py-24 relative overflow-hidden w-screen">
+    <section className="py-12 md:py-24 relative overflow-hidden w-screen z-0">
       <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
       <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/30 via-transparent to-blue-600/10"></div>
 
