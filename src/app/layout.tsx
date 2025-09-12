@@ -161,10 +161,10 @@ export default function RootLayout({
     return index === -1 ? 0 : index;
   }, [pathname]); // Ensure pathname is in dependency array
 
-  const baseBodyClasses = `${geistSans.variable} ${geistMono.variable} ${gilroy.variable} antialiased font-gilroy relative overflow-x-hidden`;
+  const baseBodyClasses = `${geistSans.variable} ${geistMono.variable} ${gilroy.variable} antialiased font-gilroy relative`;
 
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-x-hidden">
       <head>
         <meta
           name="viewport"
