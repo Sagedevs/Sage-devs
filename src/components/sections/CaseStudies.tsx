@@ -145,7 +145,7 @@ export default function CaseStudies() {
       onClick={onClose}
     >
       <motion.div
-        className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-sm rounded-3xl max-w-5xl max-h-[90vh] overflow-hidden border border-slate-700/50 relative shadow-2xl"
+        className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-sm rounded-3xl max-w-5xl border border-slate-700/50 relative shadow-2xl h-[calc(100vh-10rem)] mt-[4rem] sm:mt-[5rem] md:h-[600px] md:mt-[110px]"
         initial={{ scale: 0.8, opacity: 0, y: 50 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.8, opacity: 0, y: 50 }}
@@ -153,7 +153,7 @@ export default function CaseStudies() {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Scrollable Content */}
-        <div className="overflow-y-auto max-h-[90vh]">
+        <div className="overflow-y-auto h-full">
           {/* Close Button */}
           <button
             className="absolute top-6 right-6 w-10 h-10 rounded-full bg-slate-800/80 backdrop-blur-sm text-gray-300 hover:text-white hover:bg-slate-700/80 transition-all duration-300 z-20 flex items-center justify-center border border-slate-600/50"
@@ -189,7 +189,7 @@ export default function CaseStudies() {
                 <span className="inline-block px-4 py-2 text-sm font-medium bg-blue-500/30 text-blue-200 rounded-full mb-4 backdrop-blur-sm border border-blue-400/30">
                   {caseStudy.category}
                 </span>
-                <h3 className="text-3xl md:text-5xl font-bold text-white mb-3 leading-tight">
+                <h3 className="text-2xl md:text-5xl font-bold text-white mb-3 leading-tight">
                   {caseStudy.title}
                 </h3>
                 <p className="text-gray-200 text-xl mb-4">{caseStudy.subtitle}</p>
