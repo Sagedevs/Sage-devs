@@ -17,14 +17,14 @@ import FinalCTA from "@/components/sections/FinalCTA";
 export default function Home() {
   return (
     <>
-      <main className="flex-grow flex flex-col items-center h-full relative w-full overflow-x-hidden">
+      <main className="flex-grow flex flex-col items-center h-full relative w-full">
         <HeroSection />
         <TrustedBySection />
         <Services />
         <CaseStudies />
         <WhyChooseUs />
         <TestimonialSlider />
-        <Pricing />
+        {/* <Pricing /> */}
         <FinalCTA />
       </main>
     </>
