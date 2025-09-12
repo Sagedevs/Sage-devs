@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 
 export default function AgencyCTA() {
   const [formData, setFormData] = useState({
@@ -20,7 +20,7 @@ export default function AgencyCTA() {
     });
   };
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async () => {
     setIsSubmitting(true);
     
     // Create email content
@@ -100,7 +100,7 @@ This message was sent from the SageDevs contact form.
               </div>
               
               <h2 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
-                Let's Build Your
+                Let&apos;s Build Your
                 <span className="block bg-gradient-to-r from-blue-400 via-blue-300 to-white bg-clip-text text-transparent">
                   Digital Future
                 </span>
@@ -179,7 +179,7 @@ This message was sent from the SageDevs contact form.
             <div className="relative bg-black/40 backdrop-blur-xl border border-blue-500/20 rounded-3xl p-8 shadow-2xl">
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-white mb-2">Start Your Project</h3>
-                <p className="text-gray-400">Tell us about your vision and we'll make it reality.</p>
+                <p className="text-gray-400">Tell us about your vision and we&apos;ll make it reality.</p>
               </div>
 
               <div className="space-y-6">

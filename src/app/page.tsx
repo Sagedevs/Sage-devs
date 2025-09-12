@@ -11,7 +11,6 @@ import TestimonialSlider from "@/components/TestimonialSlider";
 import Services from "@/components/sections/Services";
 import CaseStudies from "@/components/sections/CaseStudies";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
-import Pricing from "@/components/sections/Pricing";
 import FinalCTA from "@/components/sections/FinalCTA";
 
 export default function Home() {
