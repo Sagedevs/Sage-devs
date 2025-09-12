@@ -180,20 +180,20 @@ export default function CaseStudies() {
             </div>
             
             {/* Hero Content */}
-            <div className="absolute bottom-0 left-0 right-0 p-8">
+            <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-8">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
               >
-                <span className="inline-block px-4 py-2 text-sm font-medium bg-blue-500/30 text-blue-200 rounded-full mb-4 backdrop-blur-sm border border-blue-400/30">
+                <span className="inline-block px-3 py-1 text-xs font-medium bg-blue-500/30 text-blue-200 rounded-full mb-3 backdrop-blur-sm border border-blue-400/30 max-w-full whitespace-nowrap truncate">
                   {caseStudy.category}
                 </span>
-                <h3 className="text-2xl md:text-5xl font-bold text-white mb-3 leading-tight">
+                <h3 className="text-2xl md:text-5xl font-bold text-white mb-2 leading-tight">
                   {caseStudy.title}
                 </h3>
-                <p className="text-gray-200 text-xl mb-4">{caseStudy.subtitle}</p>
-                <p className="text-blue-300 text-lg font-semibold">{caseStudy.outcome}</p>
+                <p className="text-gray-200 text-base md:text-xl mb-3">{caseStudy.subtitle}</p>
+                <p className="text-blue-300 text-base md:text-lg font-semibold">{caseStudy.outcome}</p>
               </motion.div>
             </div>
           </div>
