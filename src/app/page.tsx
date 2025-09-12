@@ -13,6 +13,8 @@ const DynamicTestimonialSlider = dynamic(() => import("@/components/TestimonialS
 const DynamicServices = dynamic(() => import("@/components/sections/Services"));
 const DynamicCaseStudies = dynamic(() => import("@/components/sections/CaseStudies"), { ssr: false });
 const DynamicWhyChooseUs = dynamic(() => import("@/components/sections/WhyChooseUs"), { ssr: false });
+const Dynamictabs = dynamic(() => import("@/components/sections/tabs"), { ssr: false });
+const DynamicExtra = dynamic(() => import("@/components/sections/extra"), { ssr: false });
 const DynamicFinalCTA = dynamic(() => import("@/components/sections/FinalCTA"), { ssr: false });
 
 export default function Home() {
@@ -26,7 +28,8 @@ export default function Home() {
           <DynamicCaseStudies />
           <DynamicWhyChooseUs />
           <DynamicTestimonialSlider />
-          {/* <Pricing /> */}
+          <Dynamictabs />
+          <DynamicExtra />
           <DynamicFinalCTA />
         </React.Suspense>
       </main>

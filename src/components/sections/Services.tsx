@@ -193,7 +193,7 @@ const AnimatedBackground = () => {
       {/* Large Floating Shapes */}
       
       
-      
+
       {/* Gradient Background Orbs */}
       <div className="absolute top-1/4 left-1/3 w-[600px] h-[600px] bg-gradient-radial from-blue-500/10 via-blue-500/5 to-transparent rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 right-1/3 w-[500px] h-[500px] bg-gradient-radial from-purple-500/8 via-purple-500/4 to-transparent rounded-full blur-3xl" />
@@ -382,7 +382,7 @@ export default function Services() {
         {/* Services Categories */}
         <div className="space-y-20">
           
-          
+              
               {/* Services Grid */}
               <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {services.flatMap(category => category.items).map((service: ServiceItem) => (
@@ -399,7 +399,7 @@ export default function Services() {
           <Link href="/services" className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold rounded-full text-lg hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300">
             View All Services →
           </Link>
-        </div>
+            </div>
       </div>
     </section>
   );
