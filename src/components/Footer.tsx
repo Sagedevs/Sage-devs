@@ -402,7 +402,7 @@ const Footer = () => {
                     <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
                   </h3>
                   <ul className="space-y-4">
-                    {mainNavigation.map((link, _index) => (
+                    {mainNavigation.map((link) => (
                       <li
                         key={link.href}
                       >
@@ -424,7 +424,7 @@ const Footer = () => {
                     <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
                   </h3>
                   <ul className="space-y-4">
-                    {developmentServices.map((service, index) => (
+                    {developmentServices.map((service, _index) => (
                       <li
                         key={service.href}
                       >
@@ -446,7 +446,7 @@ const Footer = () => {
                     <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
                   </h3>
                   <ul className="space-y-4">
-                    {technologies.map((tech, _index) => (
+                    {technologies.map((tech) => (
                       <li
                         key={tech.href}
                       >
@@ -468,7 +468,7 @@ const Footer = () => {
                     <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
                   </h3>
                   <ul className="space-y-4">
-                    {industries.map((industry, _index) => (
+                    {industries.map((industry) => (
                       <li
                         key={industry.href}
                       >
@@ -490,7 +490,7 @@ const Footer = () => {
                     <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
                   </h3>
                   <ul className="space-y-4">
-                    {resources.map((resource, _index) => (
+                    {resources.map((resource) => (
                       <li
                         key={resource.href}
                       >
