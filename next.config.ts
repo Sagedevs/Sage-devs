@@ -70,6 +70,7 @@ const nextConfig: NextConfig = {
         hostname: 'ghost.org',
         pathname: '/**',
       },
+      
     ],
   },
   reactStrictMode: true,

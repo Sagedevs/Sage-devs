@@ -25,7 +25,7 @@ const LetsTalkAISecondSection = () => {
           </div>
           <div className="relative h-64 md:h-96 rounded-lg overflow-hidden shadow-2xl border border-blue-700/50">
             <Image
-              src="https://via.placeholder.com/600x400/0F172A/9CA3AF?text=AI+Innovation+Image"
+              src="https://images.unsplash.com/photo-1596526131083-ef87525a280e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="AI Innovation"
               layout="fill"
             />
