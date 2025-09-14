@@ -424,7 +424,7 @@ const Footer = () => {
                     <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
                   </h3>
                   <ul className="space-y-4">
-                    {developmentServices.map((service, _index) => (
+                    {developmentServices.map((service) => (
                       <li
                         key={service.href}
                       >
