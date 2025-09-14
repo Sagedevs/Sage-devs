@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { motion, useAnimation, useInView, Variants } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -402,7 +402,7 @@ const Footer = () => {
                     <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
                   </h3>
                   <ul className="space-y-4">
-                    {mainNavigation.map((link, index) => (
+                    {mainNavigation.map((link, _index) => (
                       <li
                         key={link.href}
                       >
@@ -446,7 +446,7 @@ const Footer = () => {
                     <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
                   </h3>
                   <ul className="space-y-4">
-                    {technologies.map((tech, index) => (
+                    {technologies.map((tech, _index) => (
                       <li
                         key={tech.href}
                       >
@@ -468,7 +468,7 @@ const Footer = () => {
                     <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
                   </h3>
                   <ul className="space-y-4">
-                    {industries.map((industry, index) => (
+                    {industries.map((industry, _index) => (
                       <li
                         key={industry.href}
                       >
@@ -490,7 +490,7 @@ const Footer = () => {
                     <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
                   </h3>
                   <ul className="space-y-4">
-                    {resources.map((resource, index) => (
+                    {resources.map((resource, _index) => (
                       <li
                         key={resource.href}
                       >
@@ -543,12 +543,12 @@ const Footer = () => {
                       <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
                     </h3>
                     <div className="flex items-center space-x-4">
-                      {socialLinks.map((link, index) => (
+                      {socialLinks.map((link, _index) => (
                         <motion.div
                           key={link.platform}
                           initial={{ opacity: 0, scale: 0 }}
                           whileInView={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: index * 0.1, type: "spring" }}
+                          transition={{ delay: _index * 0.1, type: "spring" }}
                         >
                           <Link
                             href={link.href}
