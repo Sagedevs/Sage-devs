@@ -8,7 +8,7 @@ const LetsTalkAIFinalSection = () => {
           Ready to Transform with AI?
         </h2>
         <p className="text-lg lg:text-xl text-gray-300 mb-10">
-          Whether you're looking to automate processes, gain deeper insights, or create intelligent products, our team of AI specialists is ready to help.
+          Whether you&apos;re looking to automate processes, gain deeper insights, or create intelligent products, our team of AI specialists is ready to help.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <a

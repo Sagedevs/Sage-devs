@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 const LetsTalkAISecondSection = () => {
   return (
@@ -10,7 +11,7 @@ const LetsTalkAISecondSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
             <p className="text-lg text-gray-300 leading-relaxed">
-              At Sage Devs, we believe in a human-centric approach to Artificial Intelligence. We don't just build algorithms; we craft intelligent solutions that seamlessly integrate with your existing workflows and empower your team.
+              At Sage Devs, we believe in a human-centric approach to Artificial Intelligence. We don&apos;t just build algorithms; we craft intelligent solutions that seamlessly integrate with your existing workflows and empower your team.
             </p>
             <p className="text-lg text-gray-300 leading-relaxed">
               Our process involves deep dives into your business challenges, meticulous data analysis, and iterative development to ensure the AI solutions are effective, ethical, and scalable. We focus on transparency and explainability, so you always understand how your AI is making decisions.
@@ -23,10 +24,10 @@ const LetsTalkAISecondSection = () => {
             </ul>
           </div>
           <div className="relative h-64 md:h-96 rounded-lg overflow-hidden shadow-2xl border border-blue-700/50">
-            <img
+            <Image
               src="https://via.placeholder.com/600x400/0F172A/9CA3AF?text=AI+Innovation+Image"
               alt="AI Innovation"
-              className="absolute inset-0 w-full h-full object-cover"
+              layout="fill"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent" />
             <div className="absolute inset-0 flex items-center justify-center">
