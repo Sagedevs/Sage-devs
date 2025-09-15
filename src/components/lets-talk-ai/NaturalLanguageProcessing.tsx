@@ -33,11 +33,11 @@ const NaturalLanguageProcessing = () => {
       title: "Smart Conversation",
       subtitle: "Talks like a human",
       icon: "💬",
-      input: "Hi! I'm looking for a red dress for my sister's wedding next month",
+      input: "Hi! I'm looking for a red dress for my sister&apos;s wedding next month",
       analysis: {
         intent: "Shopping Assistant",
-        extracted: ["red dress", "sister's wedding", "next month"],
-        response: "Perfect! I'll help you find elegant red dresses suitable for weddings. What's your size preference and budget range?",
+        extracted: ["red dress", "sister&apos;s wedding", "next month"],
+        response: "Perfect! I&apos;ll help you find elegant red dresses suitable for weddings. What&apos;s your size preference and budget range?",
         understanding: "96%",
         context: {
           occasion: "Wedding",
