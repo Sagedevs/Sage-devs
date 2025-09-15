@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 const LetsTalkAIHero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -144,7 +145,7 @@ const LetsTalkAIHero = () => {
 
       {/* Hero Section */}
       <section 
-        className="relative min-h-screen bg-gradient-to-t from-black via-black/80 to-blue-950/90 overflow-hidden flex items-center justify-center py-10 lg:py-20"
+        className="relative min-h-screen bg-gradient-to-t from-black via-black to-blue-950 overflow-hidden flex items-center justify-center py-10 lg:py-20"
         onMouseMove={handleMouseMove}
       >
         {/* Ultra Dense Interactive Background */}
@@ -323,9 +324,9 @@ const LetsTalkAIHero = () => {
         <div className="absolute z-20 top-20 left-1/2 transform -translate-x-1/2 md:top-4">
           <div className="inline-flex items-center space-x-2 px-4 lg:px-6 py-2 lg:py-3 bg-slate-800/90 backdrop-blur-md rounded-full border border-blue-500/40 shadow-2xl text-white text-xs lg:text-sm font-medium transition-all duration-300 hover:scale-105 hover:border-blue-400/60">
             <div className="flex -space-x-2 overflow-hidden">
-              <img className="inline-block h-6 w-6 lg:h-8 lg:w-8 rounded-full ring-2 ring-slate-800" src="https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg" alt="Partner 1" />
-              <img className="inline-block h-6 w-6 lg:h-8 lg:w-8 rounded-full ring-2 ring-slate-800" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="Partner 2" />
-              <img className="inline-block h-6 w-6 lg:h-8 lg:w-8 rounded-full ring-2 ring-slate-800" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Partner 3" />
+              <Image className="inline-block h-6 w-6 lg:h-8 lg:w-8 rounded-full ring-2 ring-slate-800" src="https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg" alt="Partner 1" width={32} height={32} />
+              <Image className="inline-block h-6 w-6 lg:h-8 lg:w-8 rounded-full ring-2 ring-slate-800" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="Partner 2" width={32} height={32} />
+              <Image className="inline-block h-6 w-6 lg:h-8 lg:w-8 rounded-full ring-2 ring-slate-800" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Partner 3" width={32} height={32} />
             </div>
             <span className="hidden sm:inline">Trusted by diverse software partners</span>
             <span className="sm:hidden">Trusted by 500+</span>

@@ -1,106 +1,9 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-
-interface NetworkNode {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  pulseDelay: number;
-  connected: boolean;
-  speedX: number;
-  speedY: number;
-  targetX: number;
-  targetY: number;
-  energy: number;
-}
+import React, { useState } from 'react';
 
 const AIConsultation = () => {
   const [activeNode, setActiveNode] = useState(0);
-  const [pulsePhase, setPulsePhase] = useState(0);
-  const [networkNodes, setNetworkNodes] = useState<NetworkNode[]>([]);
-  const [scrollY, setScrollY] = useState(0);
   const [time, setTime] = useState(0);
-
-  useEffect(() => {
-    // Generate dynamic network nodes
-    const nodes: NetworkNode[] = Array.from({ length: 20 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 12 + 3,
-      pulseDelay: Math.random() * 4,
-      connected: Math.random() > 0.4,
-      speedX: (Math.random() - 0.5) * 0.8,
-      speedY: (Math.random() - 0.5) * 0.8,
-      targetX: Math.random() * 100,
-      targetY: Math.random() * 100,
-      energy: Math.random()
-    }));
-    setNetworkNodes(nodes);
-
-    // Continuous animation loop
-    const animationLoop = setInterval(() => {
-      setTime(prev => prev + 1);
-      
-      // Move nodes continuously
-      setNetworkNodes(prevNodes => 
-        prevNodes.map(node => {
-          // Smooth movement toward targets
-          const newX = node.x + (node.targetX - node.x) * 0.02 + node.speedX * 0.3;
-          const newY = node.y + (node.targetY - node.y) * 0.02 + node.speedY * 0.3;
-          
-          // Bounce off edges
-          let speedX = node.speedX;
-          let speedY = node.speedY;
-          let targetX = node.targetX;
-          let targetY = node.targetY;
-          
-          if (newX <= 5 || newX >= 95) {
-            speedX = -speedX;
-            targetX = Math.random() * 80 + 10;
-          }
-          if (newY <= 5 || newY >= 95) {
-            speedY = -speedY;
-            targetY = Math.random() * 80 + 10;
-          }
-          
-          // Occasionally change targets
-          if (Math.random() < 0.005) {
-            targetX = Math.random() * 100;
-            targetY = Math.random() * 100;
-          }
-          
-          return {
-            ...node,
-            x: Math.max(5, Math.min(95, newX)),
-            y: Math.max(5, Math.min(95, newY)),
-            speedX,
-            speedY,
-            targetX,
-            targetY,
-            energy: (node.energy + 0.02) % 1,
-            connected: Math.random() < 0.7
-          };
-        })
-      );
-    }, 50);
-
-    // Pulse animation
-    const pulseInterval = setInterval(() => {
-      setPulsePhase(prev => (prev + 1) % 6);
-    }, 1500);
-
-    // Scroll tracking
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      clearInterval(animationLoop);
-      clearInterval(pulseInterval);
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   const services = [
     {
@@ -174,7 +77,7 @@ const AIConsultation = () => {
           </h2>
           
           <p className="text-2xl text-slate-300 max-w-4xl mx-auto mb-12">
-            Step into tomorrow's business landscape with AI consultation that doesn't just advise—it transforms reality.
+            Step into tomorrow&apos;s business landscape with AI consultation that doesn&apos;t just advise&mdash;it transforms reality.
           </p>
         </div>
 
