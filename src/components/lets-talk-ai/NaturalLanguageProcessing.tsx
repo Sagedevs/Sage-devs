@@ -121,7 +121,7 @@ const NaturalLanguageProcessing = () => {
     }, 30);
 
     return () => clearInterval(typeInterval);
-  }, [currentDemo]);
+  }, [currentDemo, demos]);
 
   const currentDemoData = demos[currentDemo];
 
@@ -458,7 +458,7 @@ const NaturalLanguageProcessing = () => {
                           <span className="mr-2">🤖</span>AI Response
                         </div>
                         <div className="text-white text-lg leading-relaxed bg-black/30 rounded-lg p-4">
-                          "{currentDemoData.analysis.response}"
+                          &quot;{currentDemoData.analysis.response}&quot;
                         </div>
                       </div>
                     </div>
@@ -494,7 +494,7 @@ const NaturalLanguageProcessing = () => {
                               <div className="text-purple-300 font-semibold">{lang}</div>
                               <div className="text-xs text-purple-400">99% accurate</div>
                             </div>
-                            <div className="text-white text-lg">"{translation}"</div>
+                            <div className="text-white text-lg">&quot;{translation}&quot;</div>
                           </div>
                         ))}
                       </div>
