@@ -115,7 +115,7 @@ const MachineLearning = () => {
               </span>
             </h2>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              We don't just build models. We create intelligent systems that think, learn, and evolve with your business.
+              We don&apos;t just build models. We create intelligent systems that think, learn, and evolve with your business.
             </p>
           </div>
         </div>
