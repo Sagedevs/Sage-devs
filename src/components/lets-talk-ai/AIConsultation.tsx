@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 
 const AIConsultation = () => {
   const [activeNode, setActiveNode] = useState(0);
-  const [time, setTime] = useState(0);
 
   const services = [
     {
@@ -213,8 +212,8 @@ const AIConsultation = () => {
                       key={i}
                       className="absolute w-2 h-2 bg-white rounded-full animate-ping opacity-60"
                       style={{
-                        top: `${30 + Math.sin((time + i * 30) * 0.02) * 40}%`,
-                        left: `${30 + Math.cos((time + i * 30) * 0.02) * 40}%`,
+                        top: `${30 + Math.sin((i * 30) * 0.02) * 40}%`,
+                        left: `${30 + Math.cos((i * 30) * 0.02) * 40}%`,
                         animationDelay: `${i * 0.3}s`,
                         animationDuration: `${2 + i * 0.2}s`
                       }}

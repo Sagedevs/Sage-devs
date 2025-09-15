@@ -145,9 +145,12 @@ const LetsTalkAIHero = () => {
 
       {/* Hero Section */}
       <section 
-        className="relative min-h-screen bg-gradient-to-t from-black via-black to-blue-950 overflow-hidden flex items-center justify-center py-10 lg:py-20"
+        className="relative min-h-screen bg-gradient-to-b from-black via-black/80 to-blue-950/80 backdrop-blur-sm overflow-hidden flex items-center justify-center py-10 lg:py-20"
         onMouseMove={handleMouseMove}
       >
+        {/* Radial gradient overlay for darker center */}
+        <div className="absolute inset-0 z-0" style={{ backgroundImage: 'radial-gradient(circle at center, rgba(0,0,0,0.6) 0%, transparent 70%)' }} />
+
         {/* Ultra Dense Interactive Background */}
         <div className="absolute inset-0">
           {/* Complex Multi-layered Grid System */}
