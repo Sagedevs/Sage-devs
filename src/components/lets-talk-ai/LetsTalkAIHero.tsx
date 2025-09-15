@@ -144,7 +144,7 @@ const LetsTalkAIHero = () => {
 
       {/* Hero Section */}
       <section 
-        className="relative min-h-screen bg-gradient-to-br from-slate-950 via-blue-950/50 to-blue-950/70 overflow-hidden flex items-center justify-center py-10 lg:py-20"
+        className="relative min-h-screen bg-gradient-to-t from-black via-black/80 to-blue-950/90 overflow-hidden flex items-center justify-center py-10 lg:py-20"
         onMouseMove={handleMouseMove}
       >
         {/* Ultra Dense Interactive Background */}
@@ -170,20 +170,20 @@ const LetsTalkAIHero = () => {
           />
           
           {/* Intense gradient overlays */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/60 via-blue-900/40 to-cyan-900/50" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-900/30 via-blue-900/20 to-blue-900/40" />
-          <div className="absolute inset-0 bg-gradient-to-bl from-blue-900/25 via-transparent to-emerald-900/20" />
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-950/90 via-blue-950/80 to-cyan-950/90" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-950/70 via-blue-950/60 to-blue-950/80" />
+          <div className="absolute inset-0 bg-gradient-to-bl from-blue-950/65 via-transparent to-emerald-950/60" />
           
           {/* Dynamic hexagonal pattern with cursor interaction */}
           <div 
-            className="absolute inset-0 opacity-30"
+            className="absolute inset-0 opacity-10"
             style={{
               backgroundImage: `
-                radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.8) 2px, transparent 2px),
-                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.8) 2px, transparent 2px),
-                radial-gradient(circle at 20% 80%, rgba(6, 182, 212, 0.8) 2px, transparent 2px),
-                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.8) 2px, transparent 2px),
-                radial-gradient(circle at 50% 50%, rgba(34, 197, 94, 0.6) 1px, transparent 1px)
+                radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.2) 2px, transparent 2px),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.2) 2px, transparent 2px),
+                radial-gradient(circle at 20% 80%, rgba(6, 182, 212, 0.2) 2px, transparent 2px),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 2px, transparent 2px),
+                radial-gradient(circle at 50% 50%, rgba(34, 197, 94, 0.1) 1px, transparent 1px)
               `,
               backgroundSize: '80px 80px, 100px 100px, 70px 70px, 90px 90px, 120px 120px',
               transform: `translate(${mousePosition.x * -0.04}px, ${mousePosition.y * -0.04}px) scale(${1 + mousePosition.x * 0.0001})`,
@@ -193,11 +193,11 @@ const LetsTalkAIHero = () => {
 
           {/* Additional interactive layer */}
           <div 
-            className="absolute inset-0 opacity-20"
+            className="absolute inset-0 opacity-2"
             style={{
               backgroundImage: `
-                conic-gradient(from 0deg at 30% 30%, rgba(59, 130, 246, 0.4), transparent 50%, rgba(59, 130, 246, 0.4)),
-                conic-gradient(from 180deg at 70% 70%, rgba(6, 182, 212, 0.4), transparent 50%, rgba(6, 182, 212, 0.4))
+                conic-gradient(from 0deg at 30% 30%, rgba(59, 130, 246, 0.05), transparent 50%, rgba(59, 130, 246, 0.05)),
+                conic-gradient(from 180deg at 70% 70%, rgba(6, 182, 212, 0.05), transparent 50%, rgba(6, 182, 212, 0.05))
               `,
               backgroundSize: '200px 200px, 250px 250px',
               transform: `translate(${mousePosition.x * 0.06}px, ${mousePosition.y * 0.06}px) rotate(${mousePosition.x * 0.02}deg)`,
@@ -274,7 +274,7 @@ const LetsTalkAIHero = () => {
         {/* Multiple Intense Ambient Light Effects */}
         <div className="absolute inset-0">
           <div 
-            className="absolute w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-3xl animate-pulse"
+            className="absolute w-[400px] h-[400px] bg-blue-800/5 rounded-full blur-3xl animate-pulse"
             style={{
               top: '10%',
               left: '15%',
@@ -282,7 +282,7 @@ const LetsTalkAIHero = () => {
             }}
           />
           <div 
-            className="absolute w-[400px] h-[400px] bg-blue-700/20 rounded-full blur-3xl animate-pulse"
+            className="absolute w-[300px] h-[300px] bg-blue-900/5 rounded-full blur-3xl animate-pulse"
             style={{
               bottom: '20%',
               right: '10%',
@@ -291,7 +291,7 @@ const LetsTalkAIHero = () => {
             }}
           />
           <div 
-            className="absolute w-[600px] h-[600px] bg-cyan-600/15 rounded-full blur-3xl animate-pulse"
+            className="absolute w-[500px] h-[500px] bg-cyan-800/2 rounded-full blur-3xl animate-pulse"
             style={{
               top: '40%',
               left: '50%',
@@ -300,7 +300,7 @@ const LetsTalkAIHero = () => {
             }}
           />
           <div 
-            className="absolute w-[350px] h-[350px] bg-blue-500/20 rounded-full blur-3xl animate-pulse"
+            className="absolute w-[250px] h-[250px] bg-blue-700/5 rounded-full blur-3xl animate-pulse"
             style={{
               top: '60%',
               left: '20%',
@@ -309,7 +309,7 @@ const LetsTalkAIHero = () => {
             }}
           />
           <div 
-            className="absolute w-[450px] h-[450px] bg-emerald-600/15 rounded-full blur-3xl animate-pulse"
+            className="absolute w-[350px] h-[350px] bg-emerald-800/2 rounded-full blur-3xl animate-pulse"
             style={{
               top: '20%',
               right: '30%',
@@ -371,9 +371,9 @@ const LetsTalkAIHero = () => {
                 color: 'oklch(0.872 0.01 258.338)' 
               }}
             >
-              Transform your enterprise with cutting-edge artificial intelligence solutions. 
-              From machine learning to natural language processing, we deliver scalable AI innovations 
-              that drive measurable business outcomes and revolutionary digital transformation.
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent font-semibold">Transform your enterprise with cutting-edge artificial intelligence solutions</span>. 
+              From <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent font-semibold">machine learning</span> to <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent font-semibold">natural language processing</span>, we deliver <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent font-semibold">scalable AI innovations</span> 
+              that drive <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent font-semibold">measurable business outcomes</span> and <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent font-semibold">revolutionary digital transformation</span>.
             </p>
 
             {/* Professional CTA Buttons - Responsive */}
@@ -401,7 +401,7 @@ const LetsTalkAIHero = () => {
             }`}
           >
             {[
-              { number: '500+', label: 'Enterprise Projects' },
+              { number: '50+', label: 'Enterprise Projects' },
               { number: '95%', label: 'Client Success Rate' },
               { number: '24/7', label: 'AI-Powered Support' },
             ].map((stat, index) => (
@@ -421,8 +421,8 @@ const LetsTalkAIHero = () => {
         </div>
 
         {/* Enhanced Professional Footer */}
-        <div className="absolute bottom-0 left-0 w-full h-32 lg:h-40 bg-gradient-to-t from-black/80 via-slate-900/40 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-80" />
+        <div className="absolute bottom-0 left-0 w-full h-32 lg:h-40 bg-gradient-to-t from-black/100 via-slate-950/80 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-900 to-transparent opacity-100" />
       </section>
     </div>
   );
