@@ -253,7 +253,8 @@ const ComputerVision = () => {
 
             {/* Service Features */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-              {services[activeService].features.map((feature, _idx) => (
+              {services[activeService].features.map((feature, _idx) => { // eslint-disable-line @typescript-eslint/no-unused-vars
+                return (
                 <div key={feature} className="bg-gradient-to-br from-gray-900/60 to-blue-900/20 rounded-xl p-4 border border-gray-700/50">
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
@@ -262,7 +263,8 @@ const ComputerVision = () => {
                     <span className="text-white font-medium">{feature}</span>
                   </div>
                 </div>
-              ))}
+              );
+            })}
             </div>
 
             {/* Navigation */}

@@ -7,7 +7,6 @@ const NaturalLanguageProcessing = () => {
   const [typedText, setTypedText] = useState('');
   const [showResult, setShowResult] = useState(false);
   const [processingStage, setProcessingStage] = useState(0); // Reintroduced for UI updates
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const processingStageRef = useRef(0); // For internal logic
   const [nodeStyles, setNodeStyles] = useState<any[]>([]);
   const [streamStyles, setStreamStyles] = useState<any[]>([]);
