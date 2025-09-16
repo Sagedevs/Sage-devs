@@ -1,15 +1,17 @@
 "use client";
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 const NaturalLanguageProcessing = () => {
   const [currentDemo, setCurrentDemo] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
   const [typedText, setTypedText] = useState('');
   const [showResult, setShowResult] = useState(false);
-  const [processingStage, setProcessingStage] = useState(0);
+  const [processingStage, setProcessingStage] = useState(0); // Reintroduced for UI updates
+  const processingStageRef = useRef(0); // For internal logic
   const [nodeStyles, setNodeStyles] = useState<any[]>([]);
   const [streamStyles, setStreamStyles] = useState<any[]>([]);
-  const [charIndex, setCharIndex] = useState(0);
+  // const [charIndex, setCharIndex] = useState(0); // Removed from state
+  // const charIndexRef = useRef(0); // Removed, as typedText.length will be used
   const typeIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const processIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -96,73 +98,71 @@ const NaturalLanguageProcessing = () => {
     }
   ];
 
-  useEffect(() => {
-    console.log('useEffect: Initializing for currentDemo', currentDemo);
+  const startTypingAnimation = useCallback(() => {
     const demo = demos[currentDemo];
-    setTypedText('');
-    setShowResult(false);
+
     setIsTyping(true);
-    setProcessingStage(0);
-    setCharIndex(0); // Reset charIndex when currentDemo changes
+    setShowResult(false);
+    setProcessingStage(0); // Reset for UI
+    processingStageRef.current = 0; // Reset for internal logic
+    setTypedText(''); // Clear typed text on demo change
 
     // Clear any existing intervals
     if (typeIntervalRef.current) {
       clearInterval(typeIntervalRef.current);
+      typeIntervalRef.current = null;
     }
     if (processIntervalRef.current) {
       clearInterval(processIntervalRef.current);
+      processIntervalRef.current = null;
     }
 
     typeIntervalRef.current = setInterval(() => {
-      setCharIndex(prevCharIndex => {
-        const newCharIndex = prevCharIndex + 1;
-        console.log('typeInterval: typed', newCharIndex, 'chars', demo.input.slice(0, newCharIndex));
-        if (newCharIndex <= demo.input.length) {
-          setTypedText(demo.input.slice(0, newCharIndex));
-          return newCharIndex;
-        } else {
+      setTypedText(prevTypedText => {
+        const nextCharIndex = prevTypedText.length + 1;
+        const newTypedText = demo.input.slice(0, nextCharIndex);
+
+        if (nextCharIndex <= demo.input.length) {
+          return newTypedText;
+      } else {
+          // Typing complete
           if (typeIntervalRef.current) {
             clearInterval(typeIntervalRef.current);
             typeIntervalRef.current = null;
           }
-          setIsTyping(false);
-          console.log('typeInterval: Typing complete, starting processing.');
-          
-          let stage = 0; // Local stage variable
+        setIsTyping(false);
+        
           processIntervalRef.current = setInterval(() => {
-            setProcessingStage(prevStage => {
-              const newStage = prevStage + 1;
-              console.log('processInterval: stage', newStage, '/', demo.processingSteps.length);
-              if (newStage >= demo.processingSteps.length) {
-                if (processIntervalRef.current) {
-                  clearInterval(processIntervalRef.current);
-                  processIntervalRef.current = null;
-                }
-                setTimeout(() => {
-                  setShowResult(true);
-                  console.log('processInterval: Processing complete, showing result.');
-                }, 300);
+            processingStageRef.current += 1; // Increment ref
+            setProcessingStage(processingStageRef.current); // Update state for UI
+
+            if (processingStageRef.current >= demo.processingSteps.length) {
+              if (processIntervalRef.current) {
+                clearInterval(processIntervalRef.current);
+                processIntervalRef.current = null;
               }
-              return newStage;
-            });
+              setTimeout(() => {
+                setShowResult(true);
+              }, 300);
+            }
           }, 600);
-          return prevCharIndex; // Do not update charIndex further
+          return prevTypedText; // Return the full typed text
         }
       });
-    }, 40);
+    }, 100);
+  }, [currentDemo, demos]); // Dependencies for useCallback
 
+  useEffect(() => {
+    startTypingAnimation();
     return () => {
-      console.log('useEffect cleanup: Clearing intervals');
       if (typeIntervalRef.current) {
         clearInterval(typeIntervalRef.current);
-        typeIntervalRef.current = null;
       }
       if (processIntervalRef.current) {
         clearInterval(processIntervalRef.current);
-        processIntervalRef.current = null;
       }
     };
-  }, [currentDemo, demos]); // Dependencies: currentDemo, demos
+  }, [startTypingAnimation]); // Dependency for useEffect is the useCallback itself
 
   // Effect to generate and manage background animations client-side
   useEffect(() => {
@@ -400,10 +400,10 @@ const NaturalLanguageProcessing = () => {
                       {currentDemoData.processingSteps.map((step, index) => (
                         <div key={index} className="flex items-center">
                           <div className={`w-2 sm:w-3 h-2 sm:h-3 rounded-full mr-2 sm:mr-3 ${
-                            index <= processingStage ? 'bg-cyan-400 animate-pulse' : 'bg-gray-600'
+                            index <= processingStageRef.current ? 'bg-cyan-400 animate-pulse' : 'bg-gray-600'
                           }`}></div>
                           <span className={`text-xs sm:text-sm ${
-                            index <= processingStage ? 'text-cyan-300' : 'text-gray-500'
+                            index <= processingStageRef.current ? 'text-cyan-300' : 'text-gray-500'
                           }`}>
                             {step}
                           </span>
@@ -426,7 +426,7 @@ const NaturalLanguageProcessing = () => {
                     </div>
                     <div className="bg-black/30 rounded-lg p-2 sm:p-3">
                       <div className="text-xs text-gray-400">Processing</div>
-                      <div className="text-sm sm:text-lg font-bold text-cyan-400">{Math.round((processingStage / currentDemoData.processingSteps.length) * 100)}%</div>
+                      <div className="text-sm sm:text-lg font-bold text-cyan-400">{Math.round((processingStageRef.current / currentDemoData.processingSteps.length) * 100)}%</div>
                     </div>
                   </div>
                 )}
