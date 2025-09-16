@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 const AITransformationSection = () => {
-  const [scrollY, setScrollY] = useState(0);
   const [activeNode, setActiveNode] = useState(0);
   const [hoveredPhase, setHoveredPhase] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0, nodeIndex: -1 });
@@ -77,7 +76,6 @@ const AITransformationSection = () => {
       if (sectionRef.current) {
         const rect = sectionRef.current.getBoundingClientRect();
         const progress = Math.max(0, Math.min(1, -rect.top / (rect.height - window.innerHeight)));
-        setScrollY(progress);
         setActiveNode(Math.floor(progress * 5));
       }
     };

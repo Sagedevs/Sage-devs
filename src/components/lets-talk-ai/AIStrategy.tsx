@@ -281,9 +281,9 @@ const AIStrategy = () => {
                 THE CONSCIOUSNESS THRESHOLD
               </div>
               <blockquote className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-light text-white leading-relaxed mb-6 sm:mb-8">
-                "We architect the bridge where artificial intelligence becomes 
+                &quot;We architect the bridge where artificial intelligence becomes 
                 <span className="text-blue-300 font-normal"> artificial consciousness</span>—
-                systems that develop genuine strategic intuition."
+                systems that develop genuine strategic intuition.&quot;
               </blockquote>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8 text-xs sm:text-sm text-gray-400">
                 <div className="text-center p-3 sm:p-0">

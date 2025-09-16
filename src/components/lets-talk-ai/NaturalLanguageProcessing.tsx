@@ -7,6 +7,7 @@ const NaturalLanguageProcessing = () => {
   const [typedText, setTypedText] = useState('');
   const [showResult, setShowResult] = useState(false);
   const [processingStage, setProcessingStage] = useState(0); // Reintroduced for UI updates
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const processingStageRef = useRef(0); // For internal logic
   const [nodeStyles, setNodeStyles] = useState<any[]>([]);
   const [streamStyles, setStreamStyles] = useState<any[]>([]);
@@ -15,7 +16,7 @@ const NaturalLanguageProcessing = () => {
   const typeIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const processIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const demos = [
+  const demos = React.useMemo(() => [
     {
       title: "Emotion Detective",
       subtitle: "Understands feelings in text",
@@ -96,7 +97,7 @@ const NaturalLanguageProcessing = () => {
       color: "orange",
       processingSteps: ["Extracting entities...", "Analyzing topics...", "Finding insights...", "Complete!"]
     }
-  ];
+  ], []);
 
   const startTypingAnimation = useCallback(() => {
     const demo = demos[currentDemo];
