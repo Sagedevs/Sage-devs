@@ -117,8 +117,7 @@ const LetsTalkAISection = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     console.log('AI Consultation Request:', formData);
     // Add your form submission logic here
     alert('Thank you for your interest! We\'ll contact you within 24 hours.');
@@ -165,9 +164,9 @@ const LetsTalkAISection = () => {
         }}
       />
 
-      <div className="relative z-10 min-h-screen flex items-center">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+      <div className="relative z-10 min-h-screen flex items-center" style={{ paddingTop: '50px' }}>
+        <div className="px-14 sm:px-15 md:px-20 lg:px-24 xl:px-34 py-8 sm:py-12 lg:py-16 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center w-full">
             
             {/* Left Content */}
             <div className="space-y-6 lg:space-y-8 order-2 lg:order-1">
@@ -254,7 +253,7 @@ const LetsTalkAISection = () => {
                   </div>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {/* Basic info row */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <input
@@ -335,13 +334,15 @@ const LetsTalkAISection = () => {
                   />
 
                   <button
-                    type="submit"
+                    type="button"
+                    onClick={handleSubmit}
                     className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold py-3 sm:py-4 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/30 flex items-center justify-center space-x-2 text-sm sm:text-base"
                   >
                     <span>Let's Discuss AI Solutions</span>
                     <span className="text-lg sm:text-xl">🚀</span>
                   </button>
-                </form>
+
+                </div>
 
                 {/* Trust indicators */}
                 <div className="flex flex-wrap justify-center gap-4 sm:gap-6 mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-slate-700/30">
