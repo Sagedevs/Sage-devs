@@ -99,7 +99,10 @@ const NaturalLanguageProcessing = () => {
     setProcessingStage(0);
 
     let i = 0;
-    const typeInterval = setInterval(() => {
+    let typeInterval: NodeJS.Timeout;
+    let processInterval: NodeJS.Timeout;
+
+    typeInterval = setInterval(() => {
       if (i < demo.input.length) {
         setTypedText(demo.input.slice(0, i + 1));
         i++;
@@ -109,7 +112,7 @@ const NaturalLanguageProcessing = () => {
         
         // Start processing animation
         let stage = 0;
-        const processInterval = setInterval(() => {
+        processInterval = setInterval(() => {
           setProcessingStage(stage);
           stage++;
           if (stage >= demo.processingSteps.length) {
@@ -120,8 +123,11 @@ const NaturalLanguageProcessing = () => {
       }
     }, 30);
 
-    return () => clearInterval(typeInterval);
-  }, [currentDemo, demos]);
+    return () => {
+      clearInterval(typeInterval);
+      clearInterval(processInterval);
+    };
+  }, [currentDemo, demos, isTyping, typedText]);
 
   const currentDemoData = demos[currentDemo];
 
@@ -221,7 +227,7 @@ const NaturalLanguageProcessing = () => {
             </span>
           </div>
           
-          <h1 className="text-6xl lg:text-8xl font-black mb-8 tracking-tight">
+          <h1 className="text-4xl sm:text-6xl lg:text-8xl font-black mb-8 tracking-tight">
             <span className="bg-gradient-to-r from-white via-cyan-200 to-blue-400 bg-clip-text text-transparent">
               LANGUAGE
             </span>
@@ -231,7 +237,7 @@ const NaturalLanguageProcessing = () => {
             </span>
           </h1>
           
-          <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8">
+          <p className="text-base sm:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8">
             Experience the future of human-AI communication. Watch as advanced algorithms 
             decode, understand, and respond to natural language with unprecedented precision.
           </p>
@@ -256,7 +262,7 @@ const NaturalLanguageProcessing = () => {
         {/* Enhanced Demo Selector */}
         <div className="flex justify-center mb-16">
           <div className="bg-gray-900/80 backdrop-blur-xl rounded-2xl p-3 border border-gray-700/50 shadow-2xl">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
               {demos.map((demo, index) => {
                 const colors = getColorClasses(demo.color);
                 return (
@@ -286,25 +292,25 @@ const NaturalLanguageProcessing = () => {
         {/* Enhanced Demo Title */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-4">
-            <span className="text-6xl mr-4 text-white">{currentDemoData.icon}</span>
+            <span className="text-4xl sm:text-6xl mr-4 text-white">{currentDemoData.icon}</span>
             <div>
-              <h2 className="text-5xl font-bold text-white mb-2">{currentDemoData.title}</h2>
-              <p className={`text-xl ${currentColors.text}`}>{currentDemoData.subtitle}</p>
+              <h2 className="text-3xl sm:text-5xl font-bold text-white mb-2">{currentDemoData.title}</h2>
+              <p className={`text-base sm:text-xl ${currentColors.text}`}>{currentDemoData.subtitle}</p>
             </div>
           </div>
         </div>
 
         {/* Enhanced Interactive Demo */}
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
             
             {/* Enhanced Input Side */}
             <div className="relative">
-              <div className="bg-gray-900/80 backdrop-blur-xl rounded-3xl p-8 border border-gray-700/50 h-full shadow-2xl">
+              <div className="bg-gray-900/80 backdrop-blur-xl rounded-3xl p-6 sm:p-8 border border-gray-700/50 h-full shadow-2xl">
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center">
-                    <div className="w-4 h-4 bg-green-400 rounded-full mr-3 animate-pulse"></div>
-                    <span className="text-green-400 font-bold">HUMAN INPUT</span>
+                    <div className="w-3 h-3 sm:w-4 sm:h-4 bg-green-400 rounded-full mr-3 animate-pulse"></div>
+                    <span className="text-green-400 font-bold text-sm sm:text-base">HUMAN INPUT</span>
                   </div>
                   <div className="text-xs text-gray-500">Real-time Processing</div>
                 </div>
@@ -366,11 +372,11 @@ const NaturalLanguageProcessing = () => {
 
             {/* Enhanced Output Side */}
             <div className="relative">
-              <div className={`bg-gradient-to-br ${currentColors.bg} backdrop-blur-xl rounded-3xl p-8 border ${currentColors.border} h-full shadow-2xl`}>
+              <div className={`bg-gradient-to-br ${currentColors.bg} backdrop-blur-xl rounded-3xl p-6 sm:p-8 border ${currentColors.border} h-full shadow-2xl`}>
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center">
-                    <div className={`w-4 h-4 ${currentColors.button} rounded-full mr-3 animate-pulse`}></div>
-                    <span className={`${currentColors.text} font-bold`}>AI ANALYSIS</span>
+                    <div className={`w-3 h-3 sm:w-4 sm:h-4 ${currentColors.button} rounded-full mr-3 animate-pulse`}></div>
+                    <span className={`${currentColors.text} font-bold text-sm sm:text-base`}>AI ANALYSIS</span>
                   </div>
                   <div className="text-xs text-gray-500">Neural Processing</div>
                 </div>
@@ -601,11 +607,11 @@ const NaturalLanguageProcessing = () => {
           </div>
 
           {/* Advanced Capabilities Grid */}
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div className="bg-gray-900/60 backdrop-blur-lg rounded-2xl p-8 border border-gray-700/50 hover:border-cyan-500/50 transition-all duration-300 group">
-              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🧠</div>
-              <h4 className="text-xl font-bold text-white mb-3">Neural Understanding</h4>
-              <p className="text-gray-400 mb-4">Deep contextual analysis powered by transformer architectures and attention mechanisms</p>
+          <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+            <div className="bg-gray-900/60 backdrop-blur-lg rounded-2xl p-6 sm:p-8 border border-gray-700/50 hover:border-cyan-500/50 transition-all duration-300 group">
+              <div className="text-3xl sm:text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🧠</div>
+              <h4 className="text-lg sm:text-xl font-bold text-white mb-3">Neural Understanding</h4>
+              <p className="text-sm sm:text-base text-gray-400 mb-4">Deep contextual analysis powered by transformer architectures and attention mechanisms</p>
               <ul className="space-y-2 text-sm text-gray-500">
                 <li className="flex items-center"><span className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-2"></span>Intent Recognition</li>
                 <li className="flex items-center"><span className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-2"></span>Context Preservation</li>
@@ -613,10 +619,10 @@ const NaturalLanguageProcessing = () => {
               </ul>
             </div>
 
-            <div className="bg-gray-900/60 backdrop-blur-lg rounded-2xl p-8 border border-gray-700/50 hover:border-blue-500/50 transition-all duration-300 group">
-              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">⚡</div>
-              <h4 className="text-xl font-bold text-white mb-3">Real-Time Processing</h4>
-              <p className="text-gray-400 mb-4">Instant analysis and response generation with optimized neural network inference</p>
+            <div className="bg-gray-900/60 backdrop-blur-lg rounded-2xl p-6 sm:p-8 border border-gray-700/50 hover:border-blue-500/50 transition-all duration-300 group">
+              <div className="text-3xl sm:text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">⚡</div>
+              <h4 className="text-lg sm:text-xl font-bold text-white mb-3">Real-Time Processing</h4>
+              <p className="text-sm sm:text-base text-gray-400 mb-4">Instant analysis and response generation with optimized neural network inference</p>
               <ul className="space-y-2 text-sm text-gray-500">
                 <li className="flex items-center"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2"></span>Parallel Processing</li>
                 <li className="flex items-center"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2"></span>Edge Computing</li>
@@ -624,10 +630,10 @@ const NaturalLanguageProcessing = () => {
               </ul>
             </div>
 
-            <div className="bg-gray-900/60 backdrop-blur-lg rounded-2xl p-8 border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300 group">
-              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🎯</div>
-              <h4 className="text-xl font-bold text-white mb-3">Adaptive Learning</h4>
-              <p className="text-gray-400 mb-4">Continuously evolving models that learn from every interaction and conversation</p>
+            <div className="bg-gray-900/60 backdrop-blur-lg rounded-2xl p-6 sm:p-8 border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300 group">
+              <div className="text-3xl sm:text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🎯</div>
+              <h4 className="text-lg sm:text-xl font-bold text-white mb-3">Adaptive Learning</h4>
+              <p className="text-sm sm:text-base text-gray-400 mb-4">Continuously evolving models that learn from every interaction and conversation</p>
               <ul className="space-y-2 text-sm text-gray-500">
                 <li className="flex items-center"><span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></span>Federated Learning</li>
                 <li className="flex items-center"><span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></span>Online Adaptation</li>
@@ -643,10 +649,10 @@ const NaturalLanguageProcessing = () => {
               <p className="text-gray-400">Real-time statistics from our global AI infrastructure</p>
             </div>
             
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
               <div className="text-center">
-                <div className="text-3xl font-black text-cyan-400 mb-2">2.3M+</div>
-                <div className="text-sm text-gray-400">Conversations/Hour</div>
+                <div className="text-2xl sm:text-3xl font-black text-cyan-400 mb-2">2.3M+</div>
+                <div className="text-xs sm:text-sm text-gray-400">Conversations/Hour</div>
                 <div className="w-full bg-gray-800 rounded-full h-2 mt-2">
                   <div className="bg-gradient-to-r from-cyan-400 to-blue-500 h-2 rounded-full animate-pulse" style={{width: '78%'}}></div>
                 </div>
