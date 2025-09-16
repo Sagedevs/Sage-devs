@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 const NaturalLanguageProcessing = () => {
   const [currentDemo, setCurrentDemo] = useState(0);
@@ -91,18 +91,14 @@ const NaturalLanguageProcessing = () => {
     }
   ];
 
-  useEffect(() => {
-    const demo = demos[currentDemo];
+  const typeAnimation = useCallback((demo: typeof demos[0]) => {
     setTypedText('');
     setShowResult(false);
     setIsTyping(true);
     setProcessingStage(0);
 
     let i = 0;
-    let typeInterval: NodeJS.Timeout;
-    let processInterval: NodeJS.Timeout;
-
-    typeInterval = setInterval(() => {
+    const typeInterval = setInterval(() => {
       if (i < demo.input.length) {
         setTypedText(demo.input.slice(0, i + 1));
         i++;
@@ -112,7 +108,7 @@ const NaturalLanguageProcessing = () => {
         
         // Start processing animation
         let stage = 0;
-        processInterval = setInterval(() => {
+        const processInterval = setInterval(() => {
           setProcessingStage(stage);
           stage++;
           if (stage >= demo.processingSteps.length) {
@@ -125,9 +121,14 @@ const NaturalLanguageProcessing = () => {
 
     return () => {
       clearInterval(typeInterval);
-      clearInterval(processInterval);
     };
-  }, [currentDemo]);
+  }, []);
+
+  useEffect(() => {
+    const demo = demos[currentDemo];
+    const cleanup = typeAnimation(demo);
+    return cleanup;
+  }, [currentDemo, typeAnimation, demos]);
 
   const currentDemoData = demos[currentDemo];
 
@@ -191,7 +192,7 @@ const NaturalLanguageProcessing = () => {
         </div>
         
         {/* Floating neural network nodes - reduced on mobile */}
-        {[...Array(window.innerWidth < 768 ? 8 : 16)].map((_, i) => (
+        {[...Array(typeof window !== 'undefined' && window.innerWidth < 768 ? 8 : 16)].map((_, i) => (
           <div
             key={i}
             className="absolute animate-pulse"
@@ -474,7 +475,7 @@ const NaturalLanguageProcessing = () => {
                           <span className="mr-2">🤖</span>AI Response
                         </div>
                         <div className="text-white text-sm sm:text-lg leading-relaxed bg-black/30 rounded-lg p-3 sm:p-4">
-                          "{currentDemoData.analysis.response}"
+                          &ldquo;{currentDemoData.analysis.response}&rdquo;
                         </div>
                       </div>
                     </div>
@@ -515,7 +516,7 @@ const NaturalLanguageProcessing = () => {
                               <div className="text-purple-300 font-semibold text-sm sm:text-base">{lang}</div>
                               <div className="text-xs text-purple-400">99% accurate</div>
                             </div>
-                            <div className="text-white text-sm sm:text-lg break-words">"{translation}"</div>
+                            <div className="text-white text-sm sm:text-lg break-words">&ldquo;{translation}&rdquo;</div>
                           </div>
                         ))}
                       </div>
