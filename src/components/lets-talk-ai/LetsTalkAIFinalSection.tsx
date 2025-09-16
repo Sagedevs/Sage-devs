@@ -177,7 +177,7 @@ const LetsTalkAISection = () => {
                   </div>
                   <div>
                     <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">
-                      Let's Talk
+                      Let&apos;s Talk
                       <span className="block text-2xl sm:text-3xl lg:text-4xl bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                         Artificial Intelligence
                       </span>
@@ -186,7 +186,7 @@ const LetsTalkAISection = () => {
                 </div>
 
                 <p className="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-lg">
-                  Ready to transform your business with AI? Let's discuss your vision and explore how cutting-edge artificial intelligence can drive your success.
+                  Ready to transform your business with AI? Let&apos;s discuss your vision and explore how cutting-edge artificial intelligence can drive your success.
                 </p>
               </div>
 
@@ -338,7 +338,7 @@ const LetsTalkAISection = () => {
                     onClick={handleSubmit}
                     className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold py-3 sm:py-4 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/30 flex items-center justify-center space-x-2 text-sm sm:text-base"
                   >
-                    <span>Let's Discuss AI Solutions</span>
+                    <span>Let&apos;s Discuss AI Solutions</span>
                     <span className="text-lg sm:text-xl">🚀</span>
                   </button>
 
