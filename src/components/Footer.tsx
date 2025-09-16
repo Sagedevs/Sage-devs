@@ -197,6 +197,8 @@ const Footer = () => {
   // Development Services
   const developmentServices: LinkItem[] = [
     { label: "Full Stack Development", href: "/services/full-stack" },
+    { label: "WordPress Services", href: "/services/wordpress" },
+    { label: "E-commerce Solutions", href: "/services/ecomerce" },
     { label: "Frontend Development", href: "/services/frontend" },
     { label: "Backend Development", href: "/services/backend" },
     { label: "Mobile App Development", href: "/services/mobile" },
@@ -250,7 +252,7 @@ const Footer = () => {
     },
     {
       platform: "Email",
-      href: "mailto:hello@sagedevs.com",
+      href: "mailto:sagedevs.network@gmail.com",
       iconPath: "/icons/gmail_icon.svg",
       label: "Email"
     },
@@ -260,17 +262,17 @@ const Footer = () => {
   const contactInfo: ContactInfo[] = [
     {
       label: "Email",
-      value: "hello@sagedevs.com",
-      href: "mailto:hello@sagedevs.com",
+      value: "sagedevs.network@gmail.com",
+      href: "mailto:sagedevs.network@gmail.com",
     },
     {
       label: "Phone",
-      value: "+1 (555) 123-4567",
-      href: "tel:+15551234567",
+      value: "+92 3259684493",
+      href: "tel:+92 3259684493",
     },
     {
       label: "Location",
-      value: "San Francisco, CA",
+      value: "Gulberg,Lahore",
       href: "#",
     },
   ];

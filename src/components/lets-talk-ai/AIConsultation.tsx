@@ -243,7 +243,7 @@ const AIConsultation = () => {
           </div>
         </div>
 
-        {/* Interactive CTA */}
+        {/* Interactive CTA
         <div className="text-center">
           <div className="relative inline-block">
             <button className="group relative px-12 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl font-bold text-xl overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25">
@@ -252,9 +252,9 @@ const AIConsultation = () => {
                 Initiate AI Transformation
                 <div className="w-6 h-6 bg-white rounded-full animate-pulse" />
               </span>
-            </button>
+            </button> */}
             
-            {/* Surrounding Animation */}
+            {/* Surrounding Animation
             <div className="absolute -inset-4">
               {Array.from({ length: 8 }).map((_, i) => (
                 <div
@@ -274,7 +274,7 @@ const AIConsultation = () => {
           <p className="text-slate-400 mt-8">
             Join the intelligence revolution • Experience the future today
           </p>
-        </div>
+        </div> */}
       </div>
 
       <style jsx>{`
