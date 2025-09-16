@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const NaturalLanguageProcessing = () => {
   const [currentDemo, setCurrentDemo] = useState(0);
@@ -7,6 +7,11 @@ const NaturalLanguageProcessing = () => {
   const [typedText, setTypedText] = useState('');
   const [showResult, setShowResult] = useState(false);
   const [processingStage, setProcessingStage] = useState(0);
+  const [nodeStyles, setNodeStyles] = useState<any[]>([]);
+  const [streamStyles, setStreamStyles] = useState<any[]>([]);
+  const [charIndex, setCharIndex] = useState(0);
+  const typeIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const processIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const demos = [
     {
@@ -58,7 +63,7 @@ const NaturalLanguageProcessing = () => {
         detected: "English",
         translations: {
           "Spanish": "El futuro de la tecnología está en nuestras manos",
-          "French": "L'avenir de la technologie est entre nos mains",
+          "French": "L'avenir de la tecnología est entre nos mains",
           "Chinese": "技术的未来掌握在我们手中",
           "Arabic": "مستقبل التكنولوجيا في أيدينا",
           "Japanese": "テクノロジーの未来は私たちの手の中にあります"
@@ -91,44 +96,95 @@ const NaturalLanguageProcessing = () => {
     }
   ];
 
-  const typeAnimation = useCallback((demo: typeof demos[0]) => {
+  useEffect(() => {
+    console.log('useEffect: Initializing for currentDemo', currentDemo);
+    const demo = demos[currentDemo];
     setTypedText('');
     setShowResult(false);
     setIsTyping(true);
     setProcessingStage(0);
+    setCharIndex(0); // Reset charIndex when currentDemo changes
 
-    let i = 0;
-    const typeInterval = setInterval(() => {
-      if (i < demo.input.length) {
-        setTypedText(demo.input.slice(0, i + 1));
-        i++;
-      } else {
-        clearInterval(typeInterval);
-        setIsTyping(false);
-        
-        // Start processing animation
-        let stage = 0;
-        const processInterval = setInterval(() => {
-          setProcessingStage(stage);
-          stage++;
-          if (stage >= demo.processingSteps.length) {
-            clearInterval(processInterval);
-            setTimeout(() => setShowResult(true), 300);
+    // Clear any existing intervals
+    if (typeIntervalRef.current) {
+      clearInterval(typeIntervalRef.current);
+    }
+    if (processIntervalRef.current) {
+      clearInterval(processIntervalRef.current);
+    }
+
+    typeIntervalRef.current = setInterval(() => {
+      setCharIndex(prevCharIndex => {
+        const newCharIndex = prevCharIndex + 1;
+        console.log('typeInterval: typed', newCharIndex, 'chars', demo.input.slice(0, newCharIndex));
+        if (newCharIndex <= demo.input.length) {
+          setTypedText(demo.input.slice(0, newCharIndex));
+          return newCharIndex;
+        } else {
+          if (typeIntervalRef.current) {
+            clearInterval(typeIntervalRef.current);
+            typeIntervalRef.current = null;
           }
-        }, 600);
-      }
+          setIsTyping(false);
+          console.log('typeInterval: Typing complete, starting processing.');
+          
+          let stage = 0; // Local stage variable
+          processIntervalRef.current = setInterval(() => {
+            setProcessingStage(prevStage => {
+              const newStage = prevStage + 1;
+              console.log('processInterval: stage', newStage, '/', demo.processingSteps.length);
+              if (newStage >= demo.processingSteps.length) {
+                if (processIntervalRef.current) {
+                  clearInterval(processIntervalRef.current);
+                  processIntervalRef.current = null;
+                }
+                setTimeout(() => {
+                  setShowResult(true);
+                  console.log('processInterval: Processing complete, showing result.');
+                }, 300);
+              }
+              return newStage;
+            });
+          }, 600);
+          return prevCharIndex; // Do not update charIndex further
+        }
+      });
     }, 40);
 
     return () => {
-      clearInterval(typeInterval);
+      console.log('useEffect cleanup: Clearing intervals');
+      if (typeIntervalRef.current) {
+        clearInterval(typeIntervalRef.current);
+        typeIntervalRef.current = null;
+      }
+      if (processIntervalRef.current) {
+        clearInterval(processIntervalRef.current);
+        processIntervalRef.current = null;
+      }
     };
-  }, []);
+  }, [currentDemo, demos]); // Dependencies: currentDemo, demos
 
+  // Effect to generate and manage background animations client-side
   useEffect(() => {
-    const demo = demos[currentDemo];
-    const cleanup = typeAnimation(demo);
-    return cleanup;
-  }, [currentDemo, typeAnimation, demos]);
+    if (typeof window === 'undefined') return; // Only run on client-side
+
+    const numNodes = window.innerWidth < 768 ? 8 : 16;
+    const generatedNodeStyles = Array.from({ length: numNodes }).map(() => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      animationDelay: `${Math.random() * 5}s`,
+      animationDuration: `${4 + Math.random() * 6}s`,
+    }));
+    setNodeStyles(generatedNodeStyles);
+
+    const numStreams = 3;
+    const generatedStreamStyles = Array.from({ length: numStreams }).map((_, i) => ({
+      top: `${15 + i * 25}%`,
+      animationDelay: `${Math.random() * 3}s`,
+      animationDuration: `${3 + Math.random() * 2}s`,
+    }));
+    setStreamStyles(generatedStreamStyles);
+  }, []); // Run once on client mount
 
   const currentDemoData = demos[currentDemo];
 
@@ -192,15 +248,15 @@ const NaturalLanguageProcessing = () => {
         </div>
         
         {/* Floating neural network nodes - reduced on mobile */}
-        {[...Array(typeof window !== 'undefined' && window.innerWidth < 768 ? 8 : 16)].map((_, i) => (
+        {nodeStyles.map((style, index) => (
           <div
-            key={i}
+            key={index}
             className="absolute animate-pulse"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animation: `neuralPulse ${4 + Math.random() * 6}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 5}s`
+              left: style.left,
+              top: style.top,
+              animation: `neuralPulse ${style.animationDuration}s ease-in-out infinite`,
+              animationDelay: style.animationDelay
             }}
           >
             <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-400/60 rounded-full">
@@ -210,16 +266,16 @@ const NaturalLanguageProcessing = () => {
         ))}
 
         {/* Data streams */}
-        {[...Array(3)].map((_, i) => (
+        {streamStyles.map((style, index) => (
           <div
-            key={i}
+            key={index}
             className="absolute h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"
             style={{
               left: '0%',
-              top: `${15 + i * 25}%`,
+              top: style.top,
               width: '100%',
-              animation: `dataStream ${3 + Math.random() * 2}s linear infinite`,
-              animationDelay: `${Math.random() * 3}s`
+              animation: `dataStream ${style.animationDuration}s linear infinite`,
+              animationDelay: style.animationDelay
             }}
           />
         ))}
@@ -475,7 +531,7 @@ const NaturalLanguageProcessing = () => {
                           <span className="mr-2">🤖</span>AI Response
                         </div>
                         <div className="text-white text-sm sm:text-lg leading-relaxed bg-black/30 rounded-lg p-3 sm:p-4">
-                          &ldquo;{currentDemoData.analysis.response}&rdquo;
+                          &quot;{currentDemoData.analysis.response}&quot;
                         </div>
                       </div>
                     </div>
@@ -516,7 +572,7 @@ const NaturalLanguageProcessing = () => {
                               <div className="text-purple-300 font-semibold text-sm sm:text-base">{lang}</div>
                               <div className="text-xs text-purple-400">99% accurate</div>
                             </div>
-                            <div className="text-white text-sm sm:text-lg break-words">&ldquo;{translation}&rdquo;</div>
+                            <div className="text-white text-sm sm:text-lg break-words">&quot;{translation}&quot;</div>
                           </div>
                         ))}
                       </div>

@@ -8,7 +8,6 @@ import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
-import { gilroy } from "@/fonts/fonts"; // Assuming this path is correct
 import Footer from "@/components/Footer"; // Assuming this path is correct
 import Image from "next/image"; // Import Image for the logo
 // Navigation items for GooeyNav (desktop center)
@@ -163,7 +162,7 @@ export default function RootLayout({
     return index === -1 ? 0 : index;
   }, [pathname]); // Ensure pathname is in dependency array
 
-  const baseBodyClasses = `${geistSans.variable} ${geistMono.variable} ${gilroy.variable} antialiased font-gilroy relative`;
+  const baseBodyClasses = `${geistSans.variable} ${geistMono.variable} antialiased font-gilroy relative`;
 
   return (
     <html lang="en" className="overflow-x-hidden">

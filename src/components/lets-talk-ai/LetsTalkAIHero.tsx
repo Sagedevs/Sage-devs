@@ -1,11 +1,16 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 const LetsTalkAIHero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
+  const [floatingElementStyles, setFloatingElementStyles] = useState<any[]>([]);
+  const floatingElementRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const complexGridRef = useRef<HTMLDivElement>(null);
+  const hexagonalPatternRef = useRef<HTMLDivElement>(null);
+  const interactiveLayerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsVisible(true);
@@ -15,29 +20,25 @@ const LetsTalkAIHero = () => {
     style.textContent = `
       @font-face {
         font-family: 'Gilroy';
-        src: url('/fonts/Gilroy-Regular.woff2') format('woff2'),
-             url('/fonts/Gilroy-Regular.woff') format('woff');
+        src: url('/fonts/Gilroy-Regular.woff2') format('woff2');
         font-weight: 400;
         font-style: normal;
       }
       @font-face {
         font-family: 'Gilroy';
-        src: url('/fonts/Gilroy-Medium.woff2') format('woff2'),
-             url('/fonts/Gilroy-Medium.woff') format('woff');
+        src: url('/fonts/Gilroy-Medium.woff2') format('woff2');
         font-weight: 500;
         font-style: normal;
       }
       @font-face {
         font-family: 'Gilroy';
-        src: url('/fonts/Gilroy-Bold.woff2') format('woff2'),
-             url('/fonts/Gilroy-Bold.woff') format('woff');
+        src: url('/fonts/Gilroy-Bold.woff2') format('woff2');
         font-weight: 700;
         font-style: normal;
       }
       @font-face {
         font-family: 'Gilroy';
-        src: url('/fonts/Gilroy-Black.woff2') format('woff2'),
-             url('/fonts/Gilroy-Black.woff') format('woff');
+        src: url('/fonts/Gilroy-Black.woff2') format('woff2');
         font-weight: 900;
         font-style: normal;
       }
@@ -124,6 +125,54 @@ const LetsTalkAIHero = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return; // Only run on client-side
+
+    const numFloatingElements = 50;
+    const generatedStyles = Array.from({ length: numFloatingElements }).map((_, i) => ({
+      width: `${3 + Math.random() * 8}px`,
+      height: `${3 + Math.random() * 8}px`,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      background: [
+        '#3b82f6', '#2563eb', '#06b6d4', '#1d4ed8',
+        '#1e40af', '#172554', '#1f2937', '#334155'
+      ][i % 8],
+      borderRadius: i % 3 === 0 ? '50%' : i % 3 === 1 ? '2px' : '0',
+      animationName: i % 4 === 0 ? 'float' : i % 4 === 1 ? 'bounce' : i % 4 === 2 ? 'spin' : 'pulse',
+      animationDelay: `${Math.random() * 5}s`,
+      animationDuration: `${2 + Math.random() * 4}s`,
+      animationIterationCount: 'infinite',
+      randomTranslateX: (0.02 + Math.random() * 0.04),
+      randomTranslateY: (0.02 + Math.random() * 0.04),
+      randomRotate: (Math.random() * 0.2 - 0.1),
+    }));
+    setFloatingElementStyles(generatedStyles);
+  }, []); // Empty dependency array means this runs once on mount, client-side only
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    // Update floating elements
+    floatingElementRefs.current.forEach((el, index) => {
+      if (el && floatingElementStyles[index]) {
+        const style = floatingElementStyles[index];
+        el.style.transform = `translate(${mousePosition.x * style.randomTranslateX}px, ${mousePosition.y * style.randomTranslateY}px) rotate(${mousePosition.x * style.randomRotate}deg)`;
+      }
+    });
+
+    // Update other layered background elements
+    if (complexGridRef.current) {
+      complexGridRef.current.style.transform = `translate(${mousePosition.x * 0.08}px, ${mousePosition.y * 0.08}px) rotate(${mousePosition.x * 0.01}deg)`;
+    }
+    if (hexagonalPatternRef.current) {
+      hexagonalPatternRef.current.style.transform = `translate(${mousePosition.x * -0.04}px, ${mousePosition.y * -0.04}px) scale(${1 + mousePosition.x * 0.0001})`;
+    }
+    if (interactiveLayerRef.current) {
+      interactiveLayerRef.current.style.transform = `translate(${mousePosition.x * 0.06}px, ${mousePosition.y * 0.06}px) rotate(${mousePosition.x * 0.02}deg)`;
+    }
+  }, [mousePosition, floatingElementStyles]); // Dependencies: mousePosition, and floatingElementStyles (for multipliers)
+
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setMousePosition({
@@ -155,7 +204,8 @@ const LetsTalkAIHero = () => {
         <div className="absolute inset-0">
           {/* Complex Multi-layered Grid System */}
           <div 
-            className="absolute inset-0 opacity-40"
+            className="absolute inset-0 opacity-40 complex-grid"
+            ref={complexGridRef}
             style={{
               backgroundImage: `
                 radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.9) 1px, transparent 1px),
@@ -168,7 +218,7 @@ const LetsTalkAIHero = () => {
                 linear-gradient(-45deg, rgba(236, 72, 153, 0.2) 1px, transparent 1px)
               `,
               backgroundSize: '50px 50px, 75px 75px, 100px 100px, 125px 125px, 60px 60px, 60px 60px, 40px 40px, 40px 40px',
-              transform: `translate(${mousePosition.x * 0.08}px, ${mousePosition.y * 0.08}px) rotate(${mousePosition.x * 0.01}deg)`,
+              // transform: `translate(${mousePosition.x * 0.08}px, ${mousePosition.y * 0.08}px) rotate(${mousePosition.x * 0.01}deg)`,
               transition: 'transform 0.1s ease-out',
             }}
           />
@@ -180,7 +230,8 @@ const LetsTalkAIHero = () => {
           
           {/* Dynamic hexagonal pattern with cursor interaction */}
           <div 
-            className="absolute inset-0 opacity-10"
+            className="absolute inset-0 opacity-10 hexagonal-pattern"
+            ref={hexagonalPatternRef}
             style={{
               backgroundImage: `
                 radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.2) 2px, transparent 2px),
@@ -190,21 +241,22 @@ const LetsTalkAIHero = () => {
                 radial-gradient(circle at 50% 50%, rgba(34, 197, 94, 0.1) 1px, transparent 1px)
               `,
               backgroundSize: '80px 80px, 100px 100px, 70px 70px, 90px 90px, 120px 120px',
-              transform: `translate(${mousePosition.x * -0.04}px, ${mousePosition.y * -0.04}px) scale(${1 + mousePosition.x * 0.0001})`,
+              // transform: `translate(${mousePosition.x * -0.04}px, ${mousePosition.y * -0.04}px) scale(${1 + mousePosition.x * 0.0001})`,
               transition: 'transform 0.1s ease-out',
             }}
           />
 
           {/* Additional interactive layer */}
           <div 
-            className="absolute inset-0 opacity-2"
+            className="absolute inset-0 opacity-2 interactive-layer"
+            ref={interactiveLayerRef}
             style={{
               backgroundImage: `
                 conic-gradient(from 0deg at 30% 30%, rgba(59, 130, 246, 0.05), transparent 50%, rgba(59, 130, 246, 0.05)),
                 conic-gradient(from 180deg at 70% 70%, rgba(6, 182, 212, 0.05), transparent 50%, rgba(6, 182, 212, 0.05))
               `,
               backgroundSize: '200px 200px, 250px 250px',
-              transform: `translate(${mousePosition.x * 0.06}px, ${mousePosition.y * 0.06}px) rotate(${mousePosition.x * 0.02}deg)`,
+              // transform: `translate(${mousePosition.x * 0.06}px, ${mousePosition.y * 0.06}px) rotate(${mousePosition.x * 0.02}deg)`,
               transition: 'transform 0.1s ease-out',
             }}
           />
@@ -250,25 +302,15 @@ const LetsTalkAIHero = () => {
 
         {/* Massive Amount of Floating Elements */}
         <div className="absolute inset-0">
-          {[...Array(50)].map((_, i) => (
+          {floatingElementStyles.map((style, index) => (
             <div
-              key={i}
+              key={index}
+              ref={el => {
+                floatingElementRefs.current[index] = el;
+              }}
               className="absolute opacity-60"
               style={{
-                width: `${3 + Math.random() * 8}px`,
-                height: `${3 + Math.random() * 8}px`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                background: [
-                  '#3b82f6', '#2563eb', '#06b6d4', '#1d4ed8',
-                  '#1e40af', '#172554', '#1f2937', '#334155'
-                ][i % 8],
-                borderRadius: i % 3 === 0 ? '50%' : i % 3 === 1 ? '2px' : '0',
-                animationName: i % 4 === 0 ? 'float' : i % 4 === 1 ? 'bounce' : i % 4 === 2 ? 'spin' : 'pulse',
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${2 + Math.random() * 4}s`,
-                animationIterationCount: 'infinite',
-                transform: `translate(${mousePosition.x * (0.02 + Math.random() * 0.04)}px, ${mousePosition.y * (0.02 + Math.random() * 0.04)}px) rotate(${mousePosition.x * 0.1 + mousePosition.y * 0.1}deg)`,
+                ...style,
                 transition: 'transform 0.1s ease-out',
               }}
             />
