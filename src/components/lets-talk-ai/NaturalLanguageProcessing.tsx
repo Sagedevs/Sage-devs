@@ -400,10 +400,10 @@ const NaturalLanguageProcessing = () => {
                       {currentDemoData.processingSteps.map((step, index) => (
                         <div key={index} className="flex items-center">
                           <div className={`w-2 sm:w-3 h-2 sm:h-3 rounded-full mr-2 sm:mr-3 ${
-                            index <= processingStageRef.current ? 'bg-cyan-400 animate-pulse' : 'bg-gray-600'
+                            index <= processingStage ? 'bg-cyan-400 animate-pulse' : 'bg-gray-600'
                           }`}></div>
                           <span className={`text-xs sm:text-sm ${
-                            index <= processingStageRef.current ? 'text-cyan-300' : 'text-gray-500'
+                            index <= processingStage ? 'text-cyan-300' : 'text-gray-500'
                           }`}>
                             {step}
                           </span>
@@ -426,7 +426,7 @@ const NaturalLanguageProcessing = () => {
                     </div>
                     <div className="bg-black/30 rounded-lg p-2 sm:p-3">
                       <div className="text-xs text-gray-400">Processing</div>
-                      <div className="text-sm sm:text-lg font-bold text-cyan-400">{Math.round((processingStageRef.current / currentDemoData.processingSteps.length) * 100)}%</div>
+                      <div className="text-sm sm:text-lg font-bold text-cyan-400">{Math.round((processingStage / currentDemoData.processingSteps.length) * 100)}%</div>
                     </div>
                   </div>
                 )}
