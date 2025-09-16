@@ -5,13 +5,10 @@ interface FormData {
   name: string;
   email: string;
   company: string;
+  aiInterest: string;
+  projectScale: string;
+  timeline: string;
   message: string;
-}
-
-interface Ripple {
-  x: number;
-  y: number;
-  id: number;
 }
 
 interface Particle {
@@ -21,6 +18,7 @@ interface Particle {
   vy: number;
   life: number;
   maxLife: number;
+  color: string;
 }
 
 const LetsTalkAISection = () => {
@@ -28,114 +26,63 @@ const LetsTalkAISection = () => {
     name: '',
     email: '',
     company: '',
+    aiInterest: '',
+    projectScale: '',
+    timeline: '',
     message: ''
   });
-  const [activeCard, setActiveCard] = useState(0);
-  const [mouseAngle, setMouseAngle] = useState(0);
-  const [mouseDistance, setMouseDistance] = useState(0);
-  const [ripples, setRipples] = useState<Ripple[]>([]);
+  
   const [particles, setParticles] = useState<Particle[]>([]);
-  const [isHubHovered, setIsHubHovered] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isFormFocused, setIsFormFocused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const features = [
-    { 
-      title: "Neural Networks", 
-      subtitle: "Deep Learning",
-      icon: "⬡", 
-      color: "blue",
-      gradient: "from-blue-500 to-blue-700"
-    },
-    { 
-      title: "Computer Vision", 
-      subtitle: "Image AI",
-      icon: "◈", 
-      color: "cyan",
-      gradient: "from-cyan-500 to-blue-600"
-    },
-    { 
-      title: "NLP Engine", 
-      subtitle: "Language AI",
-      icon: "◊", 
-      color: "indigo",
-      gradient: "from-indigo-500 to-purple-600"
-    },
-    { 
-      title: "Predictive AI", 
-      subtitle: "Future Tech",
-      icon: "◉", 
-      color: "sky",
-      gradient: "from-sky-500 to-cyan-600"
-    }
+  const aiInterests = [
+    "Machine Learning",
+    "Natural Language Processing", 
+    "Computer Vision",
+    "Predictive Analytics",
+    "Automation & Robotics",
+    "Data Intelligence",
+    "Custom AI Solutions"
   ];
 
-  // Auto-cycle through features
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveCard(prev => (prev + 1) % 4);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
+  const projectScales = [
+    "Startup/Small Business",
+    "Mid-size Company",
+    "Enterprise",
+    "Government/Institution",
+    "Research/Academic"
+  ];
 
-  // Mouse tracking with smooth interpolation
+  const timelines = [
+    "Immediate (1-3 months)",
+    "Short-term (3-6 months)",
+    "Medium-term (6-12 months)",
+    "Long-term (12+ months)",
+    "Just exploring"
+  ];
+
+  // Generate floating particles
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-        
-        const angle = Math.atan2(mouseY - centerY, mouseX - centerX);
-        const distance = Math.min(Math.sqrt((mouseX - centerX) ** 2 + (mouseY - centerY) ** 2) / 300, 1);
-        
-        setMouseAngle(angle * (180 / Math.PI));
-        setMouseDistance(distance);
+    const generateParticles = () => {
+      const newParticles: Particle[] = [];
+      for (let i = 0; i < 30; i++) {
+        newParticles.push({
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          life: Math.random() * 200 + 100,
+          maxLife: Math.random() * 200 + 100,
+          color: ['#3b82f6', '#06b6d4', '#8b5cf6', '#10b981'][Math.floor(Math.random() * 4)]
+        });
       }
+      setParticles(newParticles);
     };
 
-    const handleClick = (e: MouseEvent) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const newRipple: Ripple = {
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top,
-          id: Date.now()
-        };
-        setRipples(prev => [...prev.slice(-5), newRipple]);
-        
-        // Generate particles
-        const newParticles: Particle[] = [];
-        for (let i = 0; i < 8; i++) {
-          newParticles.push({
-            x: newRipple.x,
-            y: newRipple.y,
-            vx: (Math.random() - 0.5) * 4,
-            vy: (Math.random() - 0.5) * 4,
-            life: 60,
-            maxLife: 60
-          });
-        }
-        setParticles(prev => [...prev.slice(-20), ...newParticles]);
-        
-        setTimeout(() => {
-          setRipples(prev => prev.filter(r => r.id !== newRipple.id));
-        }, 2000);
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('click', handleClick);
+    generateParticles();
     
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('click', handleClick);
-    };
-  }, []);
-
-  // Particle animation
-  useEffect(() => {
     const interval = setInterval(() => {
       setParticles(prev => 
         prev.map(p => ({
@@ -143,14 +90,26 @@ const LetsTalkAISection = () => {
           x: p.x + p.vx,
           y: p.y + p.vy,
           life: p.life - 1,
-          vy: p.vy + 0.1
+          vx: p.x < 0 || p.x > window.innerWidth ? -p.vx : p.vx,
+          vy: p.y < 0 || p.y > window.innerHeight ? -p.vy : p.vy
         })).filter(p => p.life > 0)
       );
-    }, 16);
+    }, 50);
+
     return () => clearInterval(interval);
   }, []);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  // Mouse tracking
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -159,276 +118,245 @@ const LetsTalkAISection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    console.log('AI Consultation Request:', formData);
+    // Add your form submission logic here
+    alert('Thank you for your interest! We\'ll contact you within 24 hours.');
   };
 
-  const completionPercentage = Object.values(formData).filter(v => v.length > 0).length * 25;
+  const completionPercentage = Math.round(
+    (Object.values(formData).filter(v => v.length > 0).length / Object.keys(formData).length) * 100
+  );
 
   return (
     <div 
       ref={containerRef}
-      className="relative min-h-screen bg-gradient-to-br from-black via-slate-950 to-black overflow-hidden"
-      style={{ cursor: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='10' r='8' fill='none' stroke='%233b82f6' stroke-width='2'/%3E%3Ccircle cx='10' cy='10' r='2' fill='%233b82f6'/%3E%3C/svg%3E") 10 10, crosshair` }}
+      className="relative min-h-screen bg-gradient-to-br from-slate-950 via-black to-slate-900 overflow-hidden"
     >
-      {/* Ambient background effects */}
+      {/* Animated background */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-600/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_20%,rgba(59,130,246,0.1)_0%,transparent_50%)]"></div>
+        <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_80%,rgba(6,182,212,0.1)_0%,transparent_50%)]"></div>
       </div>
 
-      {/* Interactive particles */}
-      {particles.map(particle => (
+      {/* Floating particles */}
+      {particles.map((particle, i) => (
         <div
-          key={`${particle.x}-${particle.y}`}
-          className="absolute w-1 h-1 bg-blue-400 rounded-full pointer-events-none"
+          key={i}
+          className="absolute w-1 h-1 rounded-full opacity-60"
           style={{
             left: particle.x,
             top: particle.y,
-            opacity: particle.life / particle.maxLife,
+            backgroundColor: particle.color,
+            opacity: particle.life / particle.maxLife * 0.6,
             transform: 'translate(-50%, -50%)'
           }}
         />
       ))}
 
-      {/* Click ripples */}
-      {ripples.map(ripple => (
-        <div
-          key={ripple.id}
-          className="absolute pointer-events-none"
-          style={{
-            left: ripple.x,
-            top: ripple.y,
-            transform: 'translate(-50%, -50%)'
-          }}
-        >
-          <div className="w-8 h-8 border-2 border-blue-400/60 rounded-full animate-ping"></div>
-          <div className="absolute inset-0 w-8 h-8 border border-blue-300/40 rounded-full animate-ping" style={{ animationDelay: '0.2s', animationDuration: '2s' }}></div>
-          <div className="absolute inset-0 w-8 h-8 border border-cyan-400/30 rounded-full animate-ping" style={{ animationDelay: '0.4s', animationDuration: '3s' }}></div>
-        </div>
-      ))}
+      {/* Mouse follower effect */}
+      <div
+        className="fixed w-80 h-80 pointer-events-none"
+        style={{
+          left: mousePos.x - 160,
+          top: mousePos.y - 160,
+          background: 'radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 70%)',
+          transition: 'all 0.3s ease'
+        }}
+      />
 
-      {/* Central AI Hub */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div 
-          className="relative transition-transform duration-300 ease-out"
-          style={{ 
-            transform: `rotate(${mouseAngle * 0.15}deg) scale(${1 + mouseDistance * 0.1})`,
-            filter: `drop-shadow(0 0 ${20 + mouseDistance * 30}px rgba(59, 130, 246, ${0.3 + mouseDistance * 0.2}))`
-          }}
-        >
-          {/* Connection lines */}
-          <svg className="absolute inset-0 w-[400px] h-[400px]" style={{ left: '-50px', top: '-50px' }}>
-            {features.map((_, i) => (
-              <g key={i}>
-                <line
-                  x1="200"
-                  y1="200"
-                  x2={200 + Math.cos((i * 90 - 45) * Math.PI / 180) * 120}
-                  y2={200 + Math.sin((i * 90 - 45) * Math.PI / 180) * 120}
-                  stroke={activeCard === i ? '#3b82f6' : '#475569'}
-                  strokeWidth={activeCard === i ? '3' : '1'}
-                  className="transition-all duration-700"
-                  opacity={activeCard === i ? '0.8' : '0.3'}
-                  strokeDasharray={activeCard === i ? '0' : '5,5'}
-                />
-                {activeCard === i && (
-                  <circle
-                    cx={200 + Math.cos((i * 90 - 45) * Math.PI / 180) * 60}
-                    cy={200 + Math.sin((i * 90 - 45) * Math.PI / 180) * 60}
-                    r="3"
-                    fill="#3b82f6"
-                    className="animate-pulse"
-                  />
-                )}
-              </g>
-            ))}
-          </svg>
-
-          {/* Central Hub */}
-          <div 
-            className="relative w-24 h-24 transition-all duration-500"
-            onMouseEnter={() => setIsHubHovered(true)}
-            onMouseLeave={() => setIsHubHovered(false)}
-          >
-            <div className={`absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full transition-all duration-500 ${
-              isHubHovered ? 'scale-110 shadow-2xl shadow-blue-500/50' : 'scale-100'
-            }`}>
-              <div className="absolute inset-2 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
-                <div className="text-white text-xl font-black">AI</div>
-              </div>
-            </div>
-            <div className="absolute -inset-2 border-2 border-blue-400/30 rounded-full animate-spin" style={{ animationDuration: '10s' }}></div>
-          </div>
-
-          {/* Orbiting Feature Cards */}
-          {features.map((feature, i) => (
-            <div
-              key={i}
-              className="absolute w-20 h-20 transition-all duration-700"
-              style={{
-                transform: `rotate(${i * 90}deg) translateX(120px) rotate(${-i * 90 - mouseAngle * 0.15}deg)`,
-                transformOrigin: 'center'
-              }}
-            >
-              <div 
-                className={`w-full h-full rounded-2xl backdrop-blur-xl border-2 transition-all duration-500 cursor-pointer ${
-                  activeCard === i 
-                    ? `bg-gradient-to-br ${feature.gradient} border-white/40 shadow-xl scale-110` 
-                    : 'bg-slate-900/80 border-slate-600/50 hover:border-slate-500'
-                }`}
-                onClick={() => setActiveCard(i)}
-              >
-                <div className="p-2 h-full flex flex-col items-center justify-center text-center">
-                  <div className={`text-lg mb-1 transition-colors duration-300 ${
-                    activeCard === i ? 'text-white' : 'text-blue-400'
-                  }`}>
-                    {feature.icon}
-                  </div>
-                  <div className={`text-[10px] font-bold leading-tight transition-colors duration-300 ${
-                    activeCard === i ? 'text-white' : 'text-slate-300'
-                  }`}>
-                    {feature.title}
-                  </div>
-                  <div className={`text-[8px] leading-tight transition-colors duration-300 ${
-                    activeCard === i ? 'text-blue-100' : 'text-slate-500'
-                  }`}>
-                    {feature.subtitle}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Top Info Panel */}
-      <div className="absolute top-8 left-8 max-w-sm">
-        <div className="bg-slate-900/90 backdrop-blur-2xl border border-slate-700/50 rounded-3xl p-8 shadow-2xl">
-          <div className="flex items-center space-x-4 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/30">
-              <div className="text-white font-black text-lg">AI</div>
-            </div>
-            <div>
-              <h1 className="text-2xl font-black text-white">Neural Studio</h1>
-              <p className="text-blue-400 text-sm">Interactive AI Platform</p>
-            </div>
-          </div>
-          
-          <p className="text-slate-300 text-sm leading-relaxed mb-6">
-            Experience our AI ecosystem. Each click creates neural pathways, 
-            mouse movements guide the intelligence flow.
-          </p>
-          
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-green-400 text-xs font-mono uppercase tracking-wide">Live System</span>
-            </div>
-            <div className="text-blue-400 font-mono text-xs">
-              v4.2.1
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Stats Panel */}
-      <div className="absolute top-8 right-8">
-        <div className="space-y-4">
-          {[
-            { label: "Neural Nodes", value: "2.4M", icon: "◉" },
-            { label: "Processing Speed", value: "∞", icon: "⚡" },
-            { label: "Accuracy Rate", value: "99.9%", icon: "✓" },
-            { label: "Active Models", value: "847", icon: "◈" }
-          ].map((stat, i) => (
-            <div key={i} className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-4 min-w-[120px] hover:border-blue-500/50 transition-all duration-300 cursor-pointer">
-              <div className="flex items-center space-x-3">
-                <div className="text-blue-400 text-lg">{stat.icon}</div>
-                <div>
-                  <div className="text-xl font-bold text-white">{stat.value}</div>
-                  <div className="text-xs text-slate-400 uppercase tracking-wide">{stat.label}</div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Enhanced Bottom Form */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-        <div className="bg-slate-900/95 backdrop-blur-3xl border border-slate-700/60 rounded-3xl p-8 w-[700px] shadow-2xl">
-          {/* Form header with progress */}
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-white mb-2">Connect to the Network</h2>
-            <p className="text-slate-400 mb-4">Initialize your AI transformation</p>
+      <div className="relative z-10 min-h-screen flex items-center">
+        <div className="container mx-auto px-8 py-16">
+          <div className="grid grid-cols-2 gap-16 items-center">
             
-            {/* Progress bar */}
-            <div className="w-full bg-slate-800 rounded-full h-2 mb-2">
-              <div 
-                className="bg-gradient-to-r from-blue-500 to-cyan-500 h-2 rounded-full transition-all duration-500"
-                style={{ width: `${completionPercentage}%` }}
-              ></div>
-            </div>
-            <div className="text-xs text-slate-500">{completionPercentage}% Complete</div>
-          </div>
+            {/* Left Content */}
+            <div className="space-y-8">
+              <div className="space-y-6">
+                <div className="flex items-center space-x-4">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/30">
+                    <div className="text-white font-black text-xl">AI</div>
+                  </div>
+                  <div>
+                    <h1 className="text-5xl font-black text-white leading-tight">
+                      Let's Talk
+                      <span className="block text-4xl bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                        Artificial Intelligence
+                      </span>
+                    </h1>
+                  </div>
+                </div>
 
-          <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-4 gap-4 mb-6">
-              <input
-                type="text"
-                name="name"
-                placeholder="Full Name"
-                value={formData.name}
-                onChange={handleInputChange}
-                className="px-4 py-4 bg-black/60 border border-slate-600/50 rounded-2xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 text-center font-medium"
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                value={formData.email}
-                onChange={handleInputChange}
-                className="px-4 py-4 bg-black/60 border border-slate-600/50 rounded-2xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 text-center font-medium"
-              />
-              <input
-                type="text"
-                name="company"
-                placeholder="Company"
-                value={formData.company}
-                onChange={handleInputChange}
-                className="px-4 py-4 bg-black/60 border border-slate-600/50 rounded-2xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 text-center font-medium"
-              />
-              <button
-                type="submit"
-                className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30"
-              >
-                CONNECT
-              </button>
-            </div>
-
-            <textarea
-              name="message"
-              placeholder="Describe your AI vision and goals..."
-              value={formData.message}
-              onChange={handleInputChange}
-              rows={3}
-              className="w-full px-6 py-4 bg-black/60 border border-slate-600/50 rounded-2xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 resize-none font-medium"
-            />
-          </form>
-
-          {/* Enhanced connection indicators */}
-          <div className="flex justify-center space-x-8 mt-6 pt-6 border-t border-slate-700/50">
-            {[
-              { label: "Quantum Encrypted", color: "blue", icon: "🛡️" },
-              { label: "Real-time AI", color: "green", icon: "⚡" },
-              { label: "Neural Processing", color: "purple", icon: "🧠" }
-            ].map((indicator, i) => (
-              <div key={i} className="flex items-center space-x-2 text-xs text-slate-400">
-                <span className="text-sm">{indicator.icon}</span>
-                <div className={`w-2 h-2 bg-${indicator.color}-400 rounded-full animate-pulse`}></div>
-                <span>{indicator.label}</span>
+                <p className="text-xl text-slate-300 leading-relaxed max-w-lg">
+                  Ready to transform your business with AI? Let's discuss your vision and explore how cutting-edge artificial intelligence can drive your success.
+                </p>
               </div>
-            ))}
+
+              {/* Features grid */}
+              <div className="grid grid-cols-2 gap-6">
+                {[
+                  { icon: "🧠", title: "Smart Solutions", desc: "Custom AI tailored to your needs" },
+                  { icon: "⚡", title: "Rapid Deployment", desc: "Fast implementation & results" },
+                  { icon: "📊", title: "Data-Driven", desc: "Insights that drive decisions" },
+                  { icon: "🔮", title: "Future-Ready", desc: "Scalable AI architecture" }
+                ].map((feature, i) => (
+                  <div key={i} className="group">
+                    <div className="flex items-start space-x-4 p-4 rounded-2xl hover:bg-slate-800/30 transition-all duration-300 cursor-pointer">
+                      <div className="text-2xl group-hover:scale-110 transition-transform duration-300">
+                        {feature.icon}
+                      </div>
+                      <div>
+                        <h3 className="text-white font-bold text-lg mb-1">{feature.title}</h3>
+                        <p className="text-slate-400 text-sm">{feature.desc}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Stats */}
+              <div className="flex space-x-8 pt-8 border-t border-slate-700/50">
+                {[
+                  { value: "500+", label: "AI Projects" },
+                  { value: "24hr", label: "Response Time" },
+                  { value: "98%", label: "Success Rate" }
+                ].map((stat, i) => (
+                  <div key={i} className="text-center">
+                    <div className="text-3xl font-black text-white mb-1">{stat.value}</div>
+                    <div className="text-xs text-slate-400 uppercase tracking-wider">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Form */}
+            <div className="relative">
+              <div 
+                className={`bg-slate-900/80 backdrop-blur-2xl border rounded-3xl p-8 shadow-2xl transition-all duration-500 ${
+                  isFormFocused ? 'border-blue-500/60 shadow-blue-500/20' : 'border-slate-700/50'
+                }`}
+                onFocus={() => setIsFormFocused(true)}
+                onBlur={() => setIsFormFocused(false)}
+              >
+                {/* Form header */}
+                <div className="text-center mb-8">
+                  <h2 className="text-2xl font-bold text-white mb-2">Start Your AI Journey</h2>
+                  <p className="text-slate-400 text-sm">Tell us about your project</p>
+                  
+                  {/* Progress indicator */}
+                  <div className="mt-4">
+                    <div className="w-full bg-slate-800 rounded-full h-1.5">
+                      <div 
+                        className="bg-gradient-to-r from-blue-500 to-cyan-500 h-1.5 rounded-full transition-all duration-500"
+                        style={{ width: `${completionPercentage}%` }}
+                      ></div>
+                    </div>
+                    <div className="text-xs text-slate-500 mt-2">{completionPercentage}% Complete</div>
+                  </div>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Basic info row */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Full Name *"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                      className="px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300"
+                    />
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email Address *"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      className="px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300"
+                    />
+                  </div>
+
+                  <input
+                    type="text"
+                    name="company"
+                    placeholder="Company/Organization"
+                    value={formData.company}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300"
+                  />
+
+                  {/* AI-specific fields */}
+                  <select
+                    name="aiInterest"
+                    value={formData.aiInterest}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300"
+                  >
+                    <option value="" className="text-slate-400">Select AI Interest Area</option>
+                    {aiInterests.map(interest => (
+                      <option key={interest} value={interest}>{interest}</option>
+                    ))}
+                  </select>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <select
+                      name="projectScale"
+                      value={formData.projectScale}
+                      onChange={handleInputChange}
+                      className="px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300"
+                    >
+                      <option value="">Project Scale</option>
+                      {projectScales.map(scale => (
+                        <option key={scale} value={scale}>{scale}</option>
+                      ))}
+                    </select>
+
+                    <select
+                      name="timeline"
+                      value={formData.timeline}
+                      onChange={handleInputChange}
+                      className="px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300"
+                    >
+                      <option value="">Timeline</option>
+                      {timelines.map(timeline => (
+                        <option key={timeline} value={timeline}>{timeline}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <textarea
+                    name="message"
+                    placeholder="Describe your AI vision, challenges, or specific requirements..."
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    rows={4}
+                    className="w-full px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 resize-none"
+                  />
+
+                  <button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold py-4 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/30 flex items-center justify-center space-x-2"
+                  >
+                    <span>Let's Discuss AI Solutions</span>
+                    <span className="text-xl">🚀</span>
+                  </button>
+                </form>
+
+                {/* Trust indicators */}
+                <div className="flex justify-center space-x-6 mt-6 pt-6 border-t border-slate-700/30">
+                  {[
+                    { icon: "🔒", label: "Secure" },
+                    { icon: "⚡", label: "24h Response" },
+                    { icon: "🎯", label: "Tailored Solutions" }
+                  ].map((indicator, i) => (
+                    <div key={i} className="flex items-center space-x-2 text-xs text-slate-400">
+                      <span>{indicator.icon}</span>
+                      <span>{indicator.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
