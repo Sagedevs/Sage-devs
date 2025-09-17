@@ -11,7 +11,7 @@ const UIDesign = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">User Research & Analysis</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300">We conduct in-depth user research and analysis to understand your target audience's behaviors, needs, and pain points. This foundational step ensures our designs are truly user-centered and solve real-world problems.</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">We conduct in-depth user research and analysis to understand your target audience&apos;s behaviors, needs, and pain points. This foundational step ensures our designs are truly user-centered and solve real-world problems.</p>
           </div>
           <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Wireframing & Prototyping</h3>
@@ -19,7 +19,7 @@ const UIDesign = () => {
           </div>
           <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Visual Design & Branding</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300">We specialize in crafting stunning visual interfaces that are not only aesthetically pleasing but also highly functional. Our visual design services extend to ensuring brand consistency across all touchpoints, reinforcing your brand's identity and appeal.</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">We specialize in crafting stunning visual interfaces that are not only aesthetically pleasing but also highly functional. Our visual design services extend to ensuring brand consistency across all touchpoints, reinforcing your brand&apos;s identity and appeal.</p>
           </div>
         </div>
       </div>

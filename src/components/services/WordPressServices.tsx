@@ -15,7 +15,7 @@ const WordPressServices = () => {
           </div>
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Theme & Plugin Development</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300">Enhance your WordPress site with bespoke themes and custom plugins. We develop solutions that extend functionality, improve user experience, and seamlessly integrate with your existing systems, giving you full control over your site's capabilities.</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Enhance your WordPress site with bespoke themes and custom plugins. We develop solutions that extend functionality, improve user experience, and seamlessly integrate with your existing systems, giving you full control over your site&apos;s capabilities.</p>
           </div>
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">WordPress Maintenance</h3>

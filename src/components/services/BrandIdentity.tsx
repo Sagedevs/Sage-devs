@@ -11,7 +11,7 @@ const BrandIdentity = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Logo & Visual Identity</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300">We design compelling logos and visual elements that capture the essence of your brand. Our creative process ensures your visual identity is distinctive, memorable, and effectively communicates your brand's values and personality.</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">We design compelling logos and visual elements that capture the essence of your brand. Our creative process ensures your visual identity is distinctive, memorable, and effectively communicates your brand&apos;s values and personality.</p>
           </div>
           <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Brand Guidelines</h3>
@@ -19,7 +19,7 @@ const BrandIdentity = () => {
           </div>
           <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Messaging & Tone of Voice</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300">We help you articulate your brand's unique voice and develop impactful messaging that resonates with your target audience. Our strategies ensure your communication is consistent, authentic, and effectively conveys your brand's narrative and value proposition.</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">We help you articulate your brand&apos;s unique voice and develop impactful messaging that resonates with your target audience. Our strategies ensure your communication is consistent, authentic, and effectively conveys your brand&apos;s narrative and value proposition.</p>
           </div>
         </div>
       </div>
