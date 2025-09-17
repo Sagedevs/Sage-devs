@@ -103,7 +103,7 @@ const CloudDevOps = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-gray-950 overflow-hidden">
+    <div className="relative min-h-screen bg-slate-950 overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Moving Dots Pattern */}
@@ -111,7 +111,7 @@ const CloudDevOps = () => {
           {[...Array(40)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-1.5 h-1.5 bg-blue-400/30 rounded-full animate-pulse"
+              className="absolute w-1.5 h-1.5 bg-green-400/30 rounded-full animate-pulse"
               style={{
                 left: Math.random() * 100 + '%',
                 top: Math.random() * 100 + '%',
@@ -123,17 +123,17 @@ const CloudDevOps = () => {
         </div>
 
         {/* Gradient Background Orbs */}
-        <div className="absolute top-1/4 left-1/3 w-[650px] h-[650px] bg-gradient-radial from-blue-500/15 via-blue-500/8 to-transparent rounded-full blur-3xl opacity-70 animate-blob mix-blend-lighten" />
-        <div className="absolute bottom-1/4 right-1/3 w-[550px] h-[550px] bg-gradient-radial from-indigo-500/12 via-indigo-500/6 to-transparent rounded-full blur-3xl opacity-70 animate-blob animation-delay-2000 mix-blend-lighten" />
-        <div className="absolute top-1/2 left-1/4 w-[450px] h-[450px] bg-gradient-radial from-purple-500/10 via-purple-500/5 to-transparent rounded-full blur-3xl opacity-70 animate-blob animation-delay-4000 mix-blend-lighten" />
+        <div className="absolute top-1/4 left-1/3 w-[650px] h-[650px] bg-gradient-radial from-green-500/15 via-green-500/8 to-transparent rounded-full blur-3xl opacity-70 animate-blob mix-blend-lighten" />
+        <div className="absolute bottom-1/4 right-1/3 w-[550px] h-[550px] bg-gradient-radial from-teal-500/12 via-teal-500/6 to-transparent rounded-full blur-3xl opacity-70 animate-blob animation-delay-2000 mix-blend-lighten" />
+        <div className="absolute top-1/2 left-1/4 w-[450px] h-[450px] bg-gradient-radial from-blue-500/10 via-blue-500/5 to-transparent rounded-full blur-3xl opacity-70 animate-blob animation-delay-4000 mix-blend-lighten" />
       </div>
 
       {/* Subtle Grid Overlay */}
       <div className="absolute inset-0 opacity-[0.1] z-0">
         <div className="absolute inset-0" style={{
           backgroundImage: `
-            linear-gradient(rgba(59, 130, 246, 0.2) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(59, 130, 246, 0.2) 1px, transparent 1px)
+            linear-gradient(rgba(34, 197, 94, 0.2) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(34, 197, 94, 0.2) 1px, transparent 1px)
           `,
           backgroundSize: '60px 60px'
         }} />
