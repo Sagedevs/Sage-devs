@@ -143,9 +143,9 @@ const UIDesign = () => {
           </div>
           
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-8">
-            Crafting Exceptional{' '}
+          From Wireframes to Wow{' '}
             <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-              Digital Experiences
+            — Exceptional UI/UX
             </span>
           </h1>
           

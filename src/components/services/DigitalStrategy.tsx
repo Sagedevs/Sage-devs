@@ -91,7 +91,7 @@ const DigitalStrategy = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-gray-950 overflow-hidden">
+    <div className="relative min-h-screen bg-slate-1050 overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Moving Dots Pattern */}
@@ -99,7 +99,7 @@ const DigitalStrategy = () => {
           {[...Array(40)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-1.5 h-1.5 bg-green-400/30 rounded-full animate-pulse"
+              className="absolute w-1.5 h-1.5 bg-blue-400/30 rounded-full animate-pulse"
               style={{
                 left: Math.random() * 100 + '%',
                 top: Math.random() * 100 + '%',
@@ -111,17 +111,17 @@ const DigitalStrategy = () => {
         </div>
 
         {/* Gradient Background Orbs */}
-        <div className="absolute top-1/4 left-1/3 w-[650px] h-[650px] bg-gradient-radial from-green-500/15 via-green-500/8 to-transparent rounded-full blur-3xl opacity-70 animate-blob mix-blend-lighten" />
-        <div className="absolute bottom-1/4 right-1/3 w-[550px] h-[550px] bg-gradient-radial from-teal-500/12 via-teal-500/6 to-transparent rounded-full blur-3xl opacity-70 animate-blob animation-delay-2000 mix-blend-lighten" />
-        <div className="absolute top-1/2 left-1/4 w-[450px] h-[450px] bg-gradient-radial from-emerald-500/10 via-emerald-500/5 to-transparent rounded-full blur-3xl opacity-70 animate-blob animation-delay-4000 mix-blend-lighten" />
+        <div className="absolute top-1/4 left-1/3 w-[650px] h-[650px] bg-gradient-radial from-blue-500/15 via-blue-500/8 to-transparent rounded-full blur-3xl opacity-70 animate-blob mix-blend-lighten" />
+        <div className="absolute bottom-1/4 right-1/3 w-[550px] h-[550px] bg-gradient-radial from-indigo-500/12 via-indigo-500/6 to-transparent rounded-full blur-3xl opacity-70 animate-blob animation-delay-2000 mix-blend-lighten" />
+        <div className="absolute top-1/2 left-1/4 w-[450px] h-[450px] bg-gradient-radial from-purple-500/10 via-purple-500/5 to-transparent rounded-full blur-3xl opacity-70 animate-blob animation-delay-4000 mix-blend-lighten" />
       </div>
 
       {/* Subtle Grid Overlay */}
       <div className="absolute inset-0 opacity-[0.1] z-0">
         <div className="absolute inset-0" style={{
           backgroundImage: `
-            linear-gradient(rgba(34, 197, 94, 0.2) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(34, 197, 94, 0.2) 1px, transparent 1px)
+            linear-gradient(rgba(59, 130, 246, 0.2) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59, 130, 246, 0.2) 1px, transparent 1px)
           `,
           backgroundSize: '60px 60px'
         }} />
@@ -132,8 +132,8 @@ const DigitalStrategy = () => {
         {/* Header Section */}
         <div className="mb-16 text-center">
           <div className="inline-block mb-8 mx-auto">
-            <div className="px-6 py-3 bg-gradient-to-r from-blue-500/20 to-indigo-600/20 border border-blue-500/30 rounded-full backdrop-blur-sm">
-              <span className="text-green-400 font-bold tracking-wide flex items-center gap-2">
+            <div className="px-6 py-3 bg-gradient-to-r from-blue-500/20 to-purple-600/20 border border-blue-500/30 rounded-full backdrop-blur-sm">
+              <span className="text-blue-400 font-bold tracking-wide flex items-center gap-2">
                 <Target className="w-4 h-4" />
                 Digital Strategy & Growth
               </span>
@@ -191,7 +191,7 @@ const DigitalStrategy = () => {
                     </div>
                     
                     <div className="text-right">
-                      <div className="text-xs font-bold text-green-400 mb-1">{service.stats}</div>
+                      <div className="text-xs font-bold text-blue-400 mb-1">{service.stats}</div>
                       <div className={`text-xxs px-2 py-1 rounded-full ${getComplexityColor(service.complexity)}`}>
                         {service.complexity}
                       </div>
@@ -203,7 +203,7 @@ const DigitalStrategy = () => {
                     <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-300 transition-colors duration-300">
                       {service.title}
                     </h3>
-                    <p className="text-green-400 font-medium text-xs uppercase tracking-wide">
+                    <p className="text-blue-400 font-medium text-xs uppercase tracking-wide">
                       {service.subtitle}
                     </p>
                   </div>
@@ -216,13 +216,13 @@ const DigitalStrategy = () => {
                   {/* Key Features - Expanded */}
                   <div className="mb-6">
                     <h4 className="text-xs font-bold text-white mb-4 flex items-center">
-                      <div className="w-2 h-2 bg-green-400 rounded-full mr-2" />
+                      <div className="w-2 h-2 bg-blue-400 rounded-full mr-2" />
                       Technical Capabilities
                     </h4>
                     <div className="space-y-3">
                       {service.features.map((feature, idx) => (
                         <div key={idx} className="flex items-start text-xxs text-slate-400 group/item">
-                          <div className="w-1.5 h-1.5 bg-green-400 rounded-full mr-3 mt-1.5 flex-shrink-0 group-hover/item:bg-green-300 transition-colors" />
+                          <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3 mt-1.5 flex-shrink-0 group-hover/item:bg-blue-300 transition-colors" />
                           <span className="group-hover/item:text-slate-300 transition-colors leading-relaxed">{feature}</span>
                         </div>
                       ))}
@@ -232,7 +232,7 @@ const DigitalStrategy = () => {
                   {/* Delivery Timeline */}
                   <div className="mb-6">
                     <h4 className="text-xs font-bold text-white mb-3 flex items-center">
-                      <div className="w-2 h-2 bg-teal-400 rounded-full mr-2" />
+                      <div className="w-2 h-2 bg-indigo-400 rounded-full mr-2" />
                       Development Timeline
                     </h4>
                     <div className="text-xxs text-slate-400">
@@ -243,14 +243,14 @@ const DigitalStrategy = () => {
                   {/* Technology Stack */}
                   <div className="mb-8">
                     <h4 className="text-xs font-bold text-white mb-3 flex items-center">
-                      <div className="w-2 h-2 bg-emerald-400 rounded-full mr-2" />
+                      <div className="w-2 h-2 bg-purple-400 rounded-full mr-2" />
                       Core Technologies
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {service.technologies.map((tech, idx) => (
                         <span
                           key={idx}
-                          className="px-3 py-1 text-xxs bg-green-500/10 text-green-300 rounded-full border border-green-500/20 font-medium"
+                          className="px-3 py-1 text-xxs bg-blue-500/10 text-blue-300 rounded-full border border-blue-500/20 font-medium"
                         >
                           {tech}
                         </span>
@@ -260,7 +260,7 @@ const DigitalStrategy = () => {
 
                   {/* Bottom accent line */}
                   <div className="mt-auto pt-4">
-                    <div className="w-full h-px bg-gradient-to-r from-transparent via-green-500/30 to-transparent" />
+                    <div className="w-full h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
                   </div>
                 </div>
               </div>
@@ -279,12 +279,12 @@ const DigitalStrategy = () => {
           <div className="grid gap-6 md:grid-cols-3 mb-8">
             <div className="p-6 bg-slate-900/30 border border-slate-700/30 rounded-2xl backdrop-blur-sm">
               <h3 className="text-base font-semibold text-white mb-4 flex items-center gap-2">
-                <BarChart className="w-5 h-5 text-green-400" />
+                <BarChart className="w-5 h-5 text-blue-400" />
                 Market Research & Analysis
               </h3>
               <div className="flex flex-wrap gap-2">
                 {["SEMrush", "Ahrefs", "Google Analytics", "Hotjar", "SimilarWeb"].map((tech) => (
-                  <span key={tech} className="px-3 py-1 text-xxs bg-green-500/10 text-green-300 rounded-full border border-green-500/20">
+                  <span key={tech} className="px-3 py-1 text-xxs bg-blue-500/10 text-blue-300 rounded-full border border-blue-500/20">
                     {tech}
                   </span>
                 ))}
@@ -293,12 +293,12 @@ const DigitalStrategy = () => {
             
             <div className="p-6 bg-slate-900/30 border border-slate-700/30 rounded-2xl backdrop-blur-sm">
               <h3 className="text-base font-semibold text-white mb-4 flex items-center gap-2">
-                <FileText className="w-5 h-5 text-teal-400" />
+                <FileText className="w-5 h-5 text-indigo-400" />
                 SEO & Content Strategy
               </h3>
               <div className="flex flex-wrap gap-2">
                 {["Keyword Research", "Content Creation", "On-page SEO", "Off-page SEO", "Technical SEO"].map((tech) => (
-                  <span key={tech} className="px-3 py-1 text-xxs bg-teal-500/10 text-teal-300 rounded-full border border-teal-500/20">
+                  <span key={tech} className="px-3 py-1 text-xxs bg-indigo-500/10 text-indigo-300 rounded-full border border-indigo-500/20">
                     {tech}
                   </span>
                 ))}
@@ -307,12 +307,12 @@ const DigitalStrategy = () => {
             
             <div className="p-6 bg-slate-900/30 border border-slate-700/30 rounded-2xl backdrop-blur-sm">
               <h3 className="text-base font-semibold text-white mb-4 flex items-center gap-2">
-                <LineChart className="w-5 h-5 text-emerald-400" />
+                <LineChart className="w-5 h-5 text-purple-400" />
                 Performance & Analytics
               </h3>
               <div className="flex flex-wrap gap-2">
                 {["Google Analytics", "Google Search Console", "Data Studio", "Conversion Tracking"].map((tech) => (
-                  <span key={tech} className="px-3 py-1 text-xxs bg-emerald-500/10 text-emerald-300 rounded-full border border-emerald-500/20">
+                  <span key={tech} className="px-3 py-1 text-xxs bg-purple-500/10 text-purple-300 rounded-full border border-purple-500/20">
                     {tech}
                   </span>
                 ))}
@@ -324,11 +324,11 @@ const DigitalStrategy = () => {
         {/* CTA Section */}
         <div className="text-center">
           <div className="inline-flex items-center gap-4">
-            <button className="group px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-bold rounded-xl hover:shadow-xl hover:shadow-green-500/30 transition-all duration-300 flex items-center gap-2 text-base">
+            <button className="group px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 flex items-center gap-2 text-base">
               Develop Your Strategy
               <Target className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="px-6 py-3 border border-slate-600 text-slate-300 rounded-xl hover:bg-slate-800/50 hover:text-white hover:border-green-500/30 transition-all duration-300 text-base">
+            <button className="px-6 py-3 border border-slate-600 text-slate-300 rounded-xl hover:bg-slate-800/50 hover:text-white hover:border-blue-500/30 transition-all duration-300 text-base">
               View Case Studies
             </button>
           </div>

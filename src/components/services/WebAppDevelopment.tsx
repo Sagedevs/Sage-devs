@@ -53,6 +53,32 @@ const WebAppDevelopment = () => {
       stats: "200+ Secure Apps",
       timeline: "4-8 weeks",
       complexity: "Critical"
+    },
+    // 🆕 New Card 1
+    {
+      id: 5,
+      icon: Server,
+      title: "Microservices Architecture",
+      subtitle: "Scalable & Modular Systems",
+      description: "Breaking down monoliths into scalable microservices with independent deployment, fault isolation, and cloud-native design. Perfect for complex enterprise ecosystems.",
+      features: ["Independent service deployment", "API Gateway integration", "Service discovery & load balancing", "Containerized services with Docker & Kubernetes"],
+      technologies: ["Node.js", "Docker", "Kubernetes", "gRPC"],
+      stats: "50+ Microservice Systems",
+      timeline: "12-20 weeks",
+      complexity: "Enterprise"
+    },
+    // 🆕 New Card 2
+    {
+      id: 6,
+      icon: Code2,
+      title: "Progressive Web Apps",
+      subtitle: "Offline-first Experiences",
+      description: "Modern web apps with offline capabilities, installable features, and near-native performance. Delivering seamless cross-device user experiences.",
+      features: ["Offline support with Service Workers", "Push notifications", "Add-to-home-screen installability", "Lighthouse PWA compliance"],
+      technologies: ["React", "Next.js", "Workbox", "Service Workers"],
+      stats: "70+ PWAs Delivered",
+      timeline: "6-10 weeks",
+      complexity: "Advanced"
     }
   ];
 

@@ -66,10 +66,10 @@ const LetsTalkAISection = () => {
   // Generate floating particles
   useEffect(() => {
     const generateParticles = () => {
-      const newParticles: Particle[] = [];
+        const newParticles: Particle[] = [];
       const particleCount = window.innerWidth < 768 ? 15 : 30; // Fewer particles on mobile
       for (let i = 0; i < particleCount; i++) {
-        newParticles.push({
+          newParticles.push({
           x: Math.random() * window.innerWidth,
           y: Math.random() * window.innerHeight,
           vx: (Math.random() - 0.5) * 0.5,
@@ -154,9 +154,9 @@ const LetsTalkAISection = () => {
       ))}
 
       {/* Mouse follower effect - hidden on mobile */}
-      <div
+        <div
         className="fixed w-80 h-80 pointer-events-none hidden md:block"
-        style={{
+          style={{
           left: mousePos.x - 160,
           top: mousePos.y - 160,
           background: 'radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 70%)',
@@ -188,7 +188,7 @@ const LetsTalkAISection = () => {
                 <p className="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-lg">
                   Ready to transform your business with AI? Let&apos;s discuss your vision and explore how cutting-edge artificial intelligence can drive your success.
                 </p>
-              </div>
+      </div>
 
               {/* Features grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
@@ -202,15 +202,15 @@ const LetsTalkAISection = () => {
                     <div className="flex items-start space-x-3 sm:space-x-4 p-3 sm:p-4 rounded-2xl hover:bg-slate-800/30 transition-all duration-300 cursor-pointer">
                       <div className="text-xl sm:text-2xl group-hover:scale-110 transition-transform duration-300">
                         {feature.icon}
-                      </div>
-                      <div>
+            </div>
+            <div>
                         <h3 className="text-white font-bold text-base sm:text-lg mb-1">{feature.title}</h3>
                         <p className="text-slate-400 text-sm">{feature.desc}</p>
-                      </div>
-                    </div>
-                  </div>
+            </div>
+          </div>
+        </div>
                 ))}
-              </div>
+      </div>
 
               {/* Stats */}
               <div className="flex flex-wrap justify-center sm:justify-start gap-6 sm:gap-8 pt-6 lg:pt-8 border-t border-slate-700/50">
@@ -218,11 +218,11 @@ const LetsTalkAISection = () => {
                   { value: "500+", label: "AI Projects" },
                   { value: "24hr", label: "Response Time" },
                   { value: "98%", label: "Success Rate" }
-                ].map((stat, i) => (
+          ].map((stat, i) => (
                   <div key={i} className="text-center">
                     <div className="text-2xl sm:text-3xl font-black text-white mb-1">{stat.value}</div>
                     <div className="text-xs text-slate-400 uppercase tracking-wider">{stat.label}</div>
-                  </div>
+                </div>
                 ))}
               </div>
             </div>
@@ -246,42 +246,42 @@ const LetsTalkAISection = () => {
                     <div className="w-full bg-slate-800 rounded-full h-1.5">
                       <div 
                         className="bg-gradient-to-r from-blue-500 to-cyan-500 h-1.5 rounded-full transition-all duration-500"
-                        style={{ width: `${completionPercentage}%` }}
-                      ></div>
-                    </div>
+                style={{ width: `${completionPercentage}%` }}
+              ></div>
+            </div>
                     <div className="text-xs text-slate-500 mt-2">{completionPercentage}% Complete</div>
                   </div>
-                </div>
+          </div>
 
                 <div className="space-y-4 sm:space-y-6">
                   {/* Basic info row */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <input
-                      type="text"
-                      name="name"
+              <input
+                type="text"
+                name="name"
                       placeholder="Full Name *"
-                      value={formData.name}
-                      onChange={handleInputChange}
+                value={formData.name}
+                onChange={handleInputChange}
                       required
                       className="px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 text-sm sm:text-base"
-                    />
-                    <input
-                      type="email"
-                      name="email"
+              />
+              <input
+                type="email"
+                name="email"
                       placeholder="Email Address *"
-                      value={formData.email}
-                      onChange={handleInputChange}
+                value={formData.email}
+                onChange={handleInputChange}
                       required
                       className="px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 text-sm sm:text-base"
-                    />
+              />
                   </div>
 
-                  <input
-                    type="text"
-                    name="company"
+              <input
+                type="text"
+                name="company"
                     placeholder="Company/Organization"
-                    value={formData.company}
-                    onChange={handleInputChange}
+                value={formData.company}
+                onChange={handleInputChange}
                     className="w-full px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 text-sm sm:text-base"
                   />
 
@@ -322,13 +322,13 @@ const LetsTalkAISection = () => {
                         <option key={timeline} value={timeline}>{timeline}</option>
                       ))}
                     </select>
-                  </div>
+            </div>
 
-                  <textarea
-                    name="message"
+            <textarea
+              name="message"
                     placeholder="Describe your AI vision, challenges, or specific requirements..."
-                    value={formData.message}
-                    onChange={handleInputChange}
+              value={formData.message}
+              onChange={handleInputChange}
                     rows={4}
                     className="w-full px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 resize-none text-sm sm:text-base"
                   />
@@ -350,12 +350,12 @@ const LetsTalkAISection = () => {
                     { icon: "🔒", label: "Secure" },
                     { icon: "⚡", label: "24h Response" },
                     { icon: "🎯", label: "Tailored Solutions" }
-                  ].map((indicator, i) => (
-                    <div key={i} className="flex items-center space-x-2 text-xs text-slate-400">
+            ].map((indicator, i) => (
+              <div key={i} className="flex items-center space-x-2 text-xs text-slate-400">
                       <span>{indicator.icon}</span>
-                      <span>{indicator.label}</span>
-                    </div>
-                  ))}
+                <span>{indicator.label}</span>
+              </div>
+            ))}
                 </div>
               </div>
             </div>
