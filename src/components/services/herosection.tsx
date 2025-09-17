@@ -306,7 +306,7 @@ const HeroSection = () => {
                 color: "from-yellow-400 to-amber-500",
                 desc: "Smart Automation"
               },
-            ].map((service) => ( // eslint-disable-line @typescript-eslint/no-unused-vars
+            ].map((service) => (
               <div
                 key={service.code}
                 className="group relative overflow-hidden rounded-2xl bg-black/70 border border-white/20 hover:border-blue-400/50 backdrop-blur-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2"
@@ -391,7 +391,7 @@ const HeroSection = () => {
                   status: "ACTIVE",
                   color: "text-white"
                 }
-              ].map((stat) => ( // eslint-disable-line @typescript-eslint/no-unused-vars
+              ].map((stat) => (
                 <div key={stat.label} className="group text-center space-y-3">
                   <div className="relative">
                     <div className={`text-xl ${stat.color} animate-pulse font-mono`}>{stat.icon}</div>

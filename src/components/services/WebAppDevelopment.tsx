@@ -1,19 +1,9 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { Code2, Globe, Layers, Zap, Database, Shield, ArrowRight, Terminal, Server, Smartphone, Users, Activity, Lock } from 'lucide-react';
+import React, { useState } from 'react';
+import { Code2, Layers, Database, Shield, ArrowRight, Terminal, Server, Users, Activity, Lock } from 'lucide-react';
 
 const WebAppDevelopment = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-
-  useEffect(() => {
-    const updateDimensions = () => {
-      setDimensions({ width: window.innerWidth, height: window.innerHeight });
-    };
-    updateDimensions();
-    window.addEventListener('resize', updateDimensions);
-    return () => window.removeEventListener('resize', updateDimensions);
-  }, []);
 
   const webAppServices = [
     {
@@ -54,30 +44,6 @@ const WebAppDevelopment = () => {
     },
     {
       id: 4,
-      icon: Users,
-      title: "Multi-User Platforms",
-      subtitle: "Collaborative Systems",
-      description: "Multi-tenant applications with role-based access control, user management, team collaboration, and permission systems for enterprise organizations.",
-      features: ["Role-based access control (RBAC)", "Multi-tenant architecture", "Team collaboration features", "Advanced user permission systems"],
-      technologies: ["Auth0", "RBAC Systems", "Multi-tenancy", "JWT"],
-      stats: "60+ Multi-user Apps",
-      timeline: "12-24 weeks",
-      complexity: "Enterprise"
-    },
-    {
-      id: 5,
-      icon: Server,
-      title: "Microservices Architecture",
-      subtitle: "Scalable Backend Systems",
-      description: "Distributed microservices architecture with API gateways, service discovery, and event-driven communication for highly scalable enterprise applications.",
-      features: ["Microservices decomposition", "API Gateway implementation", "Event-driven architecture", "Service mesh configuration"],
-      technologies: ["Docker", "Kubernetes", "API Gateway", "Event Sourcing"],
-      stats: "40+ Microservice Apps",
-      timeline: "16-32 weeks",
-      complexity: "Enterprise"
-    },
-    {
-      id: 6,
       icon: Lock,
       title: "Enterprise Security",
       subtitle: "Advanced Security Implementation",

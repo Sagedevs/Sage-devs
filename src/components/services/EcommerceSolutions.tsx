@@ -1,19 +1,9 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Store, CreditCard, Layout, TrendingUp, Shield, ArrowRight, Package, Truck, Receipt, Tag, Percent } from 'lucide-react';
+import React, { useState } from 'react';
+import { ShoppingCart, Store, CreditCard, Layout, TrendingUp } from 'lucide-react';
 
 const EcommerceSolutions = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-
-  useEffect(() => {
-    const updateDimensions = () => {
-      setDimensions({ width: window.innerWidth, height: window.innerHeight });
-    };
-    updateDimensions();
-    window.addEventListener('resize', updateDimensions);
-    return () => window.removeEventListener('resize', updateDimensions);
-  }, []);
 
   const ecommerceServices = [
     {
@@ -54,7 +44,7 @@ const EcommerceSolutions = () => {
     },
     {
       id: 4,
-      icon: Truck,
+      icon: Layout,
       title: "Shipping & Logistics Solutions",
       subtitle: "Efficient Order Fulfillment",
       description: "Optimize your supply chain and delivery process with robust shipping integrations, inventory management, and order tracking systems for a smooth customer experience.",
@@ -78,7 +68,7 @@ const EcommerceSolutions = () => {
     },
     {
       id: 6,
-      icon: Tag,
+      icon: Layout,
       title: "Pricing & Promotion Management",
       subtitle: "Maximize Revenue & Engagement",
       description: "Implement dynamic pricing strategies, discount codes, loyalty programs, and promotional banners to attract and retain customers, boosting your sales and customer lifetime value.",
@@ -215,7 +205,7 @@ const EcommerceSolutions = () => {
                     <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-300 transition-colors duration-300">
                       {service.title}
                     </h3>
-                    <p className="text-purple-300 font-medium text-xs uppercase tracking-wide">
+                    <p className="text-blue-400 font-medium text-xs uppercase tracking-wide">
                       {service.subtitle}
                     </p>
                   </div>
@@ -272,7 +262,7 @@ const EcommerceSolutions = () => {
 
                   {/* Bottom accent line */}
                   <div className="mt-auto pt-4">
-                    <div className="w-full h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
+                    <div className="w-full h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
                   </div>
                 </div>
               </div>

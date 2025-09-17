@@ -1,19 +1,9 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { Palette, Plug, Lock, RefreshCw, ArrowRight, Code, Shield, Cloud, Settings, Users, BarChart, BookText, Activity } from 'lucide-react';
+import { Palette, Plug, Lock, RefreshCw, Code, BookText, Activity } from 'lucide-react';
 
 const WordPressServices = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-
-  useEffect(() => {
-    const updateDimensions = () => {
-      setDimensions({ width: window.innerWidth, height: window.innerHeight });
-    };
-    updateDimensions();
-    window.addEventListener('resize', updateDimensions);
-    return () => window.removeEventListener('resize', updateDimensions);
-  }, []);
 
   const wordpressServices = [
     {

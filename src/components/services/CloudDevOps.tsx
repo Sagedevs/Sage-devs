@@ -1,19 +1,9 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { Cloud, Server, Database, Shield, Activity, GitBranch, Terminal, ArrowRight, Package, HardDrive, Wifi, Lock, Cpu, Sliders, Settings } from 'lucide-react';
+import React, { useState } from 'react';
+import { Cloud, Server, Shield, Activity, GitBranch, Terminal } from 'lucide-react';
 
 const CloudDevOps = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-
-  useEffect(() => {
-    const updateDimensions = () => {
-      setDimensions({ width: window.innerWidth, height: window.innerHeight });
-    };
-    updateDimensions();
-    window.addEventListener('resize', updateDimensions);
-    return () => window.removeEventListener('resize', updateDimensions);
-  }, []);
 
   const cloudDevOpsServices = [
     {

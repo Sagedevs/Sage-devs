@@ -1,92 +1,82 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { Zap, Puzzle, TrendingUp, RefreshCcw, Bell, Shield, ArrowRight, Lightbulb, Package, Rocket, Cloud, Settings, Users, BarChart } from 'lucide-react';
+import React, { useState } from 'react';
+import { Zap, TrendingUp, RefreshCcw, Bell, Lightbulb, Rocket, Cloud, Settings } from 'lucide-react';
 
 const SaaSProductDev = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-
-  useEffect(() => {
-    const updateDimensions = () => {
-      setDimensions({ width: window.innerWidth, height: window.innerHeight });
-    };
-    updateDimensions();
-    window.addEventListener('resize', updateDimensions);
-    return () => window.removeEventListener('resize', updateDimensions);
-  }, []);
 
   const saasServices = [
     {
       id: 1,
-      icon: Puzzle,
-      title: "Product Strategy & Ideation",
-      subtitle: "Concept to Market Roadmap",
-      description: "Transforming raw ideas into viable SaaS products. We conduct market research, define user personas, create detailed product roadmaps, and outline monetization strategies.",
-      features: ["Market research & validation", "User persona definition", "Feature prioritization & roadmapping", "Monetization strategy development"],
-      technologies: ["Product Discovery", "Market Analysis", "Lean Canvas", "Design Thinking"],
-      stats: "50+ Strategies",
-      timeline: "3-6 weeks",
-      complexity: "Strategic"
-    },
-    {
-      id: 2,
-      icon: Zap,
-      title: "Minimum Viable Product (MVP)",
-      subtitle: "Rapid Prototyping & Launch",
-      description: "Develop core functionalities of your SaaS idea for early market entry and user feedback. Our MVP approach ensures rapid development and validation with key features.",
-      features: ["Core feature identification", "Rapid prototyping & iteration", "User feedback integration", "Scalable architecture foundation"],
-      technologies: ["Next.js", "React", "Node.js", "Firebase"],
-      stats: "70+ MVPs Launched",
+      icon: Lightbulb,
+      title: "SaaS Ideation & MVP Development",
+      subtitle: "From Concept to Launch",
+      description: "We transform your innovative SaaS concepts into tangible minimum viable products (MVPs), focusing on core features and rapid iteration to validate market fit.",
+      features: ["Market research & feasibility analysis", "Core feature identification & prioritization", "UI/UX prototyping for user flows", "Rapid development & iterative feedback"],
+      technologies: ["Figma", "Next.js", "Node.js", "MongoDB", "Vercel"],
+      stats: "40+ MVPs Launched",
       timeline: "8-16 weeks",
       complexity: "Rapid"
     },
     {
-      id: 3,
-      icon: Package,
-      title: "SaaS Platform Development",
-      subtitle: "Full-Cycle Software Building",
-      description: "Comprehensive development of robust and scalable SaaS platforms. We cover everything from backend logic and APIs to user interfaces and third-party integrations.",
-      features: ["Scalable microservices architecture", "RESTful & GraphQL API development", "Frontend & backend expertise", "Database optimization & management"],
-      technologies: ["AWS/Azure/GCP", "Docker", "Kubernetes", "Node.js", "Python"],
-      stats: "100+ Platforms",
-      timeline: "16-32 weeks",
+      id: 2,
+      icon: Rocket,
+      title: "Custom SaaS Platform Development",
+      subtitle: "Tailored for Your Business Needs",
+      description: "Building bespoke SaaS applications designed to meet your unique business requirements. Our platforms are scalable, secure, and integrate seamlessly with your existing ecosystem.",
+      features: ["Scalable architecture design", "Robust backend development", "Intuitive frontend interfaces", "Third-party integrations (APIs, CRM, ERP)"],
+      technologies: ["Node.js", "React/Vue", "Microservices", "AWS/Azure/GCP", "PostgreSQL/MongoDB"],
+      stats: "60+ Platforms Built",
+      timeline: "12-24 weeks",
       complexity: "Enterprise"
     },
     {
-      id: 4,
+      id: 3,
       icon: TrendingUp,
-      title: "User & Subscription Management",
-      subtitle: "Secure Access & Billing",
-      description: "Implementing secure user authentication, role-based access control, and flexible subscription models to manage users and billing effectively.",
-      features: ["OAuth 2.0 & JWT authentication", "Role-based access control (RBAC)", "Payment gateway integration (Stripe, Paddle)", "Subscription & billing cycle management"],
-      technologies: ["Auth0", "Stripe API", "GraphQL Subscriptions", "PostgreSQL"],
-      stats: "80+ Integrated",
+      title: "SaaS Product Growth & Optimization",
+      subtitle: "Driving User Engagement & Revenue",
+      description: "Enhancing existing SaaS products through feature additions, performance tuning, and user experience improvements to drive growth, increase retention, and maximize revenue streams.",
+      features: ["Feature ideation & implementation", "Performance & scalability audits", "A/B testing & conversion optimization", "User feedback integration & iteration"],
+      technologies: ["Google Analytics", "Mixpanel", "Hotjar", "Optimizely", "Stripe"],
+      stats: "50% Avg. Growth",
+      timeline: "Ongoing",
+      complexity: "Strategic"
+    },
+    {
+      id: 4,
+      icon: Bell,
+      title: "SaaS Integration & API Development",
+      subtitle: "Seamless Connectivity for Your Ecosystem",
+      description: "Developing robust APIs and integrating your SaaS platform with other essential business tools and services, creating a cohesive and automated digital ecosystem.",
+      features: ["Custom API design & development", "Third-party API integrations (CRM, ERP, payment gateways)", "Data synchronization & migration", "Webhook implementation & management"],
+      technologies: ["REST/GraphQL", "OAuth", "JWT", "Stripe Connect", "Zapier"],
+      stats: "80+ Integrations",
       timeline: "6-12 weeks",
-      complexity: "Critical"
+      complexity: "Advanced"
     },
     {
       id: 5,
       icon: RefreshCcw,
-      title: "Data Analytics & Reporting",
-      subtitle: "Actionable Business Insights",
-      description: "Integrating powerful analytics and reporting features into your SaaS platform to provide users with actionable insights and data-driven decision-making tools.",
-      features: ["Customizable dashboards", "Real-time data visualization", "Automated report generation", "Integration with BI tools"],
-      technologies: ["D3.js", "Chart.js", "Metabase", "Power BI"],
-      stats: "60+ Dashboards",
-      timeline: "8-16 weeks",
-      complexity: "Advanced"
+      title: "SaaS Maintenance & Support",
+      subtitle: "Ensuring Continuous Operation & Security",
+      description: "Providing ongoing maintenance, security updates, and technical support to ensure your SaaS platform remains secure, performant, and up-to-date with the latest technologies.",
+      features: ["24/7 monitoring & alerting", "Regular security audits & patches", "Performance optimization & bug fixes", "Cloud infrastructure management"],
+      technologies: ["New Relic", "Datadog", "Sentry", "AWS CloudWatch", "PagerDuty"],
+      stats: "99.9% Uptime",
+      timeline: "Ongoing",
+      complexity: "Critical"
     },
     {
       id: 6,
-      icon: Bell,
-      title: "SaaS Security & Compliance",
-      subtitle: "Protecting Your Platform & Users",
-      description: "Ensuring your SaaS platform meets the highest security standards, including data encryption, regular audits, compliance with industry regulations, and threat mitigation.",
-      features: ["Data encryption (at rest & in transit)", "Regular security audits & penetration testing", "GDPR, SOC2, HIPAA compliance", "Threat detection & prevention systems"],
-      technologies: ["OWASP Top 10", "Penetration Testing", "Cloudflare", "Multi-factor Auth"],
-      stats: "99% Secure Score",
-      timeline: "4-8 weeks",
-      complexity: "Mandatory"
+      icon: Cloud,
+      title: "SaaS Deployment & DevOps",
+      subtitle: "Automated & Reliable Release Cycles",
+      description: "Implementing robust DevOps practices and automated deployment pipelines to ensure rapid, reliable, and secure delivery of your SaaS application updates and features.",
+      features: ["CI/CD pipeline setup (GitLab CI, GitHub Actions)", "Containerization with Docker & Kubernetes", "Cloud infrastructure automation (Terraform)", "Monitoring & logging integration"],
+      technologies: ["Docker", "Kubernetes", "Terraform", "AWS/Azure/GCP DevOps", "Prometheus/Grafana"],
+      stats: "100% Automation",
+      timeline: "8-16 weeks",
+      complexity: "Comprehensive"
     }
   ];
 
