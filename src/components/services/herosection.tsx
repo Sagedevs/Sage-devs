@@ -306,7 +306,7 @@ const HeroSection = () => {
                 color: "from-yellow-400 to-amber-500",
                 desc: "Smart Automation"
               },
-            ].map((service, index) => (
+            ].map((service, _index) => (
               <div
                 key={service.code}
                 className="group relative overflow-hidden rounded-2xl bg-black/70 border border-white/20 hover:border-blue-400/50 backdrop-blur-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2"
