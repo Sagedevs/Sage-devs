@@ -1,43 +1,48 @@
 "use client";
 import React from "react";
 
+// Sections
+import HeroSection from "@/components/services/herosection";
+import FinalSection from "@/components/services/finalsection";
+import AISolutions from "@/components/services/AISolutions";
+import WebAppDevelopment from "@/components/services/WebAppDevelopment";
+import SaaSProductDev from "@/components/services/SaaSProductDev";
+import EcommerceSolutions from "@/components/services/EcommerceSolutions";
+import CloudDevOps from "@/components/services/CloudDevOps";
+import WordPressServices from "@/components/services/WordPressServices";
+import UIDesign from "@/components/services/UIDesign";
+import DigitalStrategy from "@/components/services/DigitalStrategy";
+import BrandIdentity from "@/components/services/BrandIdentity";
+import MaintenanceSupport from "@/components/services/MaintenanceSupport";
+
 export default function ServicesIndexPage() {
   return (
-    <main className="min-h-screen pt-28 px-6">
-      <h1 className="text-3xl md:text-5xl font-bold text-white">Services</h1>
-      <p className="text-gray-400 mt-4 max-w-3xl">Explore everything we offer, from full‑stack web & app development to UI/UX, e‑commerce, SaaS, cloud & DevOps, and ongoing support.</p>
+    <main >
+      {/* Hero / intro */}
+      <HeroSection />
 
-      <div className="mt-12 space-y-16">
-        <section id="web-dev" className="scroll-mt-28">
-          <h2 className="text-2xl md:text-3xl font-bold text-white">Web App Development</h2>
-          <p className="text-gray-400 mt-2">Scalable, high-performance applications built with modern tech.</p>
-        </section>
+      {/* Services list */}
+      
+        {/* Development-focused first */}
+        <WebAppDevelopment />
+        <SaaSProductDev />
+        <EcommerceSolutions />
+        <WordPressServices />
+        <CloudDevOps />
 
-        <section id="ui-ux" className="scroll-mt-28">
-          <h2 className="text-2xl md:text-3xl font-bold text-white">UI/UX Design</h2>
-          <p className="text-gray-400 mt-2">Design systems, prototypes, and delightful interfaces.</p>
-        </section>
+        <AISolutions />
 
-        <section id="wordpress" className="scroll-mt-28">
-          <h2 className="text-2xl md:text-3xl font-bold text-white">WordPress Development</h2>
-          <p className="text-gray-400 mt-2">Custom themes, plugins, and enterprise WordPress solutions.</p>
-        </section>
+        {/* Design + strategy */}
+        <UIDesign />
+        <DigitalStrategy />
+        <BrandIdentity />
 
-        <section id="shopify" className="scroll-mt-28">
-          <h2 className="text-2xl md:text-3xl font-bold text-white">Shopify Development</h2>
-          <p className="text-gray-400 mt-2">Conversion-focused storefronts and custom apps.</p>
-        </section>
+        {/* After-launch services */}
+        <MaintenanceSupport />
+      
 
-        <section id="saas" className="scroll-mt-28">
-          <h2 className="text-2xl md:text-3xl font-bold text-white">SaaS Solutions</h2>
-          <p className="text-gray-400 mt-2">From MVP to scale: auth, billing, multi-tenant, analytics.</p>
-        </section>
-
-        <section id="devops" className="scroll-mt-28">
-          <h2 className="text-2xl md:text-3xl font-bold text-white">Cloud & DevOps</h2>
-          <p className="text-gray-400 mt-2">CI/CD, infra-as-code, monitoring, and reliability.</p>
-        </section>
-      </div>
+      {/* Final CTA */}
+      <FinalSection />
     </main>
   );
 }
