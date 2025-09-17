@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { Layout, Palette, PenTool, Figma, Layers, Users, Text, Star, Sparkles, Monitor, ArrowRight } from 'lucide-react';
+import { Layout, Palette, PenTool, Figma, Layers, Users, Sparkles, Monitor } from 'lucide-react';
 
 const UIDesign = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);

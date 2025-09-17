@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { Target, Lightbulb, TrendingUp, BarChart, Users, Globe, LineChart, Megaphone, Shield, ArrowRight, FileText } from 'lucide-react';
+import { Target, Lightbulb, BarChart, Globe, LineChart, Megaphone, FileText } from 'lucide-react';
 
 const DigitalStrategy = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);

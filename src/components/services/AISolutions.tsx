@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { Brain, Lightbulb, Rocket, Settings, Cloud, Zap, Cpu, Sliders, HardDrive, Atom, Sparkles, Wand2 } from 'lucide-react';
+import { Brain, Lightbulb, Rocket, Cloud, Zap, Sliders, HardDrive, Atom, Sparkles } from 'lucide-react';
 
 const AISolutions = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
