@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { Code2, Layers, Database, Shield, ArrowRight, Terminal, Server, Users, Activity, Lock } from 'lucide-react';
+import { Code2, Layers, Database, Shield, ArrowRight, Terminal, Server, Activity, Lock } from 'lucide-react';
 
 const WebAppDevelopment = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
