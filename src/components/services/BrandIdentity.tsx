@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { PenTool, Palette, Type, BookText, Users, Sparkles, BadgeCheck, Globe, Layers, Target } from 'lucide-react';
+import { PenTool, Palette, Type, BookText, Users, BadgeCheck, Globe, Layers, Target } from 'lucide-react';
 
 const BrandIdentity = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
