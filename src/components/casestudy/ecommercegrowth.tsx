@@ -153,7 +153,7 @@ const EcommerceGrowth = () => {
               <p className="text-gray-300 text-lg leading-relaxed mb-6">
                 Our client, a premium lifestyle brand with 15+ years in traditional retail, faced declining sales 
                 and increasing competition from digital-native brands. Their existing e-commerce platform was 
-                outdated, mobile-unfriendly, and failing to capture the modern consumer's expectations.
+                outdated, mobile-unfriendly, and failing to capture the modern consumer&apos;s expectations.
               </p>
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-black bg-opacity-30 rounded-xl p-4 text-center">
