@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import CustomCursor from "@/components/customcursor";
 import { Analytics } from "@vercel/analytics/next";
 import Footer from "@/components/Footer"; // Assuming this path is correct
 import Image from "next/image"; // Import Image for the logo
@@ -237,15 +238,9 @@ export default function RootLayout({
         {/* Canonical (avoid SEO duplicate issues) */}
         <link rel="canonical" href="https://sage-devs.vercel.app" />
       </head>
-
-      {/*
-        FIXED: Added suppressHydrationWarning to the body tag.
-        This tells React to suppress the hydration warning for differences
-        in attributes on this element. This is commonly used for attributes
-        injected by browser extensions (like "cz-shortcut-listen=true")
-        which are outside of your control and cause hydration mismatches.
-      */}
       <body className={baseBodyClasses} suppressHydrationWarning={true}>
+        {/* cursor global overlay */}
+        <CustomCursor />
         {/* Background Threads/Lines - Fixed z-index to be behind everything */}
         <div className="fixed inset-0 z-[-1] pointer-events-none">
           <svg
