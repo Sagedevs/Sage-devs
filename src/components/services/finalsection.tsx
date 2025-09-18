@@ -14,14 +14,14 @@ const FinalSection = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -29,10 +29,10 @@ const FinalSection = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    alert('🚀 Your project is ready for liftoff! We\'ll contact you within 24 hours.');
+    alert('Your project is ready for liftoff! We\'ll contact you within 24 hours.');
     setFormData({
       name: '',
       email: '',
@@ -76,7 +76,7 @@ const FinalSection = () => {
                 Let's Create Excellence
               </span>
             </div>
-            <h2 className="text-6xl md:text-8xl lg:text-9xl font-black mb-8 leading-none tracking-tight">
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-black mb-8 leading-none tracking-tight">
               <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-white bg-clip-text text-transparent drop-shadow-2xl">
                 READY TO
               </span>
@@ -98,11 +98,11 @@ const FinalSection = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-600 rounded-3xl blur-xl opacity-60 group-hover:opacity-100 transition duration-1000 animate-pulse"></div>
               
               <div className="relative bg-black/95 backdrop-blur-2xl rounded-3xl p-10 border border-blue-500/30 shadow-2xl">
-                <div className="text-center mb-10">
-                  <h3 className="text-4xl font-black bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent mb-4">
+                <div className="text-center mb-8">
+                  <h3 className="text-2xl font-black bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent mb-3">
                     Start Your Journey
                   </h3>
-                  <p className="text-gray-300 text-lg">Transform your vision into reality ⚡</p>
+                  <p className="text-gray-300 text-base">Transform your vision into reality</p>
                 </div>
 
                 <div className="space-y-8">
@@ -115,7 +115,7 @@ const FinalSection = () => {
                         onChange={handleInputChange}
                         placeholder="Your Name"
                         required
-                        className="w-full px-6 py-5 bg-gray-900/60 border border-gray-700 rounded-2xl focus:border-blue-400 focus:ring-4 focus:ring-blue-400/30 transition duration-300 text-white placeholder-gray-400 text-lg font-medium"
+                        className="w-full px-5 py-4 bg-gray-900/60 border border-gray-700 rounded-2xl focus:border-blue-400 focus:ring-4 focus:ring-blue-400/30 transition duration-300 text-white placeholder-gray-400 text-base font-medium"
                       />
                       <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/10 to-cyan-500/10 opacity-0 group-focus-within/input:opacity-100 transition duration-300 pointer-events-none"></div>
                     </div>
@@ -127,7 +127,7 @@ const FinalSection = () => {
                         onChange={handleInputChange}
                         placeholder="Email Address"
                         required
-                        className="w-full px-6 py-5 bg-gray-900/60 border border-gray-700 rounded-2xl focus:border-blue-400 focus:ring-4 focus:ring-blue-400/30 transition duration-300 text-white placeholder-gray-400 text-lg font-medium"
+                        className="w-full px-5 py-4 bg-gray-900/60 border border-gray-700 rounded-2xl focus:border-blue-400 focus:ring-4 focus:ring-blue-400/30 transition duration-300 text-white placeholder-gray-400 text-base font-medium"
                       />
                     </div>
                   </div>
@@ -139,22 +139,26 @@ const FinalSection = () => {
                       value={formData.phone}
                       onChange={handleInputChange}
                       placeholder="Phone (Optional)"
-                      className="w-full px-6 py-5 bg-gray-900/60 border border-gray-700 rounded-2xl focus:border-blue-400 focus:ring-4 focus:ring-blue-400/30 transition duration-300 text-white placeholder-gray-400 text-lg font-medium"
+                      className="w-full px-5 py-4 bg-gray-900/60 border border-gray-700 rounded-2xl focus:border-blue-400 focus:ring-4 focus:ring-blue-400/30 transition duration-300 text-white placeholder-gray-400 text-base font-medium"
                     />
                     <select
                       name="service"
                       value={formData.service}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-6 py-5 bg-gray-900/60 border border-gray-700 rounded-2xl focus:border-blue-400 focus:ring-4 focus:ring-blue-400/30 transition duration-300 text-white text-lg font-medium"
+                      className="w-full px-5 py-4 bg-gray-900/60 border border-gray-700 rounded-2xl focus:border-blue-400 focus:ring-4 focus:ring-blue-400/30 transition duration-300 text-white text-base font-medium"
                     >
                       <option value="">Select Service</option>
-                      <option value="web-dev">🌐 Web Development</option>
-                      <option value="mobile-app">📱 Mobile Apps</option>
-                      <option value="branding">🎨 Branding & Design</option>
-                      <option value="marketing">📊 Digital Marketing</option>
-                      <option value="ecommerce">🛒 E-commerce</option>
-                      <option value="consultation">💡 Consultation</option>
+                      <option value="web-development">Web & App Development</option>
+                      <option value="saas-development">SaaS & Product Development</option>
+                      <option value="ecommerce">E-commerce Solutions</option>
+                      <option value="cloud-devops">Cloud & DevOps</option>
+                      <option value="wordpress">WordPress Services</option>
+                      <option value="ui-ux">UI/UX Design</option>
+                      <option value="digital-strategy">Digital Strategy</option>
+                      <option value="brand-identity">Brand Identity</option>
+                      <option value="maintenance">Maintenance & Support</option>
+                      <option value="ai-solutions">AI Solutions</option>
                     </select>
                   </div>
 
@@ -162,20 +166,20 @@ const FinalSection = () => {
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
-                    placeholder="Describe your project vision, goals, and requirements. What challenges are you facing? What success looks like to you? ✨"
-                    rows="6"
+                    placeholder="Describe your project vision, goals, and requirements. What challenges are you facing? What success looks like to you?"
+                    rows={5}
                     required
-                    className="w-full px-6 py-5 bg-gray-900/60 border border-gray-700 rounded-2xl focus:border-blue-400 focus:ring-4 focus:ring-blue-400/30 transition duration-300 text-white placeholder-gray-400 resize-none text-lg font-medium leading-relaxed"
+                    className="w-full px-5 py-4 bg-gray-900/60 border border-gray-700 rounded-2xl focus:border-blue-400 focus:ring-4 focus:ring-blue-400/30 transition duration-300 text-white placeholder-gray-400 resize-none text-base font-medium leading-relaxed"
                   ></textarea>
 
                   <button
                     onClick={handleSubmit}
-                    className="relative w-full group/btn overflow-hidden bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 text-white px-10 py-6 rounded-2xl font-black text-xl transition duration-300 transform hover:scale-[1.02] hover:shadow-2xl shadow-blue-500/25"
+                    className="relative w-full group/btn overflow-hidden bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 text-white px-8 py-5 rounded-2xl font-black text-lg transition duration-300 transform hover:scale-[1.02] hover:shadow-2xl shadow-blue-500/25"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-400 to-blue-600 opacity-0 group-hover/btn:opacity-100 transition duration-500"></div>
-                    <span className="relative z-10 flex items-center justify-center gap-3">
-                      🚀 LAUNCH PROJECT
-                      <span className="group-hover/btn:translate-x-2 transition duration-300 text-2xl">→</span>
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                      LAUNCH PROJECT
+                      <span className="group-hover/btn:translate-x-2 transition duration-300 text-xl">→</span>
                     </span>
                   </button>
                 </div>
@@ -185,7 +189,7 @@ const FinalSection = () => {
             {/* Right Side - Visual Content */}
             <div className="space-y-10">
               <div className="text-center lg:text-left">
-                <h3 className="text-5xl md:text-6xl font-black mb-8 leading-tight">
+                <h3 className="text-3xl md:text-4xl font-black mb-6 leading-tight">
                   <span className="text-white drop-shadow-lg">WHERE</span>
                   <br />
                   <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-white bg-clip-text text-transparent drop-shadow-lg">
@@ -198,14 +202,14 @@ const FinalSection = () => {
 
               {/* Feature Cards */}
               <div className="space-y-6">
-                <div className="group relative overflow-hidden bg-gradient-to-r from-blue-900/40 to-black/60 rounded-3xl p-8 border border-blue-500/40 hover:border-cyan-400/60 transition duration-500 cursor-pointer backdrop-blur-sm">
+                <div className="group relative overflow-hidden bg-gradient-to-r from-blue-900/40 to-black/60 rounded-2xl p-6 border border-blue-500/40 hover:border-cyan-400/60 transition duration-500 cursor-pointer backdrop-blur-sm">
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 translate-x-full group-hover:translate-x-0 transition duration-700"></div>
                   <div className="relative z-10">
-                    <div className="flex items-center gap-6">
-                      <div className="text-5xl">⚡</div>
+                    <div className="flex items-center gap-4">
+                      <div className="text-3xl">⚡</div>
                       <div>
-                        <h4 className="text-2xl font-bold text-white mb-2">Lightning Speed Delivery</h4>
-                        <p className="text-gray-300 text-lg">We don't just meet deadlines, we beat them</p>
+                        <h4 className="text-lg font-bold text-white mb-1">Lightning Speed Delivery</h4>
+                        <p className="text-gray-300 text-sm">We don't just meet deadlines, we beat them</p>
                       </div>
                     </div>
                   </div>
