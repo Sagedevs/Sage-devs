@@ -11,7 +11,7 @@ const FinalSection = () => {
   });
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
+  const [, setIsHovered] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -73,7 +73,7 @@ const FinalSection = () => {
           <div className="text-center mb-20">
             <div className="inline-block mb-8">
               <span className="px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full text-sm font-bold uppercase tracking-widest shadow-lg">
-                Let's Create Excellence
+                Let&apos;s Create Excellence
               </span>
             </div>
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-black mb-8 leading-none tracking-tight">
@@ -209,7 +209,7 @@ const FinalSection = () => {
                       <div className="text-3xl">⚡</div>
                       <div>
                         <h4 className="text-lg font-bold text-white mb-1">Lightning Speed Delivery</h4>
-                        <p className="text-gray-300 text-sm">We don't just meet deadlines, we beat them</p>
+                        <p className="text-gray-300 text-sm">We don&apos;t just meet deadlines, we beat them</p>
                       </div>
                     </div>
                   </div>
