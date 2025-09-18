@@ -13,6 +13,7 @@ const AgencyCaseStudyHero = () => {
   const animationRef = useRef<number | null>(null);
   const timeRef = useRef<number>(0);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const getCanvasContext = useCallback((): CanvasRenderingContext2D | null => {
     const canvas = canvasRef.current;
@@ -22,19 +23,22 @@ const AgencyCaseStudyHero = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
     
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     
     const resizeCanvas = () => {
-      if (!canvas) return;
+      if (!canvas || !container) return;
       
+      const rect = container.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
-      canvas.style.width = window.innerWidth + 'px';
-      canvas.style.height = window.innerHeight + 'px';
+      
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
       ctx.scale(dpr, dpr);
     };
 
@@ -46,58 +50,59 @@ const AgencyCaseStudyHero = () => {
 
     // Create flowing energy waves
     const drawEnergyWaves = (time: number): void => {
-      const centerX = canvas.width / (window.devicePixelRatio || 1) / 2;
-      const centerY = canvas.height / (window.devicePixelRatio || 1) / 2;
+      const canvasRect = canvas.getBoundingClientRect();
+      const centerX = canvasRect.width / 2;
+      const centerY = canvasRect.height / 2;
       
       // Multiple overlapping waves with different frequencies
-      for (let i = 0; i < 5; i++) {
-        const waveRadius = 200 + i * 80;
-        const waveSpeed = 0.001 + i * 0.0005;
+      for (let i = 0; i < 4; i++) {
+        const waveRadius = 180 + i * 70;
+        const waveSpeed = 0.001 + i * 0.0004;
         const waveOffset = i * Math.PI * 0.4;
         
         const gradient = ctx.createRadialGradient(
-          centerX, centerY, waveRadius - 50,
-          centerX, centerY, waveRadius + 50
+          centerX, centerY, waveRadius - 40,
+          centerX, centerY, waveRadius + 40
         );
-        gradient.addColorStop(0, `rgba(59, 130, 246, ${0.02 + Math.sin(time * waveSpeed + waveOffset) * 0.01})`);
-        gradient.addColorStop(0.5, `rgba(147, 197, 253, ${0.08 + Math.sin(time * waveSpeed + waveOffset) * 0.03})`);
+        gradient.addColorStop(0, `rgba(59, 130, 246, ${0.015 + Math.sin(time * waveSpeed + waveOffset) * 0.008})`);
+        gradient.addColorStop(0.5, `rgba(147, 197, 253, ${0.06 + Math.sin(time * waveSpeed + waveOffset) * 0.025})`);
         gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
         
         ctx.fillStyle = gradient;
         ctx.beginPath();
-        ctx.arc(centerX, centerY, waveRadius + Math.sin(time * waveSpeed + waveOffset) * 30, 0, Math.PI * 2);
+        ctx.arc(centerX, centerY, waveRadius + Math.sin(time * waveSpeed + waveOffset) * 25, 0, Math.PI * 2);
         ctx.fill();
       }
     };
 
     // Floating geometric shapes
     const drawFloatingElements = (time: number): void => {
+      const canvasRect = canvas.getBoundingClientRect();
       const shapes = [
-        { x: 0.2, y: 0.3, size: 40, rotation: time * 0.0008, opacity: 0.4 },
-        { x: 0.8, y: 0.2, size: 25, rotation: -time * 0.001, opacity: 0.3 },
-        { x: 0.1, y: 0.7, size: 35, rotation: time * 0.0006, opacity: 0.35 },
-        { x: 0.9, y: 0.8, size: 20, rotation: -time * 0.0012, opacity: 0.25 },
-        { x: 0.15, y: 0.15, size: 30, rotation: time * 0.0009, opacity: 0.3 },
-        { x: 0.85, y: 0.6, size: 28, rotation: -time * 0.0007, opacity: 0.35 }
+        { x: 0.15, y: 0.25, size: 35, rotation: time * 0.0006, opacity: 0.35 },
+        { x: 0.85, y: 0.2, size: 22, rotation: -time * 0.0008, opacity: 0.25 },
+        { x: 0.08, y: 0.75, size: 28, rotation: time * 0.0005, opacity: 0.3 },
+        { x: 0.92, y: 0.8, size: 18, rotation: -time * 0.001, opacity: 0.2 },
+        { x: 0.12, y: 0.12, size: 25, rotation: time * 0.0007, opacity: 0.28 }
       ];
 
       shapes.forEach((shape, index) => {
-        const x = shape.x * (canvas.width / (window.devicePixelRatio || 1));
-        const y = shape.y * (canvas.height / (window.devicePixelRatio || 1));
+        const x = shape.x * canvasRect.width;
+        const y = shape.y * canvasRect.height;
         
         // Mouse interaction effect
         const mouseDistance = Math.sqrt(
           Math.pow(mouseRef.current.x - x, 2) + Math.pow(mouseRef.current.y - y, 2)
         );
-        const mouseInfluence = Math.max(0, 1 - mouseDistance / 200);
+        const mouseInfluence = Math.max(0, 1 - mouseDistance / 150);
         
         ctx.save();
         ctx.translate(x, y);
-        ctx.rotate(shape.rotation + mouseInfluence * 0.5);
-        ctx.globalAlpha = shape.opacity + mouseInfluence * 0.3;
+        ctx.rotate(shape.rotation + mouseInfluence * 0.3);
+        ctx.globalAlpha = shape.opacity + mouseInfluence * 0.2;
         
         // Hexagon shape
-        const size = shape.size + mouseInfluence * 15;
+        const size = shape.size + mouseInfluence * 8;
         ctx.beginPath();
         for (let i = 0; i < 6; i++) {
           const angle = (i * Math.PI) / 3;
@@ -108,11 +113,11 @@ const AgencyCaseStudyHero = () => {
         }
         ctx.closePath();
         
-        ctx.strokeStyle = `rgba(96, 165, 250, ${0.6 + mouseInfluence * 0.4})`;
-        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = `rgba(96, 165, 250, ${0.5 + mouseInfluence * 0.3})`;
+        ctx.lineWidth = 1;
         ctx.stroke();
         
-        ctx.fillStyle = `rgba(59, 130, 246, ${0.05 + mouseInfluence * 0.1})`;
+        ctx.fillStyle = `rgba(59, 130, 246, ${0.04 + mouseInfluence * 0.06})`;
         ctx.fill();
         
         ctx.restore();
@@ -121,23 +126,24 @@ const AgencyCaseStudyHero = () => {
 
     // Dynamic fluid mesh grid
     const drawMeshGrid = (time: number): void => {
-      const gridSize = 60;
-      const cols = Math.ceil((canvas.width / (window.devicePixelRatio || 1)) / gridSize) + 2;
-      const rows = Math.ceil((canvas.height / (window.devicePixelRatio || 1)) / gridSize) + 2;
+      const canvasRect = canvas.getBoundingClientRect();
+      const gridSize = 50;
+      const cols = Math.ceil(canvasRect.width / gridSize) + 2;
+      const rows = Math.ceil(canvasRect.height / gridSize) + 2;
       
-      ctx.strokeStyle = 'rgba(96, 165, 250, 0.05)';
+      ctx.strokeStyle = 'rgba(96, 165, 250, 0.04)';
       ctx.lineWidth = 0.5;
       
       // Vertical lines
       for (let i = 0; i < cols; i++) {
-        const x = i * gridSize - (time * 0.02) % gridSize;
+        const x = i * gridSize - (time * 0.015) % gridSize;
         
         ctx.beginPath();
         for (let j = 0; j <= rows; j++) {
           const y = j * gridSize;
-          const wave = Math.sin((x + y) * 0.01 + time * 0.001) * 15;
-          const mouseDistanceInfluence = Math.max(0, 1 - Math.abs(mouseRef.current.x - x) / 100);
-          const finalX = x + wave + mouseDistanceInfluence * 10;
+          const wave = Math.sin((x + y) * 0.008 + time * 0.0008) * 12;
+          const mouseDistanceInfluence = Math.max(0, 1 - Math.abs(mouseRef.current.x - x) / 80);
+          const finalX = x + wave + mouseDistanceInfluence * 8;
           
           if (j === 0) ctx.moveTo(finalX, y);
           else ctx.lineTo(finalX, y);
@@ -151,10 +157,10 @@ const AgencyCaseStudyHero = () => {
         
         ctx.beginPath();
         for (let i = 0; i <= cols; i++) {
-          const x = i * gridSize - (time * 0.02) % gridSize;
-          const wave = Math.sin((x + y) * 0.01 + time * 0.001) * 15;
-          const mouseDistanceInfluence = Math.max(0, 1 - Math.abs(mouseRef.current.y - y) / 100);
-          const finalY = y + wave + mouseDistanceInfluence * 10;
+          const x = i * gridSize - (time * 0.015) % gridSize;
+          const wave = Math.sin((x + y) * 0.008 + time * 0.0008) * 12;
+          const mouseDistanceInfluence = Math.max(0, 1 - Math.abs(mouseRef.current.y - y) / 80);
+          const finalY = y + wave + mouseDistanceInfluence * 8;
           
           if (i === 0) ctx.moveTo(x, finalY);
           else ctx.lineTo(x, finalY);
@@ -167,15 +173,15 @@ const AgencyCaseStudyHero = () => {
     const drawCursorOrb = (): void => {
       const gradient = ctx.createRadialGradient(
         mouseRef.current.x, mouseRef.current.y, 0,
-        mouseRef.current.x, mouseRef.current.y, 120
+        mouseRef.current.x, mouseRef.current.y, 100
       );
-      gradient.addColorStop(0, 'rgba(147, 197, 253, 0.15)');
-      gradient.addColorStop(0.3, 'rgba(59, 130, 246, 0.08)');
+      gradient.addColorStop(0, 'rgba(147, 197, 253, 0.12)');
+      gradient.addColorStop(0.3, 'rgba(59, 130, 246, 0.06)');
       gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
       
       ctx.fillStyle = gradient;
       ctx.beginPath();
-      ctx.arc(mouseRef.current.x, mouseRef.current.y, 120, 0, Math.PI * 2);
+      ctx.arc(mouseRef.current.x, mouseRef.current.y, 100, 0, Math.PI * 2);
       ctx.fill();
     };
 
@@ -183,14 +189,16 @@ const AgencyCaseStudyHero = () => {
       timeRef.current += 16;
       const time = timeRef.current;
       
+      const canvasRect = canvas.getBoundingClientRect();
+      
       // Clear canvas with gradient background
-      const bgGradient = ctx.createLinearGradient(0, 0, 0, canvas.height / (window.devicePixelRatio || 1));
+      const bgGradient = ctx.createLinearGradient(0, 0, 0, canvasRect.height);
       bgGradient.addColorStop(0, '#0a0f1c');
       bgGradient.addColorStop(0.5, '#0f172a');
       bgGradient.addColorStop(1, '#1e293b');
       
       ctx.fillStyle = bgGradient;
-      ctx.fillRect(0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
+      ctx.fillRect(0, 0, canvasRect.width, canvasRect.height);
       
       updateMouse();
       drawMeshGrid(time);
@@ -202,8 +210,10 @@ const AgencyCaseStudyHero = () => {
     };
 
     const handleMouseMove = (e: MouseEvent): void => {
-      mouseRef.current.targetX = e.clientX;
-      mouseRef.current.targetY = e.clientY;
+      if (!container) return;
+      const rect = container.getBoundingClientRect();
+      mouseRef.current.targetX = e.clientX - rect.left;
+      mouseRef.current.targetY = e.clientY - rect.top;
     };
 
     const handleResize = (): void => {
@@ -212,10 +222,11 @@ const AgencyCaseStudyHero = () => {
 
     // Initialize
     resizeCanvas();
-    mouseRef.current.x = window.innerWidth / 2;
-    mouseRef.current.y = window.innerHeight / 2;
-    mouseRef.current.targetX = window.innerWidth / 2;
-    mouseRef.current.targetY = window.innerHeight / 2;
+    const rect = container.getBoundingClientRect();
+    mouseRef.current.x = rect.width / 2;
+    mouseRef.current.y = rect.height / 2;
+    mouseRef.current.targetX = rect.width / 2;
+    mouseRef.current.targetY = rect.height / 2;
     
     animate();
     
@@ -235,244 +246,172 @@ const AgencyCaseStudyHero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen overflow-hidden">
-      {/* Animated Canvas Background - Full Screen */}
-      <div className="fixed inset-0 w-full h-full">
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 w-full h-full"
-        />
-      </div>
+    <section ref={containerRef} className="relative min-h-screen overflow-hidden">
+      {/* Animated Canvas Background - Contained to Section */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full"
+      />
       
       {/* Content Overlay */}
       <div className="relative z-10 flex items-center justify-center min-h-screen px-6">
         <div className="max-w-7xl mx-auto text-center">
           
-          {/* Floating Badge */}
-          <div className={`inline-flex items-center px-6 py-3 mb-12 rounded-full bg-blue-500/10 border border-blue-400/20 backdrop-blur-xl transition-all duration-1200 ease-out ${isLoaded ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'}`}>
+          {/* Professional Badge */}
+          <div className={`inline-flex items-center px-8 py-4 mb-16 rounded-full bg-gradient-to-r from-blue-600/15 to-indigo-600/15 border border-blue-400/30 backdrop-blur-xl transition-all duration-1200 ease-out ${isLoaded ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'}`}>
             <div className="relative">
-              <div className="w-2.5 h-2.5 bg-blue-400 rounded-full animate-pulse"></div>
-              <div className="absolute inset-0 w-2.5 h-2.5 bg-blue-400 rounded-full animate-ping opacity-75"></div>
+              <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
+              <div className="absolute inset-0 w-3 h-3 bg-blue-400 rounded-full animate-ping opacity-75"></div>
             </div>
-            <span className="text-blue-200 text-sm font-semibold tracking-wider ml-3 uppercase">
-              Client Success Stories
+            <span className="text-blue-200 text-sm font-semibold tracking-wider ml-4 uppercase">
+              Portfolio Excellence
             </span>
           </div>
           
           {/* Main Headline with Advanced Typography */}
-          <div className="mb-8">
-            <h1 className={`text-6xl md:text-8xl lg:text-9xl font-black mb-4 transition-all duration-1000 delay-200 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-              <span className="block text-white leading-[0.9] tracking-tight">
+          <div className="mb-12">
+            <h1 className={`text-5xl md:text-7xl lg:text-8xl font-black mb-6 transition-all duration-1000 delay-200 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+              <span className="block text-white leading-[0.85] tracking-tight">
                 Case Studies
               </span>
             </h1>
-            <div className={`text-4xl md:text-6xl lg:text-7xl font-light transition-all duration-1000 delay-400 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-              <span className="bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500 bg-clip-text text-transparent">
-                That Define Excellence
+            <div className={`text-3xl md:text-5xl lg:text-6xl font-light transition-all duration-1000 delay-400 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+              <span className="bg-gradient-to-r from-blue-300 via-blue-400 to-indigo-400 bg-clip-text text-transparent">
+                Driving Measurable Results
               </span>
             </div>
           </div>
           
-          {/* Enhanced Subtitle */}
-          <p className={`text-xl md:text-2xl lg:text-3xl text-gray-300 mb-16 max-w-5xl mx-auto leading-relaxed font-light transition-all duration-1000 delay-600 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-            Transforming ambitious visions into{' '}
-            <span className="text-blue-300 font-medium">digital masterpieces</span>
+          {/* Professional Subtitle */}
+          <p className={`text-lg md:text-xl lg:text-2xl text-gray-300 mb-20 max-w-4xl mx-auto leading-relaxed font-light transition-all duration-1000 delay-600 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+            Explore how we've partnered with industry leaders to deliver{' '}
+            <span className="text-blue-300 font-medium">transformative digital solutions</span>
             <br />
-            that drive unprecedented growth and market dominance
+            that exceed expectations and drive sustained competitive advantage
           </p>
           
-          {/* Interactive Case Study Previews */}
-          <div className={`max-w-6xl mx-auto mb-20 transition-all duration-1000 delay-800 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          {/* Professional Case Study Previews */}
+          <div className={`max-w-6xl mx-auto mb-24 transition-all duration-1000 delay-800 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               
-              {/* Featured Case Study 1 */}
-              <div className="group relative overflow-hidden rounded-3xl backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 hover:border-blue-400/40 transition-all duration-700 hover:scale-[1.02] hover:rotate-1">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              {/* Enterprise E-Commerce */}
+              <div className="group relative overflow-hidden rounded-2xl backdrop-blur-xl bg-gradient-to-br from-white/8 to-white/4 border border-white/15 hover:border-blue-400/30 transition-all duration-500 hover:scale-[1.02]">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/15 via-transparent to-indigo-500/8 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="relative p-8">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="text-sm font-bold text-blue-300 tracking-wider uppercase">E-Commerce Platform</div>
-                    <div className="w-8 h-8 rounded-full bg-green-400/20 flex items-center justify-center">
-                      <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse"></div>
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="text-xs font-bold text-blue-300 tracking-[0.2em] uppercase">Enterprise E-Commerce</div>
+                    <div className="px-3 py-1 rounded-full bg-green-400/10 border border-green-400/20">
+                      <span className="text-green-300 text-xs font-semibold">Active</span>
                     </div>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-blue-200 transition-colors duration-300">
-                    RevolutionShop
+                  <h3 className="text-xl font-bold text-white mb-4 group-hover:text-blue-200 transition-colors duration-300">
+                    Fortune 500 Retail Platform
                   </h3>
-                  <p className="text-gray-300 mb-6 leading-relaxed">
-                    Transformed a failing retail brand into a $50M+ digital empire with our cutting-edge platform.
+                  <p className="text-gray-400 mb-8 leading-relaxed text-sm">
+                    Architected a scalable omnichannel platform that unified online and offline operations for a global retail leader.
                   </p>
-                  <div className="space-y-3">
-                    <div className="flex items-center text-sm">
-                      <div className="w-2 h-2 rounded-full bg-blue-400 mr-3"></div>
-                      <span className="text-gray-300">2,847% increase in online sales</span>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-400">Revenue Growth</span>
+                      <span className="text-white font-semibold">+284%</span>
                     </div>
-                    <div className="flex items-center text-sm">
-                      <div className="w-2 h-2 rounded-full bg-blue-400 mr-3"></div>
-                      <span className="text-gray-300">0.3s average page load time</span>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-400">Performance Improvement</span>
+                      <span className="text-white font-semibold">65% faster</span>
                     </div>
-                    <div className="flex items-center text-sm">
-                      <div className="w-2 h-2 rounded-full bg-blue-400 mr-3"></div>
-                      <span className="text-gray-300">AI-powered personalization</span>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-400">Global Markets</span>
+                      <span className="text-white font-semibold">23 countries</span>
                     </div>
                   </div>
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
               </div>
 
-              {/* Featured Case Study 2 */}
-              <div className="group relative overflow-hidden rounded-3xl backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 hover:border-blue-400/40 transition-all duration-700 hover:scale-[1.02] hover:-rotate-1">
-                <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 via-transparent to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              {/* Financial Technology */}
+              <div className="group relative overflow-hidden rounded-2xl backdrop-blur-xl bg-gradient-to-br from-white/8 to-white/4 border border-white/15 hover:border-green-400/30 transition-all duration-500 hover:scale-[1.02]">
+                <div className="absolute inset-0 bg-gradient-to-br from-green-500/15 via-transparent to-emerald-500/8 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="relative p-8">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="text-sm font-bold text-green-300 tracking-wider uppercase">FinTech Solution</div>
-                    <div className="w-8 h-8 rounded-full bg-blue-400/20 flex items-center justify-center">
-                      <div className="w-3 h-3 rounded-full bg-blue-400 animate-pulse"></div>
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="text-xs font-bold text-green-300 tracking-[0.2em] uppercase">Financial Technology</div>
+                    <div className="px-3 py-1 rounded-full bg-blue-400/10 border border-blue-400/20">
+                      <span className="text-blue-300 text-xs font-semibold">Deployed</span>
                     </div>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-green-200 transition-colors duration-300">
-                    SecureBank Pro
+                  <h3 className="text-xl font-bold text-white mb-4 group-hover:text-green-200 transition-colors duration-300">
+                    Next-Gen Banking Core
                   </h3>
-                  <p className="text-gray-300 mb-6 leading-relaxed">
-                    Built a next-gen banking platform that processes $2B+ in transactions with zero security incidents.
+                  <p className="text-gray-400 mb-8 leading-relaxed text-sm">
+                    Developed a cloud-native banking platform with advanced security protocols and real-time transaction processing.
                   </p>
-                  <div className="space-y-3">
-                    <div className="flex items-center text-sm">
-                      <div className="w-2 h-2 rounded-full bg-green-400 mr-3"></div>
-                      <span className="text-gray-300">Military-grade encryption</span>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-400">Transaction Volume</span>
+                      <span className="text-white font-semibold">$2.8B+ processed</span>
                     </div>
-                    <div className="flex items-center text-sm">
-                      <div className="w-2 h-2 rounded-full bg-green-400 mr-3"></div>
-                      <span className="text-gray-300">50ms transaction processing</span>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-400">Response Time</span>
+                      <span className="text-white font-semibold">{"<"} 45ms avg</span>
                     </div>
-                    <div className="flex items-center text-sm">
-                      <div className="w-2 h-2 rounded-full bg-green-400 mr-3"></div>
-                      <span className="text-gray-300">1M+ active users</span>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-400">Security Incidents</span>
+                      <span className="text-white font-semibold">Zero breaches</span>
                     </div>
                   </div>
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 to-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-green-500 to-emerald-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
               </div>
 
-              {/* Featured Case Study 3 */}
-              <div className="group relative overflow-hidden rounded-3xl backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 hover:border-blue-400/40 transition-all duration-700 hover:scale-[1.02] hover:rotate-1">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-transparent to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              {/* AI & Machine Learning */}
+              <div className="group relative overflow-hidden rounded-2xl backdrop-blur-xl bg-gradient-to-br from-white/8 to-white/4 border border-white/15 hover:border-purple-400/30 transition-all duration-500 hover:scale-[1.02]">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/15 via-transparent to-pink-500/8 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="relative p-8">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="text-sm font-bold text-purple-300 tracking-wider uppercase">AI/ML Platform</div>
-                    <div className="w-8 h-8 rounded-full bg-purple-400/20 flex items-center justify-center">
-                      <div className="w-3 h-3 rounded-full bg-purple-400 animate-pulse"></div>
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="text-xs font-bold text-purple-300 tracking-[0.2em] uppercase">AI & Machine Learning</div>
+                    <div className="px-3 py-1 rounded-full bg-purple-400/10 border border-purple-400/20">
+                      <span className="text-purple-300 text-xs font-semibold">Scaling</span>
                     </div>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-purple-200 transition-colors duration-300">
-                    AI Vision Labs
+                  <h3 className="text-xl font-bold text-white mb-4 group-hover:text-purple-200 transition-colors duration-300">
+                    Industrial AI Platform
                   </h3>
-                  <p className="text-gray-300 mb-6 leading-relaxed">
-                    Developed breakthrough computer vision technology that revolutionized manufacturing quality control.
+                  <p className="text-gray-400 mb-8 leading-relaxed text-sm">
+                    Built an intelligent manufacturing optimization system using computer vision and predictive analytics.
                   </p>
-                  <div className="space-y-3">
-                    <div className="flex items-center text-sm">
-                      <div className="w-2 h-2 rounded-full bg-purple-400 mr-3"></div>
-                      <span className="text-gray-300">99.97% defect detection rate</span>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-400">Efficiency Gains</span>
+                      <span className="text-white font-semibold">+34% productivity</span>
                     </div>
-                    <div className="flex items-center text-sm">
-                      <div className="w-2 h-2 rounded-full bg-purple-400 mr-3"></div>
-                      <span className="text-gray-300">Real-time processing</span>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-400">Defect Reduction</span>
+                      <span className="text-white font-semibold">99.96% accuracy</span>
                     </div>
-                    <div className="flex items-center text-sm">
-                      <div className="w-2 h-2 rounded-full bg-purple-400 mr-3"></div>
-                      <span className="text-gray-300">$12M cost savings/year</span>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-400">Cost Savings</span>
+                      <span className="text-white font-semibold">$18M annually</span>
                     </div>
                   </div>
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
               </div>
             </div>
           </div>
           
-          {/* Revolutionary CTA Experience */}
-          <div className={`flex flex-col items-center space-y-8 mb-16 transition-all duration-1000 delay-1200 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-            
-           
-            <div className="group relative">
-              
-              
-              {/* Orbital rings around button */}
-              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                <div className="absolute inset-0 rounded-2xl border border-blue-400/30 animate-pulse"></div>
-                <div className="absolute inset-[-4px] rounded-2xl border border-blue-400/20 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                <div className="absolute inset-[-8px] rounded-2xl border border-blue-400/10 animate-pulse" style={{ animationDelay: '1s' }}></div>
-              </div>
-            </div>
-
-            {/* Secondary CTA with holographic effect */}
-            <button className="group relative px-10 py-4 border-2 border-white/30 text-white font-semibold text-lg rounded-2xl backdrop-blur-xl transition-all duration-500 hover:border-blue-400/60 hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-purple-500/10 hover:scale-105 overflow-hidden">
-              
-              {/* Holographic scanning line */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-300/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1500"></div>
-              
+          {/* Professional CTA Section */}
+          <div className={`flex flex-col items-center space-y-8 transition-all duration-1000 delay-1000 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+            <button className="group relative px-12 py-4 border-2 border-blue-400/40 text-white font-semibold text-lg rounded-xl backdrop-blur-xl transition-all duration-500 hover:border-blue-400/60 hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-indigo-500/10 hover:scale-105 overflow-hidden">
               <span className="relative z-10 flex items-center">
-                <svg className="w-5 h-5 mr-3 transition-transform group-hover:rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                <svg className="w-5 h-5 mr-3 transition-transform group-hover:rotate-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Schedule Strategy Session
+                View Full Case Studies
               </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
             </button>
             
-          </div>
+            <p style={{color: "#1F2C43"}}>hy</p>
 
-          {/* Elite Client Showcase */}
-          <div className={`transition-all duration-1000 delay-1400 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <div className="text-center mb-8">
-              <p className="text-gray-400 text-sm mb-2 tracking-wider uppercase font-semibold">
-                Transforming Industry Leaders
-              </p>
-              <h3 className="text-2xl font-bold text-white mb-8">
-                From <span className="text-blue-400">Startups</span> to <span className="text-green-400">Fortune 500</span>
-              </h3>
-            </div>
-            
-            {/* Industry Categories with Hover Effects */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-              {[
-                { name: 'E-Commerce', growth: '+2,847%', icon: '🛒', color: 'blue' },
-                { name: 'FinTech', growth: '+1,245%', icon: '💳', color: 'green' },
-                { name: 'HealthTech', growth: '+934%', icon: '🏥', color: 'purple' },
-                { name: 'AI/ML', growth: '+3,156%', icon: '🤖', color: 'pink' }
-              ].map((industry, index) => (
-                <div 
-                  key={index}
-                  className={`group relative backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 hover:border-${industry.color}-400/40 transition-all duration-500 hover:bg-white/10 hover:scale-110 hover:-translate-y-2 cursor-pointer overflow-hidden`}
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-br from-${industry.color}-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`}></div>
-                  <div className="relative">
-                    <div className="text-3xl mb-3 transform group-hover:scale-125 transition-transform duration-300">{industry.icon}</div>
-                    <div className={`text-lg font-bold text-white mb-2 group-hover:text-${industry.color}-300 transition-colors duration-300`}>
-                      {industry.name}
-                    </div>
-                    <div className={`text-sm font-semibold text-${industry.color}-400 group-hover:text-${industry.color}-300 transition-colors duration-300`}>
-                      {industry.growth} Growth
-                    </div>
-                  </div>
-                  
-                  {/* Hover animation dots */}
-                  <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className={`w-2 h-2 bg-${industry.color}-400 rounded-full animate-ping`}></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      {/* Elegant Scroll Indicator */}
-      <div className={`absolute bottom-12 left-1/2 transform -translate-x-1/2 transition-all duration-1000 delay-1400 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex flex-col items-center text-gray-400 group cursor-pointer">
-          <span className="text-sm mb-4 font-medium tracking-wide group-hover:text-blue-300 transition-colors duration-300">
-            Discover Our Success Stories
-          </span>
-          <div className="relative w-8 h-12 border-2 border-gray-400 rounded-full group-hover:border-blue-400 transition-colors duration-300">
-            <div className="absolute w-1.5 h-3 bg-gray-400 rounded-full left-1/2 transform -translate-x-1/2 mt-2 animate-bounce group-hover:bg-blue-400 transition-colors duration-300"></div>
           </div>
         </div>
       </div>

@@ -1,8 +1,14 @@
-import React from 'react';
+"use client";
+import React, { useEffect } from 'react';
 
 const CaseStudyCTA = () => {
+  useEffect(() => {
+    console.log('CaseStudyCTA component mounted');
+    return () => console.log('CaseStudyCTA component unmounted');
+  }, []);
+
   return (
-    <section className="py-16 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+    <section className="py-16 bg-gradient-to-r from-blue-600 to-indigo-700 text-white relative z-10">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to start your project?</h2>
         <p className="text-xl mb-8 max-w-3xl mx-auto text-blue-100">
