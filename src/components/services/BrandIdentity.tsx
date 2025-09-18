@@ -1,93 +1,93 @@
 "use client";
 import React, { useState } from 'react';
-import { Layout, Palette, PenTool, Figma, Layers, Users, Sparkles, Monitor } from 'lucide-react';
+import { PenTool, Palette, Type, BookText, Users, Sparkles, BadgeCheck, Globe, Layers, Target } from 'lucide-react';
 
-const UIDesign = () => {
+const BrandIdentity = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
-  const uiDesignServices = [
+  const brandServices = [
     {
       id: 1,
-      icon: Layout,
-      title: "User Research & Strategy",
-      subtitle: "Understanding Your Users",
-      description: "In-depth user research, persona development, and journey mapping to create design strategies that genuinely resonate with your target audience.",
-      features: ["User interviews & surveys", "Persona & user journey mapping", "Competitive analysis", "Information architecture"],
-      technologies: ["Miro", "Typeform", "Google Analytics", "Hotjar"],
-      stats: "50+ Projects",
-      timeline: "3-6 weeks",
-      complexity: "Discovery"
+      icon: PenTool,
+      title: "Logo Design",
+      subtitle: "Your Visual Signature",
+      description: "Crafting unique logos that capture your brand's essence and create a lasting impression.",
+      features: ["Custom Logo Concepts", "Brand Personality Integration", "Versatile File Formats", "Trademark Guidance"],
+      technologies: ["Adobe Illustrator", "Procreate", "Vector Graphics", "Brand Strategy"],
+      stats: "200+ Logos",
+      timeline: "3-5 weeks",
+      complexity: "Core Identity"
     },
     {
       id: 2,
       icon: Palette,
-      title: "UI/UX Design & Prototyping",
-      subtitle: "Crafting Intuitive Experiences",
-      description: "Creating stunning, user-friendly interfaces and interactive prototypes that ensure seamless navigation and engaging user interactions across all devices.",
-      features: ["Wireframing & low-fidelity mockups", "High-fidelity designs", "Interactive prototyping", "Design system development"],
-      technologies: ["Figma", "Sketch", "Adobe XD", "InVision"],
-      stats: "100+ Designs",
-      timeline: "6-12 weeks",
-      complexity: "Design"
+      title: "Brand Colors",
+      subtitle: "Emotional Impact",
+      description: "Developing a strategic color palette that evokes the right emotions and brand perception.",
+      features: ["Color Psychology", "Accessibility Compliance", "Primary & Secondary Palettes", "Application Guidelines"],
+      technologies: ["Pantone Matching", "Color Theory", "WCAG Standards", "Brand Applications"],
+      stats: "150+ Palettes",
+      timeline: "2-3 weeks",
+      complexity: "Visual Language"
     },
     {
       id: 3,
-      icon: PenTool,
-      title: "Front-end Development Handoff",
-      subtitle: "Seamless Implementation",
-      description: "Providing clear, comprehensive design documentation and assets for developers, ensuring accurate and efficient implementation of the UI/UX design into code.",
-      features: ["Developer-friendly design specs", "Asset export & optimization", "Interaction & animation guidelines", "Continuous collaboration"],
-      technologies: ["Zeplin", "Storybook", "Jira", "Confluence"],
-      stats: "80+ Handoffs",
+      icon: Type,
+      title: "Brand Typography",
+      subtitle: "Voice in Type",
+      description: "Selecting typefaces that communicate your brand's personality with clarity and distinction.",
+      features: ["Custom Font Pairings", "Web & Print Optimization", "Hierarchy Systems", "Licensing Support"],
+      technologies: ["Font Pairing", "Type Design", "Typography Scales", "Brand Consistency"],
+      stats: "90+ Type Systems",
       timeline: "2-4 weeks",
-      complexity: "Implementation"
+      complexity: "Tone Setting"
     },
     {
       id: 4,
-      icon: Users,
-      title: "Usability Testing & Iteration",
-      subtitle: "Refining User Satisfaction",
-      description: "Conducting rigorous usability testing and A/B experiments to gather feedback, identify pain points, and iterate on designs for optimal user satisfaction.",
-      features: ["Usability testing (moderated/unmoderated)", "A/B testing & heatmaps", "Accessibility audits", "Post-launch performance monitoring"],
-      technologies: ["UserTesting", "Hotjar", "Optimizely", "Google Optimize"],
-      stats: "60+ Tests Run",
-      timeline: "Ongoing",
-      complexity: "Testing"
+      icon: BookText,
+      title: "Brand Guidelines",
+      subtitle: "The Brand Bible",
+      description: "Comprehensive manual ensuring consistent brand application across all platforms and materials.",
+      features: ["Usage Rules", "Visual Standards", "Messaging Guidelines", "Implementation Examples"],
+      technologies: ["InDesign", "Brand Strategy", "Content Guidelines", "Digital & Print"],
+      stats: "120+ Guidelines",
+      timeline: "4-6 weeks",
+      complexity: "Governance"
     },
     {
       id: 5,
-      icon: Monitor,
-      title: "Responsive & Adaptive Design",
-      subtitle: "Seamless Experience Everywhere",
-      description: "Designing interfaces that look and function flawlessly across all devices and screen sizes, ensuring a consistent and delightful user experience from desktop to mobile.",
-      features: ["Mobile-first design principles", "Cross-browser compatibility", "Accessibility standards (WCAG)", "Performance optimization for all devices"],
-      technologies: ["Bootstrap", "Tailwind CSS", "Material-UI", "Responsive Frameworks"],
-      stats: "90+ Responsive Designs",
-      timeline: "5-10 weeks",
-      complexity: "Adaptation"
+      icon: Target,
+      title: "Brand Strategy",
+      subtitle: "Purpose & Position",
+      description: "Defining your brand's core positioning, values, and market differentiation.",
+      features: ["Brand Archetypes", "Value Proposition", "Messaging Framework", "Audience Mapping"],
+      technologies: ["Market Research", "Competitive Analysis", "Brand Architecture", "Positioning Strategy"],
+      stats: "80+ Strategies",
+      timeline: "6-8 weeks",
+      complexity: "Foundation"
     },
     {
       id: 6,
-      icon: Sparkles,
-      title: "Interactive Animations & Micro-interactions",
-      subtitle: "Bringing Designs to Life",
-      description: "Enhancing user engagement and delight through subtle yet impactful animations and micro-interactions that guide users and provide instant feedback.",
-      features: ["Loading animations & transitions", "Hover effects & button feedback", "Form validation animations", "Onboarding guided tours"],
-      technologies: ["Framer Motion", "GreenSock (GSAP)", "Lottie", "CSS Animations"],
-      stats: "70+ Animations",
-      timeline: "4-8 weeks",
-      complexity: "Enhancement"
+      icon: Globe,
+      title: "Brand Experience",
+      subtitle: "Every Touchpoint",
+      description: "Ensuring consistent brand expression across all customer interactions and touchpoints.",
+      features: ["Customer Journey Mapping", "Touchpoint Audit", "Experience Design", "Brand Training"],
+      technologies: ["CX Strategy", "Service Design", "Brand Standards", "Employee Training"],
+      stats: "60+ Experiences",
+      timeline: "8-12 weeks",
+      complexity: "Integration"
     }
   ];
 
   const getComplexityColor = (complexity: string) => {
     switch(complexity) {
-      case 'Discovery': return 'text-blue-400 border-blue-500/30 bg-blue-500/10';
-      case 'Design': return 'text-green-400 border-green-500/30 bg-green-500/10';
-      case 'Implementation': return 'text-purple-400 border-purple-500/30 bg-purple-500/10';
-      case 'Testing': return 'text-red-400 border-red-500/30 bg-red-500/10';
-      case 'Adaptation': return 'text-blue-400 border-blue-500/30 bg-blue-500/10';
-      case 'Enhancement': return 'text-lime-400 border-lime-500/30 bg-lime-500/10';
+      case 'Core Identity': return 'text-blue-400 border-blue-500/30 bg-blue-500/10';
+      case 'Visual Language': return 'text-green-400 border-green-500/30 bg-green-500/10';
+      case 'Tone Setting': return 'text-purple-400 border-purple-500/30 bg-purple-500/10';
+      case 'Governance': return 'text-red-400 border-red-500/30 bg-red-500/10';
+      case 'Foundation': return 'text-blue-400 border-blue-500/30 bg-blue-500/10';
+      case 'Integration': return 'text-lime-400 border-lime-500/30 bg-lime-500/10';
       default: return 'text-blue-400 border-blue-500/30 bg-blue-500/10';
     }
   };
@@ -136,29 +136,29 @@ const UIDesign = () => {
           <div className="inline-block mb-8 mx-auto">
             <div className="px-6 py-3 bg-gradient-to-r from-blue-500/20 to-indigo-600/20 border border-blue-500/30 rounded-full backdrop-blur-sm">
               <span className="text-purple-400 font-bold tracking-wide flex items-center gap-2">
-                <Layout className="w-4 h-4" />
-                UI/UX Design Services
+                <BadgeCheck className="w-4 h-4" />
+                Brand Identity Services
               </span>
             </div>
           </div>
           
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-8">
-            Crafting Exceptional{' '}
+            Building Powerful{' '}
             <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-              Digital Experiences
+              Brand Identities
             </span>
           </h1>
           
           <p className="text-slate-400 text-lg max-w-4xl leading-relaxed mx-auto">
-            We believe great design is at the heart of every successful product. Our UI/UX design
-            services focus on creating intuitive, engaging, and aesthetically pleasing interfaces
-            that delight users and drive business growth.
+            We craft distinctive brand identities that resonate with your audience and stand the test of time. 
+            Our comprehensive approach ensures your brand tells a compelling story across all touchpoints, 
+            creating meaningful connections with your customers.
           </p>
         </div>
 
-        {/* UI/UX Design Services Grid */}
+        {/* Brand Identity Services Grid */}
         <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-20">
-          {uiDesignServices.map((service) => (
+          {brandServices.map((service) => (
             <div
               key={service.id}
               className="group relative h-full cursor-pointer"
@@ -270,22 +270,22 @@ const UIDesign = () => {
           ))}
         </div>
 
-        {/* Advanced Technology Stack */}
+        {/* Brand Identity Technology Stack */}
         <div className="mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center">
             <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-              Our Core UI/UX Stack
+              Our Brand Identity Toolkit
             </span>
           </h2>
           
           <div className="grid gap-6 md:grid-cols-3 mb-8">
             <div className="p-6 bg-slate-900/30 border border-slate-700/30 rounded-2xl backdrop-blur-sm">
               <h3 className="text-base font-semibold text-white mb-4 flex items-center gap-2">
-                <Figma className="w-5 h-5 text-purple-400" />
-                Design Tools
+                <PenTool className="w-5 h-5 text-purple-400" />
+                Design & Identity Tools
               </h3>
               <div className="flex flex-wrap gap-2">
-                {["Figma", "Sketch", "Adobe XD", "InVision", "ProtoPie", "Webflow"].map((tech) => (
+                {["Adobe Illustrator", "Affinity Designer", "Procreate", "Figma", "Sketch", "CorelDRAW"].map((tech) => (
                   <span key={tech} className="px-3 py-1 text-xxs bg-purple-500/10 text-purple-300 rounded-full border border-purple-500/20">
                     {tech}
                   </span>
@@ -296,10 +296,10 @@ const UIDesign = () => {
             <div className="p-6 bg-slate-900/30 border border-slate-700/30 rounded-2xl backdrop-blur-sm">
               <h3 className="text-base font-semibold text-white mb-4 flex items-center gap-2">
                 <Layers className="w-5 h-5 text-indigo-400" />
-                Prototyping & Collaboration
+                Brand Management
               </h3>
               <div className="flex flex-wrap gap-2">
-                {["Figma Prototyping", "Adobe XD", "InVision Freehand", "Miro", "Zeplin", "Confluence"].map((tech) => (
+                {["Frontify", "Bynder", "Brandfolder", "InVision DSM", "Zeplin", "Figma"].map((tech) => (
                   <span key={tech} className="px-3 py-1 text-xxs bg-indigo-500/10 text-indigo-300 rounded-full border border-indigo-500/20">
                     {tech}
                   </span>
@@ -310,10 +310,10 @@ const UIDesign = () => {
             <div className="p-6 bg-slate-900/30 border border-slate-700/30 rounded-2xl backdrop-blur-sm">
               <h3 className="text-base font-semibold text-white mb-4 flex items-center gap-2">
                 <Users className="w-5 h-5 text-blue-400" />
-                User Research & Testing
+                Research & Strategy
               </h3>
               <div className="flex flex-wrap gap-2">
-                {["UserTesting", "Hotjar", "Maze", "Lookback", "Optimizely", "Google Optimize"].map((tech) => (
+                {["Audience Research", "Competitive Analysis", "Brand Archetypes", "Positioning Strategy", "Trademark Research", "Brand Audits"].map((tech) => (
                   <span key={tech} className="px-3 py-1 text-xxs bg-blue-500/10 text-blue-300 rounded-full border border-blue-500/20">
                     {tech}
                   </span>
@@ -327,11 +327,11 @@ const UIDesign = () => {
         <div className="text-center">
           <div className="inline-flex items-center gap-4">
             <button className="group px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300 flex items-center gap-2 text-base">
-              Start Your Design Project
-              <Figma className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              Start Your Brand Journey
+              <BadgeCheck className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
             <button className="px-6 py-3 border border-slate-600 text-slate-300 rounded-xl hover:bg-slate-800/50 hover:text-white hover:border-purple-500/30 transition-all duration-300 text-base">
-              View Design Portfolio
+              View Brand Portfolio
             </button>
           </div>
         </div>
@@ -340,4 +340,4 @@ const UIDesign = () => {
   );
 };
 
-export default UIDesign;
+export default BrandIdentity;
