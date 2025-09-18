@@ -15,11 +15,7 @@ const AgencyCaseStudyHero = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const getCanvasContext = useCallback((): CanvasRenderingContext2D | null => {
-    const canvas = canvasRef.current;
-    if (!canvas) return null;
-    return canvas.getContext('2d');
-  }, []);
+  // Canvas context is accessed directly in the effects
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -86,7 +82,7 @@ const AgencyCaseStudyHero = () => {
         { x: 0.12, y: 0.12, size: 25, rotation: time * 0.0007, opacity: 0.28 }
       ];
 
-      shapes.forEach((shape, index) => {
+      shapes.forEach((shape) => {
         const x = shape.x * canvasRect.width;
         const y = shape.y * canvasRect.height;
         
@@ -284,7 +280,7 @@ const AgencyCaseStudyHero = () => {
           
           {/* Professional Subtitle */}
           <p className={`text-lg md:text-xl lg:text-2xl text-gray-300 mb-20 max-w-4xl mx-auto leading-relaxed font-light transition-all duration-1000 delay-600 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-            Explore how we've partnered with industry leaders to deliver{' '}
+            Explore how we&apos;ve partnered with industry leaders to deliver{' '}
             <span className="text-blue-300 font-medium">transformative digital solutions</span>
             <br />
             that exceed expectations and drive sustained competitive advantage
