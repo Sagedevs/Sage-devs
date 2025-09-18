@@ -248,8 +248,8 @@ const EcommerceGrowth = () => {
                 </div>
               </div>
               <p className="text-blue-100 text-lg">
-                "This transformation exceeded all our expectations. We've not just recovered from our decline, 
-                but positioned ourselves as a leader in our industry."
+                &ldquo;This transformation exceeded all our expectations. We&apos;ve not just recovered from our decline, 
+                but positioned ourselves as a leader in our industry.&rdquo;
               </p>
               <p className="text-blue-200 text-sm mt-3 font-medium">
                 — Sarah Mitchell, CEO
