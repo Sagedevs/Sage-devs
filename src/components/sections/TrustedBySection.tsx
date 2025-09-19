@@ -89,28 +89,25 @@ export default function TrustedBySection() {
 <div className="text-center mb-6">
   {/* small decorative strokes + tiny label */}
   <div className="flex items-center justify-center gap-4 mb-3">
-    <span className="w-12 h-0.5 rounded-full bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-600" />
-    <span className="text-xs tracking-wider text-gray-300 uppercase font-medium">Trusted by</span>
-    <span className="w-12 h-0.5 rounded-full bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-600" />
+    <span className="w-12 h-0.5 rounded-full bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600" />
+    <span className="text-xs tracking-wider text-blue-200 uppercase font-medium">Trusted by</span>
+    <span className="w-12 h-0.5 rounded-full bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600" />
   </div>
 
   {/* main heading — parts highlighted with gradient */}
   <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-extrabold leading-tight">
-    {/* <span className="block">Trusted by</span> */}
     <span className="block">
-      <span className="text-white mr-2"> </span>
-      <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">
-        Global Brands
+      <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-300 to-blue-500">
+        Global Brands & Enterprises
       </span>
-      <span className="text-white mx-2">&</span>
-      <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
-        Enterprises
-      </span>
+    </span>
+    <span className="block text-lg md:text-xl mt-2 text-blue-200">
+      Empowering <span className="text-white font-bold">Web Developers</span> & <span className="text-white font-bold">AI Innovators</span>
     </span>
   </h3>
 
   {/* slim gradient underline */}
-  <div className="w-28 h-1 mx-auto rounded-full mt-4 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-600" />
+  <div className="w-28 h-1 mx-auto rounded-full mt-4 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600" />
 </div>
 
 
@@ -162,11 +159,11 @@ export default function TrustedBySection() {
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Empowering{" "}
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">
                 Web Developers
               </span>{" "}
               &{" "}
-              <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
                 AI Innovators
               </span>
               <br />
