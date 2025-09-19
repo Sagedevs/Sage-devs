@@ -227,7 +227,7 @@ const TechnologyStack = () => {
               </h3>
               <p className="text-slate-300 text-lg leading-relaxed mb-8">
                 Our technology stack evolves continuously, integrating cutting-edge solutions 
-                to deliver unparalleled performance and user experiences that define tomorrow's digital landscape.
+                to deliver unparalleled performance and user experiences that define tomorrow&apos;s digital landscape.
               </p>
               <div className="flex flex-wrap gap-4">
                 {['Real-time Performance', 'Scalable Architecture', 'Future-Ready'].map((feature, index) => (
