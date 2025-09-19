@@ -135,7 +135,7 @@ const CaseStudyCTA = () => {
               
               <div className="relative">
                 <p className="text-xl lg:text-2xl text-slate-300 leading-relaxed max-w-2xl font-light">
-                  Join the ranks of industry leaders who've transformed their businesses with our cutting-edge solutions.
+                  Join the ranks of industry leaders who&apos;ve transformed their businesses with our cutting-edge solutions.
                 </p>
                 <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-blue-500 via-purple-500 to-cyan-500 rounded-full opacity-60" />
               </div>

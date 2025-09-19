@@ -215,7 +215,7 @@ const EcommerceGrowth = () => {
                 <p className="text-gray-200 text-lg leading-relaxed mb-6 font-medium">
                   A premium lifestyle empire with 15+ years of dominance was <span className="text-blue-400 font-bold">bleeding revenue</span>. 
                   Their ancient e-commerce platform was a <span className="text-blue-500 font-bold">conversion killer</span>, 
-                  driving customers straight into competitors' arms.
+                  driving customers straight into competitors&apos; arms.
                 </p>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 text-center border border-blue-400 border-opacity-30">

@@ -1,11 +1,50 @@
 "use client";
 import React from "react";
+import dynamic from "next/dynamic";
+
+// Dynamically import components with SSR disabled where needed
+const ProjectCalculator = dynamic(
+  () => import("@/components/resources/ProjectCalculator"),
+  { ssr: false }
+);
+
+const HeroSection = dynamic(() => import("@/components/resources/HeroSection"));
+const GuidesTemplates = dynamic(() => import("@/components/resources/GuidesTemplates"));
+const TechnologyStack = dynamic(() => import("@/components/resources/TechnologyStack"));
+const WebinarsTalks = dynamic(() => import("@/components/resources/WebinarsTalks"));
+const SupportCenter = dynamic(() => import("@/components/resources/SupportCenter"));
 
 export default function ResourcesIndexPage() {
   return (
-    <main className="min-h-screen pt-28 px-6">
-      <h1 className="text-3xl md:text-5xl font-bold text-white">Resources</h1>
-      <p className="text-gray-400 mt-4 max-w-3xl">Browse our blog, guides, templates, and webinars. Curated content to help you ship better products.</p>
-    </main>
+ 
+      
+      
+      <main >
+        
+          <HeroSection />
+            <ProjectCalculator />
+          
+
+          
+
+          {/* Guides & Templates */}
+          
+            <GuidesTemplates />
+          
+
+          {/* Technology Stack */}
+          
+            <TechnologyStack />
+
+          {/* Webinars & Talks */}
+          
+            <WebinarsTalks />
+          
+          {/* Support Center */}
+         
+          <SupportCenter />
+        
+      </main>
+    
   );
 }
