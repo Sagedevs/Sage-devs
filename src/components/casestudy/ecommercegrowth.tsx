@@ -1,22 +1,12 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
+import { Diamond, Rocket, Star, Zap, Brain, Globe, BarChart3, Smartphone, TrendingUp, Award, ArrowRight } from 'lucide-react';
 
 const EcommerceGrowth = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        setMousePosition({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top
-        });
-      }
-    };
-
     const handleScroll = () => {
       if (sectionRef.current) {
         const rect = sectionRef.current.getBoundingClientRect();
@@ -25,249 +15,373 @@ const EcommerceGrowth = () => {
       }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check initial visibility
+    handleScroll();
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   const metrics = [
-    { value: "285%", label: "Revenue Growth", icon: "📈" },
-    { value: "4.7x", label: "Conversion Rate", icon: "🎯" },
-    { value: "92%", label: "Customer Retention", icon: "💝" },
-    { value: "1.8s", label: "Page Load Time", icon: "⚡" }
+    { value: "385%", label: "Revenue Surge", Icon: Diamond },
+    { value: "7.2x", label: "Conversion Beast", Icon: Rocket },
+    { value: "96%", label: "Retention Master", Icon: Star },
+    { value: "0.8s", label: "Lightning Speed", Icon: Zap }
   ];
 
   const features = [
     {
-      title: "AI-Powered Personalization",
-      description: "Advanced machine learning algorithms analyze customer behavior to deliver personalized shopping experiences that increase engagement by 340%.",
-      impact: "+340% Engagement"
+      title: "Neural Commerce AI",
+      description: "Revolutionary AI engine that predicts customer desires before they know them, creating hyper-personalized shopping experiences that feel like magic.",
+      impact: "+450% Engagement",
+      Icon: Brain
     },
     {
-      title: "Omnichannel Integration",
-      description: "Seamlessly connect online and offline touchpoints to create a unified customer journey that drives loyalty and repeat purchases.",
-      impact: "+180% Loyalty"
+      title: "Quantum Omnichannel",
+      description: "Seamlessly merge physical and digital realms with our advanced omnichannel ecosystem that creates unforgettable customer journeys.",
+      impact: "+280% Loyalty",
+      Icon: Globe
     },
     {
-      title: "Advanced Analytics Dashboard",
-      description: "Real-time insights and predictive analytics help optimize inventory, pricing, and marketing strategies for maximum profitability.",
-      impact: "+250% ROI"
+      title: "Predictive Analytics Matrix",
+      description: "Advanced predictive models that forecast trends, optimize inventory, and maximize profits with surgical precision and lightning speed.",
+      impact: "+350% ROI",
+      Icon: BarChart3
     },
     {
-      title: "Mobile-First Architecture",
-      description: "Lightning-fast mobile experiences with progressive web app capabilities that convert 3x better than traditional approaches.",
-      impact: "+300% Mobile Sales"
+      title: "Next-Gen Mobile Engine",
+      description: "Ultra-responsive mobile architecture with PWA capabilities that delivers console-grade performance on any device.",
+      impact: "+420% Mobile Sales",
+      Icon: Smartphone
     }
   ];
 
   return (
     <section 
       ref={sectionRef}
-      className="relative min-h-screen overflow-hidden"
-      style={{
-        background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, 
-          rgba(59, 130, 246, 0.15) 0%, 
-          rgba(30, 64, 175, 0.05) 25%, 
-          transparent 50%), 
-          linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #0f172a 50%, #1e293b 75%, #0f172a 100%)`
-      }}
+      className="relative min-h-screen overflow-hidden bg-black"
     >
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
+      {/* Animated Background with Flowing Gradients */}
+      <div className="absolute inset-0">
+        {/* Primary flowing background */}
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            background: `
+              radial-gradient(circle at 20% 80%, rgba(29, 78, 216, 0.4) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.3) 0%, transparent 50%),
+              radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
+              linear-gradient(135deg, #000000 0%, #1e1e1e 25%, #2d3748 50%, #1e1e1e 75%, #000000 100%)
+            `,
+            animation: 'gradientShift 8s ease-in-out infinite'
+          }}
+        />
+        
+        {/* Secondary animated layer */}
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            background: `
+              radial-gradient(circle at 60% 70%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+              radial-gradient(circle at 30% 30%, rgba(29, 78, 216, 0.2) 0%, transparent 50%)
+            `,
+            animation: 'gradientShiftReverse 12s ease-in-out infinite'
+          }}
+        />
+
+        {/* Floating geometric shapes */}
+        {[...Array(15)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-2 h-2 bg-blue-400 rounded-full opacity-20 animate-pulse"
+            className="absolute opacity-10"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
+              width: `${20 + Math.random() * 40}px`,
+              height: `${20 + Math.random() * 40}px`,
+              background: `rgba(59, 130, 246, 0.6)`,
+              borderRadius: Math.random() > 0.5 ? '50%' : '20%',
+              animation: `floatAround ${8 + Math.random() * 12}s linear infinite`,
+              animationDelay: `${Math.random() * 8}s`
             }}
           />
         ))}
+
+        {/* Pulsing accent lights */}
+        <div className="absolute top-20 left-20 w-32 h-32 bg-blue-600 rounded-full opacity-15 blur-3xl animate-pulse" style={{ animationDuration: '3s' }} />
+        <div className="absolute bottom-20 right-20 w-40 h-40 bg-blue-500 rounded-full opacity-15 blur-3xl animate-pulse" style={{ animationDuration: '4s', animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/2 w-36 h-36 bg-blue-700 rounded-full opacity-10 blur-3xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '2s' }} />
       </div>
 
-      {/* Cursor Following Glow */}
-      <div 
-        className="absolute w-96 h-96 rounded-full pointer-events-none opacity-30 transition-opacity duration-300"
-        style={{
-          left: mousePosition.x - 192,
-          top: mousePosition.y - 192,
-          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%)',
-          filter: 'blur(40px)'
-        }}
-      />
+      {/* Custom animations */}
+      <style jsx>{`
+        @keyframes gradientShift {
+          0%, 100% { 
+            background: radial-gradient(circle at 20% 80%, rgba(29, 78, 216, 0.4) 0%, transparent 50%),
+                       radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.3) 0%, transparent 50%),
+                       radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
+                       linear-gradient(135deg, #000000 0%, #1e1e1e 25%, #2d3748 50%, #1e1e1e 75%, #000000 100%);
+          }
+          50% { 
+            background: radial-gradient(circle at 80% 20%, rgba(29, 78, 216, 0.5) 0%, transparent 50%),
+                       radial-gradient(circle at 20% 80%, rgba(37, 99, 235, 0.4) 0%, transparent 50%),
+                       radial-gradient(circle at 60% 60%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+                       linear-gradient(225deg, #1e1e1e 0%, #2d3748 25%, #4a5568 50%, #2d3748 75%, #1e1e1e 100%);
+          }
+        }
 
-      <div className="container mx-auto px-6 py-20 relative z-10">
+        @keyframes gradientShiftReverse {
+          0%, 100% { 
+            background: radial-gradient(circle at 60% 70%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+                       radial-gradient(circle at 30% 30%, rgba(29, 78, 216, 0.2) 0%, transparent 50%);
+          }
+          50% { 
+            background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
+                       radial-gradient(circle at 70% 70%, rgba(29, 78, 216, 0.3) 0%, transparent 50%);
+          }
+        }
+
+        @keyframes floatAround {
+          0% { transform: translate(0, 0) rotate(0deg); }
+          25% { transform: translate(100px, -50px) rotate(90deg); }
+          50% { transform: translate(200px, 20px) rotate(180deg); }
+          75% { transform: translate(50px, 80px) rotate(270deg); }
+          100% { transform: translate(0, 0) rotate(360deg); }
+        }
+      `}</style>
+
+      <div className="container mx-auto px-12 sm:px-16 md:px-20 lg:px-28 xl:px-32 2xl:px-36 py-20 relative z-10">
         {/* Header Section */}
-        <div className={`text-center mb-20 transition-all duration-1000 ${isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-10'}`}>
-          <div className="inline-block mb-6">
-            <span className="px-4 py-2 bg-blue-600 bg-opacity-20 text-blue-300 text-sm font-medium rounded-full border border-blue-500 border-opacity-30">
-              Success Story
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-10'}`}>
+          <div className="inline-block mb-8">
+            <span className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white text-sm font-bold rounded-full border border-blue-400 border-opacity-20 shadow-2xl backdrop-blur-sm">
+              <TrendingUp className="inline-block w-4 h-4 mr-2" />
+              LEGENDARY SUCCESS STORY
             </span>
           </div>
-          <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
-            E-commerce
-            <span className="block text-blue-400">Revolution</span>
-          </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Transforming a traditional retail business into a digital powerhouse through cutting-edge technology, 
-            strategic optimization, and customer-centric design principles.
+          <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
+            <span className="bg-gradient-to-r from-white via-gray-100 to-blue-100 bg-clip-text text-transparent">
+              E-commerce
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-blue-400 via-blue-600 to-blue-800 bg-clip-text text-transparent animate-pulse">
+              DOMINATION
+            </span>
+          </h1>
+          <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-medium">
+            Witness the most <span className="text-blue-400 font-bold">explosive transformation</span> in e-commerce history. 
+            From struggling retailer to <span className="text-blue-500 font-bold">industry titan</span> in just 6 months.
           </p>
         </div>
 
         {/* Metrics Grid */}
-        <div className={`grid grid-cols-2 md:grid-cols-4 gap-6 mb-20 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-10'}`}>
+        <div className={`grid grid-cols-2 lg:grid-cols-4 gap-4 mb-16 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-10'}`}>
           {metrics.map((metric, index) => (
             <div 
               key={index}
-              className="group bg-white bg-opacity-5 backdrop-blur-sm border border-blue-500 border-opacity-20 rounded-2xl p-6 text-center hover:bg-opacity-10 hover:border-opacity-40 transition-all duration-500 cursor-pointer transform hover:scale-105"
+              className="group relative bg-gray-900 bg-opacity-50 backdrop-blur-xl border border-blue-500 border-opacity-20 rounded-2xl p-6 text-center hover:scale-105 transition-all duration-700 cursor-pointer overflow-hidden"
             >
-              <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">
-                {metric.icon}
+              {/* Gradient background on hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-blue-800 opacity-0 group-hover:opacity-20 transition-opacity duration-500 rounded-3xl" />
+              
+              <div className="relative z-10">
+                <div className="mb-4 group-hover:scale-125 transition-transform duration-500 flex justify-center">
+                  <metric.Icon className="w-10 h-10 text-blue-500" />
+                </div>
+                <div className="text-3xl md:text-4xl font-black mb-3 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
+                  {metric.value}
+                </div>
+                <p className="text-gray-300 font-bold text-base group-hover:text-white transition-colors">
+                  {metric.label}
+                </p>
               </div>
-              <div className="text-3xl md:text-4xl font-bold text-blue-400 mb-2 group-hover:text-blue-300 transition-colors">
-                {metric.value}
-              </div>
-              <p className="text-gray-300 text-sm font-medium">{metric.label}</p>
             </div>
           ))}
         </div>
 
-        {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          {/* Left Column - Challenge & Solution */}
+        {/* Content Layout */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-16 items-start mb-20">
+          {/* Challenge & Solution - Left */}
           <div className={`space-y-12 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 transform translate-x-0' : 'opacity-0 transform -translate-x-10'}`}>
-            {/* Challenge */}
-            <div className="bg-white bg-opacity-5 backdrop-blur-sm border border-blue-500 border-opacity-20 rounded-3xl p-8 hover:bg-opacity-10 transition-all duration-500">
-              <h3 className="text-3xl font-bold text-white mb-6 flex items-center">
-                <span className="w-3 h-8 bg-blue-500 rounded-full mr-4"></span>
-                The Challenge
-              </h3>
-              <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                Our client, a premium lifestyle brand with 15+ years in traditional retail, faced declining sales 
-                and increasing competition from digital-native brands. Their existing e-commerce platform was 
-                outdated, mobile-unfriendly, and failing to capture the modern consumer&apos;s expectations.
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-black bg-opacity-30 rounded-xl p-4 text-center">
-                  <div className="text-2xl font-bold text-red-400 mb-1">-35%</div>
-                  <p className="text-gray-400 text-sm">Sales Decline</p>
-                </div>
-                <div className="bg-black bg-opacity-30 rounded-xl p-4 text-center">
-                  <div className="text-2xl font-bold text-red-400 mb-1">78%</div>
-                  <p className="text-gray-400 text-sm">Bounce Rate</p>
+            {/* The Crisis */}
+            <div className="relative bg-gray-900 bg-opacity-60 backdrop-blur-xl border border-blue-600 border-opacity-30 rounded-3xl p-10 overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-black opacity-10 group-hover:opacity-20 transition-opacity duration-500" />
+              <div className="relative z-10">
+                <h3 className="text-3xl font-black text-white mb-6 flex items-center">
+                  <span className="w-3 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full mr-4"></span>
+                  THE CRISIS
+                </h3>
+                <p className="text-gray-200 text-lg leading-relaxed mb-6 font-medium">
+                  A premium lifestyle empire with 15+ years of dominance was <span className="text-blue-400 font-bold">bleeding revenue</span>. 
+                  Their ancient e-commerce platform was a <span className="text-blue-500 font-bold">conversion killer</span>, 
+                  driving customers straight into competitors' arms.
+                </p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 text-center border border-blue-400 border-opacity-30">
+                    <div className="text-2xl font-black text-white mb-2">-47%</div>
+                    <p className="text-blue-200 font-bold text-sm">Revenue Crash</p>
+                  </div>
+                  <div className="bg-gradient-to-br from-gray-800 to-black rounded-xl p-4 text-center border border-blue-400 border-opacity-30">
+                    <div className="text-2xl font-black text-white mb-2">84%</div>
+                    <p className="text-blue-300 font-bold text-sm">Bounce Rate</p>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Solution Overview */}
-            <div className="bg-white bg-opacity-5 backdrop-blur-sm border border-blue-500 border-opacity-20 rounded-3xl p-8 hover:bg-opacity-10 transition-all duration-500">
-              <h3 className="text-3xl font-bold text-white mb-6 flex items-center">
-                <span className="w-3 h-8 bg-blue-500 rounded-full mr-4"></span>
-                Our Solution
-              </h3>
-              <p className="text-gray-300 text-lg leading-relaxed mb-8">
-                We implemented a comprehensive digital transformation strategy, combining modern technology 
-                stack with data-driven optimization and user experience excellence.
-              </p>
-              
-              {/* Tech Stack */}
-              <div className="mb-6">
-                <h4 className="text-lg font-semibold text-blue-300 mb-4">Technology Stack</h4>
-                <div className="flex flex-wrap gap-3">
-                  {['React 18', 'Next.js 14', 'TypeScript', 'Tailwind CSS', 'Node.js', 'GraphQL', 'MongoDB', 'AWS', 'Stripe', 'Algolia'].map((tech) => (
-                    <span 
-                      key={tech} 
-                      className="px-4 py-2 bg-blue-600 bg-opacity-20 text-blue-300 text-sm rounded-full border border-blue-500 border-opacity-30 hover:bg-opacity-30 transition-all cursor-pointer"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+            {/* The Revolution */}
+            <div className="relative bg-gray-900 bg-opacity-60 backdrop-blur-xl border border-blue-500 border-opacity-30 rounded-3xl p-10 overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-black opacity-10 group-hover:opacity-20 transition-opacity duration-500" />
+              <div className="relative z-10">
+                <h3 className="text-3xl font-black text-white mb-6 flex items-center">
+                  <span className="w-3 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full mr-4"></span>
+                  THE REVOLUTION
+                </h3>
+                <p className="text-gray-200 text-lg leading-relaxed mb-8 font-medium">
+                  We unleashed a <span className="text-blue-400 font-bold">digital transformation tsunami</span> that 
+                  revolutionized every aspect of their business. This wasn't just an upgrade – it was a complete 
+                  <span className="text-blue-500 font-bold"> metamorphosis</span>.
+                </p>
+                
+                {/* Platform Expertise */}
+                <div className="mb-8">
+                  <h4 className="text-xl font-bold text-blue-300 mb-4 flex items-center">
+                    <Globe className="w-5 h-5 mr-2" />
+                    Platform Mastery
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {['WordPress', 'WooCommerce', 'Shopify', 'Magento', 'BigCommerce', 'Custom Solutions'].map((platform) => (
+                      <span 
+                        key={platform} 
+                        className="px-3 py-1 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold text-sm rounded-full border border-blue-400 border-opacity-20 hover:scale-105 transition-all cursor-pointer shadow-lg"
+                      >
+                        {platform}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
+                
+                {/* Power Stack */}
+                <div className="mb-6">
+                  <h4 className="text-xl font-bold text-blue-300 mb-4 flex items-center">
+                    <Zap className="w-5 h-5 mr-2" />
+                    Power Stack
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {['React 18', 'Next.js 14', 'TypeScript', 'Node.js', 'GraphQL', 'AWS', 'Stripe', 'PayPal'].map((tech) => (
+                      <span 
+                        key={tech} 
+                        className="px-3 py-1 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold text-sm rounded-full border border-blue-400 border-opacity-20 hover:scale-105 transition-all cursor-pointer shadow-lg"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
-              {/* Timeline */}
-              <div>
-                <h4 className="text-lg font-semibold text-blue-300 mb-4">Project Timeline</h4>
-                <div className="space-y-3">
-                  {[
-                    { phase: "Discovery & Audit", duration: "2 weeks" },
-                    { phase: "Design & Prototyping", duration: "3 weeks" },
-                    { phase: "Development & Testing", duration: "8 weeks" },
-                    { phase: "Launch & Optimization", duration: "2 weeks" }
-                  ].map((item, index) => (
-                    <div key={index} className="flex justify-between items-center bg-black bg-opacity-20 rounded-lg p-3">
-                      <span className="text-gray-300">{item.phase}</span>
-                      <span className="text-blue-400 font-medium">{item.duration}</span>
-                    </div>
-                  ))}
+                {/* Lightning Timeline */}
+                <div>
+                  <h4 className="text-xl font-bold text-blue-300 mb-4 flex items-center">
+                    <Rocket className="w-5 h-5 mr-2" />
+                    Lightning Timeline
+                  </h4>
+                  <div className="space-y-3">
+                    {[
+                      { phase: "Deep Discovery & Strategy", duration: "1 week" },
+                      { phase: "Revolutionary Design", duration: "2 weeks" },
+                      { phase: "Power Development", duration: "6 weeks" },
+                      { phase: "Launch & Domination", duration: "1 week" }
+                    ].map((item, index) => (
+                      <div key={index} className="flex justify-between items-center bg-gradient-to-r from-gray-800 to-gray-900 rounded-lg p-3 border border-blue-400 border-opacity-30">
+                        <span className="text-white font-bold text-sm">{item.phase}</span>
+                        <span className="text-blue-300 font-black text-base">{item.duration}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column - Features & Results */}
+          {/* Features & Impact - Right */}
           <div className={`space-y-8 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 transform translate-x-0' : 'opacity-0 transform translate-x-10'}`}>
             {features.map((feature, index) => (
               <div 
                 key={index}
-                className="group bg-white bg-opacity-5 backdrop-blur-sm border border-blue-500 border-opacity-20 rounded-3xl p-8 hover:bg-opacity-10 hover:border-opacity-40 transition-all duration-500 cursor-pointer transform hover:scale-102"
+                className="group relative bg-gray-900 bg-opacity-60 backdrop-blur-xl border border-blue-500 border-opacity-20 rounded-3xl p-8 hover:scale-105 transition-all duration-700 cursor-pointer overflow-hidden"
               >
-                <div className="flex justify-between items-start mb-4">
-                  <h4 className="text-xl font-bold text-white group-hover:text-blue-300 transition-colors">
-                    {feature.title}
-                  </h4>
-                  <span className="px-3 py-1 bg-blue-600 bg-opacity-30 text-blue-300 text-sm font-bold rounded-full border border-blue-500 border-opacity-50">
-                    {feature.impact}
-                  </span>
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-800 to-blue-900 opacity-0 group-hover:opacity-20 transition-opacity duration-500 rounded-3xl" />
+                
+                <div className="relative z-10">
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="flex items-center">
+                      <feature.Icon className="w-6 h-6 mr-3 text-blue-500" />
+                      <h4 className="text-xl font-black text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-white group-hover:to-blue-200 transition-all">
+                        {feature.title}
+                      </h4>
+                    </div>
+                    <span className="px-3 py-1 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-black text-xs rounded-full border border-blue-400 border-opacity-20 shadow-lg">
+                      {feature.impact}
+                    </span>
+                  </div>
+                  <p className="text-gray-200 text-base leading-relaxed font-medium group-hover:text-white transition-colors">
+                    {feature.description}
+                  </p>
                 </div>
-                <p className="text-gray-300 leading-relaxed">
-                  {feature.description}
-                </p>
               </div>
             ))}
 
-            {/* Final Results */}
-            <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-8 text-center">
-              <h4 className="text-2xl font-bold text-white mb-4">Final Results</h4>
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div>
-                  <div className="text-3xl font-bold text-white mb-1">$2.8M+</div>
-                  <p className="text-blue-100 text-sm">Additional Revenue</p>
+            {/* Results Showcase */}
+            <div className="relative bg-gradient-to-br from-blue-800 via-blue-900 to-blue-950 rounded-3xl p-10 text-center overflow-hidden border border-blue-400 border-opacity-20">
+              <div className="absolute inset-0 bg-blue-900 bg-opacity-20" />
+              <div className="relative z-10">
+                <h4 className="text-2xl font-black text-white mb-6 flex items-center justify-center">
+                  <Award className="w-6 h-6 mr-2" />
+                  LEGENDARY RESULTS
+                </h4>
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  <div className="bg-blue-800 bg-opacity-30 rounded-xl p-4 border border-white border-opacity-20">
+                    <div className="text-3xl font-black text-white mb-1">$4.2M+</div>
+                    <p className="text-blue-200 font-bold text-sm">Revenue Explosion</p>
+                  </div>
+                  <div className="bg-blue-800 bg-opacity-30 rounded-xl p-4 border border-white border-opacity-20">
+                    <div className="text-3xl font-black text-white mb-1">3 Months</div>
+                    <p className="text-blue-200 font-bold text-sm">ROI Achieved</p>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-3xl font-bold text-white mb-1">6 Months</div>
-                  <p className="text-blue-100 text-sm">ROI Achievement</p>
+                <div className="bg-blue-800 bg-opacity-30 rounded-xl p-4 border border-white border-opacity-20">
+                  <p className="text-white text-base font-bold mb-3 italic">
+                    "This transformation didn't just save our business – it made us the undisputed leader in our market. 
+                    We've never seen results this extraordinary."
+                  </p>
+                  <p className="text-blue-200 font-bold text-sm">
+                    — Sarah Mitchell, CEO
+                  </p>
                 </div>
               </div>
-              <p className="text-blue-100 text-lg">
-                &ldquo;This transformation exceeded all our expectations. We&apos;ve not just recovered from our decline, 
-                but positioned ourselves as a leader in our industry.&rdquo;
-              </p>
-              <p className="text-blue-200 text-sm mt-3 font-medium">
-                — Sarah Mitchell, CEO
-              </p>
             </div>
           </div>
         </div>
 
         {/* Call to Action */}
-        <div className={`text-center mt-20 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-10'}`}>
-          <button className="group bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25">
-            <span className="flex items-center">
-              Start Your Growth Journey
-              <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5-5 5M6 12h12" />
-              </svg>
-            </span>
-          </button>
+        <div className={`text-center transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-10'}`}>
+          <div className="max-w-4xl mx-auto">
+            <h3 className="text-3xl md:text-4xl font-black text-white mb-6">
+              Ready to <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">DOMINATE</span> Your Market?
+            </h3>
+            <p className="text-lg text-gray-300 mb-8 font-medium">
+              Join the revolution. Transform your business into an unstoppable force.
+            </p>
+            <button className="group relative bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 hover:from-blue-500 hover:via-blue-600 hover:to-blue-700 text-white font-black text-lg py-4 px-10 rounded-xl transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/50 border border-blue-400 border-opacity-20 overflow-hidden">
+              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
+              <span className="relative flex items-center">
+                <Rocket className="w-6 h-6 mr-3" />
+                START YOUR DOMINATION
+                <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform" />
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </section>

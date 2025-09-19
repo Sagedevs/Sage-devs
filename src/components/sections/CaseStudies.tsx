@@ -564,16 +564,7 @@ export default function CaseStudies() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-gradient-to-r from-blue-600/20 to-indigo-600/20 text-blue-300 text-base font-semibold border border-blue-500/30 hover:border-blue-400/50 transition-all duration-300"
-            >
-              View All Case Studies
-              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </motion.button>
+            
           </motion.div>
         </div>
       </section>
