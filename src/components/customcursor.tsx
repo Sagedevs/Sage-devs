@@ -7,7 +7,6 @@ const CustomCursor: React.FC = () => {
   const velocity = useRef({ x: 0, y: 0 })
   const idleTimer = useRef<NodeJS.Timeout | null>(null)
   const isIdle = useRef(false)
-  const [isMoving, setIsMoving] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [showCursor, setShowCursor] = useState(true)
 
@@ -96,7 +95,6 @@ const CustomCursor: React.FC = () => {
       }
       
       isIdle.current = false
-      setIsMoving(true)
       setIsVisible(true)
       
       if (cursorRef.current) {
@@ -122,7 +120,6 @@ const CustomCursor: React.FC = () => {
       if (idleTimer.current) clearTimeout(idleTimer.current)
       idleTimer.current = setTimeout(() => {
         isIdle.current = true
-        setIsMoving(false)
         
         // Immediate disappearance
         setShowCursor(false)
