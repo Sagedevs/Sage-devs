@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   Code2, 
   Database, 
@@ -115,7 +115,7 @@ const TechnologyStack = () => {
           </h2>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
             Enterprise-grade technologies powering the next generation of digital solutions. 
-            Built for scale, performance, and reliability.&apos;
+            Built for scale, performance, and reliability.
           </p>
         </div>
 

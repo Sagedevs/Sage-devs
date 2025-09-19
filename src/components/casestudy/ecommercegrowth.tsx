@@ -240,7 +240,7 @@ const EcommerceGrowth = () => {
                 </h3>
                 <p className="text-gray-200 text-lg leading-relaxed mb-8 font-medium">
                   We unleashed a <span className="text-blue-400 font-bold">digital transformation tsunami</span> that 
-                  revolutionized every aspect of their business. This wasn't just an upgrade – it was a complete 
+                  revolutionized every aspect of their business. This wasn&apos;t just an upgrade – it was a complete 
                   <span className="text-blue-500 font-bold"> metamorphosis</span>.
                 </p>
                 
@@ -352,8 +352,8 @@ const EcommerceGrowth = () => {
                 </div>
                 <div className="bg-blue-800 bg-opacity-30 rounded-xl p-4 border border-white border-opacity-20">
                   <p className="text-white text-base font-bold mb-3 italic">
-                    "This transformation didn't just save our business – it made us the undisputed leader in our market. 
-                    We've never seen results this extraordinary."
+                    &quot;This transformation didn&apos;t just save our business – it made us the undisputed leader in our market. 
+                    We&apos;ve never seen results this extraordinary.&quot;
                   </p>
                   <p className="text-blue-200 font-bold text-sm">
                     — Sarah Mitchell, CEO

@@ -187,8 +187,8 @@ const CaseStudyCTA = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-cyan-600/10 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500" />
             <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl p-10 shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 hover:border-white/20">
               <div className="mb-8">
-                <h3 className="text-3xl font-bold text-white mb-3 bg-gradient-to-r from-white to-slate-300 bg-clip-text">Let's Build Something Amazing</h3>
-                <p className="text-slate-300 text-lg leading-relaxed">Ready to join the digital elite? Share your vision and we'll craft a strategy that transforms your business landscape.</p>
+                <h3 className="text-3xl font-bold text-white mb-3 bg-gradient-to-r from-white to-slate-300 bg-clip-text">Let&apos;s Build Something Amazing</h3>
+                <p className="text-slate-300 text-lg leading-relaxed">Ready to join the digital elite? Share your vision and we&apos;ll craft a strategy that transforms your business landscape.</p>
               </div>
               
               <div className="space-y-6">
