@@ -17,7 +17,6 @@ import {
 } from 'lucide-react';
 
 const TechnologyStack = () => {
-  const [activeCategory, setActiveCategory] = useState<number | null>(null);
 
   const technologies = [
     {
@@ -116,7 +115,7 @@ const TechnologyStack = () => {
           </h2>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
             Enterprise-grade technologies powering the next generation of digital solutions. 
-            Built for scale, performance, and reliability.
+            Built for scale, performance, and reliability.&apos;
           </p>
         </div>
 
@@ -126,8 +125,6 @@ const TechnologyStack = () => {
             <div 
               key={index}
               className="group relative"
-              onMouseEnter={() => setActiveCategory(index)}
-              onMouseLeave={() => setActiveCategory(null)}
             >
               {/* Background Glow Effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>

@@ -45,7 +45,7 @@ const SupportCenter = () => {
             Support Center
           </h2>
           <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-400">
-            We're here to help you succeed
+            We&apos;re here to help you succeed
           </p>
         </div>
         
@@ -66,7 +66,7 @@ const SupportCenter = () => {
         </div>
         
         <div className="mt-12 text-center">
-          <p className="text-gray-400 mb-4">Can't find what you're looking for?</p>
+          <p className="text-gray-400 mb-4">Can&apos;t find what you&apos;re looking for?</p>
           <a
             href="/contact"
             className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200"
