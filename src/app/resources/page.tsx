@@ -20,8 +20,8 @@ export default function ResourcesIndexPage() {
           <HeroSection />
             <GuidesTemplates />
             <TechnologyStack />
-            <ProjectCalculator />
             <WebinarsTalks />
+            <ProjectCalculator />
             <SupportCenter />
       </main>
   );
