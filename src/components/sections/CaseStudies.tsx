@@ -79,6 +79,146 @@ const caseStudies: CaseStudy[] = [
     technologies: ["Next.js", "React", "Tailwind CSS", "Framer Motion"],
     duration: "4 weeks",
     scope: "Personal Brand & Portfolio"
+  },
+  {
+    id: 4,
+    title: "Igor Vainshtein",
+    subtitle: "Professional Portfolio & Showcase",
+    category: "Portfolio",
+    image: "/proj/igor.webp",
+    link: "https://igorvainshtein.com/",
+    outcome: "Enhanced professional online presence",
+    challenge: "Creating a clean, professional portfolio that effectively showcases work and expertise.",
+    solution: "Developed a minimalist yet powerful portfolio with smooth animations and responsive design.",
+    results: [
+      "Improved client engagement",
+      "Showcased professional work effectively",
+      "Responsive across all devices",
+      "Fast loading performance"
+    ],
+    technologies: ["HTML", "CSS", "JavaScript", "GSAP"],
+    duration: "3 weeks",
+    scope: "Portfolio Website"
+  },
+  {
+    id: 5,
+    title: "AI Resume Analyzer",
+    subtitle: "CUTTING-EDGE AI Resume Analysis Tool",
+    category: "AI Application",
+    image: "/proj/resume.webp",
+    link: "https://ai-resume-analyzer-generator.vercel.app/",
+    outcome: "Automated resume analysis with AI",
+    challenge: "Creating an intelligent system to analyze and improve resumes using AI.",
+    solution: "Developed an AI-powered platform that provides instant resume feedback and optimization suggestions.",
+    results: [
+      "95% accuracy in resume analysis",
+      "80% improvement in resume quality",
+      "Thousands of resumes processed",
+      "Positive user feedback"
+    ],
+    technologies: ["Next.js", "OpenAI API", "Tailwind CSS", "MongoDB"],
+    duration: "6 weeks",
+    scope: "Full Stack AI Application"
+  },
+  {
+    id: 6,
+    title: "WhatsApp Clone",
+    subtitle: "Real-time Messaging Application",
+    category: "Web Application",
+    image: "/proj/chatapp.webp",
+    link: "https://chatapp-rho-six.vercel.app/",
+    outcome: "Real-time chat functionality",
+    challenge: "Building a responsive, real-time messaging app with modern UI/UX.",
+    solution: "Created a WhatsApp-like interface with real-time messaging, user authentication, and media sharing.",
+    results: [
+      "Real-time message delivery",
+      "User authentication system",
+      "Media sharing capabilities",
+      "Responsive design"
+    ],
+    technologies: ["React", "Firebase", "Material-UI", "WebSockets"],
+    duration: "5 weeks",
+    scope: "Full Stack Web Application"
+  },
+  {
+    id: 7,
+    title: "Video Downloader",
+    subtitle: "Online Video Downloading Solution",
+    category: "Web Tool",
+    image: "/proj/downlaoder.webp",
+    link: "https://sage-video-downloader.onrender.com/",
+    outcome: "Efficient video downloading platform",
+    challenge: "Creating a reliable tool to download videos from various platforms.",
+    solution: "Developed a user-friendly interface for downloading videos with multiple quality options.",
+    results: [
+      "Supports multiple platforms",
+      "Multiple quality options",
+      "Fast download speeds",
+      "Intuitive user interface"
+    ],
+    technologies: ["Node.js", "Express", "React", "FFmpeg"],
+    duration: "4 weeks",
+    scope: "Web Application"
+  },
+  {
+    id: 8,
+    title: "AIDN Australia",
+    subtitle: "Australian Industry & Defence Network",
+    category: "Business Network",
+    image: "/proj/australia.webp",
+    link: "https://aidn.org.au/",
+    outcome: "Enhanced industry collaboration platform",
+    challenge: "Building a professional network platform for defense industry professionals.",
+    solution: "Developed a comprehensive website with member directories, event management, and resource sharing.",
+    results: [
+      "Improved member engagement",
+      "Streamlined event management",
+      "Resource sharing platform",
+      "Professional networking"
+    ],
+    technologies: ["WordPress", "Custom PHP", "MySQL", "jQuery"],
+    duration: "8 weeks",
+    scope: "Business Network Platform"
+  },
+  {
+    id: 9,
+    title: "VerdeOS",
+    subtitle: "Sustainable Technology Solutions",
+    category: "Technology",
+    image: "/proj/verdos.webp",
+    link: "https://verdeos.com/",
+    outcome: "Sustainable tech solutions platform",
+    challenge: "Creating a platform to showcase sustainable technology solutions.",
+    solution: "Developed an informative website with case studies, solutions, and company information.",
+    results: [
+      "Improved brand visibility",
+      "Showcased solutions effectively",
+      "Lead generation",
+      "Responsive design"
+    ],
+    technologies: ["React", "Next.js", "Tailwind CSS", "Contentful"],
+    duration: "6 weeks",
+    scope: "Company Website"
+  },
+  {
+    id: 10,
+    title: "Mehfil",
+    subtitle: "Cultural Event Platform",
+    category: "Events & Entertainment",
+    image: "/proj/mehfil.webp",
+    link: "https://themehfil.ca/",
+    outcome: "Vibrant cultural event platform",
+    challenge: "Creating an engaging platform for cultural events and performances.",
+    solution: "Developed a dynamic website with event listings, ticket booking, and multimedia content.",
+    results: [
+      "Increased event attendance",
+      "Online ticket sales",
+      "Community engagement",
+      "Cultural promotion"
+    ],
+    technologies: ["React", "Node.js", "MongoDB", "Stripe"],
+    duration: "7 weeks",
+    scope: "Event Management Platform"
   }
 ];
 
