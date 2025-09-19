@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { Headset, FileText, Video, MessageSquare, BookOpen } from 'lucide-react';
 

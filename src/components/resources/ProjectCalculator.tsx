@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 
 type ProjectType = 'website' | 'webapp' | 'ecommerce' | 'mobile';

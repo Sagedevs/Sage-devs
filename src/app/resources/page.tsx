@@ -16,35 +16,13 @@ const SupportCenter = dynamic(() => import("@/components/resources/SupportCenter
 
 export default function ResourcesIndexPage() {
   return (
- 
-      
-      
       <main >
-        
           <HeroSection />
-            <ProjectCalculator />
-          
-
-          
-
-          {/* Guides & Templates */}
-          
             <GuidesTemplates />
-          
-
-          {/* Technology Stack */}
-          
             <TechnologyStack />
-
-          {/* Webinars & Talks */}
-          
+            <ProjectCalculator />
             <WebinarsTalks />
-          
-          {/* Support Center */}
-         
-          <SupportCenter />
-        
+            <SupportCenter />
       </main>
-    
   );
 }
