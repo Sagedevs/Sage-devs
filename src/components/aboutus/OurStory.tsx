@@ -59,7 +59,7 @@ const OurStory = () => {
                     <h3 className="text-2xl font-bold text-white">The Genesis - 2023</h3>
                   </div>
                   <p className="text-gray-300 text-lg leading-relaxed mb-4">
-                    Born in <span className="text-blue-400 font-semibold">2023</span>, Sage Devs emerged from a simple yet powerful vision: 
+                    Founded in <span className="text-blue-400 font-semibold">2023</span>, Sage Devs emerged from a simple yet powerful vision: 
                     to bridge the gap between cutting-edge technology and exceptional user experiences.
                   </p>
                   <p className="text-gray-300 leading-relaxed">
