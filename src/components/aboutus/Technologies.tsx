@@ -1,19 +1,16 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { 
-  Code2, 
   Server, 
   Cloud, 
   Smartphone, 
   Database, 
   Brain, 
   Monitor,
-  Cpu,
   Zap,
   Globe,
   Shield,
   Settings,
-  ChevronRight,
   Star,
   TrendingUp,
   Award,
@@ -338,14 +335,15 @@ const Technologies = () => {
           <h2 className="text-6xl font-bold text-white mb-6 relative">
             Technologies We
             <span className="block text-blue-400 mt-2 relative">
-              Master & Innovate
+              Master &amp; Innovate
               <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent animate-pulse"></div>
             </span>
           </h2>
           
-          <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-12">
-            We leverage cutting-edge technologies and frameworks to build robust, scalable, 
-            and innovative solutions that drive your business into the future.
+          <p className="text-lg text-blue-200 leading-relaxed">
+            We don&apos;t just use technology—we push its boundaries. Our stack is a carefully crafted
+            ecosystem of cutting-edge tools and battle-tested solutions, each chosen for its ability
+            to deliver exceptional results at scale.
           </p>
 
           {/* Enhanced Stats Bar */}
