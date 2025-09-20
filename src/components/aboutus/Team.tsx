@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useState } from 'react';
-import { User, Award, Code, Briefcase, Target, Users, Globe, Zap } from 'lucide-react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { User, Award, Code, Briefcase, Target, Users, Globe, Zap, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const team = [
   {
@@ -67,34 +67,74 @@ const extendedTeam = [...team, ...team, ...team];
 const Team = () => {
   const [translateX, setTranslateX] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [cardWidth, setCardWidth] = useState(320);
 
+  // Responsive card width calculation
+  useEffect(() => {
+    const updateCardWidth = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setCardWidth(280); // sm
+      } else if (width < 768) {
+        setCardWidth(300); // md
+      } else if (width < 1024) {
+        setCardWidth(320); // lg
+      } else {
+        setCardWidth(350); // xl and above
+      }
+    };
+
+    updateCardWidth();
+    window.addEventListener('resize', updateCardWidth);
+    return () => window.removeEventListener('resize', updateCardWidth);
+  }, []);
+
+  // Auto-scroll animation with increased speed
   useEffect(() => {
     const interval = setInterval(() => {
       setTranslateX(prev => {
-        // Only move if not hovered
         if (isHovered) return prev;
         
-        const cardWidth = 320 + 32; // 320px width + 32px margin
-        const totalWidth = team.length * cardWidth;
+        const gap = window.innerWidth < 640 ? 16 : 32;
+        const totalCardWidth = cardWidth + gap;
+        const totalWidth = team.length * totalCardWidth;
         
-        // Reset smoothly when we've moved one full cycle
-        if (prev <= -totalWidth) {
+        // Increased speed - move 1.2px per frame
+        const newTranslate = prev - 1.2;
+        
+        if (newTranslate <= -totalWidth) {
           return 0;
         }
-        return prev - 0.6; // Increased speed by doubling the translation value
+        return newTranslate;
       });
-    }, 10); // Reduced interval time for smoother faster movement
+    }, 8); // Faster interval for smoother movement
 
     return () => clearInterval(interval);
-  }, [isHovered]);
+  }, [isHovered, cardWidth]);
+
+  // Navigation functions
+  const goToNext = useCallback(() => {
+    setCurrentIndex(prev => (prev + 1) % team.length);
+    const gap = window.innerWidth < 640 ? 16 : 32;
+    const totalCardWidth = cardWidth + gap;
+    setTranslateX(prev => prev - totalCardWidth);
+  }, [cardWidth]);
+
+  const goToPrev = useCallback(() => {
+    setCurrentIndex(prev => (prev - 1 + team.length) % team.length);
+    const gap = window.innerWidth < 640 ? 16 : 32;
+    const totalCardWidth = cardWidth + gap;
+    setTranslateX(prev => prev + totalCardWidth);
+  }, [cardWidth]);
 
   return (
-    <section className="relative py-20 bg-gray-900 overflow-hidden">
+    <section className="relative py-12 sm:py-16 lg:py-20 bg-gray-900 overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-0 -left-4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
-        <div className="absolute top-0 -right-4 w-72 h-72 bg-blue-600 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
+        <div className="absolute top-0 -left-4 w-48 h-48 sm:w-72 sm:h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
+        <div className="absolute top-0 -right-4 w-48 h-48 sm:w-72 sm:h-72 bg-blue-600 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-20 w-48 h-48 sm:w-72 sm:h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
       </div>
 
       {/* Grid Pattern Overlay */}
@@ -104,32 +144,49 @@ const Team = () => {
             linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
             linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
           `,
-          backgroundSize: '50px 50px'
+          backgroundSize: '30px 30px sm:50px sm:50px'
         }}></div>
       </div>
 
       <div className="relative container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="flex justify-center mb-6">
-            <div className="p-3 bg-blue-500/20 rounded-full backdrop-blur-sm">
-              <Users className="w-8 h-8 text-blue-400" />
+        <div className="text-center mb-12 lg:mb-16">
+          <div className="flex justify-center mb-4 lg:mb-6">
+            <div className="p-2 sm:p-3 bg-blue-500/20 rounded-full backdrop-blur-sm">
+              <Users className="w-6 h-6 sm:w-8 sm:h-8 text-blue-400" />
             </div>
           </div>
-          <h2 className="text-5xl font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 lg:mb-6">
             Meet Our
             <span className="block text-blue-400 mt-2">Exceptional Team</span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
             A diverse group of talented Pakistani individuals passionate about innovation and excellence, 
             driving the future of digital transformation.
           </p>
         </div>
 
-        {/* Team Slider */}
+        {/* Team Slider with Navigation */}
         <div className="relative">
+          {/* Navigation Arrows */}
+          <button 
+            onClick={goToPrev}
+            className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 p-3 sm:p-4 bg-blue-500/20 hover:bg-blue-500/40 backdrop-blur-sm rounded-full border border-blue-500/30 hover:border-blue-400 transition-all duration-300 group"
+            aria-label="Previous team member"
+          >
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400 group-hover:text-white transition-colors duration-300" />
+          </button>
+          
+          <button 
+            onClick={goToNext}
+            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 p-3 sm:p-4 bg-blue-500/20 hover:bg-blue-500/40 backdrop-blur-sm rounded-full border border-blue-500/30 hover:border-blue-400 transition-all duration-300 group"
+            aria-label="Next team member"
+          >
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400 group-hover:text-white transition-colors duration-300" />
+          </button>
+
           <div 
-            className="overflow-hidden"
+            className="overflow-hidden mx-8 sm:mx-12 lg:mx-16"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
@@ -137,7 +194,7 @@ const Team = () => {
               className="flex will-change-transform"
               style={{ 
                 transform: `translateX(${translateX}px)`,
-                transition: translateX === 0 ? 'transform 0.3s ease-out' : 'none'
+                transition: translateX === 0 ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none'
               }}
             >
               {extendedTeam.map((member, index) => {
@@ -145,45 +202,58 @@ const Team = () => {
                 return (
                   <div 
                     key={`${member.name}-${index}`} 
-                    className="flex-shrink-0 w-80 mx-4 group"
+                    className="flex-shrink-0 mx-2 sm:mx-4 group"
+                    style={{ width: `${cardWidth}px` }}
                   >
-                    <div className="relative bg-gray-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-700/50 hover:border-blue-500/50 transition-all duration-500" style={{ height: '600px' }}>
-                      {/* Image Container - Fixed Height */}
-                      <div className="relative overflow-hidden" style={{ height: '320px' }}>
+                    <div className="relative bg-gray-800/50 backdrop-blur-sm rounded-xl lg:rounded-2xl overflow-hidden border border-gray-700/50 hover:border-blue-500/50 transition-all duration-500 transform hover:scale-105">
+                      {/* Enhanced Border Glow Effect */}
+                      <div className="absolute inset-0 rounded-xl lg:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                        <div className="absolute inset-0 rounded-xl lg:rounded-2xl animate-pulse" 
+                             style={{
+                               background: 'linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.4), transparent, rgba(147, 197, 253, 0.4), transparent)',
+                               backgroundSize: '300% 300%',
+                               animation: 'borderGlow 3s ease infinite'
+                             }}></div>
+                      </div>
+
+                      {/* Image Container */}
+                      <div className="relative overflow-hidden h-48 sm:h-56 lg:h-64 xl:h-72">
                         <img 
                           src={member.image}
                           alt={member.name}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          loading="lazy"
                         />
                         {/* Gradient Overlay */}
                         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60"></div>
                         
                         {/* Role Icon */}
-                        <div className="absolute top-4 right-4 p-3 bg-blue-500/80 backdrop-blur-sm rounded-full">
-                          <IconComponent className="w-5 h-5 text-white" />
+                        <div className="absolute top-3 right-3 p-2 sm:p-3 bg-blue-500/80 backdrop-blur-sm rounded-full transform group-hover:scale-110 transition-transform duration-300">
+                          <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                         </div>
                       </div>
 
-                      {/* Content - Fixed Height */}
-                      <div className="p-6 relative" style={{ height: '280px', display: 'flex', flexDirection: 'column' }}>
-                        <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors duration-300">
+                      {/* Content */}
+                      <div className="p-4 sm:p-6 relative">
+                        <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors duration-300">
                           {member.name}
                         </h3>
-                        <p className="text-blue-400 font-semibold mb-3 text-lg">
+                        <p className="text-blue-400 font-semibold mb-3 text-base sm:text-lg">
                           {member.role}
                         </p>
-                        <p className="text-gray-300 leading-relaxed" style={{ flex: '1', overflow: 'hidden' }}>
+                        <p className="text-gray-300 text-sm sm:text-base leading-relaxed line-clamp-4">
                           {member.bio}
                         </p>
                         
                         {/* Decorative Line */}
-                        <div className="mt-4 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+                        <div className="mt-4 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                       </div>
 
-                      {/* Hover Glow Effect - Background Light */}
-                      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" 
+                      {/* Enhanced Hover Glow Effect */}
+                      <div className="absolute inset-0 rounded-xl lg:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" 
                            style={{
-                             background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 70%)'
+                             background: 'radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.08) 40%, transparent 70%)',
+                             filter: 'blur(1px)'
                            }}></div>
                     </div>
                   </div>
@@ -191,6 +261,27 @@ const Team = () => {
               })}
             </div>
           </div>
+        </div>
+
+        {/* Dots Indicator */}
+        <div className="flex justify-center mt-8 space-x-2">
+          {team.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setCurrentIndex(index);
+                const gap = window.innerWidth < 640 ? 16 : 32;
+                const totalCardWidth = cardWidth + gap;
+                setTranslateX(-index * totalCardWidth);
+              }}
+              className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
+                index === currentIndex % team.length 
+                  ? 'bg-blue-500 scale-125' 
+                  : 'bg-gray-600 hover:bg-gray-500'
+              }`}
+              aria-label={`Go to team member ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
 
@@ -201,14 +292,36 @@ const Team = () => {
           66% { transform: translate(-20px, 20px) scale(0.9); }
           100% { transform: translate(0px, 0px) scale(1); }
         }
+        
+        @keyframes borderGlow {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        
         .animate-blob {
           animation: blob 7s infinite;
         }
+        
         .animation-delay-2000 {
           animation-delay: 2s;
         }
+        
         .animation-delay-4000 {
           animation-delay: 4s;
+        }
+        
+        .line-clamp-4 {
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        
+        @media (max-width: 640px) {
+          .line-clamp-4 {
+            -webkit-line-clamp: 3;
+          }
         }
       `}</style>
     </section>
