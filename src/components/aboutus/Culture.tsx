@@ -75,13 +75,8 @@ const testimonials = [
 ];
 
 const Culture = () => {
-  // State variables kept for future use
-  const [_activeValue] = useState(0);
-  const [_isVisible] = useState(false);
-
-  useEffect(() => {
-    // Animation logic can be added back here if needed
-  }, []);
+  // State variables removed as they were unused
+  // Can be added back when needed for future features
 
   return (
     <section className="relative min-h-screen py-24 bg-black px-[110px]">
@@ -139,7 +134,6 @@ const Culture = () => {
           </h3>
           <div className="grid lg:grid-cols-2 gap-10">
             {values.map((value, index) => {
-              const IconComponent = value.icon;
               return (
                 <div 
                   key={index}
@@ -150,7 +144,7 @@ const Culture = () => {
                     <div className="flex items-start justify-between mb-8">
                       <div className="relative">
                         <div className={`relative flex items-center justify-center w-24 h-24 bg-gradient-to-br from-${value.color} via-blue-600 to-blue-800 rounded-2xl border-2 border-white/30 shadow-2xl shadow-${value.color}/30`}>
-                          <IconComponent className="w-12 h-12 text-white" />
+                          <Users className="w-12 h-12 text-white" />
                         </div>
                       </div>
                       <div className="bg-black/40 backdrop-blur-sm border border-white/20 rounded-lg p-3">
@@ -234,7 +228,7 @@ const Culture = () => {
                 </div>
               </div>
               <p className="text-2xl text-blue-100 leading-relaxed text-center max-w-6xl mx-auto mb-16">
-                We don't just offer jobs—we provide launchpads for extraordinary careers. Every benefit, every opportunity, 
+                We don&apos;t just offer jobs—we provide launchpads for extraordinary careers. Every benefit, every opportunity, 
                 every moment is designed to unlock human potential and fuel the journey toward greatness.
               </p>
               <div className="relative grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
