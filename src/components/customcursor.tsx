@@ -20,8 +20,8 @@ const CustomCursor: React.FC = () => {
       const particle = document.createElement("div")
       particle.className = "smoke-particle"
       
-      // Small sharp particles
-      const size = 1 + Math.random() * 3
+      // Increased particle size
+      const size = 3 + Math.random() * 6  // Changed from 1-4 to 3-9
       
       // Clear black and white particle distribution
       const isWhite = Math.random() > 0.5
@@ -37,8 +37,8 @@ const CustomCursor: React.FC = () => {
         opacity = 0.6 + Math.random() * 0.3
       }
       
-      // Duration for effect
-      const duration = 1.5 + Math.random() * 2
+      // Reduced duration for faster disappearing
+      const duration = 0.8 + Math.random() * 1.2  // Changed from 1.5-3.5 to 0.8-2.0
       
       // Spread for particles
       const offsetX = (Math.random() - 0.5) * 8
@@ -123,15 +123,15 @@ const CustomCursor: React.FC = () => {
         className="smoke-cursor"
         style={{
           position: "fixed",
-          width: "16px", // Made bigger
-          height: "16px", // Made bigger
+          width: "16px", 
+          height: "16px", 
           borderRadius: "50%",
           background: "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 60%, rgba(255,255,255,0.4) 80%, transparent 100%)",
           transform: "translate(-50%, -50%)",
           pointerEvents: "none",
           zIndex: 9999,
           boxShadow: "0 0 16px rgba(255,255,255,0.6), 0 0 8px rgba(255,255,255,0.8)",
-          opacity: isVisible ? 1 : 0, // Always visible when mouse moves, no idle timeout
+          opacity: isVisible ? 1 : 0,
           transition: "opacity 0.1s ease-out",
         }}
       />
