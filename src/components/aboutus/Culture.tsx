@@ -26,7 +26,7 @@ const Culture = () => {
         <div className="max-w-4xl mx-auto text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Culture</h2>
           <p className="text-xl text-gray-600">
-            We've built a culture that fosters creativity, innovation, and personal growth.
+            We&apos;ve built a culture that fosters creativity, innovation, and personal growth.
           </p>
         </div>
         
@@ -43,7 +43,7 @@ const Culture = () => {
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Life at Our Company</h3>
           <p className="text-gray-600 mb-6">
             We believe in work-life balance and creating an environment where people love what they do. 
-            From team retreats to learning opportunities, we invest in our team's growth and well-being.
+            From team retreats to learning opportunities, we invest in our team&apos;s growth and well-being.
           </p>
           <div className="flex flex-wrap gap-4">
             {['Flexible Hours', 'Remote Work', 'Learning Budget', 'Team Events', 'Health Benefits'].map((perk, i) => (

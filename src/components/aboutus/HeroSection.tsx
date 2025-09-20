@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 
 const HeroSection = () => {
   return (
@@ -16,7 +15,7 @@ const HeroSection = () => {
               Building the Future, <span className="text-blue-400">Together</span>
             </h1>
             <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto md:mx-0">
-              We're a team of passionate creators, innovators, and problem-solvers dedicated to delivering exceptional digital experiences.
+              We&apos;re a team of passionate creators, innovators, and problem-solvers dedicated to delivering exceptional digital experiences.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <a 

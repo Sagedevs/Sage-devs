@@ -57,7 +57,7 @@ const Technologies = () => {
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Always Evolving</h3>
           <p className="text-gray-600 max-w-3xl mx-auto">
             Technology never stands still, and neither do we. We continuously evaluate and adopt new tools and 
-            frameworks to ensure we're always using the best solutions for your project.
+            frameworks to ensure we&apos;re always using the best solutions for your project.
           </p>
         </div>
       </div>

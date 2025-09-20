@@ -18,7 +18,7 @@ const CTASection = () => {
           Ready to Start Your Next Project?
         </h2>
         <p className="text-xl text-blue-100 mb-10 max-w-3xl mx-auto">
-          Let's turn your ideas into reality. Our team is ready to help you create something amazing.
+          Let&apos;s turn your ideas into reality. Our team is ready to help you create something amazing.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -37,7 +37,7 @@ const CTASection = () => {
         </div>
         
         <div className="mt-12 pt-8 border-t border-white/10">
-          <p className="text-blue-100 mb-4">Have questions? We're here to help.</p>
+          <p className="text-blue-100 mb-4">Have questions? We&apos;re here to help.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a href="mailto:hello@example.com" className="flex items-center text-white hover:text-blue-100">
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

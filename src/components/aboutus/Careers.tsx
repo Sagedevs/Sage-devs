@@ -55,7 +55,7 @@ const Careers = () => {
           </div>
           
           <div className="mt-12 text-center">
-            <p className="text-gray-600 mb-6">Don't see your dream job? We're always looking for talented individuals.</p>
+            <p className="text-gray-600 mb-6">Don&apos;t see your dream job? We&apos;re always looking for talented individuals.</p>
             <button className="px-8 py-3 bg-white border-2 border-blue-600 text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition-colors">
               Contact Us
             </button>
