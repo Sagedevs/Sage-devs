@@ -9,6 +9,19 @@ const CustomCursor: React.FC = () => {
 
   useEffect(() => {
     if (typeof window === "undefined") return
+    
+    // Force cursor to be hidden on all elements
+    const style = document.createElement('style')
+    style.innerHTML = `
+      *, *::before, *::after {
+        cursor: none !important;
+      }
+      a, button, [role="button"], input, textarea, select {
+        cursor: none !important;
+      }
+    `
+    document.head.appendChild(style)
+    
     document.body.style.cursor = "none"
 
     const createSmokeParticle = (
@@ -56,7 +69,7 @@ const CustomCursor: React.FC = () => {
         background: ${color};
         border-radius: 50%;
         pointer-events: none;
-        z-index: 9998;
+        z-index: 99998;
         opacity: ${opacity};
         animation: quickSmoke ${duration}s ease-out forwards;
         transform: translate(-50%, -50%);
@@ -113,6 +126,11 @@ const CustomCursor: React.FC = () => {
     return () => {
       window.removeEventListener("mousemove", handleMove)
       document.body.style.cursor = "auto"
+      // Remove the injected style
+      const customStyle = document.querySelector('style')
+      if (customStyle && customStyle.innerHTML.includes('cursor: none !important')) {
+        customStyle.remove()
+      }
     }
   }, [])
 
@@ -129,7 +147,7 @@ const CustomCursor: React.FC = () => {
           background: "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 60%, rgba(255,255,255,0.4) 80%, transparent 100%)",
           transform: "translate(-50%, -50%)",
           pointerEvents: "none",
-          zIndex: 9999,
+          zIndex: 99999,
           boxShadow: "0 0 16px rgba(255,255,255,0.6), 0 0 8px rgba(255,255,255,0.8)",
           opacity: isVisible ? 1 : 0,
           transition: "opacity 0.1s ease-out",
