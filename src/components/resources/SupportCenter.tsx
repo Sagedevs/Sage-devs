@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { 
   Headset, FileText, Video, MessageSquare, BookOpen, Zap, 
   Clock, Users, ChevronDown, ChevronRight, Search, Phone,
-  Mail, Globe, Shield, Star, CheckCircle, AlertCircle
+  Mail, Star, CheckCircle
 } from 'lucide-react';
 
 const SupportCenter = () => {
@@ -212,7 +212,7 @@ const SupportCenter = () => {
         <h3 className="text-xl font-semibold text-white mb-4">Enterprise Support</h3>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
-            <h4 className="text-white font-medium mb-2">What's Included:</h4>
+            <h4 className="text-white font-medium mb-2">What&apos;s Included:</h4>
             <ul className="space-y-2 text-sm text-gray-400">
               <li className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-green-400" />

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 type ProjectType = 'wordpress-site' | 'shopify-store' | 'landing-page' | 'business-website' | 'web-application' | 'enterprise-website' | 'enterprise-platform' | 'saas-application' | 'mobile-ecosystem' | 'digital-transformation';
 type Feature = 'responsive-design' | 'seo-optimization' | 'ecommerce-features' | 'cms-integration' | 'user-authentication' | 'payment-gateway' | 'cloud-infrastructure' | 'advanced-analytics' | 'ai-integration' | 'multi-platform' | 'enterprise-security' | 'custom-integrations';
