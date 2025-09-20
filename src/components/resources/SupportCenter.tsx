@@ -1,366 +1,489 @@
 "use client";
+import React, { useState } from 'react';
+import { 
+  Headset, FileText, Video, MessageSquare, BookOpen, Zap, 
+  Clock, Users, ChevronDown, ChevronRight, Search, Phone,
+  Mail, Globe, Shield, Star, CheckCircle, AlertCircle
+} from 'lucide-react';
 
-import React, { useState, useEffect } from 'react';
+const SupportCenter = () => {
+  const [activeTab, setActiveTab] = useState('live-support');
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
-type ProjectType = 'wordpress-site' | 'shopify-store' | 'landing-page' | 'business-website' | 'web-application' | 'enterprise-website' | 'enterprise-platform' | 'saas-application' | 'mobile-ecosystem' | 'digital-transformation';
-type Feature = 'responsive-design' | 'seo-optimization' | 'ecommerce-features' | 'cms-integration' | 'user-authentication' | 'payment-gateway' | 'cloud-infrastructure' | 'advanced-analytics' | 'ai-integration' | 'multi-platform' | 'enterprise-security' | 'custom-integrations';
-type Timeline = '1-2' | '2-4' | '4-8' | '6-12' | '3-6' | '12-18';
-type TeamSize = 'freelancer' | 'small' | 'medium' | 'large' | 'enterprise';
+  const supportTabs = [
+    { id: 'live-support', label: 'Live Support', icon: <Headset className="w-5 h-5" /> },
+    { id: 'documentation', label: 'Documentation', icon: <FileText className="w-5 h-5" /> },
+    { id: 'tutorials', label: 'Tutorials', icon: <Video className="w-5 h-5" /> },
+    { id: 'community', label: 'Community', icon: <MessageSquare className="w-5 h-5" /> },
+    { id: 'faq', label: 'FAQ', icon: <BookOpen className="w-5 h-5" /> }
+  ];
 
-const ProjectCalculator = () => {
-  const [projectType, setProjectType] = useState<ProjectType>('business-website');
-  const [complexity, setComplexity] = useState(5);
-  const [features, setFeatures] = useState<Feature[]>(['responsive-design', 'seo-optimization']);
-  const [timeline, setTimeline] = useState<Timeline>('4-8');
-  const [teamSize, setTeamSize] = useState<TeamSize>('small');
-  const [quantity, setQuantity] = useState(1);
-
-  const calculateEstimate = () => {
-    const basePrices = {
-      'landing-page': 800,
-      'wordpress-site': 2000,
-      'shopify-store': 3500,
-      'business-website': 5000,
-      'web-application': 15000,
-      'enterprise-website': 50000,
-      'enterprise-platform': 150000,
-      'saas-application': 250000,
-      'mobile-ecosystem': 200000,
-      'digital-transformation': 500000
-    };
-
-    const basePrice = basePrices[projectType] || 0;
-    const isSimpleProject = ['landing-page', 'wordpress-site', 'shopify-store', 'business-website'].includes(projectType);
-    const quantityMultiplier = isSimpleProject ? quantity : 1;
-    const complexityMultiplier = isSimpleProject ? (0.8 + (complexity / 25)) : (0.5 + (complexity / 10));
-    const featureCost = isSimpleProject ? features.length * 500 : features.length * 25000;
-    
-    const teamMultipliers = { 
-      freelancer: 0.7, 
-      small: 0.8, 
-      medium: 1.0, 
-      large: 1.3, 
-      enterprise: 1.6 
-    };
-    
-    let timelineMultiplier = 1;
-    if (timeline === '1-2') timelineMultiplier = 1.6;
-    else if (timeline === '2-4') timelineMultiplier = 1.3;
-    else if (timeline === '4-8') timelineMultiplier = 1.0;
-    else if (timeline === '3-6') timelineMultiplier = 1.4;
-    else if (timeline === '6-12') timelineMultiplier = 1.0;
-    else if (timeline === '12-18') timelineMultiplier = 0.9;
-    
-    return Math.round((basePrice + featureCost) * complexityMultiplier * teamMultipliers[teamSize] * timelineMultiplier * quantityMultiplier);
+  const liveSupport = {
+    channels: [
+      {
+        type: 'Live Chat',
+        icon: <MessageSquare className="w-6 h-6" />,
+        availability: '24/7',
+        responseTime: '< 2 minutes',
+        languages: ['English', 'Spanish', 'French'],
+        status: 'online'
+      },
+      {
+        type: 'Phone Support',
+        icon: <Phone className="w-6 h-6" />,
+        availability: 'Mon-Fri 9AM-6PM EST',
+        responseTime: 'Immediate',
+        languages: ['English'],
+        status: 'online',
+        number: '+1 (555) 123-4567'
+      },
+      {
+        type: 'Email Support',
+        icon: <Mail className="w-6 h-6" />,
+        availability: '24/7',
+        responseTime: '< 4 hours',
+        languages: ['English', 'Spanish', 'French', 'German'],
+        status: 'online',
+        email: 'support@company.com'
+      }
+    ]
   };
 
-  const toggleFeature = (feature: Feature) => {
-    if (features.includes(feature)) {
-      setFeatures(features.filter(f => f !== feature));
-    } else {
-      setFeatures([...features, feature]);
+  const documentation = {
+    sections: [
+      {
+        title: 'Getting Started',
+        items: [
+          'Quick Start Guide',
+          'Installation Instructions',
+          'Basic Configuration',
+          'First API Call'
+        ]
+      },
+      {
+        title: 'API Reference',
+        items: [
+          'Authentication',
+          'Endpoints Overview',
+          'Request/Response Format',
+          'Error Codes'
+        ]
+      },
+      {
+        title: 'Integration Guides',
+        items: [
+          'JavaScript SDK',
+          'Python SDK',
+          'REST API',
+          'Webhooks'
+        ]
+      },
+      {
+        title: 'Best Practices',
+        items: [
+          'Security Guidelines',
+          'Performance Optimization',
+          'Error Handling',
+          'Rate Limiting'
+        ]
+      }
+    ]
+  };
+
+  const tutorials = {
+    categories: [
+      {
+        title: 'Beginner',
+        videos: [
+          { title: 'Platform Overview', duration: '5:30', views: '12K' },
+          { title: 'Setting Up Your Account', duration: '8:15', views: '8.5K' },
+          { title: 'Making Your First Request', duration: '12:45', views: '15K' }
+        ]
+      },
+      {
+        title: 'Intermediate',
+        videos: [
+          { title: 'Advanced Configuration', duration: '18:20', views: '5.2K' },
+          { title: 'Error Handling Strategies', duration: '14:10', views: '7.8K' },
+          { title: 'Performance Optimization', duration: '22:35', views: '4.1K' }
+        ]
+      },
+      {
+        title: 'Advanced',
+        videos: [
+          { title: 'Custom Integrations', duration: '28:45', views: '2.8K' },
+          { title: 'Enterprise Features', duration: '35:12', views: '1.9K' },
+          { title: 'Scaling Best Practices', duration: '31:20', views: '3.4K' }
+        ]
+      }
+    ]
+  };
+
+  const community = {
+    forums: [
+      { name: 'General Discussion', posts: '1,247', members: '8,932' },
+      { name: 'API Help', posts: '892', members: '5,671' },
+      { name: 'Feature Requests', posts: '456', members: '3,298' },
+      { name: 'Bug Reports', posts: '234', members: '2,156' }
+    ],
+    recentTopics: [
+      { title: 'How to handle rate limiting?', replies: 23, solved: true },
+      { title: 'Best practices for authentication', replies: 17, solved: true },
+      { title: 'Integration with React', replies: 8, solved: false },
+      { title: 'Webhook setup issues', replies: 12, solved: true }
+    ]
+  };
+
+  const faqs = [
+    {
+      question: 'How do I get started with the API?',
+      answer: 'Getting started is simple! First, sign up for an account and get your API key. Then follow our Quick Start Guide to make your first API call. We provide SDKs for JavaScript, Python, and other popular languages.'
+    },
+    {
+      question: 'What are the rate limits?',
+      answer: 'Our rate limits vary by plan: Free tier allows 1,000 requests/hour, Pro allows 10,000 requests/hour, and Enterprise has custom limits. Rate limit headers are included in all responses.'
+    },
+    {
+      question: 'How can I authenticate my requests?',
+      answer: 'We support API key authentication and OAuth 2.0. Include your API key in the Authorization header: "Bearer YOUR_API_KEY". For OAuth, follow our authentication guide.'
+    },
+    {
+      question: 'What support do you offer?',
+      answer: 'We offer 24/7 live chat support, email support with <4 hour response time, phone support during business hours, comprehensive documentation, video tutorials, and an active community forum.'
+    },
+    {
+      question: 'How do I report a bug?',
+      answer: 'You can report bugs through our support chat, email support@company.com, or post in our Bug Reports forum. Please include steps to reproduce, expected vs actual behavior, and any error messages.'
+    },
+    {
+      question: 'Is there a sandbox environment?',
+      answer: 'Yes! We provide a full sandbox environment that mirrors production. Use sandbox API keys to test your integration without affecting live data or incurring charges.'
     }
-  };
+  ];
 
-  const isSimpleProject = ['landing-page', 'wordpress-site', 'shopify-store', 'business-website'].includes(projectType);
+  const renderLiveSupport = () => (
+    <div className="space-y-6">
+      <div className="grid md:grid-cols-3 gap-6">
+        {liveSupport.channels.map((channel, index) => (
+          <div key={index} className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="text-blue-400">{channel.icon}</div>
+              <h3 className="text-lg font-semibold text-white">{channel.type}</h3>
+              <div className={`w-2 h-2 rounded-full ${channel.status === 'online' ? 'bg-green-400' : 'bg-red-400'}`} />
+            </div>
+            
+            <div className="space-y-3 text-sm">
+              <div>
+                <span className="text-gray-400">Availability: </span>
+                <span className="text-white">{channel.availability}</span>
+              </div>
+              <div>
+                <span className="text-gray-400">Response Time: </span>
+                <span className="text-white">{channel.responseTime}</span>
+              </div>
+              <div>
+                <span className="text-gray-400">Languages: </span>
+                <span className="text-white">{channel.languages.join(', ')}</span>
+              </div>
+              {channel.number && (
+                <div>
+                  <span className="text-gray-400">Phone: </span>
+                  <span className="text-blue-400">{channel.number}</span>
+                </div>
+              )}
+              {channel.email && (
+                <div>
+                  <span className="text-gray-400">Email: </span>
+                  <span className="text-blue-400">{channel.email}</span>
+                </div>
+              )}
+            </div>
 
-  return (
-    <div className="min-h-screen bg-gray-950 relative">
-      {/* Clean Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(56,189,248,0.1)_0%,transparent_50%)]"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(139,69,196,0.08)_0%,transparent_50%)]"></div>
+            <button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+              {channel.type === 'Live Chat' ? 'Start Chat' : 
+               channel.type === 'Phone Support' ? 'Call Now' : 'Send Email'}
+            </button>
+          </div>
+        ))}
       </div>
 
-      <div className="relative z-10 py-12">
-        <div className="container mx-auto px-4 max-w-7xl">
-          {/* Simple Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-              Project Calculator
-            </h1>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-              Get accurate estimates from <span className="text-blue-400 font-semibold">$800</span> to <span className="text-cyan-400 font-semibold">$500K+</span>
-            </p>
+      <div className="bg-gray-900/30 border border-gray-800 rounded-xl p-6">
+        <h3 className="text-xl font-semibold text-white mb-4">Enterprise Support</h3>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <h4 className="text-white font-medium mb-2">What's Included:</h4>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-green-400" />
+                Dedicated support manager
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-green-400" />
+                99.9% SLA guarantee
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-green-400" />
+                Priority queue access
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-green-400" />
+                Custom integration support
+              </li>
+            </ul>
           </div>
+          <div className="flex items-center">
+            <button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-lg font-medium hover:from-blue-700 hover:to-blue-800 transition-all">
+              Learn More
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
-          {/* Main Calculator */}
-          <div className="bg-slate-900/80 backdrop-blur-sm rounded-2xl border border-slate-700 overflow-hidden">
-            <div className="lg:flex">
-              {/* Configuration */}
-              <div className="p-8 lg:p-10 lg:w-3/5 border-r border-slate-700">
-                <h2 className="text-2xl font-bold text-white mb-8">Configure Your Project</h2>
-                
-                <div className="space-y-8">
-                  {/* Project Type */}
+  const renderDocumentation = () => (
+    <div className="space-y-6">
+      <div className="relative mb-6">
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+        <input
+          type="text"
+          placeholder="Search documentation..."
+          className="w-full bg-gray-900/50 border border-gray-800 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-6">
+        {documentation.sections.map((section, index) => (
+          <div key={index} className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
+            <h3 className="text-lg font-semibold text-white mb-4">{section.title}</h3>
+            <ul className="space-y-2">
+              {section.items.map((item, itemIndex) => (
+                <li key={itemIndex} className="flex items-center gap-2 text-gray-300 hover:text-blue-400 cursor-pointer transition-colors">
+                  <ChevronRight className="w-4 h-4" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-6">
+        <div className="flex items-center gap-3 mb-3">
+          <Star className="w-6 h-6 text-blue-400" />
+          <h3 className="text-xl font-semibold text-white">Quick Start Guide</h3>
+        </div>
+        <p className="text-gray-300 mb-4">
+          Get up and running in under 5 minutes with our comprehensive quick start guide.
+        </p>
+        <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
+          Start Now
+        </button>
+      </div>
+    </div>
+  );
+
+  const renderTutorials = () => (
+    <div className="space-y-6">
+      {tutorials.categories.map((category, index) => (
+        <div key={index} className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
+          <h3 className="text-lg font-semibold text-white mb-4">{category.title}</h3>
+          <div className="space-y-3">
+            {category.videos.map((video, videoIndex) => (
+              <div key={videoIndex} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-colors cursor-pointer">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-8 bg-blue-500/20 rounded flex items-center justify-center">
+                    <Video className="w-4 h-4 text-blue-400" />
+                  </div>
                   <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-4">Project Type</label>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {[
-                        { type: 'landing-page', name: 'Landing Page', price: '$800+' },
-                        { type: 'wordpress-site', name: 'WordPress Site', price: '$2K+' },
-                        { type: 'shopify-store', name: 'Shopify Store', price: '$3.5K+' },
-                        { type: 'business-website', name: 'Business Website', price: '$5K+' },
-                        { type: 'web-application', name: 'Web Application', price: '$15K+' },
-                        { type: 'enterprise-website', name: 'Enterprise Website', price: '$50K+' },
-                        { type: 'enterprise-platform', name: 'Enterprise Platform', price: '$150K+' },
-                        { type: 'saas-application', name: 'SaaS Application', price: '$250K+' }
-                      ].map((project) => (
-                        <button
-                          key={project.type}
-                          onClick={() => setProjectType(project.type as ProjectType)}
-                          className={`p-4 rounded-lg border text-left transition-all ${
-                            projectType === project.type
-                              ? 'border-blue-500 bg-blue-500/10 text-white'
-                              : 'border-slate-600 hover:border-slate-500 text-slate-300'
-                          }`}
-                        >
-                          <div className="font-medium">{project.name}</div>
-                          <div className="text-sm opacity-75">{project.price}</div>
-                        </button>
-                      ))}
+                    <h4 className="text-white font-medium">{video.title}</h4>
+                    <div className="flex items-center gap-4 text-sm text-gray-400">
+                      <span>{video.duration}</span>
+                      <span>{video.views} views</span>
                     </div>
                   </div>
+                </div>
+                <ChevronRight className="w-5 h-5 text-gray-400" />
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 
-                  {/* Quantity for Simple Projects */}
-                  {isSimpleProject && (
-                    <div>
-                      <label className="block text-sm font-medium text-slate-300 mb-4">
-                        Quantity: {quantity}
-                      </label>
-                      <div className="flex items-center space-x-4 bg-slate-800 rounded-lg p-4">
-                        <button
-                          onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                          className="w-10 h-10 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-bold transition-colors"
-                        >
-                          −
-                        </button>
-                        <span className="text-2xl font-bold text-white min-w-[2rem] text-center">
-                          {quantity}
-                        </span>
-                        <button
-                          onClick={() => setQuantity(quantity + 1)}
-                          className="w-10 h-10 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition-colors"
-                        >
-                          +
-                        </button>
+  const renderCommunity = () => (
+    <div className="space-y-6">
+      <div className="grid md:grid-cols-2 gap-6">
+        <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
+          <h3 className="text-lg font-semibold text-white mb-4">Forums</h3>
+          <div className="space-y-3">
+            {community.forums.map((forum, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-colors cursor-pointer">
+                <div>
+                  <h4 className="text-white font-medium">{forum.name}</h4>
+                  <div className="text-sm text-gray-400">
+                    {forum.posts} posts • {forum.members} members
+                  </div>
+                </div>
+                <ChevronRight className="w-5 h-5 text-gray-400" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
+          <h3 className="text-lg font-semibold text-white mb-4">Recent Topics</h3>
+          <div className="space-y-3">
+            {community.recentTopics.map((topic, index) => (
+              <div key={index} className="flex items-start gap-3 p-3 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-colors cursor-pointer">
+                <div className="flex-1">
+                  <h4 className="text-white font-medium text-sm">{topic.title}</h4>
+                  <div className="flex items-center gap-2 mt-1 text-xs text-gray-400">
+                    <span>{topic.replies} replies</span>
+                    {topic.solved && (
+                      <div className="flex items-center gap-1 text-green-400">
+                        <CheckCircle className="w-3 h-3" />
+                        Solved
                       </div>
-                    </div>
-                  )}
-
-                  {/* Complexity */}
-                  <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-4">
-                      Complexity: {complexity}/10
-                    </label>
-                    <input 
-                      type="range" 
-                      min="1" 
-                      max="10" 
-                      value={complexity} 
-                      onChange={(e) => setComplexity(parseInt(e.target.value))}
-                      className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer slider"
-                    />
-                    <div className="flex justify-between text-xs text-slate-500 mt-2">
-                      <span>Basic</span>
-                      <span>Advanced</span>
-                    </div>
-                  </div>
-
-                  {/* Team Size */}
-                  <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-4">Team Size</label>
-                    <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
-                      {[
-                        { value: 'freelancer', label: 'Solo' },
-                        { value: 'small', label: 'Small' },
-                        { value: 'medium', label: 'Medium' },
-                        { value: 'large', label: 'Large' },
-                        { value: 'enterprise', label: 'Enterprise' }
-                      ].map((option) => (
-                        <button
-                          key={option.value}
-                          onClick={() => setTeamSize(option.value as TeamSize)}
-                          className={`p-3 text-sm rounded-lg border transition-all ${
-                            teamSize === option.value
-                              ? 'border-blue-500 bg-blue-500/10 text-white'
-                              : 'border-slate-600 hover:border-slate-500 text-slate-300'
-                          }`}
-                        >
-                          {option.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Timeline */}
-                  <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-4">Timeline</label>
-                    <div className="grid grid-cols-3 gap-3">
-                      {(isSimpleProject ? [
-                        { value: '4-8', label: '4-8 weeks', desc: 'Standard' },
-                        { value: '2-4', label: '2-4 weeks', desc: '+30%' },
-                        { value: '1-2', label: '1-2 weeks', desc: '+60%' }
-                      ] : [
-                        { value: '12-18', label: '12-18 months', desc: 'Standard' },
-                        { value: '6-12', label: '6-12 months', desc: 'Standard' },
-                        { value: '3-6', label: '3-6 months', desc: '+40%' }
-                      ]).map((option) => (
-                        <button
-                          key={option.value}
-                          onClick={() => setTimeline(option.value as Timeline)}
-                          className={`p-3 text-center rounded-lg border transition-all ${
-                            timeline === option.value
-                              ? 'border-blue-500 bg-blue-500/10 text-white'
-                              : 'border-slate-600 hover:border-slate-500 text-slate-300'
-                          }`}
-                        >
-                          <div className="font-medium text-sm">{option.label}</div>
-                          <div className="text-xs opacity-75">{option.desc}</div>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Features */}
-                  <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-4">Features</label>
-                    <div className="grid grid-cols-2 gap-3">
-                      {(isSimpleProject ? [
-                        { key: 'responsive-design', name: 'Responsive Design' },
-                        { key: 'seo-optimization', name: 'SEO Optimization' },
-                        { key: 'cms-integration', name: 'CMS Integration' },
-                        { key: 'ecommerce-features', name: 'E-commerce Features' },
-                        { key: 'user-authentication', name: 'User Authentication' },
-                        { key: 'payment-gateway', name: 'Payment Gateway' }
-                      ] : [
-                        { key: 'cloud-infrastructure', name: 'Cloud Infrastructure' },
-                        { key: 'advanced-analytics', name: 'Advanced Analytics' },
-                        { key: 'ai-integration', name: 'AI Integration' },
-                        { key: 'multi-platform', name: 'Multi-Platform' },
-                        { key: 'enterprise-security', name: 'Enterprise Security' },
-                        { key: 'custom-integrations', name: 'Custom Integrations' }
-                      ]).map((feature) => {
-                        const isSelected = features.includes(feature.key as Feature);
-                        return (
-                          <button
-                            key={feature.key}
-                            onClick={() => toggleFeature(feature.key as Feature)}
-                            className={`p-3 text-sm text-left rounded-lg border transition-all ${
-                              isSelected
-                                ? 'border-green-500 bg-green-500/10 text-white'
-                                : 'border-slate-600 hover:border-slate-500 text-slate-300'
-                            }`}
-                          >
-                            <div className="flex justify-between items-center">
-                              {feature.name}
-                              {isSelected && <span className="text-green-400">✓</span>}
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </div>
+                    )}
                   </div>
                 </div>
               </div>
-
-              {/* Pricing */}
-              <div className="p-8 lg:p-10 lg:w-2/5 bg-slate-800/50">
-                <h3 className="text-2xl font-bold text-white mb-8">Estimate</h3>
-                
-                {/* Price Display */}
-                <div className="text-center mb-8">
-                  <div className="text-5xl font-bold text-blue-400 mb-2">
-                    ${calculateEstimate().toLocaleString()}
-                  </div>
-                  <div className="text-slate-400">
-                    {timeline} {isSimpleProject ? 'week' : 'month'} delivery
-                    {quantity > 1 ? ` • ${quantity} projects` : ''}
-                  </div>
-                </div>
-
-                {/* Price Breakdown */}
-                <div className="space-y-3 mb-8 bg-slate-900/50 rounded-lg p-6">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-slate-400">Base Price {quantity > 1 ? `(${quantity}x)` : ''}</span>
-                    <span className="text-white font-medium">
-                      ${(() => {
-                        const basePrices = {
-                          'landing-page': 800, 'wordpress-site': 2000, 'shopify-store': 3500,
-                          'business-website': 5000, 'web-application': 15000, 'enterprise-website': 50000,
-                          'enterprise-platform': 150000, 'saas-application': 250000, 'mobile-ecosystem': 200000,
-                          'digital-transformation': 500000
-                        };
-                        const base = basePrices[projectType] || 0;
-                        return (isSimpleProject ? base * quantity : base).toLocaleString();
-                      })()}
-                    </span>
-                  </div>
-                  
-                  {features.length > 0 && (
-                    <div className="flex justify-between text-sm">
-                      <span className="text-slate-400">Features ({features.length})</span>
-                      <span className="text-white font-medium">
-                        +${((isSimpleProject ? features.length * 500 * quantity : features.length * 25000)).toLocaleString()}
-                      </span>
-                    </div>
-                  )}
-                  
-                  <div className="flex justify-between text-sm">
-                    <span className="text-slate-400">Complexity × Team × Timeline</span>
-                    <span className="text-white font-medium">
-                      {(isSimpleProject ? (0.8 + (complexity / 25)) : (0.5 + (complexity / 10))).toFixed(1)}x
-                    </span>
-                  </div>
-                  
-                  <div className="border-t border-slate-700 pt-3">
-                    <div className="flex justify-between font-bold">
-                      <span className="text-white">Total</span>
-                      <span className="text-blue-400 text-lg">${calculateEstimate().toLocaleString()}</span>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Action Buttons */}
-                <div className="space-y-3">
-                  <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-4 px-6 rounded-lg transition-colors">
-                    {isSimpleProject ? 'Start Project' : 'Request Proposal'}
-                  </button>
-                  <button className="w-full bg-slate-700 hover:bg-slate-600 text-white font-medium py-3 px-6 rounded-lg transition-colors">
-                    Get Free Consultation
-                  </button>
-                  <p className="text-xs text-slate-500 text-center">
-                    No hidden fees • Free revisions • Money-back guarantee
-                  </p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
 
-      <style jsx>{`
-        .slider::-webkit-slider-thumb {
-          appearance: none;
-          height: 20px;
-          width: 20px;
-          border-radius: 50%;
-          background: #3B82F6;
-          cursor: pointer;
-          border: 2px solid #1E40AF;
-        }
-        .slider::-moz-range-thumb {
-          height: 20px;
-          width: 20px;
-          border-radius: 50%;
-          background: #3B82F6;
-          cursor: pointer;
-          border: 2px solid #1E40AF;
-        }
-      `}</style>
+      <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-xl p-6">
+        <h3 className="text-xl font-semibold text-white mb-3">Join Our Community</h3>
+        <p className="text-gray-300 mb-4">
+          Connect with over 50,000 developers, share knowledge, and get help from experts.
+        </p>
+        <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
+          Join Now
+        </button>
+      </div>
     </div>
+  );
+
+  const renderFAQ = () => (
+    <div className="space-y-4">
+      {faqs.map((faq, index) => (
+        <div key={index} className="bg-gray-900/50 border border-gray-800 rounded-xl overflow-hidden">
+          <button
+            className="w-full p-6 text-left flex items-center justify-between hover:bg-gray-800/50 transition-colors"
+            onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
+          >
+            <h3 className="text-white font-medium">{faq.question}</h3>
+            <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform ${expandedFaq === index ? 'rotate-180' : ''}`} />
+          </button>
+          {expandedFaq === index && (
+            <div className="px-6 pb-6">
+              <p className="text-gray-300 leading-relaxed">{faq.answer}</p>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'live-support': return renderLiveSupport();
+      case 'documentation': return renderDocumentation();
+      case 'tutorials': return renderTutorials();
+      case 'community': return renderCommunity();
+      case 'faq': return renderFAQ();
+      default: return renderLiveSupport();
+    }
+  };
+
+  return (
+    <section className="py-20 bg-black relative overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-950/20 via-black to-blue-900/10" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(30,64,175,0.1),transparent_70%)]" />
+
+      <div className="relative max-w-7xl mx-auto px-6">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div className="inline-block bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-2 text-blue-400 text-sm font-medium mb-6">
+            Complete Support Center
+          </div>
+          
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+            Everything You Need
+            <span className="block text-transparent bg-gradient-to-r from-blue-400 to-white bg-clip-text">
+              Right Here
+            </span>
+          </h1>
+          
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            Comprehensive support resources, detailed documentation, live assistance, and community help - all in one place.
+          </p>
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+          <div className="text-center">
+            <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <Clock className="w-6 h-6 text-blue-400" />
+            </div>
+            <div className="text-2xl font-bold text-white mb-1">24/7</div>
+            <div className="text-gray-400 text-sm">Support Available</div>
+          </div>
+          <div className="text-center">
+            <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <Users className="w-6 h-6 text-blue-400" />
+            </div>
+            <div className="text-2xl font-bold text-white mb-1">50K+</div>
+            <div className="text-gray-400 text-sm">Community Members</div>
+          </div>
+          <div className="text-center">
+            <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <FileText className="w-6 h-6 text-blue-400" />
+            </div>
+            <div className="text-2xl font-bold text-white mb-1">1000+</div>
+            <div className="text-gray-400 text-sm">Documentation Articles</div>
+          </div>
+          <div className="text-center">
+            <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <Zap className="w-6 h-6 text-blue-400" />
+            </div>
+            <div className="text-2xl font-bold text-white mb-1">&lt;2min</div>
+            <div className="text-gray-400 text-sm">Average Response</div>
+          </div>
+        </div>
+
+        {/* Tab Navigation */}
+        <div className="flex flex-wrap justify-center gap-2 mb-12">
+          {supportTabs.map((tab) => (
+            <button
+              key={tab.id}
+              className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all ${
+                activeTab === tab.id
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-900/50 text-gray-400 hover:text-white hover:bg-gray-800/50'
+              }`}
+              onClick={() => setActiveTab(tab.id)}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Content */}
+        <div className="min-h-[600px]">
+          {renderContent()}
+        </div>
+      </div>
+    </section>
   );
 };
 
-export default ProjectCalculator;
+export default SupportCenter;
