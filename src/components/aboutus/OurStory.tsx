@@ -1,10 +1,10 @@
 "use client";
 import React from 'react';
-import { Rocket, Target, Bot, Lightbulb, Code, Database, Smartphone, Globe, Users, Award, Clock, HeadphonesIcon, Zap, Cpu, Brain, ArrowRight, Star } from 'lucide-react';
+import { Rocket, Target, Bot, Lightbulb, Code, Database, Smartphone, Globe, Award, Zap, Brain, ArrowRight, Star } from 'lucide-react';
 
 const OurStory = () => {
   return (
-    <section className="relative py-32 bg-black overflow-hidden">
+    <section className="relative py-32 bg-black overflow-hidden px-[130px]">
       {/* Floating Background Elements */}
       <div className="absolute inset-0">
         {/* Animated Floating Shapes */}
@@ -34,11 +34,11 @@ const OurStory = () => {
           </div>
           
           <h2 className="text-6xl md:text-7xl font-black text-white mb-6">
-            THE <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">STORY</span>
+            Our <span className="text-blue-400">Story</span>
           </h2>
           
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Every great innovation starts with a vision. Here's how we transformed 
+            Every great innovation starts with a vision. Here&apos;s how we transformed 
             <span className="text-blue-400"> ideas into digital reality</span>
           </p>
         </div>
@@ -64,7 +64,7 @@ const OurStory = () => {
                   </p>
                   <p className="text-gray-300 leading-relaxed">
                     What started as passionate web developers crafting WordPress solutions quickly evolved into 
-                    something much bigger - a full-service digital agency pushing the boundaries of what's possible.
+                    something much bigger - a full-service digital agency pushing the boundaries of what&apos;s possible.
                   </p>
                 </div>
               </div>
@@ -165,7 +165,7 @@ const OurStory = () => {
               <h3 className="text-3xl font-bold text-white mb-6">Our Mission</h3>
               <p className="text-xl text-gray-300 leading-relaxed">
                 To transform businesses through <span className="text-blue-400 font-semibold">intelligent digital solutions</span> 
-                that don't just meet today's needs, but anticipate tomorrow's possibilities.
+                that don&apos;t just meet today&apos;s needs, but anticipate tomorrow&apos;s possibilities.
               </p>
               
               <div className="flex items-center justify-center gap-2 mt-8 text-blue-300">
