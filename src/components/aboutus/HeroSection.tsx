@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import { ShoppingCart, Settings, Brain, Code, TrendingUp, Users, Star, Target, RotateCcw, Handshake, CheckCircle, Zap, Globe, Smartphone, Monitor, ArrowRight, Play } from 'lucide-react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { ShoppingCart, Brain, Code, TrendingUp, Users, Star, Target, RotateCcw, Handshake, CheckCircle, Zap, Globe, ArrowRight, Play, Monitor } from 'lucide-react';
 
 const HeroSection = () => {
   const [currentService, setCurrentService] = useState(0);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [, setMousePosition] = useState({ x: 0, y: 0 });
   
   const services = [
     { title: "E-commerce Stores", desc: "Converting visitors to sales", icon: ShoppingCart },
@@ -14,12 +14,14 @@ const HeroSection = () => {
     { title: "Full-Stack Apps", desc: "Custom web applications", icon: Code }
   ];
 
+  const updateService = useCallback(() => {
+    setCurrentService((prev) => (prev + 1) % services.length);
+  }, [services.length]);
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentService((prev) => (prev + 1) % services.length);
-    }, 3000);
+    const interval = setInterval(updateService, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [updateService]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -141,7 +143,7 @@ const HeroSection = () => {
 
                 {/* Description */}
                 <p className="text-xl text-gray-300 leading-relaxed max-w-2xl">
-                  We're an elite 11-member development team crafting high-converting websites, 
+                  We&apos;re an elite 11-member development team crafting high-converting websites, 
                   e-commerce platforms, and intelligent web solutions that drive measurable business growth.
                 </p>
 
