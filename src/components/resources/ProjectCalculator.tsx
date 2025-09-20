@@ -2,36 +2,42 @@
 
 import React, { useState } from 'react';
 
-type ProjectType = 'website' | 'webapp' | 'ecommerce' | 'mobile';
-type Feature = 'responsive' | 'seo' | 'ecommerce' | 'cms' | 'auth' | 'api';
-type Timeline = '1-2' | '2-4' | '4-6';
+type ProjectType = 'enterprise-website' | 'enterprise-platform' | 'saas-application' | 'mobile-ecosystem' | 'digital-transformation';
+type Feature = 'cloud-infrastructure' | 'advanced-analytics' | 'ai-integration' | 'multi-platform' | 'enterprise-security' | 'custom-integrations' | 'scalable-architecture' | 'compliance-suite';
+type Timeline = '6-12' | '3-6' | '12-18';
+type TeamSize = 'small' | 'medium' | 'large' | 'enterprise';
 
-const ProjectCalculator = () => {
-  const [projectType, setProjectType] = useState<ProjectType>('website');
-  const [pages, setPages] = useState(5);
-  const [features, setFeatures] = useState<Feature[]>(['responsive', 'seo']);
-  const [timeline, setTimeline] = useState<Timeline>('4-6');
+const EnterpriseProjectCalculator = () => {
+  const [projectType, setProjectType] = useState<ProjectType>('enterprise-website');
+  const [complexity, setComplexity] = useState(7);
+  const [features, setFeatures] = useState<Feature[]>(['cloud-infrastructure', 'enterprise-security']);
+  const [timeline, setTimeline] = useState<Timeline>('6-12');
+  const [teamSize, setTeamSize] = useState<TeamSize>('medium');
 
   const calculateEstimate = () => {
-    // Base prices
+    // Base prices for enterprise projects
     let basePrice = 0;
-    if (projectType === 'website') basePrice = 2000;
-    else if (projectType === 'webapp') basePrice = 10000;
-    else if (projectType === 'ecommerce') basePrice = 15000;
-    else if (projectType === 'mobile') basePrice = 25000;
+    if (projectType === 'enterprise-website') basePrice = 50000;
+    else if (projectType === 'enterprise-platform') basePrice = 150000;
+    else if (projectType === 'saas-application') basePrice = 250000;
+    else if (projectType === 'mobile-ecosystem') basePrice = 200000;
+    else if (projectType === 'digital-transformation') basePrice = 500000;
 
-    // Adjust for pages (for websites)
-    const pageMultiplier = projectType === 'website' ? (pages - 1) * 200 : 0;
+    // Complexity multiplier
+    const complexityMultiplier = 0.5 + (complexity / 10);
     
-    // Adjust for features
-    const featureCost = features.length * 1000;
+    // Feature costs
+    const featureCost = features.length * 25000;
+    
+    // Team size multiplier
+    const teamMultipliers = { small: 0.8, medium: 1.0, large: 1.3, enterprise: 1.6 };
     
     // Timeline adjustment
     let timelineMultiplier = 1;
-    if (timeline === '2-4') timelineMultiplier = 1.2;
-    else if (timeline === '1-2') timelineMultiplier = 1.5;
+    if (timeline === '3-6') timelineMultiplier = 1.4;
+    else if (timeline === '12-18') timelineMultiplier = 0.9;
     
-    return Math.round((basePrice + pageMultiplier + featureCost) * timelineMultiplier);
+    return Math.round((basePrice + featureCost) * complexityMultiplier * teamMultipliers[teamSize] * timelineMultiplier);
   };
 
   const toggleFeature = (feature: Feature) => {
@@ -43,177 +49,299 @@ const ProjectCalculator = () => {
   };
 
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="container mx-auto px-4 max-w-4xl">
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-          <div className="md:flex">
-            <div className="p-8 md:p-10 md:w-1/2 bg-gradient-to-br from-blue-600 to-indigo-700 text-white">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">Project Calculator</h2>
-              <p className="text-blue-100 mb-8">Get an instant estimate for your next project based on your requirements.</p>
-              
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-blue-100 mb-2">Project Type</label>
-                  <select 
-                    className="w-full px-4 py-3 rounded-lg bg-blue-700 bg-opacity-50 border border-blue-500 focus:ring-2 focus:ring-white focus:border-white text-white"
-                    value={projectType}
-                    onChange={(e) => setProjectType(e.target.value as ProjectType)}
-                  >
-                    <option value="website">Website</option>
-                    <option value="webapp">Web Application</option>
-                    <option value="ecommerce">E-commerce Store</option>
-                    <option value="mobile">Mobile App</option>
-                  </select>
-                </div>
+    <div className="min-h-screen bg-gray-900 relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+        <div className="absolute inset-0">
+          {/* Animated circles */}
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+          <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-indigo-600 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-slate-600 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse" style={{ animationDelay: '2s' }}></div>
+          
+          {/* Grid pattern overlay */}
+          <div className="absolute inset-0 bg-gray-900 bg-opacity-50" 
+               style={{ 
+                 backgroundImage: `
+                   linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+                   linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
+                 `,
+                 backgroundSize: '60px 60px'
+               }}>
+          </div>
+        </div>
+      </div>
 
-                {projectType === 'website' && (
+      {/* Content */}
+      <div className="relative z-10 py-16">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">
+              Enterprise Project Calculator
+            </h1>
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+              Calculate precise estimates for enterprise-level digital solutions with advanced feature requirements and scalable architectures.
+            </p>
+          </div>
+
+          <div className="bg-slate-800 bg-opacity-80 backdrop-blur-sm rounded-3xl shadow-2xl border border-slate-700 overflow-hidden">
+            <div className="lg:flex">
+              {/* Configuration Panel */}
+              <div className="p-8 lg:p-12 lg:w-1/2 bg-gradient-to-br from-slate-800 to-slate-900 border-r border-slate-700">
+                <h2 className="text-2xl md:text-3xl font-bold mb-8 text-white">Project Configuration</h2>
+                
+                <div className="space-y-8">
+                  {/* Project Type */}
                   <div>
-                    <label className="block text-sm font-medium text-blue-100 mb-2">
-                      Number of Pages: {pages}
+                    <label className="block text-sm font-semibold text-slate-300 mb-4">Project Type</label>
+                    <select 
+                      className="w-full px-4 py-4 rounded-xl bg-slate-700 border border-slate-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white text-base"
+                      value={projectType}
+                      onChange={(e) => setProjectType(e.target.value as ProjectType)}
+                    >
+                      <option value="enterprise-website">Enterprise Website</option>
+                      <option value="enterprise-platform">Enterprise Platform</option>
+                      <option value="saas-application">SaaS Application</option>
+                      <option value="mobile-ecosystem">Mobile Ecosystem</option>
+                      <option value="digital-transformation">Digital Transformation</option>
+                    </select>
+                  </div>
+
+                  {/* Complexity Scale */}
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-300 mb-4">
+                      Project Complexity: {complexity}/10
                     </label>
                     <input 
                       type="range" 
                       min="1" 
-                      max="50" 
-                      value={pages} 
-                      onChange={(e) => setPages(parseInt(e.target.value))}
-                      className="w-full h-2 bg-blue-500 rounded-lg appearance-none cursor-pointer"
+                      max="10" 
+                      value={complexity} 
+                      onChange={(e) => setComplexity(parseInt(e.target.value))}
+                      className="w-full h-3 bg-slate-600 rounded-lg appearance-none cursor-pointer slider"
                     />
+                    <div className="flex justify-between text-xs text-slate-400 mt-2">
+                      <span>Simple</span>
+                      <span>Enterprise</span>
+                    </div>
                   </div>
-                )}
 
-                <div>
-                  <label className="block text-sm font-medium text-blue-100 mb-2">Timeline</label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {[
-                      { value: '4-6', label: '4-6 weeks' },
-                      { value: '2-4', label: '2-4 weeks' },
-                      { value: '1-2', label: '1-2 weeks' },
-                    ].map((option) => (
-                      <button
-                        key={option.value}
-                        type="button"
-                        onClick={() => setTimeline(option.value as Timeline)}
-                        className={`px-3 py-2 text-sm rounded-lg border ${
-                          timeline === option.value
-                            ? 'bg-white text-blue-700 border-white'
-                            : 'border-blue-400 text-blue-100 hover:bg-blue-700'
-                        }`}
-                      >
-                        {option.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-blue-100 mb-2">Features</label>
-                  <div className="grid grid-cols-2 gap-2">
-                    {(['responsive', 'seo', 'ecommerce', 'cms', 'auth', 'api'] as Feature[]).map((feature) => {
-                      const isSelected = features.includes(feature);
-                      const featureNames = {
-                        responsive: 'Responsive Design',
-                        seo: 'SEO Optimization',
-                        ecommerce: 'E-commerce',
-                        cms: 'Content Management',
-                        auth: 'User Authentication',
-                        api: 'API Integration'
-                      };
-                      
-                      return (
+                  {/* Team Size */}
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-300 mb-4">Team Size</label>
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                      {[
+                        { value: 'small', label: 'Small\n(3-5)', desc: '3-5 devs' },
+                        { value: 'medium', label: 'Medium\n(6-12)', desc: '6-12 devs' },
+                        { value: 'large', label: 'Large\n(13-25)', desc: '13-25 devs' },
+                        { value: 'enterprise', label: 'Enterprise\n(25+)', desc: '25+ devs' },
+                      ].map((option) => (
                         <button
-                          key={feature}
+                          key={option.value}
                           type="button"
-                          onClick={() => toggleFeature(feature)}
-                          className={`px-3 py-2 text-sm text-left rounded-lg border ${
-                            isSelected
-                              ? 'bg-white text-blue-700 border-white'
-                              : 'border-blue-400 text-blue-100 hover:bg-blue-700'
+                          onClick={() => setTeamSize(option.value as TeamSize)}
+                          className={`p-4 text-sm rounded-xl border transition-all ${
+                            teamSize === option.value
+                              ? 'bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-500/25'
+                              : 'border-slate-600 text-slate-300 hover:bg-slate-700 hover:border-slate-500'
                           }`}
                         >
-                          {featureNames[feature]}
+                          <div className="font-semibold whitespace-pre-line">{option.label}</div>
                         </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-8 md:p-10 md:w-1/2 bg-white">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">Your Estimate</h3>
-              
-              <div className="mb-8">
-                <div className="flex justify-between items-baseline mb-2">
-                  <span className="text-gray-600">Base Price</span>
-                  <span className="text-lg font-semibold">
-                    ${projectType === 'website' ? '2,000' : projectType === 'webapp' ? '10,000' : projectType === 'ecommerce' ? '15,000' : '25,000'}
-                  </span>
-                </div>
-                
-                {projectType === 'website' && (
-                  <div className="flex justify-between items-baseline mb-2 text-sm text-gray-500">
-                    <span>+ {pages} page{pages > 1 ? 's' : ''} (${(pages - 1) * 200})</span>
-                    <span>+ ${(pages - 1) * 200}</span>
-                  </div>
-                )}
-                
-                {features.length > 0 && (
-                  <div className="mb-2">
-                    <div className="text-sm text-gray-500 mb-1">Features (${features.length * 1000})</div>
-                    <div className="grid grid-cols-2 gap-2 text-xs">
-                      {features.map((feature) => (
-                        <div key={feature} className="bg-gray-50 px-2 py-1 rounded">
-                          {{
-                            responsive: 'Responsive',
-                            seo: 'SEO',
-                            ecommerce: 'E-commerce',
-                            cms: 'CMS',
-                            auth: 'Auth',
-                            api: 'API'
-                          }[feature]}
-                        </div>
                       ))}
                     </div>
                   </div>
-                )}
-                
-                {timeline !== '4-6' && (
-                  <div className="flex justify-between items-baseline text-sm text-gray-500 mb-2">
-                    <span>Expedited Delivery ({timeline} weeks)</span>
-                    <span>+{timeline === '2-4' ? '20%' : '50%'}</span>
-                  </div>
-                )}
-                
-                <div className="h-px bg-gray-200 my-4"></div>
-                
-                <div className="flex justify-between items-baseline">
-                  <span className="font-medium">Estimated Cost</span>
+
+                  {/* Timeline */}
                   <div>
-                    <div className="text-2xl font-bold text-blue-600">
-                      ${calculateEstimate().toLocaleString()}
+                    <label className="block text-sm font-semibold text-slate-300 mb-4">Timeline</label>
+                    <div className="grid grid-cols-3 gap-3">
+                      {[
+                        { value: '12-18', label: '12-18 months', desc: 'Standard' },
+                        { value: '6-12', label: '6-12 months', desc: 'Accelerated' },
+                        { value: '3-6', label: '3-6 months', desc: 'Rush' },
+                      ].map((option) => (
+                        <button
+                          key={option.value}
+                          type="button"
+                          onClick={() => setTimeline(option.value as Timeline)}
+                          className={`p-4 text-sm rounded-xl border transition-all ${
+                            timeline === option.value
+                              ? 'bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-500/25'
+                              : 'border-slate-600 text-slate-300 hover:bg-slate-700 hover:border-slate-500'
+                          }`}
+                        >
+                          <div className="font-semibold">{option.label}</div>
+                          <div className="text-xs opacity-75">{option.desc}</div>
+                        </button>
+                      ))}
                     </div>
-                    <div className="text-xs text-gray-500 text-right">
-                      {timeline} week{timeline.includes('-') ? 's' : ''} timeline
+                  </div>
+
+                  {/* Enterprise Features */}
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-300 mb-4">Enterprise Features</label>
+                    <div className="grid grid-cols-2 gap-3">
+                      {([
+                        'cloud-infrastructure',
+                        'advanced-analytics', 
+                        'ai-integration',
+                        'multi-platform',
+                        'enterprise-security',
+                        'custom-integrations',
+                        'scalable-architecture',
+                        'compliance-suite'
+                      ] as Feature[]).map((feature) => {
+                        const isSelected = features.includes(feature);
+                        const featureNames = {
+                          'cloud-infrastructure': 'Cloud Infrastructure',
+                          'advanced-analytics': 'Advanced Analytics',
+                          'ai-integration': 'AI Integration',
+                          'multi-platform': 'Multi-Platform',
+                          'enterprise-security': 'Enterprise Security',
+                          'custom-integrations': 'Custom Integrations',
+                          'scalable-architecture': 'Scalable Architecture',
+                          'compliance-suite': 'Compliance Suite'
+                        };
+                        
+                        return (
+                          <button
+                            key={feature}
+                            type="button"
+                            onClick={() => toggleFeature(feature)}
+                            className={`p-3 text-sm text-left rounded-xl border transition-all ${
+                              isSelected
+                                ? 'bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-500/25'
+                                : 'border-slate-600 text-slate-300 hover:bg-slate-700 hover:border-slate-500'
+                            }`}
+                          >
+                            {featureNames[feature]}
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
               </div>
-              
-              <div className="space-y-4">
-                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
-                  Get a Detailed Quote
-                </button>
-                <p className="text-xs text-gray-500 text-center">
-                  This is an estimate. Contact us for a detailed project proposal.
-                </p>
+
+              {/* Estimate Panel */}
+              <div className="p-8 lg:p-12 lg:w-1/2 bg-slate-900">
+                <h3 className="text-2xl font-bold text-white mb-8">Investment Estimate</h3>
+                
+                <div className="mb-10">
+                  {/* Base Price */}
+                  <div className="flex justify-between items-baseline mb-4 pb-4 border-b border-slate-700">
+                    <span className="text-slate-300 font-medium">Base Investment</span>
+                    <span className="text-xl font-bold text-white">
+                      ${projectType === 'enterprise-website' ? '50,000' : 
+                        projectType === 'enterprise-platform' ? '150,000' :
+                        projectType === 'saas-application' ? '250,000' :
+                        projectType === 'mobile-ecosystem' ? '200,000' : '500,000'}
+                    </span>
+                  </div>
+                  
+                  {/* Complexity Adjustment */}
+                  <div className="flex justify-between items-baseline mb-4 text-sm text-slate-400">
+                    <span>Complexity Multiplier ({complexity}/10)</span>
+                    <span>×{(0.5 + (complexity / 10)).toFixed(1)}</span>
+                  </div>
+                  
+                  {/* Features */}
+                  {features.length > 0 && (
+                    <div className="mb-4">
+                      <div className="flex justify-between items-baseline text-sm text-slate-400 mb-2">
+                        <span>Enterprise Features</span>
+                        <span>+${(features.length * 25000).toLocaleString()}</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        {features.map((feature) => (
+                          <div key={feature} className="bg-slate-800 px-3 py-2 rounded-lg text-xs text-slate-300">
+                            {{
+                              'cloud-infrastructure': 'Cloud Infra',
+                              'advanced-analytics': 'Analytics',
+                              'ai-integration': 'AI Integration',
+                              'multi-platform': 'Multi-Platform',
+                              'enterprise-security': 'Security',
+                              'custom-integrations': 'Integrations',
+                              'scalable-architecture': 'Scalable Arch',
+                              'compliance-suite': 'Compliance'
+                            }[feature]}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Team Size */}
+                  <div className="flex justify-between items-baseline mb-4 text-sm text-slate-400">
+                    <span>Team Size ({teamSize})</span>
+                    <span>×{teamSize === 'small' ? '0.8' : teamSize === 'medium' ? '1.0' : teamSize === 'large' ? '1.3' : '1.6'}</span>
+                  </div>
+                  
+                  {/* Timeline */}
+                  {timeline !== '6-12' && (
+                    <div className="flex justify-between items-baseline text-sm text-slate-400 mb-4">
+                      <span>Timeline Adjustment ({timeline} months)</span>
+                      <span>{timeline === '3-6' ? '+40%' : timeline === '12-18' ? '-10%' : ''}</span>
+                    </div>
+                  )}
+                  
+                  <div className="h-px bg-slate-700 my-6"></div>
+                  
+                  {/* Total */}
+                  <div className="flex justify-between items-baseline mb-8">
+                    <span className="font-semibold text-white text-lg">Total Investment</span>
+                    <div className="text-right">
+                      <div className="text-3xl font-bold text-blue-400 mb-1">
+                        ${calculateEstimate().toLocaleString()}
+                      </div>
+                      <div className="text-sm text-slate-400">
+                        {timeline} month timeline
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-8 rounded-xl transition-all shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40">
+                    Request Detailed Proposal
+                  </button>
+                  <button className="w-full bg-slate-700 hover:bg-slate-600 text-white font-medium py-4 px-8 rounded-xl transition-all border border-slate-600">
+                    Schedule Consultation
+                  </button>
+                  <p className="text-xs text-slate-400 text-center leading-relaxed">
+                    This estimate is based on industry standards for enterprise projects. 
+                    Final pricing depends on detailed requirements analysis and technical specifications.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+
+      <style jsx>{`
+        .slider::-webkit-slider-thumb {
+          appearance: none;
+          height: 24px;
+          width: 24px;
+          border-radius: 50%;
+          background: #3B82F6;
+          cursor: pointer;
+          border: 2px solid #1E40AF;
+          box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+        .slider::-moz-range-thumb {
+          height: 24px;
+          width: 24px;
+          border-radius: 50%;
+          background: #3B82F6;
+          cursor: pointer;
+          border: 2px solid #1E40AF;
+          box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+      `}</style>
+    </div>
   );
 };
 
-export default ProjectCalculator;
+export default EnterpriseProjectCalculator;

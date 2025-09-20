@@ -5,10 +5,7 @@ const CustomCursor: React.FC = () => {
   const cursorRef = useRef<HTMLDivElement | null>(null)
   const lastPos = useRef({ x: 0, y: 0 })
   const velocity = useRef({ x: 0, y: 0 })
-  const idleTimer = useRef<NodeJS.Timeout | null>(null)
-  const isIdle = useRef(false)
   const [isVisible, setIsVisible] = useState(false)
-  const [showCursor, setShowCursor] = useState(true)
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -24,7 +21,7 @@ const CustomCursor: React.FC = () => {
       particle.className = "smoke-particle"
       
       // Small sharp particles
-      const size = 1 + Math.random() * 2
+      const size = 1 + Math.random() * 3
       
       // Clear black and white particle distribution
       const isWhite = Math.random() > 0.5
@@ -40,15 +37,15 @@ const CustomCursor: React.FC = () => {
         opacity = 0.6 + Math.random() * 0.3
       }
       
-      // Very short duration for quick effect
-      const duration = 1 + Math.random() * 1.5
+      // Duration for effect
+      const duration = 1.5 + Math.random() * 2
       
-      // Minimal spread
-      const offsetX = (Math.random() - 0.5) * 2
-      const offsetY = (Math.random() - 0.5) * 1
+      // Spread for particles
+      const offsetX = (Math.random() - 0.5) * 8
+      const offsetY = (Math.random() - 0.5) * 6
       
-      // Simple upward movement
-      const drift = (Math.random() - 0.5) * 0.5
+      // Movement variation
+      const drift = (Math.random() - 0.5) * 1.5
       
       particle.style.cssText = `
         position: fixed;
@@ -88,13 +85,6 @@ const CustomCursor: React.FC = () => {
       
       lastPos.current = { x: newX, y: newY }
       
-      // Immediate activation
-      if (isIdle.current) {
-        setShowCursor(true)
-        setIsVisible(true)
-      }
-      
-      isIdle.current = false
       setIsVisible(true)
       
       if (cursorRef.current) {
@@ -102,29 +92,20 @@ const CustomCursor: React.FC = () => {
         cursorRef.current.style.top = `${newY}px`
       }
       
-      // Generate just a few particles behind cursor
+      // Generate more particles behind cursor
       const speed = Math.sqrt(velocity.current.x ** 2 + velocity.current.y ** 2)
-      if (speed > 2) { // Only when actually moving
-        const particleCount = Math.floor(Math.max(2, Math.min(speed / 8, 5)))
+      if (speed > 1) { // Lower threshold for particle generation
+        const particleCount = Math.floor(Math.max(8, Math.min(speed / 3, 20))) // More particles
         
         for (let i = 0; i < particleCount; i++) {
           createSmokeParticle(
-            newX + (Math.random() - 0.5) * 3,
-            newY + (Math.random() - 0.5) * 3,
+            newX + (Math.random() - 0.5) * 8,
+            newY + (Math.random() - 0.5) * 8,
             velocity.current.x * 0.1,
             velocity.current.y * 0.1
           )
         }
       }
-      
-      if (idleTimer.current) clearTimeout(idleTimer.current)
-      idleTimer.current = setTimeout(() => {
-        isIdle.current = true
-        
-        // Immediate disappearance
-        setShowCursor(false)
-        setIsVisible(false)
-      }, 300) // Very short idle time
     }
 
     window.addEventListener("mousemove", handleMove)
@@ -132,7 +113,6 @@ const CustomCursor: React.FC = () => {
     return () => {
       window.removeEventListener("mousemove", handleMove)
       document.body.style.cursor = "auto"
-      if (idleTimer.current) clearTimeout(idleTimer.current)
     }
   }, [])
 
@@ -143,16 +123,16 @@ const CustomCursor: React.FC = () => {
         className="smoke-cursor"
         style={{
           position: "fixed",
-          width: "6px",
-          height: "6px",
+          width: "16px", // Made bigger
+          height: "16px", // Made bigger
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 80%, transparent 100%)",
+          background: "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 60%, rgba(255,255,255,0.4) 80%, transparent 100%)",
           transform: "translate(-50%, -50%)",
           pointerEvents: "none",
           zIndex: 9999,
-          boxShadow: "0 0 8px rgba(255,255,255,0.5)",
-          transition: "opacity 0.1s ease-out", // Instant transition
-          opacity: (isVisible && showCursor) ? 1 : 0,
+          boxShadow: "0 0 16px rgba(255,255,255,0.6), 0 0 8px rgba(255,255,255,0.8)",
+          opacity: isVisible ? 1 : 0, // Always visible when mouse moves, no idle timeout
+          transition: "opacity 0.1s ease-out",
         }}
       />
 
@@ -166,21 +146,28 @@ const CustomCursor: React.FC = () => {
 
         @keyframes quickSmoke {
           0% {
-            transform: translate(-50%, -50%) scale(0.5);
+            transform: translate(-50%, -50%) scale(0.3);
             opacity: var(--opacity, 0.8);
           }
-          50% {
+          30% {
             transform: translate(
-              calc(-50% + var(--vel-x, 0) * 1px + var(--drift, 0) * 2px), 
-              calc(-50% + var(--vel-y, 0) * 1px - 8px)
-            ) scale(1);
-            opacity: calc(var(--opacity, 0.8) * 0.7);
+              calc(-50% + var(--vel-x, 0) * 1px + var(--drift, 0) * 1px), 
+              calc(-50% + var(--vel-y, 0) * 1px - 5px)
+            ) scale(0.8);
+            opacity: calc(var(--opacity, 0.8) * 0.8);
+          }
+          70% {
+            transform: translate(
+              calc(-50% + var(--vel-x, 0) * 2px + var(--drift, 0) * 3px), 
+              calc(-50% + var(--vel-y, 0) * 2px - 12px)
+            ) scale(1.2);
+            opacity: calc(var(--opacity, 0.8) * 0.4);
           }
           100% {
             transform: translate(
-              calc(-50% + var(--drift, 0) * 4px), 
-              calc(-50% - 15px)
-            ) scale(1.3);
+              calc(-50% + var(--drift, 0) * 6px), 
+              calc(-50% - 20px)
+            ) scale(1.5);
             opacity: 0;
           }
         }
