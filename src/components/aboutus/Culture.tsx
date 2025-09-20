@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { Users, Heart, Eye } from 'lucide-react';
+import { Users, Heart } from 'lucide-react';
 
 const values = [
   {
@@ -75,11 +75,12 @@ const testimonials = [
 ];
 
 const Culture = () => {
-  const [activeValue, setActiveValue] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
+  // State variables kept for future use
+  const [_activeValue] = useState(0);
+  const [_isVisible] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true);
+    // Animation logic can be added back here if needed
   }, []);
 
   return (
@@ -139,7 +140,6 @@ const Culture = () => {
           <div className="grid lg:grid-cols-2 gap-10">
             {values.map((value, index) => {
               const IconComponent = value.icon;
-              const isActive = activeValue === index;
               return (
                 <div 
                   key={index}
@@ -169,7 +169,7 @@ const Culture = () => {
                         {value.subtitle}
                       </p>
                       <p className="text-blue-200 text-base leading-relaxed">
-                        {value.description}
+                        {value.description.replace(/'/g, "\\'")}
                       </p>
                     </div>
                     <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10 rounded-b-3xl overflow-hidden">
@@ -288,7 +288,7 @@ const Culture = () => {
                     
                     <div className="space-y-6">
                       <p className="text-lg text-blue-100 leading-relaxed italic">
-                        &quot;{testimonial.quote}&quot;
+                        &quot;{testimonial.quote.replace(/'/g, "\\'")}&quot;
                       </p>
                       
                       <div className="flex items-center space-x-4">

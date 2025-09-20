@@ -390,7 +390,7 @@ const Technologies = () => {
             </h3>
             <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-10">
               Technology never stands still, and neither do we. We continuously evaluate and adopt new tools, 
-              frameworks, and methodologies to ensure we're always using the best solutions for your project. 
+              frameworks, and methodologies to ensure we&apos;re always using the best solutions for your project. 
               Our commitment to learning keeps us at the forefront of innovation.
             </p>
             
