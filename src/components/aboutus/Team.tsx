@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState, useCallback } from 'react';
 import { User, Award, Code, Briefcase, Target, Users, Globe, Zap, ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 
 const team = [
   {
@@ -218,12 +219,16 @@ const Team = () => {
 
                       {/* Image Container */}
                       <div className="relative overflow-hidden h-48 sm:h-56 lg:h-64 xl:h-72">
-                        <img 
-                          src={member.image}
-                          alt={member.name}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                          loading="lazy"
-                        />
+                        <div className="relative w-full h-full">
+                          <Image 
+                            src={member.image}
+                            alt={member.name}
+                            fill
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                            priority={index < 2} // Load first 2 images with priority
+                          />
+                        </div>
                         {/* Gradient Overlay */}
                         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60"></div>
                         

@@ -120,9 +120,10 @@ const OurProcess = () => {
       { threshold: 0.1 }
     );
     
-    if (sectionRef.current) observer.observe(sectionRef.current);
+    const currentSection = sectionRef.current;
+    if (currentSection) observer.observe(currentSection);
     return () => {
-      if (sectionRef.current) observer.unobserve(sectionRef.current);
+      if (currentSection) observer.unobserve(currentSection);
     };
   }, []);
 
@@ -330,7 +331,7 @@ const OurProcess = () => {
               Ready to Start Your <span className="text-blue-400">Digital Transformation?</span>
             </h3>
             <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-6 sm:mb-8">
-              Let's discuss your vision and create a custom roadmap for your success.
+              Let&apos;s discuss your vision and create a custom roadmap for your success.
             </p>
             <button className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-blue-500/25">
               Get Started Today
