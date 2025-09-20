@@ -22,7 +22,7 @@ export default function ResourcesIndexPage() {
             <TechnologyStack />
             <WebinarsTalks />
             <ProjectCalculator />
-            <SupportCenter />
+          <SupportCenter />
       </main>
   );
 }
