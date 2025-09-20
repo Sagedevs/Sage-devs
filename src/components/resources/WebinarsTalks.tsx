@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 interface Event {
   id: number;
@@ -224,10 +225,12 @@ const WebinarsTalks = () => {
             >
               {/* Dynamic Background Image */}
               <div className="relative h-56 overflow-hidden">
-                <img 
+                <Image 
                   src={event.backgroundImage} 
                   alt={event.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent"></div>
                 
@@ -260,11 +263,15 @@ const WebinarsTalks = () => {
               <div className="p-6">
                 {/* Speaker Section with Real Photo */}
                 <div className="flex items-center mb-6">
-                  <img 
-                    src={event.speakerImage} 
-                    alt={event.speaker}
-                    className="w-14 h-14 rounded-full object-cover mr-4 ring-2 ring-blue-500/50"
-                  />
+                  <div className="relative w-14 h-14 mr-4">
+                    <Image 
+                      src={event.speakerImage} 
+                      alt={event.speaker}
+                      fill
+                      className="rounded-full object-cover ring-2 ring-blue-500/50"
+                      sizes="56px"
+                    />
+                  </div>
                   <div>
                     <p className="font-bold text-white text-lg">{event.speaker}</p>
                     <p className="text-sm text-slate-400">{event.role}</p>
@@ -372,7 +379,7 @@ const WebinarsTalks = () => {
             <h3 className="text-3xl font-bold text-white mb-4">Ready to Share Your Expertise?</h3>
             <p className="text-slate-300 mb-8 text-lg leading-relaxed">
               Join our community of thought leaders and help shape the future of technology. 
-              We're always looking for passionate experts to lead sessions.
+              We&apos;re always looking for passionate experts to lead sessions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white font-bold py-4 px-8 rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-blue-600/30">
