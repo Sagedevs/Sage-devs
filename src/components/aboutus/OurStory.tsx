@@ -137,7 +137,7 @@ const OurStory = () => {
           <div className="grid md:grid-cols-4 gap-8">
             {[
               { number: '2023', label: 'FOUNDED', icon: Target, desc: 'Year of inception' },
-              { number: '50+', label: 'PROJECTS', icon: Rocket, desc: 'Successfully delivered' },
+              { number: '400+', label: 'PROJECTS', icon: Rocket, desc: 'Successfully delivered' },
               { number: '100%', label: 'SATISFACTION', icon: Award, desc: 'Client happiness rate' },
               { number: '∞', label: 'INNOVATION', icon: Lightbulb, desc: 'Endless possibilities' }
             ].map((stat, index) => (
