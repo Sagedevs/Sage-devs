@@ -89,17 +89,17 @@ body {
 }
 
 /* Add the noise effect pseudo-element */
-/* Technologies component padding */
-section.relative.min-h-screen.py-32.overflow-hidden.bg-black {
+/* Technologies component padding
+/* section.relative.min-h-screen.py-32.overflow-hidden.bg-black {
   padding-left: 8.125rem; /* 130px */
-  padding-right: 8.125rem; /* 130px */
-}
+  /* padding-right: 8.125rem; /* 130px */
+/* }
 
 /* Technologies section padding */
-section.jsx-6386abade16f578e.relative.py-20.bg-gray-950.overflow-hidden {
+/* section.jsx-6386abade16f578e.relative.py-20.bg-gray-950.overflow-hidden {
   padding-left: 8.125rem; /* 130px */
-  padding-right: 8.125rem; /* 130px */
-}
+  /* padding-right: 8.125rem; /* 130px */
+/* } */ */ */ */ */ */ */
 
 body::after {
   content: ""; /* Required for pseudo-elements */
