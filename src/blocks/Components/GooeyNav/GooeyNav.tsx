@@ -131,43 +131,6 @@ const megaMenuContent: MegaMenuContentMap = {
       href: "/ai-transformation-guide"
     }
   },
-  "Pricing & Plans": {
-    title: "Choose Your Plan",
-    subtitle: "Flexible pricing options designed to grow with your business",
-    categories: [
-      {
-        title: "Development Packages",
-        items: [
-          { label: "Startup Package", href: "/pricing/startup", description: "Perfect for new businesses" },
-          { label: "Growth Package", href: "/pricing/growth", description: "Scale your operations" },
-          { label: "Enterprise Package", href: "/pricing/enterprise", description: "Custom enterprise solutions" },
-          { label: "Custom Solutions", href: "/pricing/custom", description: "Tailored to your needs" }
-        ]
-      },
-      {
-        title: "Service Plans",
-        items: [
-          { label: "Maintenance & Support", href: "/pricing/maintenance", description: "Ongoing technical support" },
-          { label: "Consultation Services", href: "/pricing/consultation", description: "Expert guidance" },
-          { label: "Training & Workshops", href: "/pricing/training", description: "Team skill development" },
-          { label: "Audit & Assessment", href: "/pricing/audit", description: "Technical evaluation" }
-        ]
-      }
-    ],
-    cta: {
-      title: "Need a Custom Quote?",
-      description: "Get a personalized pricing estimate based on your specific requirements.",
-      buttonText: "Get Custom Quote",
-      buttonHref: "/custom-quote"
-    },
-    featured: {
-      title: "Most Popular",
-      subtitle: "Growth Package",
-      description: "Perfect balance of features and affordability for scaling businesses. Includes development, support, and consultation.",
-      image: "⭐",
-      href: "/pricing/growth"
-    }
-  },
   "Services": {
     title: "Our Services",
     subtitle: "Comprehensive solutions for your digital transformation",
@@ -252,117 +215,117 @@ const megaMenuContent: MegaMenuContentMap = {
       href: "/case-studies/ecommerce-growth"
     }
   },
-  "Resources": {
-    title: "Knowledge Hub",
-    subtitle: "Insights, guides, and resources to fuel your growth",
-    categories: [
-      {
-        title: "Learning Resources",
-        items: [
-          { label: "Blog / Insights", href: "/blog", description: "Latest industry trends & tips" },
-          { label: "Guides & Templates", href: "/resources/guides-templates", description: "Free downloadable resources" },
-          { label: "Webinars / Talks", href: "/resources/webinars", description: "Expert-led sessions" },
-          { label: "Case Studies", href: "/case-studies", description: "Real-world success stories" }
-        ]
-      },
-      {
-        title: "Tools & Support",
-        items: [
-          { label: "Project Calculator", href: "/resources/calculator", description: "Estimate your project cost" },
-          { label: "Technology Stack", href: "/resources/tech-stack", description: "Our preferred technologies" },
-          { label: "FAQs", href: "/faq", description: "Frequently asked questions" },
-          { label: "Support Center", href: "/support", description: "Get help when you need it" }
-        ]
-      }
-    ],
-    cta: {
-      title: "Stay Updated",
-      description: "Subscribe to our newsletter for the latest insights and updates.",
-      buttonText: "Subscribe Now",
-      buttonHref: "/newsletter"
-    },
-    featured: {
-      title: "Featured Guide",
-      subtitle: "Digital Transformation Roadmap",
-      description: "A comprehensive guide to planning your digital transformation journey.",
-      image: "🗺️",
-      href: "/resources/transformation-guide"
-    }
-  },
-  "About Us": {
-    title: "About Our Company",
-    subtitle: "Your trusted partner in digital innovation",
-    categories: [
-      {
-        title: "Our Company",
-        items: [
-          { label: "Our Story", href: "/about", description: "How we got started" },
-          { label: "Team", href: "/about/team", description: "Meet our experts" },
-          { label: "Careers", href: "/about/careers", description: "Join our growing team" },
-          { label: "Culture", href: "/about/culture", description: "Our values & approach" }
-        ]
-      },
-      {
-        title: "Why Choose Us",
-        items: [
-          { label: "Our Process", href: "/about/process", description: "How we work with clients" },
-          { label: "Technologies", href: "/about/technologies", description: "Our tech expertise" },
-          { label: "Testimonials", href: "/about/testimonials", description: "What clients say" },
-          { label: "Awards", href: "/about/awards", description: "Recognition & achievements" }
-        ]
-      }
-    ],
-    cta: {
-      title: "Ready to Work Together?",
-      description: "Let's discuss how we can help achieve your goals.",
-      buttonText: "Get In Touch",
-      buttonHref: "/Contact"
-    },
-    featured: {
-      title: "Join Our Team",
-      subtitle: "We're Hiring!",
-      description: "Exciting opportunities for developers, designers, and digital strategists.",
-      image: "👥",
-      href: "/about/careers"
-    }
-  },
-  "Contact": {
-    title: "Get In Touch",
-    subtitle: "Ready to start your next project? Let's talk!",
-    categories: [
-      {
-        title: "Contact Options",
-        items: [
-          { label: "Get in Touch (form)", href: "/contact#contact-form", description: "Send us a message" },
-          { label: "Book a Call", href: "https://calendly.com/abdul-ahadt732", external: true, description: "Schedule a consultation" },
-          { label: "FAQs", href: "/faq", description: "Common questions answered" },
-          { label: "Support", href: "/support", description: "Technical assistance" }
-        ]
-      },
-      {
-        title: "Quick Links",
-        items: [
-          { label: "Project Quote", href: "/quote", description: "Get instant pricing" },
-          { label: "Partnership", href: "/partnership", description: "Collaborate with us" },
-          { label: "Press & Media", href: "/press", description: "Media resources" },
-          { label: "Office Locations", href: "/locations", description: "Find us worldwide" }
-        ]
-      }
-    ],
-    cta: {
-      title: "Start Your Project Today",
-      description: "Transform your ideas into reality with our expert team.",
-      buttonText: "Let's Get Started",
-      buttonHref: "/Contact"
-    },
-    featured: {
-      title: "Quick Response",
-      subtitle: "We Reply Within 24 Hours",
-      description: "Get expert consultation and project estimates quickly.",
-      image: "⚡",
-      href: "/contact#contact-form"
-    }
-  }
+  // "Resources": {
+  //   title: "Knowledge Hub",
+  //   subtitle: "Insights, guides, and resources to fuel your growth",
+  //   categories: [
+  //     {
+  //       title: "Learning Resources",
+  //       items: [
+  //         { label: "Blog / Insights", href: "/blog", description: "Latest industry trends & tips" },
+  //         { label: "Guides & Templates", href: "/resources/guides-templates", description: "Free downloadable resources" },
+  //         { label: "Webinars / Talks", href: "/resources/webinars", description: "Expert-led sessions" },
+  //         { label: "Case Studies", href: "/case-studies", description: "Real-world success stories" }
+  //       ]
+  //     },
+  //     {
+  //       title: "Tools & Support",
+  //       items: [
+  //         { label: "Project Calculator", href: "/resources/calculator", description: "Estimate your project cost" },
+  //         { label: "Technology Stack", href: "/resources/tech-stack", description: "Our preferred technologies" },
+  //         { label: "FAQs", href: "/faq", description: "Frequently asked questions" },
+  //         { label: "Support Center", href: "/support", description: "Get help when you need it" }
+  //       ]
+  //     }
+  //   ],
+  //   cta: {
+  //     title: "Stay Updated",
+  //     description: "Subscribe to our newsletter for the latest insights and updates.",
+  //     buttonText: "Subscribe Now",
+  //     buttonHref: "/newsletter"
+  //   },
+  //   featured: {
+  //     title: "Featured Guide",
+  //     subtitle: "Digital Transformation Roadmap",
+  //     description: "A comprehensive guide to planning your digital transformation journey.",
+  //     image: "🗺️",
+  //     href: "/resources/transformation-guide"
+  //   }
+  // },
+  // "About Us": {
+  //   title: "About Our Company",
+  //   subtitle: "Your trusted partner in digital innovation",
+  //   categories: [
+  //     {
+  //       title: "Our Company",
+  //       items: [
+  //         { label: "Our Story", href: "/about", description: "How we got started" },
+  //         { label: "Team", href: "/about/team", description: "Meet our experts" },
+  //         { label: "Careers", href: "/about/careers", description: "Join our growing team" },
+  //         { label: "Culture", href: "/about/culture", description: "Our values & approach" }
+  //       ]
+  //     },
+  //     {
+  //       title: "Why Choose Us",
+  //       items: [
+  //         { label: "Our Process", href: "/about/process", description: "How we work with clients" },
+  //         { label: "Technologies", href: "/about/technologies", description: "Our tech expertise" },
+  //         { label: "Testimonials", href: "/about/testimonials", description: "What clients say" },
+  //         { label: "Awards", href: "/about/awards", description: "Recognition & achievements" }
+  //       ]
+  //     }
+  //   ],
+  //   cta: {
+  //     title: "Ready to Work Together?",
+  //     description: "Let's discuss how we can help achieve your goals.",
+  //     buttonText: "Get In Touch",
+  //     buttonHref: "/Contact"
+  //   },
+  //   featured: {
+  //     title: "Join Our Team",
+  //     subtitle: "We're Hiring!",
+  //     description: "Exciting opportunities for developers, designers, and digital strategists.",
+  //     image: "👥",
+  //     href: "/about/careers"
+  //   }
+  // },
+  // "Contact": {
+  //   title: "Get In Touch",
+  //   subtitle: "Ready to start your next project? Let's talk!",
+  //   categories: [
+  //     {
+  //       title: "Contact Options",
+  //       items: [
+  //         { label: "Get in Touch (form)", href: "/contact#contact-form", description: "Send us a message" },
+  //         { label: "Book a Call", href: "https://calendly.com/abdul-ahadt732", external: true, description: "Schedule a consultation" },
+  //         { label: "FAQs", href: "/faq", description: "Common questions answered" },
+  //         { label: "Support", href: "/support", description: "Technical assistance" }
+  //       ]
+  //     },
+  //     {
+  //       title: "Quick Links",
+  //       items: [
+  //         { label: "Project Quote", href: "/quote", description: "Get instant pricing" },
+  //         { label: "Partnership", href: "/partnership", description: "Collaborate with us" },
+  //         { label: "Press & Media", href: "/press", description: "Media resources" },
+  //         { label: "Office Locations", href: "/locations", description: "Find us worldwide" }
+  //       ]
+  //     }
+  //   ],
+  //   cta: {
+  //     title: "Start Your Project Today",
+  //     description: "Transform your ideas into reality with our expert team.",
+  //     buttonText: "Let's Get Started",
+  //     buttonHref: "/Contact"
+  //   },
+  //   featured: {
+  //     title: "Quick Response",
+  //     subtitle: "We Reply Within 24 Hours",
+  //     description: "Get expert consultation and project estimates quickly.",
+  //     image: "⚡",
+  //     href: "/contact#contact-form"
+  //   }
+  // }
 };
 
 const GooeyNav: React.FC<GooeyNavProps> = ({
