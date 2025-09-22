@@ -57,7 +57,7 @@ const items = [
   },
   {
     label: "Contact",
-    href: "/Contact",   // 👈 yeh parent pe direct link
+    href: "/Contact",   
     cta: true,
     children: [
       { label: "Get in Touch (form)", href: "/contact#contact-form" },
