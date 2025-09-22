@@ -8,6 +8,7 @@ interface GooeyNavChildItem {
   href: string;
   external?: boolean;
   description?: string;
+  id?: number;
 }
 
 interface GooeyNavItem {
@@ -50,6 +51,7 @@ interface MegaMenuArticle {
   title: string;
   image: string;
   href: string;
+  id: number;
   category?: string;
 }
 
@@ -102,31 +104,36 @@ const megaMenuContent: MegaMenuContentMap = {
         title: "Custom AI or Off-the-Shelf AI – Which Is the Right Solution for Your Business?",
         image: "/blog/1.webp",
         href: "/blog#blog-post-1",
-        category: "AI Strategy"
+        category: "AI Strategy",
+        id: 1
       },
       {
         title: "10 Ways AI is Revolutionizing Mining Operations in Australia",
         image: "/blog/2.webp",
         href: "/blog#blog-post-2",
-        category: "Industry Applications"
+        category: "Industry Applications",
+        id: 2
       },
       {
         title: "15 Use Cases and Examples of How AI Is Transforming the Fitness Industry",
         image: "/blog/3.webp",
         href: "/blog#blog-post-3",
-        category: "Healthcare & Fitness"
+        category: "Healthcare & Fitness",
+        id: 3
       },
       {
         title: "15 AI Business Ideas in Australia to Kickstart Your Entrepreneurial Journey",
         image: "/blog/4.webp",
         href: "/blog#blog-post-4",
-        category: "Business Innovation"
+        category: "Business Innovation",
+        id: 4
       },
       {
         title: "How to Scale Your AI Project without Overspending?",
         image: "/blog/5.webp",
         href: "/blog#blog-post-5",
-        category: "Project Management"
+        category: "Project Management",
+        id: 5
       }
     ],
     cta: {
@@ -402,12 +409,25 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   const [megaMenuOpen, setMegaMenuOpen] = useState<string | null>(null);
 
   // Close mega menu function
-  const closeMegaMenu = useCallback(() => {
-    if (megaMenuTimeout) {
-      clearTimeout(megaMenuTimeout);
+  const closeMegaMenu = useCallback((e: React.MouseEvent) => {
+    // Only handle blog post links
+    const articleCard = (e.target as HTMLElement).closest('.article-card');
+    if (articleCard) {
+      e.preventDefault();
+      const href = (articleCard as HTMLAnchorElement).getAttribute('href');
+      if (href) {
+        // Use Next.js router for client-side navigation
+        const router = require('next/router').default;
+        router.push(href).then(() => {
+          setMegaMenuOpen(null);
+          // Force a scroll to top after navigation
+          window.scrollTo(0, 0);
+        });
+      }
+    } else {
+      setMegaMenuOpen(null);
     }
-    setMegaMenuOpen(null);
-  }, [megaMenuTimeout]);
+  }, []);
 
   const closeMegaMenuWithDelay = useCallback(() => {
     if (megaMenuTimeout) {
@@ -470,8 +490,10 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
           <Link
             key={article.title}
             href={article.href}
-            className="article-card"
+            className="article-card block"
             onClick={closeMegaMenu}
+            scroll={false} // Prevent default scroll behavior
+            shallow={true} // Shallow routing to prevent full page reload
           >
             <div className="article-image">
               <Image src={article.image} alt={article.title} width={80} height={80} className="w-full h-full object-cover rounded-md" />

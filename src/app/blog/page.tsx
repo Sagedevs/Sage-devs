@@ -782,41 +782,58 @@ export default function BlogPage() {
   const [currentView, setCurrentView] = useState("list");
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
 
+  // Function to handle post navigation
+  const navigateToPostById = (postId: number) => {
+    const post = blogPosts.find(p => p.id === postId);
+    if (post) {
+      setSelectedPost(post);
+      setCurrentView("single");
+      // Update the URL without causing a page reload
+      window.history.pushState({}, '', `#blog-post-${postId}`);
+      // Scroll to top when opening a post
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   // Handle hash-based navigation
   React.useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.substring(1); // Remove the '#'
-      if (!hash) return;
+      if (!hash) {
+        setCurrentView("list");
+        return;
+      }
       
       // Check if the hash matches a blog post ID (e.g., 'blog-post-1')
       const postMatch = hash.match(/blog-post-(\d+)/);
       if (postMatch) {
         const postId = parseInt(postMatch[1], 10);
-        const post = blogPosts.find(p => p.id === postId);
-        if (post) {
-          setSelectedPost(post);
-          setCurrentView("single");
-          // Scroll to top when opening a post
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-          return;
-        }
+        navigateToPostById(postId);
+        return;
       }
 
       // If no post found, ensure we're in list view
       setCurrentView("list");
     };
 
+    // Also handle popstate for back/forward navigation
+    const handlePopState = () => {
+      handleHashChange();
+    };
+
     // Check hash on initial load
     handleHashChange();
 
-    // Add event listener for hash changes
+    // Add event listeners
     window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handlePopState);
     
     // Cleanup
     return () => {
       window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('popstate', handlePopState);
     };
-  }, []);
+  }, [blogPosts]); // Add blogPosts to dependency array
 
   // Navigation functions
   const getNextPost = () => {
@@ -832,10 +849,7 @@ export default function BlogPage() {
   };
 
   const navigateToPost = (post: BlogPost) => {
-    setSelectedPost(post);
-    setCurrentView("single");
-    // Update the URL with the post ID
-    window.history.pushState({}, '', `#blog-post-${post.id}`);
+    navigateToPostById(post.id);
   };
 
 
@@ -921,11 +935,11 @@ export default function BlogPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {filteredPosts.map((post, index) => (
               <article
-                key={index}
+                key={post.id}
                 onClick={() => navigateToPost(post)}
                 className="blog-post group bg-black/20 backdrop-blur-lg border border-blue-500/10 rounded-2xl overflow-hidden hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10 hover:border-blue-500/30 transition-all duration-500 cursor-pointer"
                 data-post-id={post.id}
-                id={index < 5 ? `blog-post-${index + 1}` : undefined}
+                id={`blog-post-${post.id}`}
               >
                 {/* Image Container */}
                 <div className="relative h-48 overflow-hidden bg-black/50">
