@@ -53,6 +53,17 @@ interface MegaMenuArticle {
   category?: string;
 }
 
+interface MegaMenuShowcase {
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  href: string;
+  stats?: Array<{ label: string; value: string }>;
+  features?: string[];
+  results?: Array<{ metric: string; value: string }>;
+}
+
 interface MegaMenuItemContent {
   title: string;
   subtitle: string;
@@ -64,6 +75,7 @@ interface MegaMenuItemContent {
     title: string;
     items: { label: string; href: string; }[];
   };
+  showcase?: MegaMenuShowcase;
 }
 
 type MegaMenuContentMap = {
@@ -124,11 +136,23 @@ const megaMenuContent: MegaMenuContentMap = {
       buttonHref: "/ai-consultation"
     },
     featured: {
-      title: "Featured Insight",
-      subtitle: "AI-Powered Digital Transformation",
-      description: "Leverage artificial intelligence to automate processes, enhance decision-making, and gain competitive advantages in your industry.",
-      image: "🚀",
+      title: "AI Innovation Hub",
+      subtitle: "Transform Your Business",
+      description: "From machine learning to computer vision, discover how AI can revolutionize your operations and drive unprecedented growth.",
+      image: "/images/ai-innovation.jpg",
       href: "/ai-transformation-guide"
+    },
+    showcase: {
+      title: "AI Success Story",
+      subtitle: "300% Efficiency Increase",
+      description: "See how we helped a manufacturing company automate their quality control process using computer vision.",
+      image: "/images/ai-showcase.jpg",
+      href: "/case-studies/ai-manufacturing",
+      stats: [
+        { label: "Accuracy", value: "99.5%" },
+        { label: "Time Saved", value: "75%" },
+        { label: "Cost Reduction", value: "40%" }
+      ]
     }
   },
   "Services": {
@@ -168,10 +192,23 @@ const megaMenuContent: MegaMenuContentMap = {
     },
     featured: {
       title: "Featured Service",
-      subtitle: "AI-Powered Solutions",
-      description: "Leverage artificial intelligence to automate processes and gain competitive advantages.",
-      image: "🤖",
-      href: "/services/ai-solutions"
+      subtitle: "Full-Stack Development",
+      description: "End-to-end development solutions using cutting-edge technologies like React, Next.js, and cloud infrastructure.",
+      image: "🚀",
+      href: "/services/full-stack-development"
+    },
+    showcase: {
+      title: "Service Spotlight",
+      subtitle: "E-commerce Excellence",
+      description: "Custom e-commerce solutions that drive sales and enhance user experience. From Shopify to custom builds.",
+      image: "/images/ecommerce-showcase.jpg",
+      href: "/services/ecommerce",
+      features: [
+        "Payment Integration",
+        "Inventory Management",
+        "Mobile Optimization",
+        "SEO Ready"
+      ]
     }
   },
   "Case Studies": {
@@ -209,10 +246,22 @@ const megaMenuContent: MegaMenuContentMap = {
     },
     featured: {
       title: "Latest Success",
-      subtitle: "E-commerce Growth: 300% Increase",
-      description: "How we helped a retail client triple their online revenue in 6 months.",
-      image: "📈",
-      href: "/case-studies/ecommerce-growth"
+      subtitle: "SaaS Platform: 10x Growth",
+      description: "How we helped a startup scale their SaaS platform to serve 100,000+ users with 99.9% uptime.",
+      image: "📊",
+      href: "/case-studies/saas-growth"
+    },
+    showcase: {
+      title: "Featured Case Study",
+      subtitle: "FinTech Revolution",
+      description: "A complete digital transformation for a financial services company, resulting in 500% user growth.",
+      image: "/images/fintech-case.jpg",
+      href: "/case-studies/fintech-transformation",
+      results: [
+        { metric: "User Growth", value: "500%" },
+        { metric: "Load Time", value: "-60%" },
+        { metric: "Conversion", value: "+250%" }
+      ]
     }
   },
   // "Resources": {
@@ -334,6 +383,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   mobileMenuOpen,
   toggleMobileMenu,
 }) => {
+  const [megaMenuTimeout, setMegaMenuTimeout] = useState<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLUListElement>(null);
   const [activeIndex, setActiveIndex] = useState<number>(initialActiveIndex);
@@ -349,8 +399,32 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
 
   // Close mega menu function
   const closeMegaMenu = useCallback(() => {
+    if (megaMenuTimeout) {
+      clearTimeout(megaMenuTimeout);
+    }
     setMegaMenuOpen(null);
-  }, []);
+  }, [megaMenuTimeout]);
+
+  const closeMegaMenuWithDelay = useCallback(() => {
+    if (megaMenuTimeout) {
+      clearTimeout(megaMenuTimeout);
+    }
+    const timeout = setTimeout(() => {
+      setMegaMenuOpen(null);
+    }, 100); // Very short delay - 100ms instead of default
+    setMegaMenuTimeout(timeout);
+  }, [megaMenuTimeout]);
+
+  const handleMouseEnter = useCallback((index: number, itemLabel: string) => {
+    if (megaMenuTimeout) {
+      clearTimeout(megaMenuTimeout);
+      setMegaMenuTimeout(null);
+    }
+    setHoverIndex(index);
+    if (megaMenuContent[itemLabel as keyof typeof megaMenuContent]) {
+      setMegaMenuOpen(itemLabel);
+    }
+  }, [megaMenuTimeout]);
 
   // AppInventiv-style mega menu renderer
   const renderAppInventivMegaMenu = useCallback((content: MegaMenuItemContent) => (
@@ -403,38 +477,51 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         ))}
       </div>
 
-      {/* Right Featured */}
-      <div>
-        <div className="mega-menu-featured">
-          <h4 style={{ color: '#ffffff', fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem' }}>
-            {content.featured.title}
-          </h4>
-          <h5 style={{ color: '#60a5fa', fontSize: '1.25rem', fontWeight: '700', marginBottom: '0.75rem' }}>
-            {content.featured.subtitle}
-          </h5>
-          <p style={{ color: '#cbd5e1', fontSize: '0.9rem', lineHeight: '1.5', marginBottom: '1rem' }}>
-            {content.featured.description}
-          </p>
-          <Link
-            href={content.featured.href}
-            onClick={closeMegaMenu}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '0.75rem 1.5rem',
-              background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
-              color: '#1e293b',
-              textDecoration: 'none',
-              borderRadius: '8px',
-              fontWeight: '500',
-              fontSize: '0.9rem',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            Learn More →
-          </Link>
-        </div>
+      {/* Right Showcase */}
+      <div className="mega-menu-right-sidebar">
+        {content.showcase && (
+          <div className="mega-menu-showcase">
+            <div className="showcase-image">
+              {content.showcase.image.startsWith('/') ? (
+                <Image 
+                  src={content.showcase.image} 
+                  alt={content.showcase.title} 
+                  width={300} 
+                  height={200} 
+                  className="w-full h-48 object-cover rounded-lg mb-4" 
+                />
+              ) : (
+                <div className="text-6xl mb-4 text-center">
+                  {content.showcase.image}
+                </div>
+              )}
+            </div>
+            
+            <h4 className="showcase-title">{content.showcase.title}</h4>
+            <h5 className="showcase-subtitle">{content.showcase.subtitle}</h5>
+            <p className="showcase-description">{content.showcase.description}</p>
+            
+            {/* Stats for AI showcase */}
+            {content.showcase.stats && (
+              <div className="showcase-stats">
+                {content.showcase.stats.map((stat, index) => (
+                  <div key={index} className="stat-item">
+                    <div className="stat-value">{stat.value}</div>
+                    <div className="stat-label">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+            
+            <Link
+              href={content.showcase.href}
+              onClick={closeMegaMenu}
+              className="showcase-button"
+            >
+              View Details →
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   ), [closeMegaMenu]);
@@ -476,8 +563,9 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         ))}
       </div>
 
-      {/* Right Column */}
+      {/* Right Column with Featured and Showcase */}
       <div>
+        {/* Featured Section */}
         <div className="mega-menu-featured">
           <h4 style={{ color: '#ffffff', fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem' }}>
             {content.featured.title}
@@ -509,6 +597,64 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
           </Link>
         </div>
 
+        {/* Showcase Section */}
+        {content.showcase && (
+          <div className="mega-menu-showcase" style={{ marginTop: '1.5rem' }}>
+            <div className="showcase-image">
+              {content.showcase.image.startsWith('/') ? (
+                <Image 
+                  src={content.showcase.image} 
+                  alt={content.showcase.title} 
+                  width={280} 
+                  height={180} 
+                  className="w-full h-32 object-cover rounded-lg mb-3" 
+                />
+              ) : (
+                <div className="text-4xl mb-3 text-center">
+                  {content.showcase.image}
+                </div>
+              )}
+            </div>
+            
+            <h4 className="showcase-title">{content.showcase.title}</h4>
+            <h5 className="showcase-subtitle">{content.showcase.subtitle}</h5>
+            <p className="showcase-description">{content.showcase.description}</p>
+            
+            {/* Features for Services */}
+            {content.showcase.features && (
+              <ul className="showcase-features">
+                {content.showcase.features.map((feature, index) => (
+                  <li key={index} className="feature-item">
+                    <span className="feature-check">✓</span>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            )}
+            
+            {/* Results for Case Studies */}
+            {content.showcase.results && (
+              <div className="showcase-results">
+                {content.showcase.results.map((result, index) => (
+                  <div key={index} className="result-item">
+                    <div className="result-value">{result.value}</div>
+                    <div className="result-metric">{result.metric}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+            
+            <Link
+              href={content.showcase.href}
+              onClick={closeMegaMenu}
+              className="showcase-button"
+            >
+              View Details →
+            </Link>
+          </div>
+        )}
+
+        {/* CTA Section */}
         <div className="mega-menu-cta" style={{ marginTop: '1rem' }}>
           <h4 style={{ color: '#ffffff', fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem' }}>
             {content.cta.title}
@@ -760,9 +906,16 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         margin: 0 auto;
         padding: 2.5rem;
         display: grid;
-        grid-template-columns: 250px 1.5fr 350px;
+        grid-template-columns: 250px 1fr 350px;
         gap: 1.5rem;
         min-height: 500px;
+        position: relative;
+      }
+      
+      .mega-menu-right-sidebar {
+        position: sticky;
+        top: 2.5rem;
+        height: fit-content;
       }
       
       /* Standard 3-column layout */
@@ -931,6 +1084,196 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         margin-bottom: 1rem;
       }
       
+      /* Showcase Styles */
+      .mega-menu-showcase {
+        background: rgba(15, 22, 41, 0.7);
+        border-radius: 16px;
+        padding: 1.5rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: all 0.3s ease;
+        height: 100%;
+        position: sticky;
+        top: 2.5rem;
+        margin-left: auto;
+        width: 100%;
+        max-width: 350px;
+      }
+      
+      .mega-menu-showcase:hover {
+        background: rgba(15, 22, 41, 0.9);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      }
+      
+      .showcase-image {
+        margin-bottom: 1.25rem;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      }
+      
+      .showcase-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+      }
+      
+      .mega-menu-showcase:hover .showcase-image img {
+        transform: scale(1.02);
+      }
+      
+      .showcase-title {
+        color: #ffffff;
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        line-height: 1.3;
+      }
+      
+      .showcase-subtitle {
+        color: #60a5fa;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+      }
+      
+      .showcase-description {
+        color: #cbd5e1;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+      }
+      
+      .showcase-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .stat-item {
+        background: rgba(96, 165, 250, 0.1);
+        padding: 0.75rem;
+        border-radius: 8px;
+        text-align: center;
+      }
+      
+      .stat-value {
+        color: #ffffff;
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+      }
+      
+      .stat-label {
+        color: #94a3b8;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      
+      .showcase-features h5,
+      .showcase-results h5 {
+        color: #ffffff;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+      }
+      
+      .showcase-features h5::before,
+      .showcase-results h5::before {
+        content: '→';
+        color: #60a5fa;
+        margin-right: 0.5rem;
+        font-size: 1.1em;
+      }
+      
+      .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1.5rem 0;
+      }
+      
+      .feature-item {
+        color: #e2e8f0;
+        font-size: 0.9rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        align-items: center;
+      }
+      
+      .feature-item::before {
+        content: '✓';
+        color: #60a5fa;
+        margin-right: 0.5rem;
+        font-size: 0.8em;
+      }
+      
+      .result-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      
+      .result-metric {
+        color: #e2e8f0;
+        font-size: 0.9rem;
+      }
+      
+      .result-value {
+        color: #60a5fa;
+        font-weight: 600;
+        background: rgba(96, 165, 250, 0.1);
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.8rem;
+      }
+      
+      .showcase-cta {
+        display: inline-flex;
+        align-items: center;
+        color: #60a5fa;
+        font-weight: 500;
+        font-size: 0.9rem;
+        text-decoration: none;
+        margin-top: 1rem;
+        transition: all 0.2s ease;
+      }
+      
+      .showcase-cta:hover {
+        color: #3b82f6;
+        transform: translateX(4px);
+      }
+      
+      .showcase-cta::after {
+        content: '→';
+        margin-left: 0.5rem;
+        transition: transform 0.2s ease;
+      }
+      
+      .showcase-cta:hover::after {
+        transform: translateX(4px);
+      }
+      
+      /* Responsive Adjustments */
+      @media (max-width: 1024px) {
+        .appinventiv-layout {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        
+        .mega-menu-showcase {
+          margin-top: 2rem;
+        }
+      }
+      
       .mega-menu-item {
         display: block;
         padding: 0.75rem 0;
@@ -1059,14 +1402,10 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
                   className={`group relative gooey-nav-item text-xs sm:text-sm md:text-base cursor-pointer ${
                     item.href && activeIndex === index ? "active" : ""
                   }`}
-                  onMouseEnter={() => {
-                    setHoverIndex(index);
-                    if (hasMegaMenu) {
-                      setMegaMenuOpen(item.label);
-                    }
-                  }}
+                  onMouseEnter={() => handleMouseEnter(index, item.label)}
                   onMouseLeave={() => {
                     setHoverIndex((prev) => (prev === index ? null : prev));
+                    closeMegaMenuWithDelay();
                   }}
                 >
                   {item.href ? (
@@ -1168,7 +1507,12 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
       {megaMenuOpen && megaMenuContent[megaMenuOpen as keyof typeof megaMenuContent] && (
         <div 
           className={`mega-menu ${megaMenuOpen ? 'open' : ''} hidden lg:block`}
-          onMouseEnter={() => setMegaMenuOpen(megaMenuOpen)}
+          onMouseEnter={() => {
+            if (megaMenuTimeout) {
+              clearTimeout(megaMenuTimeout);
+              setMegaMenuTimeout(null);
+            }
+          }}
           onMouseLeave={closeMegaMenu}
         >
           {(() => {
@@ -1354,23 +1698,39 @@ const GooeyNavWithHeader: React.FC<GooeyNavProps> = ({
               // Handle items with children (mega menu items)
               return (
                 <div key={item.label} className="space-y-4">
-                  <div 
-                    className="flex items-center justify-between text-gray-300 uppercase tracking-wider text-xs cursor-pointer"
-                    onClick={() => hasChildren && toggleMobileDropdown(item.label)}
-                  >
-                    <span className="text-white text-2xl font-semibold hover:text-cyan-300 transition-colors">
-                      {item.label}
-                    </span>
-                    {hasChildren && (
-                      <svg
-                        className={`h-5 w-5 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2}
+                  <div className="flex items-center justify-between">
+                    {/* Main text - NOT clickable for dropdown */}
+                    {item.href ? (
+                      <Link 
+                        href={item.href}
+                        onClick={() => { toggleMobileMenu(); setOpenMobileDropdowns({}); }}
+                        className="text-white text-2xl font-semibold hover:text-cyan-300 transition-colors"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                      </svg>
+                        {item.label}
+                      </Link>
+                    ) : (
+                      <span className="text-white text-2xl font-semibold">
+                        {item.label}
+                      </span>
+                    )}
+                    
+                    {/* Arrow - ONLY this opens dropdown */}
+                    {hasChildren && (
+                      <button
+                        onClick={() => toggleMobileDropdown(item.label)}
+                        className="p-2 text-white hover:text-cyan-300 transition-colors"
+                        aria-label={`Toggle ${item.label} dropdown`}
+                      >
+                        <svg
+                          className={`h-5 w-5 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`}
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
                     )}
                   </div>
                   
