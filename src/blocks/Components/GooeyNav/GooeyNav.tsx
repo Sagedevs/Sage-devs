@@ -143,15 +143,22 @@ const megaMenuContent: MegaMenuContentMap = {
       href: "/ai-transformation-guide"
     },
     showcase: {
-      title: "AI Success Story",
-      subtitle: "300% Efficiency Increase",
-      description: "See how we helped a manufacturing company automate their quality control process using computer vision.",
-      image: "/images/ai-showcase.jpg",
-      href: "/case-studies/ai-manufacturing",
+      title: "AI Resume Analyzer",
+      subtitle: "AI-Powered Resume Analysis & Optimization Tool",
+      description: "Automated resume analysis with 95% accuracy, providing instant feedback and optimization suggestions.",
+      image: "/proj/resume.webp",
+      href: "https://ai-resume-analyzer-generator.vercel.app/",
       stats: [
-        { label: "Accuracy", value: "99.5%" },
-        { label: "Time Saved", value: "75%" },
-        { label: "Cost Reduction", value: "40%" }
+        { label: "Accuracy", value: "95%" },
+        { label: "Resume Quality", value: "+80%" },
+        { label: "Monthly Users", value: "5000+" },
+        { label: "Analysis Time", value: "<3s" }
+      ],
+      features: [
+        "Multi-format Support (PDF, DOC, DOCX, TXT)",
+        "Instant Feedback",
+        "Optimization Suggestions",
+        "AI-Powered Analysis"
       ]
     }
   },
@@ -196,7 +203,7 @@ const megaMenuContent: MegaMenuContentMap = {
       title: "Service Spotlight",
       subtitle: "E-commerce Excellence",
       description: "Custom e-commerce solutions that drive sales and enhance user experience. From Shopify to custom builds.",
-      image: "/images/ecommerce-showcase.jpg",
+      image: "/proj/ecomerce.webp",
       href: "/services/ecommerce",
       features: [
         "Payment Integration",
@@ -242,15 +249,22 @@ const megaMenuContent: MegaMenuContentMap = {
       href: "/case-studies/saas-growth"
     },
     showcase: {
-      title: "Featured Case Study",
-      subtitle: "FinTech Revolution",
-      description: "A complete digital transformation for a financial services company, resulting in 500% user growth.",
-      image: "/images/fintech-case.jpg",
-      href: "/case-studies/fintech-transformation",
+      title: "VerdeOS",
+      subtitle: "Sustainable Technology & IoT Solutions",
+      description: "Professional SaaS platform for building management and sustainable technology solutions.",
+      image: "/proj/verdos.webp",
+      href: "https://verdeos.com/",
       results: [
-        { metric: "User Growth", value: "500%" },
-        { metric: "Load Time", value: "-60%" },
-        { metric: "Conversion", value: "+250%" }
+        { metric: "Brand Visibility", value: "Enhanced" },
+        { metric: "Lead Generation", value: "Increased" },
+        { metric: "Solution Showcase", value: "Comprehensive" },
+        { metric: "Service Presentation", value: "Professional" }
+      ],
+      features: [
+        "IoT Integration",
+        "Cloud Technologies",
+        "Building Optimization",
+        "SaaS Applications"
       ]
     }
   },
