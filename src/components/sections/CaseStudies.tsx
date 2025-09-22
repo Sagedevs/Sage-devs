@@ -80,146 +80,146 @@ const caseStudies: CaseStudy[] = [
     duration: "3-4 weeks",
     scope: "Personal Brand & Portfolio Development"
   },
-  {
-    id: 4,
-    title: "Igor Vainshtein",
-    subtitle: "Executive Leadership & Business Coaching Platform",
-    category: "Professional Services",
-    image: "/proj/igor.webp",
-    link: "https://igorvainshtein.com/",
-    outcome: "Enhanced professional authority and bookings",
-    challenge: "Creating a powerful personal brand website for a thought leader and entrepreneur showcasing keynote speaking, books, board games, and leadership frameworks.",
-    solution: "Developed a sophisticated website with keynote descriptions, media library, newsletter signup, testimonials from notable figures like Kevin Harrington, and comprehensive service offerings.",
-    results: [
-      "Enhanced professional authority",
-      "Increased speaking engagements",
-      "Newsletter subscriber growth",
-      "Book and game promotion success"
-    ],
-    technologies: ["WordPress", "Elementor", "Custom CSS", "JavaScript", "Email Marketing"],
-    duration: "3-4 weeks",
-    scope: "Personal Brand Website & Authority Building"
-  },
-  {
-    id: 5,
-    title: "AI Resume Analyzer",
-    subtitle: "AI-Powered Resume Analysis & Optimization Tool",
-    category: "AI Application",
-    image: "/proj/resume.webp",
-    link: "https://ai-resume-analyzer-generator.vercel.app/",
-    outcome: "Automated resume analysis with 95% accuracy",
-    challenge: "Creating an intelligent system to analyze and improve resumes using AI with support for multiple file formats and instant feedback.",
-    solution: "Developed an AI-powered platform that provides instant resume feedback, optimization suggestions, and supports PDF, DOC, DOCX, and TXT formats.",
-    results: [
-      "95% accuracy in resume analysis",
-      "80% improvement in resume quality",
-      "5000+ resumes processed monthly",
-      "Sub-3 second analysis time"
-    ],
-    technologies: ["Next.js", "OpenAI API", "Tailwind CSS", "File Processing APIs"],
-    duration: "1 week",
-    scope: "Full Stack AI Application"
-  },
-  {
-    id: 6,
-    title: " Chat App",
-    subtitle: "Real-time Messaging Application",
-    category: "Web Application",
-    image: "/proj/chatapp.webp",
-    link: "https://chatapp-rho-six.vercel.app/",
-    outcome: "Real-time chat functionality with modern UI",
-    challenge: "Building a responsive, real-time messaging app with WhatsApp-like interface, user authentication, and seamless message delivery.",
-    solution: "Created a WhatsApp-inspired interface with real-time messaging, user authentication, message status indicators, and responsive design.",
-    results: [
-      "Real-time message delivery",
-      "User authentication system",
-      "WhatsApp-like interface",
-      "Mobile-responsive design"
-    ],
-    technologies: ["React", "Firebase", "CSS3", "WebSockets", "Authentication API"],
-    duration: "4-5 weeks",
-    scope: "Real-time Messaging Application"
-  },
-  {
-    id: 7,
-    title: "Video Downloader Tool",
-    subtitle: "Multi-Platform Video Downloading Solution",
-    category: "Web Tool",
-    image: "/proj/downlaoder.webp",
-    link: "https://sage-video-downloader.onrender.com/",
-    outcome: "Efficient multi-platform video downloading",
-    challenge: "Creating a reliable tool to download videos from Instagram, TikTok, Facebook, YouTube and other platforms with multiple quality options.",
-    solution: "Developed a user-friendly interface for downloading videos from multiple social media platforms with various quality options and fast processing.",
-    results: [
-      "Supports 10+ platforms",
-      "Multiple quality options",
-      "Fast download speeds",
-      "10K+ monthly downloads"
-    ],
-    technologies: ["Node.js", "Express", "React", "FFmpeg", "Platform APIs"],
-    duration: "1 week",
-    scope: "Multi-Platform Video Tool"
-  },
-  {
-    id: 8,
-    title: "AIDN Australia",
-    subtitle: "Australian Industry & Defence Network",
-    category: "Professional Network",
-    image: "/proj/australia.webp",
-    link: "https://aidn.org.au/",
-    outcome: "Enhanced industry collaboration and networking",
-    challenge: "Building a professional network platform for defense industry professionals with member directories, newsletters, and industry information.",
-    solution: "Developed a comprehensive website representing SMEs in the Defence sector with industry statistics, networking focus, and quarterly newsletters.",
-    results: [
-      "Improved member engagement",
-      "Industry representation growth",
-      "Newsletter distribution system",
-      "Professional networking hub"
-    ],
-    technologies: ["WordPress", "Custom PHP", "MySQL", "Newsletter System"],
-    duration: "6-7 weeks",
-    scope: "Professional Network Platform"
-  },
-  {
-    id: 9,
-    title: "VerdeOS",
-    subtitle: "Sustainable Technology & IoT Solutions",
-    category: "Technology SaaS",
-    image: "/proj/verdos.webp",
-    link: "https://verdeos.com/",
-    outcome: "Professional SaaS platform for building management",
-    challenge: "Creating a platform to showcase sustainable technology solutions, IoT integration, and building management services.",
-    solution: "Developed an informative website highlighting SaaS applications, IoT sensors, cloud technologies, and building optimization services.",
-    results: [
-      "Enhanced brand visibility",
-      "Lead generation increase",
-      "Solution showcase platform",
-      "Professional service presentation"
-    ],
-    technologies: ["React", "Next.js", "Tailwind CSS", "CMS Integration"],
-    duration: "3-4 weeks",
-    scope: "SaaS Company Website"
-  },
-  {
-    id: 10,
-    title: "Mehfil Cultural Events",
-    subtitle: "Cultural Event & Entertainment Platform",
-    category: "Events & Entertainment",
-    image: "/proj/mehfil.webp",
-    link: "https://themehfil.ca/",
-    outcome: "Vibrant cultural event promotion platform",
-    challenge: "Creating an engaging platform for cultural events, performances, and community gatherings with event management capabilities.",
-    solution: "Developed a dynamic website with event listings, cultural promotion, community engagement features, and multimedia content showcase.",
-    results: [
-      "Increased event attendance",
-      "Community engagement growth",
-      "Cultural event promotion",
-      "Enhanced online presence"
-    ],
-    technologies: ["WordPress", "Event Management Plugin", "Custom CSS", "Media Integration"],
-    duration: "4-5 weeks",
-    scope: "Cultural Event Platform"
-  }
+  // {
+  //   id: 4,
+  //   title: "Igor Vainshtein",
+  //   subtitle: "Executive Leadership & Business Coaching Platform",
+  //   category: "Professional Services",
+  //   image: "/proj/igor.webp",
+  //   link: "https://igorvainshtein.com/",
+  //   outcome: "Enhanced professional authority and bookings",
+  //   challenge: "Creating a powerful personal brand website for a thought leader and entrepreneur showcasing keynote speaking, books, board games, and leadership frameworks.",
+  //   solution: "Developed a sophisticated website with keynote descriptions, media library, newsletter signup, testimonials from notable figures like Kevin Harrington, and comprehensive service offerings.",
+  //   results: [
+  //     "Enhanced professional authority",
+  //     "Increased speaking engagements",
+  //     "Newsletter subscriber growth",
+  //     "Book and game promotion success"
+  //   ],
+  //   technologies: ["WordPress", "Elementor", "Custom CSS", "JavaScript", "Email Marketing"],
+  //   duration: "3-4 weeks",
+  //   scope: "Personal Brand Website & Authority Building"
+  // },
+  // {
+  //   id: 5,
+  //   title: "AI Resume Analyzer",
+  //   subtitle: "AI-Powered Resume Analysis & Optimization Tool",
+  //   category: "AI Application",
+  //   image: "/proj/resume.webp",
+  //   link: "https://ai-resume-analyzer-generator.vercel.app/",
+  //   outcome: "Automated resume analysis with 95% accuracy",
+  //   challenge: "Creating an intelligent system to analyze and improve resumes using AI with support for multiple file formats and instant feedback.",
+  //   solution: "Developed an AI-powered platform that provides instant resume feedback, optimization suggestions, and supports PDF, DOC, DOCX, and TXT formats.",
+  //   results: [
+  //     "95% accuracy in resume analysis",
+  //     "80% improvement in resume quality",
+  //     "5000+ resumes processed monthly",
+  //     "Sub-3 second analysis time"
+  //   ],
+  //   technologies: ["Next.js", "OpenAI API", "Tailwind CSS", "File Processing APIs"],
+  //   duration: "1 week",
+  //   scope: "Full Stack AI Application"
+  // },
+  // {
+  //   id: 6,
+  //   title: " Chat App",
+  //   subtitle: "Real-time Messaging Application",
+  //   category: "Web Application",
+  //   image: "/proj/chatapp.webp",
+  //   link: "https://chatapp-rho-six.vercel.app/",
+  //   outcome: "Real-time chat functionality with modern UI",
+  //   challenge: "Building a responsive, real-time messaging app with WhatsApp-like interface, user authentication, and seamless message delivery.",
+  //   solution: "Created a WhatsApp-inspired interface with real-time messaging, user authentication, message status indicators, and responsive design.",
+  //   results: [
+  //     "Real-time message delivery",
+  //     "User authentication system",
+  //     "WhatsApp-like interface",
+  //     "Mobile-responsive design"
+  //   ],
+  //   technologies: ["React", "Firebase", "CSS3", "WebSockets", "Authentication API"],
+  //   duration: "4-5 weeks",
+  //   scope: "Real-time Messaging Application"
+  // },
+  // {
+  //   id: 7,
+  //   title: "Video Downloader Tool",
+  //   subtitle: "Multi-Platform Video Downloading Solution",
+  //   category: "Web Tool",
+  //   image: "/proj/downlaoder.webp",
+  //   link: "https://sage-video-downloader.onrender.com/",
+  //   outcome: "Efficient multi-platform video downloading",
+  //   challenge: "Creating a reliable tool to download videos from Instagram, TikTok, Facebook, YouTube and other platforms with multiple quality options.",
+  //   solution: "Developed a user-friendly interface for downloading videos from multiple social media platforms with various quality options and fast processing.",
+  //   results: [
+  //     "Supports 10+ platforms",
+  //     "Multiple quality options",
+  //     "Fast download speeds",
+  //     "10K+ monthly downloads"
+  //   ],
+  //   technologies: ["Node.js", "Express", "React", "FFmpeg", "Platform APIs"],
+  //   duration: "1 week",
+  //   scope: "Multi-Platform Video Tool"
+  // },
+  // {
+  //   id: 8,
+  //   title: "AIDN Australia",
+  //   subtitle: "Australian Industry & Defence Network",
+  //   category: "Professional Network",
+  //   image: "/proj/australia.webp",
+  //   link: "https://aidn.org.au/",
+  //   outcome: "Enhanced industry collaboration and networking",
+  //   challenge: "Building a professional network platform for defense industry professionals with member directories, newsletters, and industry information.",
+  //   solution: "Developed a comprehensive website representing SMEs in the Defence sector with industry statistics, networking focus, and quarterly newsletters.",
+  //   results: [
+  //     "Improved member engagement",
+  //     "Industry representation growth",
+  //     "Newsletter distribution system",
+  //     "Professional networking hub"
+  //   ],
+  //   technologies: ["WordPress", "Custom PHP", "MySQL", "Newsletter System"],
+  //   duration: "6-7 weeks",
+  //   scope: "Professional Network Platform"
+  // },
+  // {
+  //   id: 9,
+  //   title: "VerdeOS",
+  //   subtitle: "Sustainable Technology & IoT Solutions",
+  //   category: "Technology SaaS",
+  //   image: "/proj/verdos.webp",
+  //   link: "https://verdeos.com/",
+  //   outcome: "Professional SaaS platform for building management",
+  //   challenge: "Creating a platform to showcase sustainable technology solutions, IoT integration, and building management services.",
+  //   solution: "Developed an informative website highlighting SaaS applications, IoT sensors, cloud technologies, and building optimization services.",
+  //   results: [
+  //     "Enhanced brand visibility",
+  //     "Lead generation increase",
+  //     "Solution showcase platform",
+  //     "Professional service presentation"
+  //   ],
+  //   technologies: ["React", "Next.js", "Tailwind CSS", "CMS Integration"],
+  //   duration: "3-4 weeks",
+  //   scope: "SaaS Company Website"
+  // },
+  // {
+  //   id: 10,
+  //   title: "Mehfil Cultural Events",
+  //   subtitle: "Cultural Event & Entertainment Platform",
+  //   category: "Events & Entertainment",
+  //   image: "/proj/mehfil.webp",
+  //   link: "https://themehfil.ca/",
+  //   outcome: "Vibrant cultural event promotion platform",
+  //   challenge: "Creating an engaging platform for cultural events, performances, and community gatherings with event management capabilities.",
+  //   solution: "Developed a dynamic website with event listings, cultural promotion, community engagement features, and multimedia content showcase.",
+  //   results: [
+  //     "Increased event attendance",
+  //     "Community engagement growth",
+  //     "Cultural event promotion",
+  //     "Enhanced online presence"
+  //   ],
+  //   technologies: ["WordPress", "Event Management Plugin", "Custom CSS", "Media Integration"],
+  //   duration: "4-5 weeks",
+  //   scope: "Cultural Event Platform"
+  // }
 ];
 
 export default function CaseStudies() {
@@ -556,16 +556,22 @@ export default function CaseStudies() {
             ))}
           </motion.div>
 
-          {/* View All CTA */}
-          <motion.div
-            className="text-center mt-12"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            
-          </motion.div>
+{/* View All CTA */}
+<motion.div
+  className="text-center mt-12"
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5, ease: "easeOut" }}
+  viewport={{ once: true }}
+>
+  <a
+    href="/case-studies"
+    className="inline-block px-8 py-3 text-lg font-semibold text-white bg-blue-600 rounded-xl shadow-md hover:bg-blue-700 hover:shadow-lg hover:-translate-y-1 active:translate-y-0 transition-all duration-300"
+  >
+    View All Case Studies
+  </a>
+</motion.div>
+
         </div>
       </section>
 
