@@ -68,7 +68,7 @@ interface MegaMenuItemContent {
   title: string;
   subtitle: string;
   categories?: MegaMenuCategory[];
-  cta: MegaMenuCTA;
+  cta?: MegaMenuCTA;  // Made optional with ?
   featured: MegaMenuFeatured;
   articles?: MegaMenuArticle[];
   leftSidebar?: {
@@ -184,12 +184,7 @@ const megaMenuContent: MegaMenuContentMap = {
         ]
       }
     ],
-    cta: {
-      title: "Ready to Transform Your Business?",
-      description: "Let's discuss how our expertise can drive your digital success.",
-      buttonText: "Get Started Today",
-      buttonHref: "/Contact"
-    },
+    
     featured: {
       title: "Featured Service",
       subtitle: "Full-Stack Development",
@@ -238,12 +233,7 @@ const megaMenuContent: MegaMenuContentMap = {
       }
       
     ],
-    cta: {
-      title: "See Your Project Here?",
-      description: "Join our growing list of successful digital transformations.",
-      buttonText: "Start Your Project",
-      buttonHref: "/Contact"
-    },
+    
     featured: {
       title: "Latest Success",
       subtitle: "SaaS Platform: 10x Growth",
@@ -445,17 +435,19 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
           </Link>
         ))}
 
-        <div className="cta-section">
-          <h4>{content.cta.title}</h4>
-          <p>{content.cta.description}</p>
-          <Link
-            href={content.cta.buttonHref}
-            className="cta-button"
-            onClick={closeMegaMenu}
-          >
-            {content.cta.buttonText}
-          </Link>
-        </div>
+        {content.cta && (
+          <div className="cta-section">
+            <h4>{content.cta.title}</h4>
+            <p>{content.cta.description}</p>
+            <Link
+              href={content.cta.buttonHref}
+              className="cta-button"
+              onClick={closeMegaMenu}
+            >
+              {content.cta.buttonText}
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* Center Articles */}
@@ -528,78 +520,48 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
 
   // Standard mega menu renderer
   const renderStandardMegaMenu = useCallback((content: MegaMenuItemContent) => (
-    <div className="mega-menu-content">
-      {/* Categories */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+    <div className="standard-mega-menu-layout">
+      {/* Left Column - Categories */}
+      <div className="mega-menu-categories">
         {content.categories?.map((category) => (
           <div key={category.title} className="mega-menu-category">
             <h4>{category.title}</h4>
-            {category.items.map((item) => (
-              item.external ? (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mega-menu-item"
-                  onClick={closeMegaMenu}
-                >
-                  <h5>{item.label} ↗</h5>
-                  <p>{item.description}</p>
-                </a>
-              ) : (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="mega-menu-item"
-                  onClick={closeMegaMenu}
-                >
-                  <h5>{item.label}</h5>
-                  <p>{item.description}</p>
-                </Link>
-              )
-            ))}
+            <div className="category-items">
+              {category.items.map((item) => (
+                item.external ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mega-menu-item"
+                    onClick={closeMegaMenu}
+                  >
+                    <h5>{item.label} ↗</h5>
+                    <p>{item.description}</p>
+                  </a>
+                ) : (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="mega-menu-item"
+                    onClick={closeMegaMenu}
+                  >
+                    <h5>{item.label}</h5>
+                    <p>{item.description}</p>
+                  </Link>
+                )
+              ))}
+            </div>
           </div>
         ))}
       </div>
 
       {/* Right Column with Featured and Showcase */}
-      <div>
-        {/* Featured Section */}
-        <div className="mega-menu-featured">
-          <h4 style={{ color: '#ffffff', fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem' }}>
-            {content.featured.title}
-          </h4>
-          <h5 style={{ color: '#60a5fa', fontSize: '1.25rem', fontWeight: '700', marginBottom: '0.75rem' }}>
-            {content.featured.subtitle}
-          </h5>
-          <p style={{ color: '#cbd5e1', fontSize: '0.9rem', lineHeight: '1.5', marginBottom: '1rem' }}>
-            {content.featured.description}
-          </p>
-          <Link
-            href={content.featured.href}
-            onClick={closeMegaMenu}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '0.75rem 1.5rem',
-              background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
-              color: '#1e293b',
-              textDecoration: 'none',
-              borderRadius: '8px',
-              fontWeight: '500',
-              fontSize: '0.9rem',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            Learn More →
-          </Link>
-        </div>
-
+      <div className="mega-menu-right-sidebar">
         {/* Showcase Section */}
         {content.showcase && (
-          <div className="mega-menu-showcase" style={{ marginTop: '1.5rem' }}>
+          <div className="mega-menu-showcase">
             <div className="showcase-image">
               {content.showcase.image.startsWith('/') ? (
                 <Image 
@@ -655,34 +617,19 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         )}
 
         {/* CTA Section */}
-        <div className="mega-menu-cta" style={{ marginTop: '1rem' }}>
-          <h4 style={{ color: '#ffffff', fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem' }}>
-            {content.cta.title}
-          </h4>
-          <p style={{ color: '#cbd5e1', fontSize: '0.9rem', marginBottom: '1rem', lineHeight: '1.4' }}>
-            {content.cta.description}
-          </p>
-          <Link
-            href={content.cta.buttonHref}
-            onClick={closeMegaMenu}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '0.75rem 1.5rem',
-              background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
-              color: 'white',
-              textDecoration: 'none',
-              borderRadius: '8px',
-              fontWeight: '500',
-              fontSize: '0.9rem',
-              transition: 'all 0.2s ease',
-              width: '100%',
-            }}
-          >
-            {content.cta.buttonText}
-          </Link>
-        </div>
+        {content.cta && (
+          <div className="mega-menu-cta">
+            <h4 className="cta-title">{content.cta.title}</h4>
+            <p className="cta-description">{content.cta.description}</p>
+            <Link
+              href={content.cta.buttonHref}
+              onClick={closeMegaMenu}
+              className="cta-button"
+            >
+              {content.cta.buttonText}
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   ), [closeMegaMenu]);
@@ -918,14 +865,27 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         height: fit-content;
       }
       
-      /* Standard 3-column layout */
-      .mega-menu-content {
+      /* Standard mega menu layout */
+      .standard-mega-menu-layout {
         max-width: 1200px;
         margin: 0 auto;
         padding: 2rem;
         display: grid;
-        grid-template-columns: 1fr 1fr 300px;
+        grid-template-columns: 1fr 350px;
         gap: 2rem;
+        position: relative;
+      }
+      
+      .mega-menu-categories {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+      
+      .category-items {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
       }
       
       .mega-menu-left-sidebar {
@@ -1262,15 +1222,66 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         transform: translateX(4px);
       }
       
+      /* CTA Styles */
+      .mega-menu-cta {
+        background: transparent;
+        padding: 0;
+        margin-top: 1.5rem;
+      }
+      
+      .cta-title {
+        color: #ffffff;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      
+      .cta-description {
+        color: #cbd5e1;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        line-height: 1.4;
+      }
+      
+      .cta-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.5rem;
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+        width: 100%;
+        border: none;
+        cursor: pointer;
+        margin-top: 0.5rem;
+      }
+      
+      .cta-button:hover {
+        background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+      }
+      
       /* Responsive Adjustments */
       @media (max-width: 1024px) {
-        .appinventiv-layout {
+        .appinventiv-layout,
+        .standard-mega-menu-layout {
           grid-template-columns: 1fr;
           gap: 2rem;
         }
         
-        .mega-menu-showcase {
+        .mega-menu-showcase,
+        .mega-menu-right-sidebar {
           margin-top: 2rem;
+        }
+        
+        .mega-menu-categories {
+          grid-template-columns: 1fr;
         }
       }
       
