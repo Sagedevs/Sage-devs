@@ -444,7 +444,65 @@ Building scalable APIs with Node.js and Express requires careful planning and ad
     category: "Frontend Development",
     excerpt: "Understand the differences between CSS Grid and Flexbox to make informed layout decisions in your projects.",
     date: "Feb 28, 2024",
-    readTime: "6 min read"
+    readTime: "6 min read",
+    content: `# CSS Grid vs Flexbox: When to Use Which
+
+Understanding when to use CSS Grid versus Flexbox is crucial for modern web development. Both are powerful layout tools, but they serve different purposes and work best in different scenarios.
+
+## Key Differences
+
+### CSS Grid
+- **Two-dimensional** layout system (rows and columns)
+- **Grid-based** approach for complex layouts
+- **Explicit** control over both rows and columns
+- **Ideal for** page layouts and complex designs
+- **Better for** overall page structure
+
+### Flexbox
+- **One-dimensional** layout system (either rows OR columns)
+- **Content-based** approach
+- **Implicit** sizing based on content
+- **Ideal for** components and smaller UI elements
+- **Better for** aligning items within a container
+
+## When to Use Grid
+
+1. **Complex Layouts** - When you need both rows and columns
+2. **Precise Control** - When you need exact placement of elements
+3. **Asymmetrical Designs** - For non-uniform layouts
+4. **Overlapping Elements** - When elements need to overlap
+5. **Responsive Design** - Great for responsive layouts with media queries
+
+## When to Use Flexbox
+
+1. **Single Dimension** - When working in one dimension (row OR column)
+2. **Content Distribution** - For distributing space among items
+3. **Alignment** - For aligning items within a container
+4. **Dynamic Content** - When content size is unknown or dynamic
+5. **Navigation Bars** - Perfect for responsive navigation
+
+## Can They Work Together?
+
+Absolutely! Grid and Flexbox work great together:
+- Use **Grid** for the overall page layout
+- Use **Flexbox** for components within grid cells
+- Nest Flexbox inside Grid or vice versa as needed
+
+## Performance Considerations
+
+- **Grid** can be more performant for large-scale layouts
+- **Flexbox** might be better for small components
+- Test performance with your specific use case
+
+## Browser Support
+
+- Both have excellent modern browser support
+- Use feature queries for progressive enhancement
+- Consider autoprefixer for better cross-browser compatibility
+
+## Conclusion
+
+Choose **Grid** when you need control over both rows and columns. Choose **Flexbox** when you need to align items in a single dimension. For most projects, you'll likely use both in combination to create flexible, responsive layouts.`
   },
   {
     id: 9,
@@ -618,7 +676,101 @@ PWAs represent the future of web development, offering app-like experiences with
     category: "Performance",
     excerpt: "Proven techniques and strategies to dramatically improve your website's loading speed and user experience.",
     date: "Feb 22, 2024",
-    readTime: "8 min read"
+    readTime: "8 min read",
+    content: `# Web Performance Optimization: From 3s to 300ms Load Times
+
+In today's fast-paced digital world, website performance is not just a technical metric—it directly impacts user experience, conversion rates, and search engine rankings. This guide will help you optimize your website's performance to achieve lightning-fast load times.
+
+## Why Performance Matters
+
+- **User Experience**: 53% of mobile site visits are abandoned if pages take longer than 3 seconds to load
+- **Conversion Rates**: A 1-second delay can result in a 7% reduction in conversions
+- **SEO Impact**: Google uses page speed as a ranking factor in search results
+- **Bounce Rates**: Slow-loading sites have significantly higher bounce rates
+
+## Critical Rendering Path Optimization
+
+1. **Minimize Critical Resources**
+   - Eliminate render-blocking resources
+   - Defer non-critical CSS and JavaScript
+   - Inline critical CSS
+
+2. **Optimize CSS**
+   - Minify CSS files
+   - Remove unused CSS
+   - Use media queries to load CSS conditionally
+
+3. **JavaScript Optimization**
+   - Defer non-essential JavaScript
+   - Minify and compress JavaScript
+   - Use code splitting and dynamic imports
+
+## Image Optimization
+
+1. **Choose the Right Format**
+   - WebP for most images (with fallbacks)
+   - SVG for icons and logos
+   - Consider AVIF for better compression
+
+2. **Responsive Images**
+   - Use srcset and sizes attributes
+   - Serve appropriately sized images for different viewports
+   - Use modern image formats
+
+3. **Lazy Loading**
+   - Native lazy loading with loading="lazy"
+   - Implement intersection observer for custom lazy loading
+   - Consider low-quality image placeholders (LQIP)
+
+## Network Optimization
+
+1. **HTTP/2 and HTTP/3**
+   - Enable HTTP/2 for multiplexing
+   - Consider HTTP/3 for improved performance
+   - Implement server push carefully
+
+2. **CDN Implementation**
+   - Distribute content globally
+   - Cache static assets
+   - Reduce latency with edge locations
+
+3. **Caching Strategies**
+   - Set proper cache headers
+   - Implement service workers for offline support
+   - Use versioned URLs for cache busting
+
+## Advanced Techniques
+
+1. **Preloading and Prefetching**
+   - Use rel="preload" for critical resources
+   - Implement resource hints (preconnect, dns-prefetch)
+   - Predictive prefetching for user navigation
+
+2. **Code Splitting**
+   - Split code by routes
+   - Dynamic imports for on-demand loading
+   - React.lazy() for React applications
+
+3. **Performance Budgets**
+   - Set limits for page weight
+   - Monitor third-party scripts
+   - Regularly audit performance
+
+## Monitoring and Maintenance
+
+1. **Performance Metrics**
+   - Track Core Web Vitals
+   - Monitor First Contentful Paint (FCP)
+   - Measure Time to Interactive (TTI)
+
+2. **Tools**
+   - Lighthouse for audits
+   - WebPageTest for detailed analysis
+   - Real User Monitoring (RUM)
+
+## Conclusion
+
+Achieving sub-300ms load times requires a combination of techniques and ongoing optimization. Start with the critical rendering path, optimize your assets, implement smart loading strategies, and continuously monitor performance. Remember that performance is a feature that directly impacts your bottom line.`
   }
 ];
 
