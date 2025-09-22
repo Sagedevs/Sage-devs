@@ -101,31 +101,31 @@ const megaMenuContent: MegaMenuContentMap = {
       {
         title: "Custom AI or Off-the-Shelf AI – Which Is the Right Solution for Your Business?",
         image: "/blog/1.webp",
-        href: "/blog/custom-vs-off-shelf-ai",
+        href: "/blog#blog-post-1",
         category: "AI Strategy"
       },
       {
         title: "10 Ways AI is Revolutionizing Mining Operations in Australia",
         image: "/blog/2.webp",
-        href: "/blog/ai-mining-operations",
+        href: "/blog#blog-post-2",
         category: "Industry Applications"
       },
       {
         title: "15 Use Cases and Examples of How AI Is Transforming the Fitness Industry",
         image: "/blog/3.webp",
-        href: "/blog/ai-fitness-industry",
+        href: "/blog#blog-post-3",
         category: "Healthcare & Fitness"
       },
       {
         title: "15 AI Business Ideas in Australia to Kickstart Your Entrepreneurial Journey",
         image: "/blog/4.webp",
-        href: "/blog/ai-business-ideas",
+        href: "/blog#blog-post-4",
         category: "Business Innovation"
       },
       {
         title: "How to Scale Your AI Project without Overspending?",
         image: "/blog/5.webp",
-        href: "/blog/scale-ai-project",
+        href: "/blog#blog-post-5",
         category: "Project Management"
       }
     ],

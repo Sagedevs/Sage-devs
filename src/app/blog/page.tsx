@@ -782,6 +782,42 @@ export default function BlogPage() {
   const [currentView, setCurrentView] = useState("list");
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
 
+  // Handle hash-based navigation
+  React.useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.substring(1); // Remove the '#'
+      if (!hash) return;
+      
+      // Check if the hash matches a blog post ID (e.g., 'blog-post-1')
+      const postMatch = hash.match(/blog-post-(\d+)/);
+      if (postMatch) {
+        const postId = parseInt(postMatch[1], 10);
+        const post = blogPosts.find(p => p.id === postId);
+        if (post) {
+          setSelectedPost(post);
+          setCurrentView("single");
+          // Scroll to top when opening a post
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+      }
+
+      // If no post found, ensure we're in list view
+      setCurrentView("list");
+    };
+
+    // Check hash on initial load
+    handleHashChange();
+
+    // Add event listener for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
+
   // Navigation functions
   const getNextPost = () => {
     if (!selectedPost) return null;
@@ -798,6 +834,15 @@ export default function BlogPage() {
   const navigateToPost = (post: BlogPost) => {
     setSelectedPost(post);
     setCurrentView("single");
+    // Update the URL with the post ID
+    window.history.pushState({}, '', `#blog-post-${post.id}`);
+  };
+
+  const handleBackToList = () => {
+    setCurrentView("list");
+    setSelectedPost(null);
+    // Clear the hash when going back to list
+    window.history.pushState({}, '', '#');
   };
 
   const filteredPosts = blogPosts.filter(post => {
@@ -884,7 +929,9 @@ export default function BlogPage() {
               <article
                 key={index}
                 onClick={() => navigateToPost(post)}
-                className="group bg-black/20 backdrop-blur-lg border border-blue-500/10 rounded-2xl overflow-hidden hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10 hover:border-blue-500/30 transition-all duration-500 cursor-pointer"
+                className="blog-post group bg-black/20 backdrop-blur-lg border border-blue-500/10 rounded-2xl overflow-hidden hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10 hover:border-blue-500/30 transition-all duration-500 cursor-pointer"
+                data-post-id={post.id}
+                id={index < 5 ? `blog-post-${index + 1}` : undefined}
               >
                 {/* Image Container */}
                 <div className="relative h-48 overflow-hidden bg-black/50">
@@ -932,7 +979,7 @@ export default function BlogPage() {
           </div>
         ) : (
           // Single Blog Post View
-          <div className="max-w-4xl mx-auto mb-16">
+          <div className="blog-post-detail max-w-4xl mx-auto mb-16">
             {/* Navigation Bar */}
             <div className="flex items-center justify-between mb-8">
               <button
