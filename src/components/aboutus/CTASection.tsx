@@ -39,8 +39,8 @@ const AboutCTASection = () => {
           </h2>
           
           <p className="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
-            Every great story needs passionate people. Whether you're a client, partner, or future team member, 
-            let's create something extraordinary together.
+            Every great story needs passionate people. Whether you&apos;re a client, partner, or future team member, 
+            let&apos;s create something extraordinary together.
           </p>
         </div>
 
@@ -105,7 +105,7 @@ const AboutCTASection = () => {
         <div className="text-center">
           <div className="bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md rounded-3xl p-8 md:p-12 border border-white/30 max-w-4xl mx-auto">
             <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-              Let's Start the Conversation
+              Let&apos;s Start the Conversation
             </h3>
             <p className="text-blue-100 mb-8 text-lg">
               Every great partnership begins with a simple hello. What story will we tell together?

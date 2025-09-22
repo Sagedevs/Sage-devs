@@ -78,7 +78,7 @@ const Careers = () => {
             <div className="text-center mb-20 lg:mb-32">
               <div className="inline-block">
                 <span className="inline-block px-4 py-2 bg-blue-600/20 text-blue-300 text-sm font-medium rounded-full border border-blue-500/30 mb-6 animate-fade-in">
-                  We're Hiring
+                  We&apos;re Hiring
                 </span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
@@ -177,10 +177,10 @@ const Careers = () => {
             <div className="mt-20 lg:mt-32 text-center">
               <div className="bg-gradient-to-br from-blue-900/30 to-slate-900/30 backdrop-blur-sm border border-blue-500/20 rounded-3xl p-8 lg:p-12 max-w-4xl mx-auto">
                 <h3 className="text-2xl lg:text-4xl font-bold text-white mb-4">
-                  Don't See Your Perfect Role?
+                  Don&apos;t See Your Perfect Role?
                 </h3>
                 <p className="text-gray-300 mb-8 text-lg leading-relaxed">
-                  We're always seeking exceptional talent. Send us your portfolio and let's explore 
+                  We&apos;re always seeking exceptional talent. Send us your portfolio and let&apos;s explore 
                   how you can contribute to our mission of creating extraordinary brand experiences.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
