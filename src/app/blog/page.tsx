@@ -18,7 +18,7 @@ const blogPosts: BlogPost[] = [
   {
     id: 1,
     title: "Custom AI or Off-the-Shelf AI – Which Is the Right Solution for Your Business?",
-    image: "public/blog/1.webp",
+    image: "/blog/1.webp",
     href: "/blog/custom-vs-off-shelf-ai",
     category: "AI Strategy",
     excerpt: "Explore the key differences between custom and off-the-shelf AI solutions to make the right choice for your business needs.",
@@ -265,7 +265,7 @@ Successful AI scaling requires careful planning, continuous optimization, and sm
   {
     id: 6,
     title: "React vs Vue.js in 2024: A Complete Developer's Guide",
-    image: "/blog/react-vue-comparison.webp",
+    image: "/blog/6.webp",
     href: "/blog/react-vs-vue-2024",
     category: "Web Development",
     excerpt: "An in-depth comparison of React and Vue.js frameworks to help you choose the right tool for your next project.",
@@ -275,7 +275,7 @@ Successful AI scaling requires careful planning, continuous optimization, and sm
   {
     id: 7,
     title: "Building Scalable APIs with Node.js and Express: Best Practices",
-    image: "/blog/nodejs-api-guide.webp",
+    image: "/blog/7.webp",
     href: "/blog/scalable-nodejs-apis",
     category: "Backend Development",
     excerpt: "Master the art of creating robust, scalable APIs using Node.js and Express with industry best practices.",
@@ -285,7 +285,7 @@ Successful AI scaling requires careful planning, continuous optimization, and sm
   {
     id: 8,
     title: "CSS Grid vs Flexbox: When to Use Which Layout System",
-    image: "/blog/css-layout-guide.webp",
+    image: "/blog/8.webp",
     href: "/blog/css-grid-vs-flexbox",
     category: "Frontend Development",
     excerpt: "Understand the differences between CSS Grid and Flexbox to make informed layout decisions in your projects.",
@@ -295,7 +295,7 @@ Successful AI scaling requires careful planning, continuous optimization, and sm
   {
     id: 9,
     title: "Progressive Web Apps (PWAs): The Future of Mobile Web Development",
-    image: "/blog/pwa-development.webp",
+    image: "/blog/9.webp",
     href: "/blog/progressive-web-apps-guide",
     category: "Mobile Development",
     excerpt: "Learn how to build fast, reliable, and engaging Progressive Web Apps that work across all devices.",
@@ -305,7 +305,7 @@ Successful AI scaling requires careful planning, continuous optimization, and sm
   {
     id: 10,
     title: "Web Performance Optimization: From 3s to 300ms Load Times",
-    image: "/blog/web-performance.webp",
+    image: "/blog/10.webp",
     href: "/blog/web-performance-optimization",
     category: "Performance",
     excerpt: "Proven techniques and strategies to dramatically improve your website's loading speed and user experience.",
@@ -427,12 +427,12 @@ export default function BlogPage() {
                 className="group bg-black/20 backdrop-blur-lg border border-blue-500/10 rounded-2xl overflow-hidden hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10 hover:border-blue-500/30 transition-all duration-500 cursor-pointer"
               >
                 {/* Image Container */}
-                <div className="relative h-48 overflow-hidden">
-                  <div className="w-full h-full bg-gradient-to-br from-blue-900/20 to-black/60 flex items-center justify-center">
-                    <div className="text-blue-400/60 text-4xl font-bold opacity-50">
-                      {post.category.slice(0, 2).toUpperCase()}
-                    </div>
-                  </div>
+                <div className="relative h-48 overflow-hidden bg-black/50">
+                  <img 
+                    src={`/blog/${(post.id % 5) + 1}.webp`} 
+                    alt={post.title}
+                    className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                  />
                   <div className="absolute top-4 left-4">
                     <span className="px-3 py-1 bg-blue-600 text-white text-xs font-semibold rounded-full">
                       {post.category}
