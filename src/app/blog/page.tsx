@@ -438,7 +438,7 @@ Building scalable APIs with Node.js and Express requires careful planning and ad
   },
   {
     id: 8,
-    title: "CSS Grid vs Flexbox: When to Use Which Layout System",
+    title: "CSS Grid vs Flexbox: When to Use Which",
     image: "/blog/8.webp",
     href: "/blog/css-grid-vs-flexbox",
     category: "Frontend Development",
@@ -448,7 +448,7 @@ Building scalable APIs with Node.js and Express requires careful planning and ad
   },
   {
     id: 9,
-    title: "Progressive Web Apps (PWAs): The Future of Mobile Web Development",
+    title: "Progressive Web Apps: The Complete Guide",
     image: "/blog/9.webp",
     href: "/blog/progressive-web-apps-guide",
     category: "Mobile Development",
@@ -503,14 +503,14 @@ Progressive Web Apps combine the best of web and mobile apps, offering users an 
   "theme_color": "#000000",
   "icons": [
     {
-      "src": "/icons/icon-192x192.png",
+      "src": "/blog/1.webp",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/webp"
     },
     {
-      "src": "/icons/icon-512x512.png",
+      "src": "/blog/2.webp",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/webp"
     }
   ]
 }
@@ -538,7 +538,11 @@ const urlsToCache = [
   '/',
   '/styles/main.css',
   '/script/main.js',
-  '/images/logo.png'
+  '/blog/1.webp',
+  '/blog/2.webp',
+  '/blog/3.webp',
+  '/blog/4.webp',
+  '/blog/5.webp'
 ];
 
 self.addEventListener('install', event => {
