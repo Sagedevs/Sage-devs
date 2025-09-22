@@ -1,6 +1,5 @@
 "use client";
-import React, { useState, ComponentType, HTMLAttributes } from "react";
-import { JSX } from 'react';
+import React, { useState } from "react";
 
 // Define types for better TypeScript support
 interface BlogPost {
