@@ -55,7 +55,7 @@ const AboutCTASection = () => {
               </div>
               <h3 className="text-2xl font-bold text-white mb-4">Partner with Us</h3>
               <p className="text-blue-100 mb-6 leading-relaxed">
-                Join forces with industry leaders. Let's collaborate on projects that push boundaries and create lasting impact.
+                Join forces with industry leaders. Let&apos;s collaborate on projects that push boundaries and create lasting impact.
               </p>
               <button className="inline-flex items-center text-white font-medium group-hover:text-blue-300 transition-colors">
                 Start Partnership
@@ -73,7 +73,7 @@ const AboutCTASection = () => {
               </div>
               <h3 className="text-2xl font-bold text-white mb-4">Work with Us</h3>
               <p className="text-blue-100 mb-6 leading-relaxed">
-                Transform your vision into reality. From strategy to execution, we're your dedicated creative partners.
+                Transform your vision into reality. From strategy to execution, we&apos;re your dedicated creative partners.
               </p>
               <button className="inline-flex items-center text-white font-medium group-hover:text-blue-300 transition-colors">
                 Start Project
