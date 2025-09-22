@@ -19,7 +19,7 @@ const blogPosts: BlogPost[] = [
   {
     id: 1,
     title: "Custom AI or Off-the-Shelf AI – Which Is the Right Solution for Your Business?",
-    image: "/blog/download (1).webp",
+    image: "public/blog/1.webp",
     href: "/blog/custom-vs-off-shelf-ai",
     category: "AI Strategy",
     excerpt: "Explore the key differences between custom and off-the-shelf AI solutions to make the right choice for your business needs.",
@@ -79,7 +79,7 @@ Both custom and off-the-shelf AI solutions have their place in modern business s
   {
     id: 2,
     title: "10 Ways AI is Revolutionizing Mining Operations in Australia",
-    image: "/blog/download (2).webp",
+    image: "/blog/2.webp",
     href: "/blog/ai-mining-operations",
     category: "Industry Applications",
     excerpt: "Discover how artificial intelligence is transforming mining operations across Australia with innovative solutions.",
@@ -121,7 +121,7 @@ As AI technology continues to evolve, we can expect even more sophisticated appl
   {
     id: 3,
     title: "15 Use Cases and Examples of How AI Is Transforming the Fitness Industry",
-    image: "/blog/download (3).webp",
+    image: "/blog/3.webp",
     href: "/blog/ai-fitness-industry",
     category: "Healthcare & Fitness",
     excerpt: "From personalized workout plans to injury prevention, see how AI is reshaping the fitness landscape.",
@@ -168,7 +168,7 @@ AI is not just changing the fitness industry – it's revolutionizing how we thi
   {
     id: 4,
     title: "15 AI Business Ideas in Australia to Kickstart Your Entrepreneurial Journey",
-    image: "/blog/download (4).webp",
+    image: "/blog/4.webp",
     href: "/blog/ai-business-ideas",
     category: "Business Innovation",
     excerpt: "Innovative AI business opportunities specifically tailored for the Australian market and ecosystem.",
@@ -215,7 +215,7 @@ Success in the Australian AI market requires understanding local regulations, ma
   {
     id: 5,
     title: "How to Scale Your AI Project without Overspending?",
-    image: "/blog/download (5).webp",
+    image: "/blog/5.webp",
     href: "/blog/scale-ai-project",
     category: "Project Management",
     excerpt: "Learn cost-effective strategies to scale your AI initiatives while maintaining quality and performance.",
