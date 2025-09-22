@@ -1,5 +1,8 @@
+"use client";
+
 import React, { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
@@ -408,6 +411,8 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const [megaMenuOpen, setMegaMenuOpen] = useState<string | null>(null);
 
+  const router = useRouter();
+
   // Close mega menu function
   const closeMegaMenu = useCallback((e: React.MouseEvent) => {
     // Only handle blog post links
@@ -417,17 +422,15 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
       const href = (articleCard as HTMLAnchorElement).getAttribute('href');
       if (href) {
         // Use Next.js router for client-side navigation
-        const router = require('next/router').default;
-        router.push(href).then(() => {
-          setMegaMenuOpen(null);
-          // Force a scroll to top after navigation
-          window.scrollTo(0, 0);
-        });
+        void router.push(href);
+        setMegaMenuOpen(null);
+        // Force a scroll to top after navigation
+        window.scrollTo(0, 0);
       }
     } else {
       setMegaMenuOpen(null);
     }
-  }, []);
+  }, [router]);
 
   const closeMegaMenuWithDelay = useCallback(() => {
     if (megaMenuTimeout) {

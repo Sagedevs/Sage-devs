@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 
 // Define types for better TypeScript support
 interface BlogPost {
@@ -808,7 +809,12 @@ export default function BlogPage() {
       const postMatch = hash.match(/blog-post-(\d+)/);
       if (postMatch) {
         const postId = parseInt(postMatch[1], 10);
-        navigateToPostById(postId);
+        const post = blogPosts.find(p => p.id === postId);
+        if (post) {
+          setSelectedPost(post);
+          setCurrentView("single");
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
         return;
       }
 
@@ -833,7 +839,7 @@ export default function BlogPage() {
       window.removeEventListener('hashchange', handleHashChange);
       window.removeEventListener('popstate', handlePopState);
     };
-  }, [blogPosts]); // Add blogPosts to dependency array
+  }, []); // Empty dependency array as we don't need blogPosts here
 
   // Navigation functions
   const getNextPost = () => {
@@ -938,26 +944,21 @@ export default function BlogPage() {
                 key={post.id}
                 onClick={() => navigateToPost(post)}
                 className="blog-post group bg-black/20 backdrop-blur-lg border border-blue-500/10 rounded-2xl overflow-hidden hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10 hover:border-blue-500/30 transition-all duration-500 cursor-pointer"
-                data-post-id={post.id}
-                id={`blog-post-${post.id}`}
               >
                 {/* Image Container */}
                 <div className="relative h-48 overflow-hidden bg-black/50">
-                  <img 
-                    src={post.image} 
+                  <Image 
+                    src={post.image}
                     alt={post.title}
-                    className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
                     onError={(e) => {
-                      // Fallback to a default image if the specified one doesn't exist
                       const target = e.target as HTMLImageElement;
-                      target.src = `/blog/${(post.id % 5) + 1}.webp`;
+                      target.src = `/blog/${post.id % 5 + 1}.webp`;
                     }}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={post.id <= 5}
                   />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-blue-600 text-white text-xs font-semibold rounded-full">
-                      {post.category}
-                    </span>
-                  </div>
                 </div>
 
                 {/* Content */}
@@ -1032,16 +1033,20 @@ export default function BlogPage() {
               {/* Header */}
               <div className="relative h-64 overflow-hidden">
                 <div className="w-full h-full bg-gradient-to-br from-blue-900/30 to-black/80 flex items-center justify-center">
-                  <img 
-                    src={selectedPost?.image} 
-                    alt={selectedPost?.title}
-                    className="absolute inset-0 w-full h-full object-cover opacity-50"
-                    onError={(e) => {
-                      // Fallback to a default image if the specified one doesn't exist
-                      const target = e.target as HTMLImageElement;
-                      target.src = `/blog/${(selectedPost?.id || 1 % 5) + 1}.webp`;
-                    }}
-                  />
+                  <div className="absolute inset-0 w-full h-full">
+                    <Image 
+                      src={selectedPost?.image || `/blog/${(selectedPost?.id || 1 % 5) + 1}.webp`}
+                      alt={selectedPost?.title || 'Blog post image'}
+                      fill
+                      className="object-cover opacity-50"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = `/blog/${(selectedPost?.id || 1 % 5) + 1}.webp`;
+                      }}
+                      sizes="100vw"
+                      priority
+                    />
+                  </div>
                   <div className="relative z-10 text-blue-400/40 text-6xl font-bold opacity-30">
                     {selectedPost?.category.slice(0, 2).toUpperCase()}
                   </div>
