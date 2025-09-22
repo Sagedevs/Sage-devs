@@ -933,7 +933,7 @@ export default function BlogPage() {
         {/* Blog Grid or Single Post */}
         {currentView === "list" ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {filteredPosts.map((post, index) => (
+            {filteredPosts.map((post) => (
               <article
                 key={post.id}
                 onClick={() => navigateToPost(post)}
