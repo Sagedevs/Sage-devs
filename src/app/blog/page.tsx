@@ -542,7 +542,12 @@ const urlsToCache = [
   '/blog/2.webp',
   '/blog/3.webp',
   '/blog/4.webp',
-  '/blog/5.webp'
+  '/blog/5.webp',
+  '/blog/6.webp',
+  '/blog/7.webp',
+  '/blog/8.webp',
+  '/blog/9.webp',
+  '/blog/10.webp'
 ];
 
 self.addEventListener('install', event => {
@@ -732,9 +737,14 @@ export default function BlogPage() {
                 {/* Image Container */}
                 <div className="relative h-48 overflow-hidden bg-black/50">
                   <img 
-                    src={`/blog/${(post.id % 5) + 1}.webp`} 
+                    src={post.image} 
                     alt={post.title}
                     className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                    onError={(e) => {
+                      // Fallback to a default image if the specified one doesn't exist
+                      const target = e.target as HTMLImageElement;
+                      target.src = `/blog/${(post.id % 5) + 1}.webp`;
+                    }}
                   />
                   <div className="absolute top-4 left-4">
                     <span className="px-3 py-1 bg-blue-600 text-white text-xs font-semibold rounded-full">
@@ -811,7 +821,17 @@ export default function BlogPage() {
               {/* Header */}
               <div className="relative h-64 overflow-hidden">
                 <div className="w-full h-full bg-gradient-to-br from-blue-900/30 to-black/80 flex items-center justify-center">
-                  <div className="text-blue-400/40 text-6xl font-bold opacity-30">
+                  <img 
+                    src={selectedPost?.image} 
+                    alt={selectedPost?.title}
+                    className="absolute inset-0 w-full h-full object-cover opacity-50"
+                    onError={(e) => {
+                      // Fallback to a default image if the specified one doesn't exist
+                      const target = e.target as HTMLImageElement;
+                      target.src = `/blog/${(selectedPost?.id || 1 % 5) + 1}.webp`;
+                    }}
+                  />
+                  <div className="relative z-10 text-blue-400/40 text-6xl font-bold opacity-30">
                     {selectedPost?.category.slice(0, 2).toUpperCase()}
                   </div>
                 </div>
