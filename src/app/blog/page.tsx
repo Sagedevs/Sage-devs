@@ -838,12 +838,6 @@ export default function BlogPage() {
     window.history.pushState({}, '', `#blog-post-${post.id}`);
   };
 
-  const handleBackToList = () => {
-    setCurrentView("list");
-    setSelectedPost(null);
-    // Clear the hash when going back to list
-    window.history.pushState({}, '', '#');
-  };
 
   const filteredPosts = blogPosts.filter(post => {
     const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
@@ -983,7 +977,11 @@ export default function BlogPage() {
             {/* Navigation Bar */}
             <div className="flex items-center justify-between mb-8">
               <button
-                onClick={() => setCurrentView("list")}
+                onClick={() => {
+                  setCurrentView("list");
+                  setSelectedPost(null);
+                  window.history.pushState({}, '', '#');
+                }}
                 className="flex items-center text-blue-400 hover:text-blue-300 transition-colors duration-300"
               >
                 ← Back to Articles
