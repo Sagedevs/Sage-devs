@@ -447,7 +447,7 @@ const LetsTalkAIHero = () => {
             }`}
           >
             {[
-              { number: '50+', label: 'Enterprise Projects' },
+              { number: '500+', label: 'Enterprise Projects' },
               { number: '95%', label: 'Client Success Rate' },
               { number: '24/7', label: 'AI-Powered Support' },
             ].map((stat, index) => (
