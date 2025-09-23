@@ -551,7 +551,7 @@ export default function EnhancedTestimonialSlider() {
                       ))}
                     </div>
                   </div>
-                  <p className="text-gray-300 text-sm font-medium">Based on 50+ reviews</p>
+                  <p className="text-gray-300 text-sm font-medium">Based on 500+ reviews</p>
                 </div>
               </div>
             </div>
@@ -587,7 +587,7 @@ export default function EnhancedTestimonialSlider() {
           transition={{ delay: 0.8, duration: 0.8 }}
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mt-10 md:mt-20 pt-10 md:pt-20 border-t border-blue-500/30"
         >
-          <AnimatedCounter value={50} suffix="+" label="Happy Clients" />
+          <AnimatedCounter value={500} suffix="+" label="Happy Clients" />
           <AnimatedCounter value={4.9} label="Average Rating" decimal />
           <AnimatedCounter value={100} suffix="%" label="Project Success" />
           <AnimatedCounter value={350} suffix="%" label="ROI Increase" />
