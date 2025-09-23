@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 export default function WhyChooseUs() {
   const differentiators = [
@@ -96,12 +97,16 @@ export default function WhyChooseUs() {
               Join hundreds of satisfied clients who chose Sage Devs for their digital transformation journey.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold rounded-lg hover:from-blue-500 hover:to-blue-400 transition-all duration-300 shadow-lg hover:shadow-blue-500/25">
-                Start Your Project
-              </button>
-              <button className="px-8 py-3 bg-transparent text-white font-semibold rounded-lg border border-white/30 hover:border-blue-500 hover:bg-blue-500/10 transition-all duration-300">
-                View Our Work
-              </button>
+              <Link href="/Contact" passHref>
+                <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold rounded-lg hover:from-blue-500 hover:to-blue-400 transition-all duration-300 shadow-lg hover:shadow-blue-500/25">
+                  Start Your Project
+                </button>
+              </Link>
+              <Link href="/case-studies" passHref>
+                <button className="px-8 py-3 bg-transparent text-white font-semibold rounded-lg border border-white/30 hover:border-blue-500 hover:bg-blue-500/10 transition-all duration-300">
+                  View Our Work
+                </button>
+              </Link>
             </div>
           </div>
         </div>
