@@ -20,6 +20,27 @@ export default function ServicesIndexPage() {
   const [activeDevTab, setActiveDevTab] = useState("web-app");
   const [activeDesignTab, setActiveDesignTab] = useState("ui-design");
 
+  const mainTabs = [
+    { id: "development", label: "Development" },
+    { id: "ai", label: "AI Solutions" },
+    { id: "design", label: "Design & Strategy" },
+    { id: "support", label: "Support & Infrastructure" },
+  ];
+
+  const developmentTabs = [
+    { id: "web-app", label: "Web Development" },
+    { id: "saas", label: "SaaS Products" },
+    { id: "ecommerce", label: "E-commerce" },
+    { id: "wordpress", label: "WordPress" },
+    { id: "cloud", label: "Cloud & DevOps" },
+  ];
+
+  const designTabs = [
+    { id: "ui-design", label: "UI/UX Design" },
+    { id: "digital-strategy", label: "Digital Strategy" },
+    { id: "brand-identity", label: "Brand Identity" },
+  ];
+
   useEffect(() => {
     if (window.location.hash) {
       const hash = window.location.hash.replace("#", "");
@@ -42,7 +63,7 @@ export default function ServicesIndexPage() {
         setActiveTab("support");
       }
     }
-  }, []);
+  }, [developmentTabs, designTabs]);
 
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
@@ -57,27 +78,6 @@ export default function ServicesIndexPage() {
       return () => clearTimeout(timer);
     }
   }, [activeTab, activeDevTab, activeDesignTab]);
-
-  const mainTabs = [
-    { id: "development", label: "Development" },
-    { id: "ai", label: "AI Solutions" },
-    { id: "design", label: "Design & Strategy" },
-    { id: "support", label: "Support & Infrastructure" },
-  ];
-
-  const developmentTabs = [
-    { id: "web-app", label: "Web Development" },
-    { id: "saas", label: "SaaS Products" },
-    { id: "ecommerce", label: "E-commerce" },
-    { id: "wordpress", label: "WordPress" },
-    { id: "cloud", label: "Cloud & DevOps" },
-  ];
-
-  const designTabs = [
-    { id: "ui-design", label: "UI/UX Design" },
-    { id: "digital-strategy", label: "Digital Strategy" },
-    { id: "brand-identity", label: "Brand Identity" },
-  ];
 
   // Reset sub-tabs when main tab changes
   const handleMainTabChange = (tabId: string) => {

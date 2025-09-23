@@ -6,7 +6,6 @@ import {
   ShoppingCart, 
   Globe,
   Palette,
-  Target,
   Sparkles,
   Wrench,
   Zap,
