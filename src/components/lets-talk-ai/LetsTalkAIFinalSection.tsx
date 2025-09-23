@@ -215,7 +215,7 @@ const LetsTalkAISection = () => {
               {/* Stats */}
               <div className="flex flex-wrap justify-center sm:justify-start gap-6 sm:gap-8 pt-6 lg:pt-8 border-t border-slate-700/50">
                 {[
-                  { value: "500+", label: "AI Projects" },
+                  { value: "50+", label: "AI Projects" },
                   { value: "24hr", label: "Response Time" },
                   { value: "98%", label: "Success Rate" }
           ].map((stat, i) => (
