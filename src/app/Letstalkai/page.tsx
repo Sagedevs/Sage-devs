@@ -14,12 +14,24 @@ const LetsTalkAI: React.FC = () => {
     <main>
       <LetsTalkAIHero />
       <LetsTalkAISecondSection />
-      <AIConsultation />
-      <MachineLearning />
-      <NaturalLanguageProcessing />
-      <ComputerVision />
-      <AIStrategy />
-      <AITransformationGuide />
+      <section id="ai-consultation">
+        <AIConsultation />
+      </section>
+      <section id="machine-learning">
+        <MachineLearning />
+      </section>
+      <section id="nlp">
+        <NaturalLanguageProcessing />
+      </section>
+      <section id="computer-vision">
+        <ComputerVision />
+      </section>
+      <section id="ai-strategy">
+        <AIStrategy />
+      </section>
+      <section id="ai-transformation-guide">
+        <AITransformationGuide />
+      </section>
       <LetsTalkAIFinalSection />
     </main>
   );

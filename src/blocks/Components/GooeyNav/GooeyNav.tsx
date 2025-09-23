@@ -82,7 +82,6 @@ interface MegaMenuItemContent {
   };
   showcase?: MegaMenuShowcase;
 }
-
 type MegaMenuContentMap = {
   [key: string]: MegaMenuItemContent;
 };
@@ -95,11 +94,11 @@ const megaMenuContent: MegaMenuContentMap = {
     leftSidebar: {
       title: "AI Knowledge Hub",
       items: [
-        { label: "AI Consultation", href: "/ai-consultation" },
-        { label: "Machine Learning", href: "/machine-learning" },
-        { label: "Natural Language Processing", href: "/nlp" },
-        { label: "Computer Vision", href: "/computer-vision" },
-        { label: "AI Strategy", href: "/ai-strategy" }
+        { label: "AI Consultation", href: "/Letstalkai#ai-consultation" },
+        { label: "Machine Learning", href: "/Letstalkai#machine-learning" },
+        { label: "Natural Language Processing", href: "/Letstalkai#nlp" },
+        { label: "Computer Vision", href: "/Letstalkai#computer-vision" },
+        { label: "AI Strategy", href: "/Letstalkai#ai-strategy" }
       ]
     },
     articles: [
@@ -143,14 +142,14 @@ const megaMenuContent: MegaMenuContentMap = {
       title: "See what's possible when AI empowers your enterprise.",
       description: "Transform your business with cutting-edge AI solutions tailored to your needs.",
       buttonText: "Let's Discuss AI",
-      buttonHref: "/ai-consultation"
+      buttonHref: "/Letstalkai#ai-consultation"
     },
     featured: {
       title: "AI Innovation Hub",
       subtitle: "Transform Your Business",
       description: "From machine learning to computer vision, discover how AI can revolutionize your operations and drive unprecedented growth.",
       image: "/images/ai-innovation.jpg",
-      href: "/ai-transformation-guide"
+      href: "/Letstalkai#ai-transformation-guide"
     },
     showcase: {
       title: "AI Resume Analyzer",
