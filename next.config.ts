@@ -70,7 +70,11 @@ const nextConfig: NextConfig = {
         hostname: 'ghost.org',
         pathname: '/**',
       },
-      
+      {
+        protocol: 'https',
+        hostname: 'images.pexels.com',
+        pathname: '/**',
+      },
     ],
   },
   reactStrictMode: true,
