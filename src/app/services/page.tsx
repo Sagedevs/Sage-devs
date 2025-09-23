@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Sections
 import HeroSection from "@/components/services/herosection";
@@ -19,6 +19,30 @@ export default function ServicesIndexPage() {
   const [activeTab, setActiveTab] = useState("development");
   const [activeDevTab, setActiveDevTab] = useState("web-app");
   const [activeDesignTab, setActiveDesignTab] = useState("ui-design");
+
+  useEffect(() => {
+    if (window.location.hash) {
+      const hash = window.location.hash.replace("#", "");
+
+      if (developmentTabs.some(tab => tab.id === hash)) {
+        setActiveTab("development");
+        setActiveDevTab(hash);
+      }
+
+      if (designTabs.some(tab => tab.id === hash)) {
+        setActiveTab("design");
+        setActiveDesignTab(hash);
+      }
+
+      if (hash === "ai-solutions") {
+        setActiveTab("ai");
+      }
+
+      if (hash === "maintenance-support") {
+        setActiveTab("support");
+      }
+    }
+  }, []);
 
   const mainTabs = [
     { id: "development", label: "Development" },
@@ -157,28 +181,28 @@ export default function ServicesIndexPage() {
         {/* Development Content */}
         {activeTab === "development" && (
           <div>
-            {activeDevTab === "web-app" && <WebAppDevelopment />}
-            {activeDevTab === "saas" && <SaaSProductDev />}
-            {activeDevTab === "ecommerce" && <EcommerceSolutions />}
-            {activeDevTab === "wordpress" && <WordPressServices />}
-            {activeDevTab === "cloud" && <CloudDevOps />}
+            {activeDevTab === "web-app" && <section id="web-app"><WebAppDevelopment /></section>}
+            {activeDevTab === "saas" && <section id="saas"><SaaSProductDev /></section>}
+            {activeDevTab === "ecommerce" && <section id="ecommerce"><EcommerceSolutions /></section>}
+            {activeDevTab === "wordpress" && <section id="wordpress"><WordPressServices /></section>}
+            {activeDevTab === "cloud" && <section id="cloud"><CloudDevOps /></section>}
           </div>
         )}
 
         {/* AI Solutions Content */}
-        {activeTab === "ai" && <AISolutions />}
+        {activeTab === "ai" && <section id="ai-solutions"><AISolutions /></section>}
 
         {/* Design Content */}
         {activeTab === "design" && (
           <div>
-            {activeDesignTab === "ui-design" && <UIDesign />}
-            {activeDesignTab === "digital-strategy" && <DigitalStrategy />}
-            {activeDesignTab === "brand-identity" && <BrandIdentity />}
+            {activeDesignTab === "ui-design" && <section id="ui-design"><UIDesign /></section>}
+            {activeDesignTab === "digital-strategy" && <section id="digital-strategy"><DigitalStrategy /></section>}
+            {activeDesignTab === "brand-identity" && <section id="brand-identity"><BrandIdentity /></section>}
           </div>
         )}
 
         {/* Support Content */}
-        {activeTab === "support" && <MaintenanceSupport />}
+        {activeTab === "support" && <section id="maintenance-support"><MaintenanceSupport /></section>}
       </div>
 
       {/* Final CTA */}

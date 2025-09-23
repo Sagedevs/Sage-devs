@@ -47,7 +47,7 @@ const services: ServiceCategory[] = [
         features: ["Progressive Web Apps", "Cross-platform Mobile", "API Development", "Real-time Features"],
         technologies: ["React", "Next.js", "Node.js", "React Native"],
         icon: Code,
-        href: "/services/web-app-development",
+        href: "/services#web-app",
         stats: "500+ Projects"
       },
       {
@@ -57,7 +57,7 @@ const services: ServiceCategory[] = [
         features: ["Workflow Automation", "Predictive Analytics", "AI Assistants", "Custom ML Models"],
         technologies: ["OpenAI", "TensorFlow", "LangChain", "Python"],
         icon: Brain,
-        href: "/services/ai-automation",
+        href: "/services#ai-solutions",
         stats: "10x Productivity"
       },
       {
@@ -67,7 +67,7 @@ const services: ServiceCategory[] = [
         features: ["Multi-tenant Architecture", "Subscription Billing", "Analytics Dashboard", "API Integration"],
         technologies: ["AWS", "Stripe", "PostgreSQL", "Redis"],
         icon: Zap,
-        href: "/services/saas-product-development",
+        href: "/services#saas",
         stats: "50+ SaaS Apps"
       },
       {
@@ -77,7 +77,7 @@ const services: ServiceCategory[] = [
         features: ["Payment Integration", "Inventory Management", "SEO Optimization", "Mobile Commerce"],
         technologies: ["Shopify", "WooCommerce", "Stripe", "PayPal"],
         icon: ShoppingCart,
-        href: "/services/ecommerce-solutions",
+        href: "/services#ecommerce",
         stats: "200+ Stores"
       },
       {
@@ -87,7 +87,7 @@ const services: ServiceCategory[] = [
         features: ["CI/CD Pipelines", "Auto Scaling", "Monitoring", "Security"],
         technologies: ["AWS", "Docker", "Kubernetes", "GitHub Actions"],
         icon: Cloud,
-        href: "/services/cloud-devops",
+        href: "/services#cloud",
         stats: "99.9% Uptime"
       }
     ]
@@ -103,7 +103,7 @@ const services: ServiceCategory[] = [
         features: ["Custom Themes", "Plugin Development", "Performance Optimization", "Security Hardening"],
         technologies: ["WordPress", "PHP", "MySQL", "WP CLI"],
         icon: Globe,
-        href: "/services/wordpress-services",
+        href: "/services#wordpress",
         stats: "300+ WP Sites"
       }
     ]
@@ -119,7 +119,7 @@ const services: ServiceCategory[] = [
         features: ["User Research", "Wireframing", "Prototyping", "Usability Testing"],
         technologies: ["Figma", "Adobe XD", "Principle", "InVision"],
         icon: Palette,
-        href: "/services/ui-ux-design",
+        href: "/services#ui-design",
         stats: "98% User Satisfaction"
       },
       {
@@ -129,7 +129,7 @@ const services: ServiceCategory[] = [
         features: ["Logo Design", "Brand Guidelines", "Visual Identity", "Brand Strategy"],
         technologies: ["Illustrator", "Photoshop", "Figma", "Brand Tools"],
         icon: Sparkles,
-        href: "/services/brand-identity",
+        href: "/services#brand-identity",
         stats: "150+ Brands"
       }
     ]
@@ -145,7 +145,7 @@ const services: ServiceCategory[] = [
         features: ["24/7 Monitoring", "Security Updates", "Performance Tuning", "Backup Management"],
         technologies: ["Monitoring Tools", "Security Suites", "Backup Systems"],
         icon: Wrench,
-        href: "/services/maintenance-support",
+        href: "/services#maintenance-support",
         stats: "24/7 Support"
       }
     ]
@@ -212,7 +212,6 @@ const ServiceCard = ({ service }: ServiceCardProps) => {
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       whileHover={{ y: -8 }}
-      onClick={() => console.log(`Navigate to: ${service.href}`)}
     >
       <div className="relative h-full p-8 rounded-3xl bg-gradient-to-br from-gray-900/80 via-gray-800/40 to-gray-900/80 backdrop-blur-xl border border-gray-700/30 overflow-hidden transition-all duration-500 group-hover:border-blue-500/50 group-hover:shadow-2xl group-hover:shadow-blue-500/20">
         
@@ -387,10 +386,9 @@ export default function Services() {
               {/* Services Grid */}
               <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {services.flatMap(category => category.items).map((service: ServiceItem) => (
-                  <ServiceCard
-                    key={service.title}
-                    service={service}
-                  />
+                  <Link key={service.title} href={service.href} passHref>
+                    <ServiceCard service={service} />
+                  </Link>
                 ))}
               </div>
           
