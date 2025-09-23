@@ -19,19 +19,19 @@ const clientLogos = [
 // Stats Section (kept same)
 const statsData = [
   {
-    number: "50+",
+    number: "500+",
     title: "Digital Platforms Delivered",
     description:
       "From SaaS dashboards to custom marketplaces, SageDevs has built scalable and reliable platforms for diverse industries.",
   },
   {
-    number: "25+",
+    number: "50+",
     title: "AI & ML Projects Launched",
     description:
       "Deployed intelligent solutions ranging from chatbots to predictive models, tailored to solve real business challenges.",
   },
   {
-    number: "100+",
+    number: "500+",
     title: "Clients Served",
     description:
       "Startups, agencies, and enterprises across the globe trust SageDevs as their technology partner for growth and innovation.",
