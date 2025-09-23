@@ -44,6 +44,20 @@ export default function ServicesIndexPage() {
     }
   }, []);
 
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (hash) {
+      const timer = setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+  }, [activeTab, activeDevTab, activeDesignTab]);
+
   const mainTabs = [
     { id: "development", label: "Development" },
     { id: "ai", label: "AI Solutions" },
