@@ -9,7 +9,8 @@ import {
   Target,
   Sparkles,
   Wrench,
-  Zap
+  Zap,
+  Brain
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -48,6 +49,16 @@ const services: ServiceCategory[] = [
         icon: Code,
         href: "/services/web-app-development",
         stats: "500+ Projects"
+      },
+      {
+        title: "AI-Powered Automation",
+        subtitle: "Work Smarter, Not Harder",
+        description: "Automate repetitive tasks and workflows with AI-driven solutions tailored to your business processes.",
+        features: ["Workflow Automation", "Predictive Analytics", "AI Assistants", "Custom ML Models"],
+        technologies: ["OpenAI", "TensorFlow", "LangChain", "Python"],
+        icon: Brain,
+        href: "/services/ai-automation",
+        stats: "10x Productivity"
       },
       {
         title: "SaaS & Product Development",
@@ -110,16 +121,6 @@ const services: ServiceCategory[] = [
         icon: Palette,
         href: "/services/ui-ux-design",
         stats: "98% User Satisfaction"
-      },
-      {
-        title: "Digital Strategy",
-        subtitle: "Business Transformation",
-        description: "Comprehensive digital transformation strategies that align technology with business goals for sustainable growth and market leadership.",
-        features: ["Market Analysis", "Technology Roadmap", "Growth Strategy", "ROI Planning"],
-        technologies: ["Analytics", "Market Research", "Strategy Planning"],
-        icon: Target,
-        href: "/services/digital-strategy",
-        stats: "300% Avg. Growth"
       },
       {
         title: "Brand Identity",
