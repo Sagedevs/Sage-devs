@@ -6,7 +6,7 @@ export default function WhyChooseUs() {
     "Lightning-fast development cycles with agile methodology",
     "24/7 technical support and maintenance services",
     "Cutting-edge technology stack and modern frameworks",
-    "Proven track record with 100+ successful projects",
+    "Proven track record with 500+ successful projects",
     "Custom solutions tailored to your business needs",
     "Transparent pricing with no hidden costs",
     "Expert team of senior developers and designers",
@@ -46,7 +46,7 @@ export default function WhyChooseUs() {
         {/* Stats Section */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
           <div className="text-center p-6 rounded-xl bg-gradient-to-br from-blue-900/30 to-black/50 backdrop-blur-sm border border-blue-500/20">
-            <div className="text-3xl font-bold text-white mb-2">100+</div>
+            <div className="text-3xl font-bold text-white mb-2">500+</div>
             <div className="text-blue-300 text-sm">Projects Delivered</div>
           </div>
           <div className="text-center p-6 rounded-xl bg-gradient-to-br from-blue-900/30 to-black/50 backdrop-blur-sm border border-blue-500/20">
