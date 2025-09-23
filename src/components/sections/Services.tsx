@@ -47,7 +47,7 @@ const services: ServiceCategory[] = [
         technologies: ["React", "Next.js", "Node.js", "React Native"],
         icon: Code,
         href: "/services#web-app",
-        stats: "500+ Projects"
+        stats: "100+ Projects"
       },
       {
         title: "AI-Powered Automation",
@@ -77,7 +77,7 @@ const services: ServiceCategory[] = [
         technologies: ["Shopify", "WooCommerce", "Stripe", "PayPal"],
         icon: ShoppingCart,
         href: "/services#ecommerce",
-        stats: "200+ Stores"
+        stats: "150+ Stores"
       },
       {
         title: "Cloud & DevOps",
@@ -103,7 +103,7 @@ const services: ServiceCategory[] = [
         technologies: ["WordPress", "PHP", "MySQL", "WP CLI"],
         icon: Globe,
         href: "/services#wordpress",
-        stats: "300+ WP Sites"
+        stats: "200+ WP Sites"
       }
     ]
   },
