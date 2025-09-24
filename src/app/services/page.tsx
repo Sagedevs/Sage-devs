@@ -32,7 +32,10 @@ export default function ServicesIndexPage() {
   const [activeDevTab, setActiveDevTab] = useState("web-app");
   const [activeDesignTab, setActiveDesignTab] = useState("ui-design");
   const [isNavigating, setIsNavigating] = useState(false);
+  const [hasScrolledToTarget, setHasScrolledToTarget] = useState(false);
   const navigationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const lastHashRef = useRef<string>("");
 
   const mainTabs: TabItem[] = [
     { id: "development", label: "Development" },
@@ -57,6 +60,8 @@ export default function ServicesIndexPage() {
 
   // Improved hash to tab mapping
   const getTabsFromHash = useCallback((hash: string): TabConfig | null => {
+    if (!hash) return null;
+
     // Development tabs
     if (developmentTabs.some(tab => tab.id === hash)) {
       return {
@@ -96,14 +101,36 @@ export default function ServicesIndexPage() {
     return null;
   }, [developmentTabs, designTabs, activeDevTab, activeDesignTab]);
 
+  const scrollToElement = useCallback((hash: string) => {
+    const element = document.getElementById(hash);
+    if (element && !hasScrolledToTarget) {
+      setHasScrolledToTarget(true);
+      element.scrollIntoView({ 
+        behavior: "smooth", 
+        block: "start",
+        inline: "nearest"
+      });
+
+      // Clear the flag after scroll is complete
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+      scrollTimeoutRef.current = setTimeout(() => {
+        setHasScrolledToTarget(false);
+      }, 1500); // Give enough time for smooth scroll to complete
+    }
+  }, [hasScrolledToTarget]);
+
   const updateTabsFromHash = useCallback((hash: string, shouldScroll = false) => {
-    if (!hash) return;
+    if (!hash || hash === lastHashRef.current) return;
 
     console.log('updateTabsFromHash called with:', hash);
     
     const tabConfig = getTabsFromHash(hash);
     if (!tabConfig) return;
 
+    // Update the last hash reference
+    lastHashRef.current = hash;
     setIsNavigating(true);
     
     // Clear any existing timeout
@@ -119,18 +146,11 @@ export default function ServicesIndexPage() {
     // Handle scrolling after a short delay to ensure content is rendered
     navigationTimeoutRef.current = setTimeout(() => {
       if (shouldScroll) {
-        const element = document.getElementById(hash);
-        if (element) {
-          element.scrollIntoView({ 
-            behavior: "smooth", 
-            block: "start",
-            inline: "nearest"
-          });
-        }
+        scrollToElement(hash);
       }
       setIsNavigating(false);
-    }, 100);
-  }, [getTabsFromHash]);
+    }, 150);
+  }, [getTabsFromHash, scrollToElement]);
 
   // Initial mount effect
   useEffect(() => {
@@ -144,7 +164,7 @@ export default function ServicesIndexPage() {
     }
   }, [updateTabsFromHash]);
 
-  // Enhanced hash change and navigation listener
+  // Simplified hash change listener
   useEffect(() => {
     if (!mounted) return;
 
@@ -152,114 +172,61 @@ export default function ServicesIndexPage() {
       const hash = window.location.hash.replace("#", "");
       console.log('Hash change detected:', hash);
       
-      if (hash) {
+      // Only update if it's a different hash and not during navigation
+      if (hash && hash !== lastHashRef.current && !isNavigating) {
         updateTabsFromHash(hash, true);
       }
     };
 
-    const handlePopState = () => {
-      // Handle browser back/forward navigation
-      const hash = window.location.hash.replace("#", "");
-      console.log('Popstate detected:', hash);
-      
-      if (hash) {
-        updateTabsFromHash(hash, true);
-      }
-    };
-
-    // Handle initial hash processing with a slight delay to ensure DOM is ready
-    const processInitialHash = () => {
-      const hash = window.location.hash.replace("#", "");
-      if (hash) {
-        console.log('Processing initial hash:', hash);
-        updateTabsFromHash(hash, true);
-      }
-    };
-
-    // Process immediately and also with a delay for Next.js routing
-    processInitialHash();
-    const initialTimer = setTimeout(processInitialHash, 100);
-
-    // Listen for hash changes and navigation events
+    // Listen for hash changes
     window.addEventListener('hashchange', handleHashChange, false);
-    window.addEventListener('popstate', handlePopState, false);
+
+    // Handle initial hash processing with a delay for Next.js
+    const initialTimer = setTimeout(() => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash && hash !== lastHashRef.current) {
+        console.log('Processing delayed initial hash:', hash);
+        updateTabsFromHash(hash, true);
+      }
+    }, 200);
 
     return () => {
       window.removeEventListener('hashchange', handleHashChange, false);
-      window.removeEventListener('popstate', handlePopState, false);
       if (navigationTimeoutRef.current) {
         clearTimeout(navigationTimeoutRef.current);
       }
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
       clearTimeout(initialTimer);
     };
-  }, [mounted, updateTabsFromHash]);
-
-  // Route change listener for Next.js navigation
-  useEffect(() => {
-    if (!mounted) return;
-
-    const handleRouteChange = () => {
-      // Small delay to ensure URL has been updated
-      setTimeout(() => {
-        const hash = window.location.hash.replace("#", "");
-        console.log('Route change detected, hash:', hash);
-        
-        if (hash) {
-          updateTabsFromHash(hash, true);
-        }
-      }, 50);
-    };
-
-    // Listen for Next.js route changes
-    window.addEventListener('popstate', handleRouteChange);
-    
-    // Also check periodically in case navigation happens without events
-    const intervalCheck = setInterval(() => {
-      const currentHash = window.location.hash.replace("#", "");
-      if (currentHash && !isNavigating) {
-        const tabConfig = getTabsFromHash(currentHash);
-        if (tabConfig) {
-          // Check if current state matches URL
-          const shouldUpdate = 
-            tabConfig.mainTab !== activeTab ||
-            (tabConfig.mainTab === "development" && tabConfig.subTab !== activeDevTab) ||
-            (tabConfig.mainTab === "design" && tabConfig.designSubTab !== activeDesignTab);
-            
-          if (shouldUpdate) {
-            console.log('Interval check: updating tabs for hash:', currentHash);
-            updateTabsFromHash(currentHash, false); // Don't scroll on interval updates
-          }
-        }
-      }
-    }, 500); // Check every 500ms
-
-    return () => {
-      window.removeEventListener('popstate', handleRouteChange);
-      clearInterval(intervalCheck);
-    };
-  }, [mounted, updateTabsFromHash, isNavigating, activeTab, activeDevTab, activeDesignTab, getTabsFromHash]);
+  }, [mounted, updateTabsFromHash, isNavigating]);
 
   const handleMainTabChange = (tabId: string) => {
-    if (isNavigating) return; // Prevent interference during navigation
+    if (isNavigating) return;
     
     console.log('Manual tab change to:', tabId);
     setActiveTab(tabId);
+    setHasScrolledToTarget(false); // Reset scroll flag
     
-    // Reset sub-tabs to default when switching main tabs manually
+    let newHash = "";
+    
     if (tabId === "development") {
       setActiveDevTab("web-app");
-      // Update URL hash
-      window.history.replaceState(null, '', '#web-app');
+      newHash = "web-app";
     } else if (tabId === "design") {
       setActiveDesignTab("ui-design");
-      // Update URL hash
-      window.history.replaceState(null, '', '#ui-design');
+      newHash = "ui-design";
     } else if (tabId === "ai") {
-      // Update URL hash
-      window.history.replaceState(null, '', '#ai-solutions');
+      newHash = "ai-solutions";
     } else if (tabId === "support") {
-      // Update URL hash
-      window.history.replaceState(null, '', '#maintenance-support');
+      newHash = "maintenance-support";
+    }
+    
+    // Update URL hash
+    if (newHash) {
+      lastHashRef.current = newHash;
+      window.history.replaceState(null, '', `#${newHash}`);
     }
   };
 
@@ -268,7 +235,10 @@ export default function ServicesIndexPage() {
     
     console.log('Dev sub-tab change to:', tabId);
     setActiveDevTab(tabId);
+    setHasScrolledToTarget(false); // Reset scroll flag
+    
     // Update URL hash
+    lastHashRef.current = tabId;
     window.history.replaceState(null, '', `#${tabId}`);
   };
 
@@ -277,7 +247,10 @@ export default function ServicesIndexPage() {
     
     console.log('Design sub-tab change to:', tabId);
     setActiveDesignTab(tabId);
+    setHasScrolledToTarget(false); // Reset scroll flag
+    
     // Update URL hash
+    lastHashRef.current = tabId;
     window.history.replaceState(null, '', `#${tabId}`);
   };
 
