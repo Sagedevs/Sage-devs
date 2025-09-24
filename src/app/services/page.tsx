@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 
 // Sections
 import HeroSection from "@/components/services/herosection";
@@ -15,12 +15,6 @@ import DigitalStrategy from "@/components/services/DigitalStrategy";
 import BrandIdentity from "@/components/services/BrandIdentity";
 import MaintenanceSupport from "@/components/services/MaintenanceSupport";
 
-interface TabConfig {
-  mainTab: string;
-  subTab: string;
-  designSubTab: string;
-}
-
 interface TabItem {
   id: string;
   label: string;
@@ -31,11 +25,6 @@ export default function ServicesIndexPage() {
   const [activeTab, setActiveTab] = useState("development");
   const [activeDevTab, setActiveDevTab] = useState("web-app");
   const [activeDesignTab, setActiveDesignTab] = useState("ui-design");
-  const [isNavigating, setIsNavigating] = useState(false);
-  const [hasScrolledToTarget, setHasScrolledToTarget] = useState(false);
-  const navigationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const lastHashRef = useRef<string>("");
 
   const mainTabs: TabItem[] = [
     { id: "development", label: "Development" },
@@ -58,203 +47,51 @@ export default function ServicesIndexPage() {
     { id: "brand-identity", label: "Brand Identity" },
   ];
 
-  // Improved hash to tab mapping
-  const getTabsFromHash = useCallback((hash: string): TabConfig | null => {
-    if (!hash) return null;
-
-    // Development tabs
-    if (developmentTabs.some(tab => tab.id === hash)) {
-      return {
-        mainTab: "development",
-        subTab: hash,
-        designSubTab: activeDesignTab
-      };
-    }
-
-    // Design tabs
-    if (designTabs.some(tab => tab.id === hash)) {
-      return {
-        mainTab: "design",
-        subTab: activeDevTab,
-        designSubTab: hash
-      };
-    }
-
-    // AI Solutions
-    if (hash === "ai-solutions") {
-      return {
-        mainTab: "ai",
-        subTab: activeDevTab,
-        designSubTab: activeDesignTab
-      };
-    }
-
-    // Support
-    if (hash === "maintenance-support") {
-      return {
-        mainTab: "support",
-        subTab: activeDevTab,
-        designSubTab: activeDesignTab
-      };
-    }
-
-    return null;
-  }, [developmentTabs, designTabs, activeDevTab, activeDesignTab]);
-
-  const scrollToElement = useCallback((hash: string) => {
-    const element = document.getElementById(hash);
-    if (element && !hasScrolledToTarget) {
-      setHasScrolledToTarget(true);
-      element.scrollIntoView({ 
-        behavior: "smooth", 
-        block: "start",
-        inline: "nearest"
-      });
-
-      // Clear the flag after scroll is complete
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-      scrollTimeoutRef.current = setTimeout(() => {
-        setHasScrolledToTarget(false);
-      }, 1500); // Give enough time for smooth scroll to complete
-    }
-  }, [hasScrolledToTarget]);
-
-  const updateTabsFromHash = useCallback((hash: string, shouldScroll = false) => {
-    if (!hash || hash === lastHashRef.current) return;
-
-    console.log('updateTabsFromHash called with:', hash);
-    
-    const tabConfig = getTabsFromHash(hash);
-    if (!tabConfig) return;
-
-    // Update the last hash reference
-    lastHashRef.current = hash;
-    setIsNavigating(true);
-    
-    // Clear any existing timeout
-    if (navigationTimeoutRef.current) {
-      clearTimeout(navigationTimeoutRef.current);
-    }
-
-    // Update tabs immediately
-    setActiveTab(tabConfig.mainTab);
-    setActiveDevTab(tabConfig.subTab);
-    setActiveDesignTab(tabConfig.designSubTab);
-
-    // Handle scrolling after a short delay to ensure content is rendered
-    navigationTimeoutRef.current = setTimeout(() => {
-      if (shouldScroll) {
-        scrollToElement(hash);
-      }
-      setIsNavigating(false);
-    }, 150);
-  }, [getTabsFromHash, scrollToElement]);
-
-  // Initial mount effect
+  // ONLY handle initial hash on mount - NOTHING ELSE
   useEffect(() => {
     setMounted(true);
     
-    // Handle initial hash if present
-    const initialHash = window.location.hash.replace("#", "");
-    if (initialHash) {
-      console.log('Initial hash detected:', initialHash);
-      updateTabsFromHash(initialHash, true);
+    const hash = window.location.hash.replace("#", "");
+    if (hash) {
+      // Development tabs
+      if (developmentTabs.some(tab => tab.id === hash)) {
+        setActiveTab("development");
+        setActiveDevTab(hash);
+      }
+      // Design tabs  
+      else if (designTabs.some(tab => tab.id === hash)) {
+        setActiveTab("design");
+        setActiveDesignTab(hash);
+      }
+      // AI Solutions
+      else if (hash === "ai-solutions") {
+        setActiveTab("ai");
+      }
+      // Support
+      else if (hash === "maintenance-support") {
+        setActiveTab("support");
+      }
     }
-  }, [updateTabsFromHash]);
-
-  // Simplified hash change listener
-  useEffect(() => {
-    if (!mounted) return;
-
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace("#", "");
-      console.log('Hash change detected:', hash);
-      
-      // Only update if it's a different hash and not during navigation
-      if (hash && hash !== lastHashRef.current && !isNavigating) {
-        updateTabsFromHash(hash, true);
-      }
-    };
-
-    // Listen for hash changes
-    window.addEventListener('hashchange', handleHashChange, false);
-
-    // Handle initial hash processing with a delay for Next.js
-    const initialTimer = setTimeout(() => {
-      const hash = window.location.hash.replace("#", "");
-      if (hash && hash !== lastHashRef.current) {
-        console.log('Processing delayed initial hash:', hash);
-        updateTabsFromHash(hash, true);
-      }
-    }, 200);
-
-    return () => {
-      window.removeEventListener('hashchange', handleHashChange, false);
-      if (navigationTimeoutRef.current) {
-        clearTimeout(navigationTimeoutRef.current);
-      }
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-      clearTimeout(initialTimer);
-    };
-  }, [mounted, updateTabsFromHash, isNavigating]);
+  }, []);
 
   const handleMainTabChange = (tabId: string) => {
-    if (isNavigating) return;
-    
-    console.log('Manual tab change to:', tabId);
     setActiveTab(tabId);
-    setHasScrolledToTarget(false); // Reset scroll flag
-    
-    let newHash = "";
     
     if (tabId === "development") {
       setActiveDevTab("web-app");
-      newHash = "web-app";
     } else if (tabId === "design") {
       setActiveDesignTab("ui-design");
-      newHash = "ui-design";
-    } else if (tabId === "ai") {
-      newHash = "ai-solutions";
-    } else if (tabId === "support") {
-      newHash = "maintenance-support";
-    }
-    
-    // Update URL hash
-    if (newHash) {
-      lastHashRef.current = newHash;
-      window.history.replaceState(null, '', `#${newHash}`);
     }
   };
 
   const handleDevTabChange = (tabId: string) => {
-    if (isNavigating) return;
-    
-    console.log('Dev sub-tab change to:', tabId);
     setActiveDevTab(tabId);
-    setHasScrolledToTarget(false); // Reset scroll flag
-    
-    // Update URL hash
-    lastHashRef.current = tabId;
-    window.history.replaceState(null, '', `#${tabId}`);
   };
 
   const handleDesignTabChange = (tabId: string) => {
-    if (isNavigating) return;
-    
-    console.log('Design sub-tab change to:', tabId);
     setActiveDesignTab(tabId);
-    setHasScrolledToTarget(false); // Reset scroll flag
-    
-    // Update URL hash
-    lastHashRef.current = tabId;
-    window.history.replaceState(null, '', `#${tabId}`);
   };
 
-  // Show loading state until component is mounted on client side
   if (!mounted) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-900">
@@ -290,12 +127,11 @@ export default function ServicesIndexPage() {
                   <button
                     key={tab.id}
                     onClick={() => handleMainTabChange(tab.id)}
-                    disabled={isNavigating}
                     className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 whitespace-nowrap ${
                       activeTab === tab.id
                         ? "bg-blue-600 text-white shadow-lg shadow-blue-600/25 transform scale-105"
                         : "text-slate-300 hover:text-white hover:bg-slate-700/50"
-                    } ${isNavigating ? "opacity-50 cursor-not-allowed" : ""}`}
+                    }`}
                   >
                     {tab.label}
                   </button>
@@ -313,12 +149,11 @@ export default function ServicesIndexPage() {
                     <button
                       key={tab.id}
                       onClick={() => handleDevTabChange(tab.id)}
-                      disabled={isNavigating}
                       className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                         activeDevTab === tab.id
                           ? "bg-blue-500 text-white shadow-md"
                           : "text-slate-400 hover:text-white hover:bg-slate-700/50"
-                      } ${isNavigating ? "opacity-50 cursor-not-allowed" : ""}`}
+                      }`}
                     >
                       {tab.label}
                     </button>
@@ -337,12 +172,11 @@ export default function ServicesIndexPage() {
                     <button
                       key={tab.id}
                       onClick={() => handleDesignTabChange(tab.id)}
-                      disabled={isNavigating}
                       className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                         activeDesignTab === tab.id
                           ? "bg-blue-500 text-white shadow-md"
                           : "text-slate-400 hover:text-white hover:bg-slate-700/50"
-                      } ${isNavigating ? "opacity-50 cursor-not-allowed" : ""}`}
+                      }`}
                     >
                       {tab.label}
                     </button>
@@ -355,7 +189,7 @@ export default function ServicesIndexPage() {
           {/* Active Tab Indicator */}
           <div className="text-center">
             <div className="inline-flex items-center px-4 py-2 bg-slate-800/30 rounded-full border border-slate-700">
-              <div className={`w-2 h-2 bg-blue-500 rounded-full mr-3 ${isNavigating ? "animate-pulse" : ""}`}></div>
+              <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
               <span className="text-slate-300 text-sm">
                 {activeTab === "development" && `Development: ${developmentTabs.find(tab => tab.id === activeDevTab)?.label}`}
                 {activeTab === "design" && `Design: ${designTabs.find(tab => tab.id === activeDesignTab)?.label}`}
