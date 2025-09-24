@@ -15,25 +15,19 @@ import DigitalStrategy from "@/components/services/DigitalStrategy";
 import BrandIdentity from "@/components/services/BrandIdentity";
 import MaintenanceSupport from "@/components/services/MaintenanceSupport";
 
-interface TabItem {
-  id: string;
-  label: string;
-}
-
 export default function ServicesIndexPage() {
-  const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState("development");
   const [activeDevTab, setActiveDevTab] = useState("web-app");
   const [activeDesignTab, setActiveDesignTab] = useState("ui-design");
 
-  const mainTabs: TabItem[] = [
+  const mainTabs = [
     { id: "development", label: "Development" },
     { id: "ai", label: "AI Solutions" },
     { id: "design", label: "Design & Strategy" },
     { id: "support", label: "Support & Infrastructure" },
   ];
 
-  const developmentTabs: TabItem[] = [
+  const developmentTabs = [
     { id: "web-app", label: "Web Development" },
     { id: "saas", label: "SaaS Products" },
     { id: "ecommerce", label: "E-commerce" },
@@ -41,95 +35,59 @@ export default function ServicesIndexPage() {
     { id: "cloud", label: "Cloud & DevOps" },
   ];
 
-  const designTabs: TabItem[] = [
+  const designTabs = [
     { id: "ui-design", label: "UI/UX Design" },
     { id: "digital-strategy", label: "Digital Strategy" },
     { id: "brand-identity", label: "Brand Identity" },
   ];
 
-  // ONLY handle initial hash on mount - NOTHING ELSE
+  // Simple hash detection on mount
   useEffect(() => {
-    setMounted(true);
-    
     const hash = window.location.hash.replace("#", "");
-    if (hash) {
-      // Development tabs
-      if (developmentTabs.some(tab => tab.id === hash)) {
-        setActiveTab("development");
-        setActiveDevTab(hash);
-      }
-      // Design tabs  
-      else if (designTabs.some(tab => tab.id === hash)) {
-        setActiveTab("design");
-        setActiveDesignTab(hash);
-      }
-      // AI Solutions
-      else if (hash === "ai-solutions") {
-        setActiveTab("ai");
-      }
-      // Support
-      else if (hash === "maintenance-support") {
-        setActiveTab("support");
-      }
+    if (!hash) return;
+
+    if (developmentTabs.find(tab => tab.id === hash)) {
+      setActiveTab("development");
+      setActiveDevTab(hash);
+    } else if (designTabs.find(tab => tab.id === hash)) {
+      setActiveTab("design");
+      setActiveDesignTab(hash);
+    } else if (hash === "ai-solutions") {
+      setActiveTab("ai");
+    } else if (hash === "maintenance-support") {
+      setActiveTab("support");
     }
   }, []);
 
-  const handleMainTabChange = (tabId: string) => {
-    setActiveTab(tabId);
-    
-    if (tabId === "development") {
-      setActiveDevTab("web-app");
-    } else if (tabId === "design") {
-      setActiveDesignTab("ui-design");
-    }
-  };
-
-  const handleDevTabChange = (tabId: string) => {
-    setActiveDevTab(tabId);
-  };
-
-  const handleDesignTabChange = (tabId: string) => {
-    setActiveDesignTab(tabId);
-  };
-
-  if (!mounted) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-900">
-        <div className="animate-pulse text-slate-400">Loading services...</div>
-      </div>
-    );
-  }
-
   return (
     <main className="bg-slate-900">
-      {/* Hero / intro */}
       <HeroSection />
 
-      {/* Services Navigation Section */}
+      {/* Services Navigation */}
       <section className="bg-slate-900 py-16 border-y border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section Title */}
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Our Services
-            </h2>
+            <h2 className="text-3xl font-bold text-white mb-4">Our Services</h2>
             <p className="text-slate-400 max-w-2xl mx-auto">
-              Comprehensive solutions tailored to your business needs. 
-              Choose a category to explore our specialized services.
+              Comprehensive solutions tailored to your business needs.
             </p>
           </div>
 
-          {/* Main Tab Navigation */}
+          {/* Main Tabs */}
           <div className="flex justify-center mb-8">
             <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-2 border border-slate-700">
               <div className="flex flex-wrap justify-center gap-1">
                 {mainTabs.map((tab) => (
                   <button
                     key={tab.id}
-                    onClick={() => handleMainTabChange(tab.id)}
-                    className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 whitespace-nowrap ${
+                    onClick={() => {
+                      setActiveTab(tab.id);
+                      if (tab.id === "development") setActiveDevTab("web-app");
+                      if (tab.id === "design") setActiveDesignTab("ui-design");
+                    }}
+                    className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 whitespace-nowrap ${
                       activeTab === tab.id
-                        ? "bg-blue-600 text-white shadow-lg shadow-blue-600/25 transform scale-105"
+                        ? "bg-blue-600 text-white shadow-lg shadow-blue-600/25"
                         : "text-slate-300 hover:text-white hover:bg-slate-700/50"
                     }`}
                   >
@@ -140,97 +98,95 @@ export default function ServicesIndexPage() {
             </div>
           </div>
 
-          {/* Sub-tabs for Development */}
-          {activeTab === "development" && (
-            <div className="flex justify-center mb-6">
-              <div className="bg-slate-800/30 backdrop-blur-sm rounded-lg p-1 border border-slate-700/50">
-                <div className="flex flex-wrap justify-center gap-1">
-                  {developmentTabs.map((tab) => (
-                    <button
-                      key={tab.id}
-                      onClick={() => handleDevTabChange(tab.id)}
-                      className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                        activeDevTab === tab.id
-                          ? "bg-blue-500 text-white shadow-md"
-                          : "text-slate-400 hover:text-white hover:bg-slate-700/50"
-                      }`}
-                    >
-                      {tab.label}
-                    </button>
-                  ))}
-                </div>
+          {/* Development Sub-tabs */}
+          <div className={`flex justify-center mb-6 transition-all duration-300 ${activeTab === "development" ? "opacity-100" : "opacity-0 pointer-events-none h-0"}`}>
+            <div className="bg-slate-800/30 backdrop-blur-sm rounded-lg p-1 border border-slate-700/50">
+              <div className="flex flex-wrap justify-center gap-1">
+                {developmentTabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveDevTab(tab.id)}
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 whitespace-nowrap ${
+                      activeDevTab === tab.id
+                        ? "bg-blue-500 text-white shadow-md"
+                        : "text-slate-400 hover:text-white hover:bg-slate-700/50"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
               </div>
             </div>
-          )}
+          </div>
 
-          {/* Sub-tabs for Design */}
-          {activeTab === "design" && (
-            <div className="flex justify-center mb-6">
-              <div className="bg-slate-800/30 backdrop-blur-sm rounded-lg p-1 border border-slate-700/50">
-                <div className="flex flex-wrap justify-center gap-1">
-                  {designTabs.map((tab) => (
-                    <button
-                      key={tab.id}
-                      onClick={() => handleDesignTabChange(tab.id)}
-                      className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                        activeDesignTab === tab.id
-                          ? "bg-blue-500 text-white shadow-md"
-                          : "text-slate-400 hover:text-white hover:bg-slate-700/50"
-                      }`}
-                    >
-                      {tab.label}
-                    </button>
-                  ))}
-                </div>
+          {/* Design Sub-tabs */}
+          <div className={`flex justify-center mb-6 transition-all duration-300 ${activeTab === "design" ? "opacity-100" : "opacity-0 pointer-events-none h-0"}`}>
+            <div className="bg-slate-800/30 backdrop-blur-sm rounded-lg p-1 border border-slate-700/50">
+              <div className="flex flex-wrap justify-center gap-1">
+                {designTabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveDesignTab(tab.id)}
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 whitespace-nowrap ${
+                      activeDesignTab === tab.id
+                        ? "bg-blue-500 text-white shadow-md"
+                        : "text-slate-400 hover:text-white hover:bg-slate-700/50"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
               </div>
-            </div>
-          )}
-
-          {/* Active Tab Indicator */}
-          <div className="text-center">
-            <div className="inline-flex items-center px-4 py-2 bg-slate-800/30 rounded-full border border-slate-700">
-              <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-              <span className="text-slate-300 text-sm">
-                {activeTab === "development" && `Development: ${developmentTabs.find(tab => tab.id === activeDevTab)?.label}`}
-                {activeTab === "design" && `Design: ${designTabs.find(tab => tab.id === activeDesignTab)?.label}`}
-                {activeTab === "ai" && "AI Solutions"}
-                {activeTab === "support" && "Support & Infrastructure"}
-              </span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Tab Content - Single Service Display */}
+      {/* Content Sections - ALL RENDERED, ONLY SHOW/HIDE */}
       <div className="bg-slate-900">
         {/* Development Content */}
-        {activeTab === "development" && (
-          <div>
-            {activeDevTab === "web-app" && <section id="web-app"><WebAppDevelopment /></section>}
-            {activeDevTab === "saas" && <section id="saas"><SaaSProductDev /></section>}
-            {activeDevTab === "ecommerce" && <section id="ecommerce"><EcommerceSolutions /></section>}
-            {activeDevTab === "wordpress" && <section id="wordpress"><WordPressServices /></section>}
-            {activeDevTab === "cloud" && <section id="cloud"><CloudDevOps /></section>}
+        <div className={activeTab === "development" ? "block" : "hidden"}>
+          <div className={activeDevTab === "web-app" ? "block" : "hidden"}>
+            <section id="web-app"><WebAppDevelopment /></section>
           </div>
-        )}
+          <div className={activeDevTab === "saas" ? "block" : "hidden"}>
+            <section id="saas"><SaaSProductDev /></section>
+          </div>
+          <div className={activeDevTab === "ecommerce" ? "block" : "hidden"}>
+            <section id="ecommerce"><EcommerceSolutions /></section>
+          </div>
+          <div className={activeDevTab === "wordpress" ? "block" : "hidden"}>
+            <section id="wordpress"><WordPressServices /></section>
+          </div>
+          <div className={activeDevTab === "cloud" ? "block" : "hidden"}>
+            <section id="cloud"><CloudDevOps /></section>
+          </div>
+        </div>
 
-        {/* AI Solutions Content */}
-        {activeTab === "ai" && <section id="ai-solutions"><AISolutions /></section>}
+        {/* AI Content */}
+        <div className={activeTab === "ai" ? "block" : "hidden"}>
+          <section id="ai-solutions"><AISolutions /></section>
+        </div>
 
         {/* Design Content */}
-        {activeTab === "design" && (
-          <div>
-            {activeDesignTab === "ui-design" && <section id="ui-design"><UIDesign /></section>}
-            {activeDesignTab === "digital-strategy" && <section id="digital-strategy"><DigitalStrategy /></section>}
-            {activeDesignTab === "brand-identity" && <section id="brand-identity"><BrandIdentity /></section>}
+        <div className={activeTab === "design" ? "block" : "hidden"}>
+          <div className={activeDesignTab === "ui-design" ? "block" : "hidden"}>
+            <section id="ui-design"><UIDesign /></section>
           </div>
-        )}
+          <div className={activeDesignTab === "digital-strategy" ? "block" : "hidden"}>
+            <section id="digital-strategy"><DigitalStrategy /></section>
+          </div>
+          <div className={activeDesignTab === "brand-identity" ? "block" : "hidden"}>
+            <section id="brand-identity"><BrandIdentity /></section>
+          </div>
+        </div>
 
         {/* Support Content */}
-        {activeTab === "support" && <section id="maintenance-support"><MaintenanceSupport /></section>}
+        <div className={activeTab === "support" ? "block" : "hidden"}>
+          <section id="maintenance-support"><MaintenanceSupport /></section>
+        </div>
       </div>
 
-      {/* Final CTA */}
       <FinalSection />
     </main>
   );
