@@ -42,29 +42,7 @@ export default function ServicesIndexPage() {
     { id: "brand-identity", label: "Brand Identity" },
   ];
 
-  // Set mounted to true on client side
-  useEffect(() => {
-    setMounted(true);
-    
-    // Set initial state based on hash if present
-    const hash = window.location.hash.replace("#", "");
-    if (hash) {
-      console.log('Initial hash detected:', hash);
-      updateActiveTabFromHash(hash);
-    }
-  }, []);
-
-  // Only run this effect on the client side after mounting
-  useEffect(() => {
-    if (!mounted) return;
-    
-    const hash = window.location.hash.replace("#", "");
-    if (hash) {
-      updateActiveTabFromHash(hash);
-    }
-  }, [mounted]);
-
-  const updateActiveTabFromHash = (hash: string) => {
+  const updateActiveTabFromHash = React.useCallback((hash: string) => {
     console.log('updateActiveTabFromHash called with:', hash);
     if (developmentTabs.some((tab: { id: string }) => tab.id === hash)) {
       console.log('Setting development tab:', hash);
@@ -91,8 +69,31 @@ export default function ServicesIndexPage() {
       setActiveTab("support");
       return;
     }
-  };
+  }, [developmentTabs, designTabs]);
 
+  // Set mounted to true on client side
+  useEffect(() => {
+    setMounted(true);
+    
+    // Set initial state based on hash if present
+    const hash = window.location.hash.replace("#", "");
+    if (hash) {
+      console.log('Initial hash detected:', hash);
+      updateActiveTabFromHash(hash);
+    }
+  }, [updateActiveTabFromHash]);
+
+  // Only run this effect on the client side after mounting
+  useEffect(() => {
+    if (!mounted) return;
+    
+    const hash = window.location.hash.replace("#", "");
+    if (hash) {
+      updateActiveTabFromHash(hash);
+    }
+  }, [mounted, updateActiveTabFromHash]);
+
+  // Handle route changes and hash changes
   useEffect(() => {
     const handleHashChange = () => {
       if (window.location.hash) {
@@ -101,7 +102,6 @@ export default function ServicesIndexPage() {
       }
     };
 
-  
     // Handle initial load
     handleHashChange();
 
@@ -110,40 +110,35 @@ export default function ServicesIndexPage() {
 
     // Handle Next.js client-side navigation
     const handleRouteChange = (url: string) => {
-      console.log('Route change detected:', url); // Debug log
+      console.log('Route change detected:', url);
       const hash = new URL(url, window.location.origin).hash.replace("#", "");
       if (hash) {
-        console.log('Route change hash:', hash); // Debug log
+        console.log('Route change hash:', hash);
         // Small timeout to ensure the DOM is ready
-        setTimeout(() => {
-          updateActiveTabFromHash(hash);
-        }, 10);
+        const timer = setTimeout(() => {
+          const element = document.getElementById(hash);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }, 100);
+        return () => clearTimeout(timer);
       }
     };
 
-    // Listen for route changes
-    const router = require('next/router');
-    router.events?.on('routeChangeComplete', handleRouteChange);
+    // Set up router events
+    let router: any;
+    import('next/router').then((mod) => {
+      router = mod.default;
+      router.events?.on('routeChangeComplete', handleRouteChange);
+    });
 
     return () => {
       window.removeEventListener('hashchange', handleHashChange, false);
-      router.events?.off('routeChangeComplete', handleRouteChange);
+      if (router?.events) {
+        router.events.off('routeChangeComplete', handleRouteChange);
+      }
     };
-  }, [developmentTabs, designTabs]);
-
-  useEffect(() => {
-    const hash = window.location.hash.replace("#", "");
-    if (hash) {
-      const timer = setTimeout(() => {
-        const element = document.getElementById(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }, 100);
-
-      return () => clearTimeout(timer);
-    }
-  }, [activeTab, activeDevTab, activeDesignTab]);
+  }, [updateActiveTabFromHash]);
 
   // Reset sub-tabs when main tab changes (only if not coming from hash)
   const handleMainTabChange = (tabId: string) => {
