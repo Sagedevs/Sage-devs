@@ -16,6 +16,7 @@ import BrandIdentity from "@/components/services/BrandIdentity";
 import MaintenanceSupport from "@/components/services/MaintenanceSupport";
 
 export default function ServicesIndexPage() {
+  const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState("development");
   const [activeDevTab, setActiveDevTab] = useState("web-app");
   const [activeDesignTab, setActiveDesignTab] = useState("ui-design");
@@ -41,39 +42,92 @@ export default function ServicesIndexPage() {
     { id: "brand-identity", label: "Brand Identity" },
   ];
 
+  // Set mounted to true on client side
+  useEffect(() => {
+    setMounted(true);
+    
+    // Set initial state based on hash if present
+    const hash = window.location.hash.replace("#", "");
+    if (hash) {
+      console.log('Initial hash detected:', hash);
+      updateActiveTabFromHash(hash);
+    }
+  }, []);
+
+  // Only run this effect on the client side after mounting
+  useEffect(() => {
+    if (!mounted) return;
+    
+    const hash = window.location.hash.replace("#", "");
+    if (hash) {
+      updateActiveTabFromHash(hash);
+    }
+  }, [mounted]);
+
+  const updateActiveTabFromHash = (hash: string) => {
+    console.log('updateActiveTabFromHash called with:', hash);
+    if (developmentTabs.some((tab: { id: string }) => tab.id === hash)) {
+      console.log('Setting development tab:', hash);
+      setActiveTab("development");
+      setActiveDevTab(hash);
+      return;
+    }
+
+    if (designTabs.some((tab: { id: string }) => tab.id === hash)) {
+      console.log('Setting design tab:', hash);
+      setActiveTab("design");
+      setActiveDesignTab(hash);
+      return;
+    }
+
+    if (hash === "ai-solutions") {
+      console.log('Setting AI tab');
+      setActiveTab("ai");
+      return;
+    }
+
+    if (hash === "maintenance-support") {
+      console.log('Setting support tab');
+      setActiveTab("support");
+      return;
+    }
+  };
+
   useEffect(() => {
     const handleHashChange = () => {
       if (window.location.hash) {
         const hash = window.location.hash.replace("#", "");
-  
-        if (developmentTabs.some(tab => tab.id === hash)) {
-          setActiveTab("development");
-          setActiveDevTab(hash);
-        }
-  
-        if (designTabs.some(tab => tab.id === hash)) {
-          setActiveTab("design");
-          setActiveDesignTab(hash);
-        }
-  
-        if (hash === "ai-solutions") {
-          setActiveTab("ai");
-        }
-  
-        if (hash === "maintenance-support") {
-          setActiveTab("support");
-        }
+        updateActiveTabFromHash(hash);
       }
     };
 
+  
     // Handle initial load
     handleHashChange();
 
     // Handle hash changes
-    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('hashchange', handleHashChange, false);
+
+    // Handle Next.js client-side navigation
+    const handleRouteChange = (url: string) => {
+      console.log('Route change detected:', url); // Debug log
+      const hash = new URL(url, window.location.origin).hash.replace("#", "");
+      if (hash) {
+        console.log('Route change hash:', hash); // Debug log
+        // Small timeout to ensure the DOM is ready
+        setTimeout(() => {
+          updateActiveTabFromHash(hash);
+        }, 10);
+      }
+    };
+
+    // Listen for route changes
+    const router = require('next/router');
+    router.events?.on('routeChangeComplete', handleRouteChange);
 
     return () => {
-      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('hashchange', handleHashChange, false);
+      router.events?.off('routeChangeComplete', handleRouteChange);
     };
   }, [developmentTabs, designTabs]);
 
@@ -91,15 +145,27 @@ export default function ServicesIndexPage() {
     }
   }, [activeTab, activeDevTab, activeDesignTab]);
 
-  // Reset sub-tabs when main tab changes
+  // Reset sub-tabs when main tab changes (only if not coming from hash)
   const handleMainTabChange = (tabId: string) => {
+    console.log('handleMainTabChange called with:', tabId, 'hash:', window.location.hash); // Debug log
     setActiveTab(tabId);
-    if (tabId === "development") {
+    if (tabId === "development" && !window.location.hash) {
+      console.log('Resetting development tab to web-app'); // Debug log
       setActiveDevTab("web-app");
-    } else if (tabId === "design") {
+    } else if (tabId === "design" && !window.location.hash) {
+      console.log('Resetting design tab to ui-design'); // Debug log
       setActiveDesignTab("ui-design");
     }
   };
+
+  // Show loading state until component is mounted on client side
+  if (!mounted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-900">
+        <div className="animate-pulse text-slate-400">Loading services...</div>
+      </div>
+    );
+  }
 
   return (
     <main className="bg-slate-900">
