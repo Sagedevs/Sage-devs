@@ -401,7 +401,7 @@ const AgencyCaseStudyHero = () => {
                 <svg className="w-5 h-5 mr-3 transition-transform group-hover:rotate-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                View Full Case Studies
+                Contact Now
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
             </button>
