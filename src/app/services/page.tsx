@@ -42,27 +42,39 @@ export default function ServicesIndexPage() {
   ];
 
   useEffect(() => {
-    if (window.location.hash) {
-      const hash = window.location.hash.replace("#", "");
-
-      if (developmentTabs.some(tab => tab.id === hash)) {
-        setActiveTab("development");
-        setActiveDevTab(hash);
+    const handleHashChange = () => {
+      if (window.location.hash) {
+        const hash = window.location.hash.replace("#", "");
+  
+        if (developmentTabs.some(tab => tab.id === hash)) {
+          setActiveTab("development");
+          setActiveDevTab(hash);
+        }
+  
+        if (designTabs.some(tab => tab.id === hash)) {
+          setActiveTab("design");
+          setActiveDesignTab(hash);
+        }
+  
+        if (hash === "ai-solutions") {
+          setActiveTab("ai");
+        }
+  
+        if (hash === "maintenance-support") {
+          setActiveTab("support");
+        }
       }
+    };
 
-      if (designTabs.some(tab => tab.id === hash)) {
-        setActiveTab("design");
-        setActiveDesignTab(hash);
-      }
+    // Handle initial load
+    handleHashChange();
 
-      if (hash === "ai-solutions") {
-        setActiveTab("ai");
-      }
+    // Handle hash changes
+    window.addEventListener('hashchange', handleHashChange);
 
-      if (hash === "maintenance-support") {
-        setActiveTab("support");
-      }
-    }
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
   }, [developmentTabs, designTabs]);
 
   useEffect(() => {

@@ -178,25 +178,24 @@ const megaMenuContent: MegaMenuContentMap = {
       {
         title: "Development Services",
         items: [
-          { label: "Web & App Development", href: "/services/web-app-development", description: "Custom web and mobile applications" },
-          { label: "SaaS & Product Dev", href: "/services/saas-product", description: "Scalable software solutions" },
-          { label: "E-commerce Solutions", href: "/services/ecommerce", description: "WordPress & Shopify stores" },
-          { label: "Cloud & DevOps", href: "/services/cloud-devops", description: "Infrastructure & deployment" },
+          { label: "Web & App Development", href: "/services#web-app", description: "Custom web and mobile applications" },
+          { label: "SaaS & Product Dev", href: "/services#saas", description: "Scalable software solutions" },
+          { label: "E-commerce Solutions", href: "/services#ecommerce", description: "WordPress & Shopify stores" },
+          { label: "Cloud & DevOps", href: "/services#cloud", description: "Infrastructure & deployment" },
           {
             label: "WordPress Services",
-            href: "/services/wordpress",
+            href: "/services#wordpress",
             description: "Custom WordPress sites, themes, plugins & maintenance"
           }
-          
         ]
       },
       {
         title: "Design & Strategy",
         items: [
-          { label: "UI/UX Design", href: "/services/ui-ux-design", description: "User-centered design approach" },
-          { label: "Digital Strategy", href: "/services/digital-strategy", description: "Business transformation planning" },
-          { label: "Brand Identity", href: "/services/brand-identity", description: "Complete brand solutions" },
-          { label: "Maintenance & Support", href: "/services/maintenance-support", description: "Ongoing technical support" }
+          { label: "UI/UX Design", href: "/services#ui-design", description: "User-centered design approach" },
+          { label: "Digital Strategy", href: "/services#digital-strategy", description: "Business transformation planning" },
+          { label: "Brand Identity", href: "/services#brand-identity", description: "Complete brand solutions" },
+          { label: "Maintenance & Support", href: "/services#maintenance-support", description: "Ongoing technical support" }
         ]
       }
     ],

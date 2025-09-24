@@ -4,8 +4,11 @@ import React, { useEffect, useRef, useState } from "react"
 const CustomCursor: React.FC = () => {
   const cursorRef = useRef<HTMLDivElement | null>(null)
   const lastPos = useRef({ x: 0, y: 0 })
+  const currentPos = useRef({ x: 0, y: 0 })
+  const targetPos = useRef({ x: 0, y: 0 })
   const velocity = useRef({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
+  const animationId = useRef<number | null>(null)
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -33,31 +36,24 @@ const CustomCursor: React.FC = () => {
       const particle = document.createElement("div")
       particle.className = "smoke-particle"
       
-      // Increased particle size
-      const size = 3 + Math.random() * 6  // Changed from 1-4 to 3-9
+      const size = 3 + Math.random() * 6
       
-      // Clear black and white particle distribution
       const isWhite = Math.random() > 0.5
       let color, opacity
       
       if (isWhite) {
-        // Pure white particles
         color = `rgb(255, 255, 255)`
         opacity = 0.8 + Math.random() * 0.2
       } else {
-        // Pure black particles
         color = `rgb(0, 0, 0)`
         opacity = 0.6 + Math.random() * 0.3
       }
       
-      // Reduced duration for faster disappearing
-      const duration = 0.8 + Math.random() * 1.2  // Changed from 1.5-3.5 to 0.8-2.0
+      const duration = 0.8 + Math.random() * 1.2
       
-      // Spread for particles
       const offsetX = (Math.random() - 0.5) * 8
       const offsetY = (Math.random() - 0.5) * 6
       
-      // Movement variation
       const drift = (Math.random() - 0.5) * 1.5
       
       particle.style.cssText = `
@@ -87,45 +83,95 @@ const CustomCursor: React.FC = () => {
       }, duration * 1000)
     }
 
-    const handleMove = (e: MouseEvent) => {
-      const newX = e.clientX
-      const newY = e.clientY
+    // Smooth animation loop
+    const animate = () => {
+      // Smooth interpolation - adjust these values for different smoothness levels
+      const smoothness = 0.15 // Lower = smoother but more lag, Higher = more responsive
       
-      const deltaX = newX - lastPos.current.x
-      const deltaY = newY - lastPos.current.y
+      currentPos.current.x += (targetPos.current.x - currentPos.current.x) * smoothness
+      currentPos.current.y += (targetPos.current.y - currentPos.current.y) * smoothness
+      
+      // Calculate velocity for particle generation
+      const deltaX = currentPos.current.x - lastPos.current.x
+      const deltaY = currentPos.current.y - lastPos.current.y
       velocity.current.x = deltaX
       velocity.current.y = deltaY
       
-      lastPos.current = { x: newX, y: newY }
-      
-      setIsVisible(true)
-      
+      // Update cursor position smoothly
       if (cursorRef.current) {
-        cursorRef.current.style.left = `${newX}px`
-        cursorRef.current.style.top = `${newY}px`
+        cursorRef.current.style.left = `${currentPos.current.x}px`
+        cursorRef.current.style.top = `${currentPos.current.y}px`
       }
       
-      // Generate more particles behind cursor
+      // Generate smoke particles
       const speed = Math.sqrt(velocity.current.x ** 2 + velocity.current.y ** 2)
-      if (speed > 1) { // Lower threshold for particle generation
-        const particleCount = Math.floor(Math.max(8, Math.min(speed / 3, 20))) // More particles
+      if (speed > 0.5) {
+        const particleCount = Math.floor(Math.max(4, Math.min(speed * 2, 12)))
         
         for (let i = 0; i < particleCount; i++) {
           createSmokeParticle(
-            newX + (Math.random() - 0.5) * 8,
-            newY + (Math.random() - 0.5) * 8,
+            currentPos.current.x + (Math.random() - 0.5) * 6,
+            currentPos.current.y + (Math.random() - 0.5) * 6,
             velocity.current.x * 0.1,
             velocity.current.y * 0.1
           )
         }
       }
+      
+      lastPos.current = { ...currentPos.current }
+      
+      animationId.current = requestAnimationFrame(animate)
     }
 
+    const handleMove = (e: MouseEvent) => {
+      // Update target position immediately (this follows the actual mouse)
+      targetPos.current.x = e.clientX
+      targetPos.current.y = e.clientY
+      
+      setIsVisible(true)
+    }
+
+    const handleMouseEnter = () => {
+      setIsVisible(true)
+    }
+
+    const handleMouseLeave = () => {
+      setIsVisible(false)
+    }
+
+    // Initialize positions
+    const initPos = (e: MouseEvent) => {
+      currentPos.current.x = e.clientX
+      currentPos.current.y = e.clientY
+      targetPos.current.x = e.clientX
+      targetPos.current.y = e.clientY
+      lastPos.current.x = e.clientX
+      lastPos.current.y = e.clientY
+    }
+
+    // Start animation loop
+    animationId.current = requestAnimationFrame(animate)
+
     window.addEventListener("mousemove", handleMove)
+    window.addEventListener("mouseenter", handleMouseEnter)
+    window.addEventListener("mouseleave", handleMouseLeave)
+    
+    // Initialize on first mouse move
+    const initHandler = (e: MouseEvent) => {
+      initPos(e)
+      window.removeEventListener("mousemove", initHandler)
+    }
+    window.addEventListener("mousemove", initHandler)
 
     return () => {
+      if (animationId.current) {
+        cancelAnimationFrame(animationId.current)
+      }
       window.removeEventListener("mousemove", handleMove)
+      window.removeEventListener("mouseenter", handleMouseEnter)
+      window.removeEventListener("mouseleave", handleMouseLeave)
       document.body.style.cursor = "auto"
+      
       // Remove the injected style
       const customStyle = document.querySelector('style')
       if (customStyle && customStyle.innerHTML.includes('cursor: none !important')) {
@@ -150,7 +196,9 @@ const CustomCursor: React.FC = () => {
           zIndex: 99999,
           boxShadow: "0 0 16px rgba(255,255,255,0.6), 0 0 8px rgba(255,255,255,0.8)",
           opacity: isVisible ? 1 : 0,
-          transition: "opacity 0.1s ease-out",
+          transition: "opacity 0.2s ease-out",
+          // Remove any CSS transitions on position for smoother movement
+          willChange: "transform, left, top"
         }}
       />
 
