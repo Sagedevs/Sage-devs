@@ -184,56 +184,51 @@ const Footer = () => {
     };
   }, []);
 
-  // Navigation data - Updated with correct paths from your navbar
+  // Main navigation - Updated to match navbar
   const mainNavigation: LinkItem[] = [
     { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-    { label: "Services", href: "/services" },
-    { label: "Portfolio", href: "/portfolio" },
-    { label: "Pricing", href: "/pricing" },
-    { label: "Contact", href: "/contact" },
+    { label: "About Us", href: "/about" },
+    { label: "Let's Talk AI", href: "/Letstalkai" },
+    { label: "Contact", href: "/Contact" },
+    { label: "Pricing & Plans", href: "/pricing" },
   ];
 
-  // Development Services
-  const developmentServices: LinkItem[] = [
-    { label: "Full Stack Development", href: "/services/full-stack" },
-    { label: "WordPress Services", href: "/services/wordpress" },
-    { label: "E-commerce Solutions", href: "/services/ecomerce" },
-    { label: "Frontend Development", href: "/services/frontend" },
-    { label: "Backend Development", href: "/services/backend" },
-    { label: "Mobile App Development", href: "/services/mobile" },
-    { label: "UI/UX Design", href: "/services/design" },
-    { label: "DevOps & Cloud", href: "/services/devops" },
+  // Services - Updated to match navbar structure
+  const services: LinkItem[] = [
+    { label: "Web & App Development", href: "/services#web-app-development" },
+    { label: "UI/UX Design", href: "/services#ui-ux-design" },
+    { label: "E-commerce (WordPress & Shopify)", href: "/services#ecommerce" },
+    { label: "SaaS & Product Dev", href: "/services#saas-product" },
+    { label: "Cloud & DevOps", href: "/services#cloud-devops" },
+    { label: "Maintenance & Support", href: "/services#maintenance-support" },
   ];
 
-  // Technologies
-  const technologies: LinkItem[] = [
-    { label: "React & Next.js", href: "/tech/react" },
-    { label: "Node.js & Express", href: "/tech/nodejs" },
-    { label: "Python & Django", href: "/tech/python" },
-    { label: "MongoDB & PostgreSQL", href: "/tech/databases" },
-    { label: "AWS & Azure", href: "/tech/cloud" },
-    { label: "React Native", href: "/tech/mobile" },
+  // Case Studies - Updated to match navbar
+  const caseStudies: LinkItem[] = [
+    { label: "Web Apps", href: "/case-studies#web-apps" },
+    { label: "SaaS", href: "/case-studies#saas" },
+    { label: "E-commerce", href: "/case-studies#ecommerce" },
+    { label: "Enterprise", href: "/case-studies#enterprise" },
   ];
 
-  // Industries
-  const industries: LinkItem[] = [
-    { label: "SaaS Platforms", href: "/industries/saas" },
-    { label: "E-commerce", href: "/industries/ecommerce" },
-    { label: "FinTech", href: "/industries/fintech" },
-    { label: "Healthcare", href: "/industries/healthcare" },
-    { label: "Education", href: "/industries/education" },
-    { label: "Real Estate", href: "/industries/real-estate" },
-  ];
-
-  // Resources
+  // Resources - Updated to match navbar
   const resources: LinkItem[] = [
-    { label: "Blog", href: "/blog" },
-    { label: "Case Studies", href: "/case-studies" },
-    { label: "Documentation", href: "/docs" },
-    { label: "Support", href: "/support" },
-    { label: "FAQ", href: "/faq" },
-    { label: "Career", href: "/careers" },
+    { label: "Blog / Insights", href: "/blog" },
+    { label: "Guides & Templates", href: "/resources#guides-templates" },
+    { label: "Webinars / Talks", href: "/resources#webinars-talks" },
+    { label: "FAQs", href: "/faq" },
+  ];
+
+  // About sections
+  const aboutSections: LinkItem[] = [
+    { label: "Team", href: "/about#team" },
+    { label: "Careers", href: "/about#careers" },
+  ];
+
+  // Contact options
+  const contactOptions: LinkItem[] = [
+    { label: "Get in Touch", href: "/contact#contact-form" },
+    { label: "Book a Call", href: "https://calendly.com/sagedevs-network/" },
   ];
 
   // Social links
@@ -255,7 +250,7 @@ const Footer = () => {
       href: "mailto:sagedevs.network@gmail.com",
       iconPath: "/icons/gmail_icon.svg",
       label: "Email"
-    },
+    }
   ];
 
   // Contact info
@@ -277,45 +272,16 @@ const Footer = () => {
     },
   ];
 
-  // Animation variants with proper typing
+  // Simple animation variants without entrance effects
   const containerVariants: Variants = {
-    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
     },
   };
 
   const itemVariants: Variants = {
-    hidden: { 
-      opacity: 0, 
-      y: 30,
-      scale: 0.9,
-    },
     visible: {
       opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 10,
-        duration: 0.6,
-      },
-    },
-  };
-
-  const pulseVariants: Variants = {
-    pulse: {
-      scale: [1, 1.05, 1],
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        repeatType: "reverse" as const,
-      },
     },
   };
 
@@ -357,7 +323,7 @@ const Footer = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Main footer content */}
         <motion.div
-          initial="hidden"
+          initial="visible"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={containerVariants}
@@ -367,11 +333,7 @@ const Footer = () => {
             {/* Company info */}
             <motion.div variants={itemVariants} className="lg:col-span-4 space-y-8">
               <div>
-                <motion.div 
-                  variants={pulseVariants}
-                  animate="pulse"
-                  className="inline-block mb-8"
-                >
+                <div className="inline-block mb-8">
                   <Link href="/" className="block">
                     <Image
                       src="/logo/logofixxed.svg"
@@ -381,7 +343,7 @@ const Footer = () => {
                       className="rounded-2xl shadow-2xl"
                     />
                   </Link>
-                </motion.div>
+                </div>
 
                 <h2 className="text-4xl font-bold mb-4">
                   <span className="bg-gradient-to-r from-white via-blue-200 to-cyan-200 bg-clip-text text-transparent">
@@ -394,9 +356,10 @@ const Footer = () => {
                 </p>
               </div>
             </motion.div>
+
             {/* Navigation sections */}
             <motion.div variants={itemVariants} className="lg:col-span-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8">
                 {/* Company Navigation */}
                 <div className="space-y-6">
                   <h3 className="text-white font-bold text-lg mb-6 relative">
@@ -405,9 +368,7 @@ const Footer = () => {
                   </h3>
                   <ul className="space-y-4">
                     {mainNavigation.map((link) => (
-                      <li
-                        key={link.href}
-                      >
+                      <li key={link.href}>
                         <LinkComponent
                           href={link.href}
                           className="text-gray-400 hover:text-white text-sm transition-all duration-300 hover:translate-x-2 inline-block"
@@ -426,10 +387,8 @@ const Footer = () => {
                     <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
                   </h3>
                   <ul className="space-y-4">
-                    {developmentServices.map((service) => (
-                      <li
-                        key={service.href}
-                      >
+                    {services.map((service) => (
+                      <li key={service.href}>
                         <LinkComponent
                           href={service.href}
                           className="text-gray-400 hover:text-white text-sm transition-all duration-300 hover:translate-x-2 inline-block"
@@ -441,44 +400,20 @@ const Footer = () => {
                   </ul>
                 </div>
 
-                {/* Technologies */}
+                {/* Case Studies */}
                 <div className="space-y-6">
                   <h3 className="text-white font-bold text-lg mb-6 relative">
-                    <span className="relative z-10">Technologies</span>
+                    <span className="relative z-10">Case Studies</span>
                     <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
                   </h3>
                   <ul className="space-y-4">
-                    {technologies.map((tech) => (
-                      <li
-                        key={tech.href}
-                      >
+                    {caseStudies.map((caseStudy) => (
+                      <li key={caseStudy.href}>
                         <LinkComponent
-                          href={tech.href}
+                          href={caseStudy.href}
                           className="text-gray-400 hover:text-white text-sm transition-all duration-300 hover:translate-x-2 inline-block"
                         >
-                          {tech.label}
-                        </LinkComponent>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Industries */}
-                <div className="space-y-6">
-                  <h3 className="text-white font-bold text-lg mb-6 relative">
-                    <span className="relative z-10">Industries</span>
-                    <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
-                  </h3>
-                  <ul className="space-y-4">
-                    {industries.map((industry) => (
-                      <li
-                        key={industry.href}
-                      >
-                        <LinkComponent
-                          href={industry.href}
-                          className="text-gray-400 hover:text-white text-sm transition-all duration-300 hover:translate-x-2 inline-block"
-                        >
-                          {industry.label}
+                          {caseStudy.label}
                         </LinkComponent>
                       </li>
                     ))}
@@ -493,14 +428,52 @@ const Footer = () => {
                   </h3>
                   <ul className="space-y-4">
                     {resources.map((resource) => (
-                      <li
-                        key={resource.href}
-                      >
+                      <li key={resource.href}>
                         <LinkComponent
                           href={resource.href}
                           className="text-gray-400 hover:text-white text-sm transition-all duration-300 hover:translate-x-2 inline-block"
                         >
                           {resource.label}
+                        </LinkComponent>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* About */}
+                <div className="space-y-6">
+                  <h3 className="text-white font-bold text-lg mb-6 relative">
+                    <span className="relative z-10">About</span>
+                    <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
+                  </h3>
+                  <ul className="space-y-4">
+                    {aboutSections.map((about) => (
+                      <li key={about.href}>
+                        <LinkComponent
+                          href={about.href}
+                          className="text-gray-400 hover:text-white text-sm transition-all duration-300 hover:translate-x-2 inline-block"
+                        >
+                          {about.label}
+                        </LinkComponent>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Contact Options */}
+                <div className="space-y-6">
+                  <h3 className="text-white font-bold text-lg mb-6 relative">
+                    <span className="relative z-10">Get Started</span>
+                    <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
+                  </h3>
+                  <ul className="space-y-4">
+                    {contactOptions.map((contact) => (
+                      <li key={contact.href}>
+                        <LinkComponent
+                          href={contact.href}
+                          className="text-gray-400 hover:text-white text-sm transition-all duration-300 hover:translate-x-2 inline-block"
+                        >
+                          {contact.label}
                         </LinkComponent>
                       </li>
                     ))}
@@ -545,13 +518,8 @@ const Footer = () => {
                       <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
                     </h3>
                     <div className="flex items-center space-x-4">
-                      {socialLinks.map((link, _index) => (
-                        <motion.div
-                          key={link.platform}
-                          initial={{ opacity: 0, scale: 0 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: _index * 0.1, type: "spring" }}
-                        >
+                      {socialLinks.map((link, index) => (
+                        <div key={link.platform}>
                           <Link
                             href={link.href}
                             target="_blank"
@@ -568,7 +536,7 @@ const Footer = () => {
                               className={`relative z-10 ${link.platform === "GitHub" ? "" : "filter brightness-0 invert group-hover:filter-none"} transition-all duration-300`}
                             />
                           </Link>
-                        </motion.div>
+                        </div>
                       ))}
                     </div>
                   </motion.div>
@@ -581,12 +549,7 @@ const Footer = () => {
                     </h3>
                     <div className="space-y-3">
                       {contactInfo.map((info, index) => (
-                        <motion.div
-                          key={info.label}
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                        >
+                        <div key={info.label}>
                           <LinkComponent
                             href={info.href}
                             className="block text-gray-400 hover:text-white transition-colors duration-300"
@@ -596,7 +559,7 @@ const Footer = () => {
                             </span>
                             <span className="text-sm block">{info.value}</span>
                           </LinkComponent>
-                        </motion.div>
+                        </div>
                       ))}
                     </div>
                   </motion.div>
@@ -609,10 +572,7 @@ const Footer = () => {
 
         {/* Bottom section */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          initial={{ opacity: 1 }}
           className="py-8 border-t border-slate-700/50"
         >
           <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
