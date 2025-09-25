@@ -1,5 +1,5 @@
 "use client"; // Add this directive at the very top of the file
-
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import {
   Calendar,
@@ -703,20 +703,20 @@ ${formData.projectDetails}`
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12 sm:mb-16 px-4">
-            <button
-              onClick={handleButtonClick(scrollToPlans, "Explore Services")}
-              className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-            >
-              Explore My Services
-            </button>
+          <Link
+  href="/services"
+  className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
+>
+  Explore My Services
+</Link>
 
-            <button
-              onClick={handleButtonClick(openWhatsApp, "WhatsApp")}
-              className="px-6 sm:px-8 py-3 sm:py-4 bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-sm rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-white shadow-lg"
-            >
-              <MessageCircle className="w-5 h-5 inline mr-2" />
-              Get a Free Quote
-            </button>
+<Link
+  href="/contact"
+  className="px-6 sm:px-8 py-3 sm:py-4 bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-sm rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-white shadow-lg inline-flex items-center justify-center"
+>
+  <MessageCircle className="w-5 h-5 mr-2" />
+  Get a Free Quote
+</Link>
           </div>
 
           {/* Tech Stack Icons */}
