@@ -681,7 +681,7 @@ ${formData.projectDetails}`
             Hire a Full Stack
             <br />
             <span className="bg-gradient-to-r from-blue-400 to-blue-500 bg-clip-text text-transparent">
-              Developer
+              Dev Team
             </span>
           </h1>
 
