@@ -82,6 +82,11 @@ const HeroSection = () => {
         .glow-effect {
           box-shadow: 0 0 40px rgba(59, 130, 246, 0.3);
         }
+        
+        @media (max-width: 1024px) {
+          .animate-float { animation: none; }
+          .animate-float-slow { animation: none; }
+        }
       `}</style>
 
       <section className="relative bg-black text-white overflow-hidden min-h-screen">
@@ -117,81 +122,81 @@ const HeroSection = () => {
         <div className="relative z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Hero Content Grid */}
-            <div className="grid lg:grid-cols-2 gap-16 items-center min-h-screen py-20">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-screen py-12 sm:py-16 lg:py-20">
               
               {/* Left Column - Content */}
-              <div className="space-y-8 animate-slide-left">
+              <div className="space-y-6 lg:space-y-8 animate-slide-left order-2 lg:order-1">
                 {/* Badge */}
-                <div className="inline-flex items-center space-x-2 px-6 py-3 glass-card rounded-full">
+                <div className="inline-flex items-center space-x-2 px-4 sm:px-6 py-2 sm:py-3 glass-card rounded-full">
                   <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-green-300">Premium Development Agency</span>
-                  <Zap className="w-4 h-4 text-yellow-400" />
+                  <span className="text-xs sm:text-sm font-medium text-green-300">Premium Development Agency</span>
+                  <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400" />
                 </div>
 
                 {/* Main Heading */}
-                <div className="space-y-4">
-                  <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
+                <div className="space-y-3 lg:space-y-4">
+                  <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
                     Transform Your
                     <span className="block gradient-text">
                       Digital Vision
                     </span>
-                    <span className="block text-4xl sm:text-5xl lg:text-6xl text-gray-300">
+                    <span className="block text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-gray-300">
                       Into Reality
                     </span>
                   </h1>
                 </div>
 
                 {/* Description */}
-                <p className="text-xl text-gray-300 leading-relaxed max-w-2xl">
-                  We&apos;re an elite 11-member development team crafting high-converting websites, 
+                <p className="text-lg sm:text-xl text-gray-300 leading-relaxed max-w-2xl">
+                  We&apos;re an elite 20-member development team crafting high-converting websites, 
                   e-commerce platforms, and intelligent web solutions that drive measurable business growth.
                 </p>
 
                 {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <button className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl transition-all duration-300 overflow-hidden glow-effect hover:shadow-blue-500/50">
+                <div className="flex flex-col sm:flex-row gap-3 lg:gap-4">
+                  <button className="group relative px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl transition-all duration-300 overflow-hidden glow-effect hover:shadow-blue-500/50 text-sm lg:text-base">
                     <span className="relative z-10 flex items-center justify-center">
                       Start Your Project
-                      <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                     </span>
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                   </button>
                   
-                  <button className="group px-8 py-4 glass-card hover:bg-white/10 border border-white/20 hover:border-blue-500/50 text-white font-semibold rounded-xl transition-all duration-300">
+                  <button className="group px-6 lg:px-8 py-3 lg:py-4 glass-card hover:bg-white/10 border border-white/20 hover:border-blue-500/50 text-white font-semibold rounded-xl transition-all duration-300 text-sm lg:text-base">
                     <span className="flex items-center justify-center">
-                      <Play className="w-5 h-5 mr-2" />
+                      <Play className="w-4 h-4 lg:w-5 lg:h-5 mr-2" />
                       Watch Demo
                     </span>
                   </button>
                 </div>
 
                 {/* Service Showcase Card */}
-                <div className="glass-card rounded-2xl p-6 space-y-4">
+                <div className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-6 space-y-3 lg:space-y-4">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-semibold text-blue-300">Our Expertise</h3>
-                    <div className="flex space-x-2">
+                    <h3 className="text-base lg:text-lg font-semibold text-blue-300">Our Expertise</h3>
+                    <div className="flex space-x-1 lg:space-x-2">
                       {services.map((_, index) => (
                         <div 
                           key={index} 
-                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                            index === currentService ? 'bg-blue-400 w-6' : 'bg-gray-600'
+                          className={`w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full transition-all duration-300 ${
+                            index === currentService ? 'bg-blue-400 w-4 lg:w-6' : 'bg-gray-600'
                           }`}
                         ></div>
                       ))}
                     </div>
                   </div>
                   
-                  <div className="flex items-center space-x-4 transition-all duration-500">
-                    <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
+                  <div className="flex items-center space-x-3 lg:space-x-4 transition-all duration-500">
+                    <div className="w-10 h-10 lg:w-12 lg:h-12 bg-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
                       {React.createElement(services[currentService].icon, { 
-                        className: "w-6 h-6 text-blue-400" 
+                        className: "w-5 h-5 lg:w-6 lg:h-6 text-blue-400" 
                       })}
                     </div>
-                    <div>
-                      <h4 className="text-xl font-bold text-white">
+                    <div className="min-w-0">
+                      <h4 className="text-lg lg:text-xl font-bold text-white">
                         {services[currentService].title}
                       </h4>
-                      <p className="text-gray-400">
+                      <p className="text-sm lg:text-base text-gray-400">
                         {services[currentService].desc}
                       </p>
                     </div>
@@ -199,172 +204,149 @@ const HeroSection = () => {
                 </div>
 
                 {/* Quick Stats */}
-                <div className="grid grid-cols-3 gap-6">
+                <div className="grid grid-cols-3 gap-3 lg:gap-6">
                   {[
                     { label: 'Projects', value: '400+', icon: TrendingUp },
                     { label: 'Success Rate', value: '98%', icon: Target },
-                    { label: 'Team Size', value: '11', icon: Users }
+                    { label: 'Team Size', value: '20', icon: Users }
                   ].map((stat, index) => (
-                    <div key={index} className="text-center glass-card rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
-                      <stat.icon className="w-6 h-6 text-blue-400 mx-auto mb-2" />
-                      <div className="text-2xl font-bold text-white">{stat.value}</div>
-                      <div className="text-sm text-gray-400">{stat.label}</div>
+                    <div key={index} className="text-center glass-card rounded-lg lg:rounded-xl p-3 lg:p-4 hover:bg-white/10 transition-all duration-300">
+                      <stat.icon className="w-4 h-4 lg:w-6 lg:h-6 text-blue-400 mx-auto mb-1 lg:mb-2" />
+                      <div className="text-lg lg:text-2xl font-bold text-white">{stat.value}</div>
+                      <div className="text-xs lg:text-sm text-gray-400">{stat.label}</div>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Right Column - Floating Elements */}
-              <div className="relative h-screen flex items-center justify-center animate-slide-right">
+              <div className="relative flex items-center justify-center animate-slide-right order-1 lg:order-2 h-80 sm:h-96 lg:h-screen py-8 sm:py-12 lg:py-0">
                 {/* Central Core Element */}
-                <div className="relative">
+                <div className="relative scale-75 sm:scale-90 lg:scale-100">
                   {/* Main Central Circle */}
-                  <div className="relative w-48 h-48 glass-card rounded-full flex items-center justify-center glow-effect animate-float-slow">
-                    <div className="w-32 h-32 bg-gradient-to-br from-blue-500/40 to-purple-600/30 rounded-full flex items-center justify-center">
+                  <div className="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 glass-card rounded-full flex items-center justify-center glow-effect animate-float-slow">
+                    <div className="w-20 h-20 sm:w-28 sm:h-28 lg:w-32 lg:h-32 bg-gradient-to-br from-blue-500/40 to-purple-600/30 rounded-full flex items-center justify-center">
                       <div className="text-center">
-                        <div className="text-4xl font-bold text-white mb-2">11</div>
-                        <div className="text-sm text-blue-200 font-semibold">Expert Team</div>
+                        <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1 lg:mb-2">20</div>
+                        <div className="text-xs sm:text-sm text-blue-200 font-semibold">Expert Team</div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Floating Achievement Cards */}
-                  {/* Top Left */}
-                  <div 
-                    className="absolute -top-20 -left-32 animate-float"
-                    style={{animationDelay: '0s'}}
-                  >
-                    <div className="glass-card rounded-2xl p-4 glow-effect hover:scale-105 transition-transform duration-300">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center">
-                          <TrendingUp className="w-6 h-6 text-green-400" />
-                        </div>
-                        <div>
-                          <div className="text-2xl font-bold text-white">300%</div>
-                          <div className="text-sm text-green-300">ROI Growth</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Top Right */}
-                  <div 
-                    className="absolute -top-16 -right-36 animate-float"
-                    style={{animationDelay: '1s'}}
-                  >
-                    <div className="glass-card rounded-2xl p-4 glow-effect hover:scale-105 transition-transform duration-300">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
-                          <Target className="w-6 h-6 text-blue-400" />
-                        </div>
-                        <div>
-                          <div className="text-2xl font-bold text-white">98%</div>
-                          <div className="text-sm text-blue-300">Success Rate</div>
+                  {/* Floating Achievement Cards - Visible on all screens but simplified on mobile */}
+                  <div>
+                    {/* Top Left */}
+                    <div 
+                      className="absolute -top-8 sm:-top-16 lg:-top-24 -left-16 sm:-left-24 lg:-left-36 animate-float"
+                      style={{animationDelay: '0s'}}
+                    >
+                      <div className="glass-card rounded-lg sm:rounded-xl lg:rounded-2xl p-3 sm:p-3 lg:p-4 glow-effect hover:scale-105 transition-transform duration-300">
+                        <div className="flex items-center space-x-2 sm:space-x-2 lg:space-x-3">
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-green-500/20 rounded-lg lg:rounded-xl flex items-center justify-center">
+                            <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-green-400" />
+                          </div>
+                          <div>
+                            <div className="text-base sm:text-xl lg:text-2xl font-bold text-white">300%</div>
+                            <div className="text-xs lg:text-sm text-green-300 hidden sm:block">ROI Growth</div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Left Side */}
-                  <div 
-                    className="absolute top-16 -left-40 animate-float"
-                    style={{animationDelay: '2s'}}
-                  >
-                    <div className="glass-card rounded-2xl p-4 glow-effect hover:scale-105 transition-transform duration-300">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center">
-                          <Brain className="w-6 h-6 text-purple-400" />
-                        </div>
-                        <div>
-                          <div className="text-lg font-bold text-white">AI</div>
-                          <div className="text-sm text-purple-300">Powered</div>
+                    {/* Top Right */}
+                    <div 
+                      className="absolute -top-6 sm:-top-12 lg:-top-20 -right-20 sm:-right-28 lg:-right-40 animate-float"
+                      style={{animationDelay: '1s'}}
+                    >
+                      <div className="glass-card rounded-lg sm:rounded-xl lg:rounded-2xl p-3 sm:p-3 lg:p-4 glow-effect hover:scale-105 transition-transform duration-300">
+                        <div className="flex items-center space-x-2 sm:space-x-2 lg:space-x-3">
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-blue-500/20 rounded-lg lg:rounded-xl flex items-center justify-center">
+                            <Target className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-blue-400" />
+                          </div>
+                          <div>
+                            <div className="text-base sm:text-xl lg:text-2xl font-bold text-white">98%</div>
+                            <div className="text-xs lg:text-sm text-blue-300 hidden sm:block">Success Rate</div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Right Side */}
-                  <div 
-                    className="absolute top-20 -right-44 animate-float"
-                    style={{animationDelay: '3s'}}
-                  >
-                    <div className="glass-card rounded-2xl p-4 glow-effect hover:scale-105 transition-transform duration-300">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center">
-                          <Zap className="w-6 h-6 text-orange-400" />
-                        </div>
-                        <div>
-                          <div className="text-lg font-bold text-white">24/7</div>
-                          <div className="text-sm text-orange-300">Support</div>
+                    {/* Left Side */}
+                    <div 
+                      className="absolute top-6 sm:top-12 lg:top-20 -left-20 sm:-left-32 lg:-left-44 animate-float"
+                      style={{animationDelay: '2s'}}
+                    >
+                      <div className="glass-card rounded-lg sm:rounded-xl lg:rounded-2xl p-3 sm:p-3 lg:p-4 glow-effect hover:scale-105 transition-transform duration-300">
+                        <div className="flex items-center space-x-2 sm:space-x-2 lg:space-x-3">
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-purple-500/20 rounded-lg lg:rounded-xl flex items-center justify-center">
+                            <Brain className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-purple-400" />
+                          </div>
+                          <div>
+                            <div className="text-base sm:text-lg lg:text-xl font-bold text-white">AI</div>
+                            <div className="text-xs lg:text-sm text-purple-300 hidden sm:block">Powered</div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Bottom Left */}
-                  <div 
-                    className="absolute -bottom-16 -left-36 animate-float"
-                    style={{animationDelay: '4s'}}
-                  >
-                    <div className="glass-card rounded-2xl p-4 glow-effect hover:scale-105 transition-transform duration-300">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 bg-yellow-500/20 rounded-xl flex items-center justify-center">
-                          <Star className="w-6 h-6 text-yellow-400" />
-                        </div>
-                        <div>
-                          <div className="text-2xl font-bold text-white">4.9</div>
-                          <div className="text-sm text-yellow-300">Rating</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Bottom Right */}
-                  <div 
-                    className="absolute -bottom-12 -right-40 animate-float"
-                    style={{animationDelay: '5s'}}
-                  >
-                    <div className="glass-card rounded-2xl p-4 glow-effect hover:scale-105 transition-transform duration-300">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 bg-cyan-500/20 rounded-xl flex items-center justify-center">
-                          <Globe className="w-6 h-6 text-cyan-400" />
-                        </div>
-                        <div>
-                          <div className="text-2xl font-bold text-white">400+</div>
-                          <div className="text-sm text-cyan-300">Projects</div>
+                    {/* Right Side */}
+                    <div 
+                      className="absolute top-10 sm:top-16 lg:top-24 -right-24 sm:-right-32 lg:-right-48 animate-float"
+                      style={{animationDelay: '3s'}}
+                    >
+                      <div className="glass-card rounded-lg sm:rounded-xl lg:rounded-2xl p-3 sm:p-3 lg:p-4 glow-effect hover:scale-105 transition-transform duration-300">
+                        <div className="flex items-center space-x-2 sm:space-x-2 lg:space-x-3">
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-orange-500/20 rounded-lg lg:rounded-xl flex items-center justify-center">
+                            <Zap className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-orange-400" />
+                          </div>
+                          <div>
+                            <div className="text-base sm:text-lg lg:text-xl font-bold text-white">24/7</div>
+                            <div className="text-xs lg:text-sm text-orange-300 hidden sm:block">Support</div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Additional Small Floating Elements */}
-                  <div 
-                    className="absolute -top-8 left-20 animate-float"
-                    style={{animationDelay: '6s'}}
-                  >
-                    <div className="glass-card rounded-xl p-3 glow-effect">
-                      <div className="text-center">
-                        <div className="text-lg font-bold text-white">99.9%</div>
-                        <div className="text-xs text-gray-300">Uptime</div>
+                    {/* Bottom Left */}
+                    <div 
+                      className="absolute -bottom-6 sm:-bottom-12 lg:-bottom-20 -left-18 sm:-left-28 lg:-left-40 animate-float"
+                      style={{animationDelay: '4s'}}
+                    >
+                      <div className="glass-card rounded-lg sm:rounded-xl lg:rounded-2xl p-3 sm:p-3 lg:p-4 glow-effect hover:scale-105 transition-transform duration-300">
+                        <div className="flex items-center space-x-2 sm:space-x-2 lg:space-x-3">
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-yellow-500/20 rounded-lg lg:rounded-xl flex items-center justify-center">
+                            <Star className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-yellow-400" />
+                          </div>
+                          <div>
+                            <div className="text-base sm:text-xl lg:text-2xl font-bold text-white">4.9</div>
+                            <div className="text-xs lg:text-sm text-yellow-300 hidden sm:block">Rating</div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div 
-                    className="absolute bottom-6 right-16 animate-float"
-                    style={{animationDelay: '7s'}}
-                  >
-                    <div className="glass-card rounded-xl p-3 glow-effect">
-                      <div className="text-center">
-                        <div className="text-lg font-bold text-white">&lt;2s</div>
-                        <div className="text-xs text-gray-300">Load Time</div>
+                    {/* Bottom Right */}
+                    <div 
+                      className="absolute -bottom-4 sm:-bottom-8 lg:-bottom-16 -right-26 sm:-right-36 lg:-right-44 animate-float"
+                      style={{animationDelay: '5s'}}
+                    >
+                      <div className="glass-card rounded-lg sm:rounded-xl lg:rounded-2xl p-3 sm:p-3 lg:p-4 glow-effect hover:scale-105 transition-transform duration-300">
+                        <div className="flex items-center space-x-2 sm:space-x-2 lg:space-x-3">
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-cyan-500/20 rounded-lg lg:rounded-xl flex items-center justify-center">
+                            <Globe className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-cyan-400" />
+                          </div>
+                          <div>
+                            <div className="text-base sm:text-xl lg:text-2xl font-bold text-white">500+</div>
+                            <div className="text-xs lg:text-sm text-cyan-300 hidden sm:block">Projects</div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Connecting Lines */}
-                <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+                {/* Connecting Lines - Hidden on mobile */}
+                <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none hidden lg:block" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.6" />
@@ -388,9 +370,9 @@ const HeroSection = () => {
                   />
                 </svg>
 
-                {/* Particle Effects */}
+                {/* Particle Effects - Reduced on mobile */}
                 <div className="absolute inset-0 pointer-events-none">
-                  {[...Array(8)].map((_, i) => (
+                  {[...Array(4)].map((_, i) => (
                     <div
                       key={i}
                       className={`absolute w-1 h-1 bg-blue-400 rounded-full animate-ping`}
@@ -410,13 +392,13 @@ const HeroSection = () => {
 
         {/* Bottom Section - Key Benefits */}
         <div className="relative z-10 border-t border-white/10 bg-black/50 backdrop-blur-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-white mb-4">Why Leading Businesses Choose Us</h2>
-              <p className="text-xl text-gray-400">We deliver results that matter to your bottom line</p>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-[140px] py-12 sm:py-16 lg:py-20">
+            <div className="text-center mb-12 lg:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3 lg:mb-4">Why Leading Businesses Choose Us</h2>
+              <p className="text-lg sm:text-xl text-gray-400">We deliver results that matter to your bottom line</p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {[
                 {
                   title: 'Complete Solution',
@@ -437,17 +419,17 @@ const HeroSection = () => {
                   highlight: '98% success rate'
                 }
               ].map((benefit, index) => (
-                <div key={index} className="group glass-card rounded-2xl p-8 hover:bg-white/10 hover:scale-105 transition-all duration-300 text-center">
-                  <div className="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                    <benefit.icon className="w-8 h-8 text-blue-400" />
+                <div key={index} className="group glass-card rounded-xl lg:rounded-2xl p-6 lg:p-8 hover:bg-white/10 hover:scale-105 transition-all duration-300 text-center sm:col-span-2 lg:col-span-1 last:sm:col-start-2 last:lg:col-start-auto">
+                  <div className="w-12 h-12 lg:w-16 lg:h-16 bg-blue-500/20 rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-4 lg:mb-6 group-hover:scale-110 transition-transform">
+                    <benefit.icon className="w-6 h-6 lg:w-8 lg:h-8 text-blue-400" />
                   </div>
                   
-                  <div className="inline-flex items-center px-3 py-1 bg-blue-900/50 border border-blue-500/30 rounded-full text-sm text-blue-300 mb-4">
+                  <div className="inline-flex items-center px-3 py-1 bg-blue-900/50 border border-blue-500/30 rounded-full text-xs lg:text-sm text-blue-300 mb-3 lg:mb-4">
                     {benefit.highlight}
                   </div>
                   
-                  <h3 className="text-xl font-bold text-white mb-4">{benefit.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{benefit.description}</p>
+                  <h3 className="text-lg lg:text-xl font-bold text-white mb-3 lg:mb-4">{benefit.title}</h3>
+                  <p className="text-sm lg:text-base text-gray-400 leading-relaxed">{benefit.description}</p>
                 </div>
               ))}
             </div>
