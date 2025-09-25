@@ -436,8 +436,8 @@ const HireMePage = () => {
       "Physical product manufacturing or logistics",
       "Travel expenses for in-person meetings (if required)",
     ],
-    bgGradient: "from-red-800/20 via-orange-900/20 to-yellow-900/20",
-    borderGradient: "from-red-600 to-yellow-700",
+    bgGradient: "from-blue-800/20 via-blue-900/20 to-indigo-900/20",
+    borderGradient: "from-blue-600 to-indigo-700",
     bestFor:
       "Large enterprises and ambitious startups seeking an all-in-one partner for explosive growth and digital dominance.",
   };
@@ -865,8 +865,8 @@ ${formData.projectDetails}`
           {/* Monthly Retainer Plans */}
           <div className="text-center mt-16 mb-10">
             <h3 className="text-2xl sm:text-3xl font-bold mb-6 text-white flex items-center justify-center">
-              <Sparkles className="w-6 h-6 mr-3 text-yellow-300" />
-              <span className="bg-gradient-to-r from-white to-yellow-300 bg-clip-text text-transparent">
+              <Sparkles className="w-6 h-6 mr-3 text-blue-300" />
+              <span className="bg-gradient-to-r from-white to-blue-300 bg-clip-text text-transparent">
                 💼 Monthly Retainer Plans
               </span>
             </h3>
@@ -1727,20 +1727,20 @@ ${formData.projectDetails}`
             className={`relative p-8 sm:p-10 rounded-3xl border transition-all duration-300 transform shadow-2xl backdrop-blur-sm bg-gradient-to-br ${everythingIncludedPlan.bgGradient} border-white/20`}
           >
             <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-              <span className="bg-gradient-to-r from-red-600 to-yellow-600 text-white px-6 py-2 rounded-full text-lg font-bold shadow-lg flex items-center gap-2">
+              <span className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-full text-lg font-bold shadow-lg flex items-center gap-2">
                 <Gift className="w-6 h-6" />
                 The Ultimate Package
               </span>
             </div>
 
-            <h2 className="mt-8 text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-yellow-300 to-orange-300 bg-clip-text text-transparent leading-tight">
+            <h2 className="mt-8 text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-blue-300 to-blue-500 bg-clip-text text-transparent leading-tight">
               {everythingIncludedPlan.name}
             </h2>
-            <p className="text-xl sm:text-2xl text-orange-300 mb-6 font-medium">
+            <p className="text-xl sm:text-2xl text-blue-300 mb-6 font-medium">
               {everythingIncludedPlan.tagline}
             </p>
 
-            <div className="text-5xl sm:text-6xl font-bold mb-8 bg-gradient-to-r from-white to-yellow-300 bg-clip-text text-transparent">
+            <div className="text-5xl sm:text-6xl font-bold mb-8 bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">
               {everythingIncludedPlan.price}
             </div>
 
@@ -1759,7 +1759,7 @@ ${formData.projectDetails}`
 
             <button
               onClick={handleButtonClick(openEmail, "Get Custom Quote")}
-              className="px-10 py-4 bg-gradient-to-r from-red-600 to-yellow-600 hover:from-red-700 hover:to-yellow-700 text-white rounded-full font-bold text-xl transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center mx-auto"
+              className="px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-full font-bold text-xl transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center mx-auto"
             >
               <Send className="w-5 h-5 mr-3" />
               Get a Custom Quote for this Plan
