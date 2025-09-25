@@ -51,6 +51,7 @@ interface GooeyNavChildItem {
   external?: boolean;
   description?: string;
   id?: number;
+  image?: string;
 }
 
 interface GooeyNavItem {
@@ -215,7 +216,7 @@ const megaMenuContent: MegaMenuContentMap = {
     subtitle: "Comprehensive solutions for your digital transformation",
     categories: [
       {
-        title: "Development Services",
+        title: "Web Development",
         items: [
           { label: "Web & App Development", href: "/services#web-app", description: "Custom web and mobile applications" },
           { label: "SaaS & Product Dev", href: "/services#saas", description: "Scalable software solutions" },
@@ -229,6 +230,71 @@ const megaMenuContent: MegaMenuContentMap = {
         ]
       },
       {
+        title: "Web Development Resources",
+        items: [
+          { 
+            label: "React vs Vue.js in 2024", 
+            href: "/blog/react-vs-vue-2024",
+            description: "Complete developer's guide to choosing the right framework",
+            image: "/blog/6.webp"
+          },
+          { 
+            label: "Building Scalable APIs", 
+            href: "/blog/scalable-nodejs-apis",
+            description: "Node.js and Express best practices",
+            image: "/blog/7.webp"
+          },
+          { 
+            label: "CSS Grid vs Flexbox", 
+            href: "/blog/css-grid-vs-flexbox",
+            description: "When to use which layout system",
+            image: "/blog/8.webp"
+          },
+          { 
+            label: "Progressive Web Apps", 
+            href: "/blog/progressive-web-apps-guide",
+            description: "The complete guide to PWAs",
+            image: "/blog/9.webp"
+          },
+          { 
+            label: "Web Performance Optimization", 
+            href: "/blog/web-performance-optimization",
+            description: "From 3s to 300ms load times",
+            image: "/blog/10.webp"
+          }
+        ]
+      },
+      {
+        title: "AI Solutions",
+        items: [
+          { 
+            label: "AI Solutions", 
+            href: "/services#ai-solutions",
+            description: "Expert guidance for your AI journey"
+          },
+          { 
+            label: "AI Consultation", 
+            href: "/Letstalkai#ai-consultation",
+            description: "Expert guidance for your AI journey"
+          },
+          { 
+            label: "Machine Learning", 
+            href: "/Letstalkai#machine-learning",
+            description: "Custom ML models for your business needs"
+          },
+          { 
+            label: "Computer Vision", 
+            href: "/Letstalkai#computer-vision",
+            description: "Image and video analysis solutions"
+          },
+          { 
+            label: "AI Strategy", 
+            href: "/Letstalkai#ai-strategy",
+            description: "Comprehensive AI roadmap for your business"
+          },
+        ]
+      },
+      {
         title: "Design & Strategy",
         items: [
           { label: "UI/UX Design", href: "/services#ui-design", description: "User-centered design approach" },
@@ -237,6 +303,7 @@ const megaMenuContent: MegaMenuContentMap = {
           { label: "Maintenance & Support", href: "/services#maintenance-support", description: "Ongoing technical support" }
         ]
       }
+      
     ],
     
     featured: {
@@ -258,7 +325,9 @@ const megaMenuContent: MegaMenuContentMap = {
         "Mobile Optimization",
         "SEO Ready"
       ]
+      
     }
+    
   },
   "Case Studies": {
     title: "Success Stories",
@@ -598,35 +667,46 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   const renderStandardMegaMenu = useCallback((content: MegaMenuItemContent) => (
     <div className="standard-mega-menu-layout">
       {/* Left Column - Categories */}
-      <div className="mega-menu-categories">
+      <div className="mega-menu-categories grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 -mt-4 -ml-2">
         {content.categories?.map((category) => (
           <div key={category.title} className="mega-menu-category">
-            <h4>{category.title}</h4>
-            <div className="category-items">
+            <h4 className="text-lg font-semibold text-white mb-3">{category.title}</h4>
+            <div className="category-items space-y-2">
               {category.items.map((item) => (
-                item.external ? (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mega-menu-item"
-                    onClick={closeMegaMenu}
-                  >
-                    <h5>{item.label} ↗</h5>
-                    <p>{item.description}</p>
-                  </a>
-                ) : (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className="mega-menu-item"
-                    onClick={closeMegaMenu}
-                  >
-                    <h5>{item.label}</h5>
-                    <p>{item.description}</p>
-                  </Link>
-                )
+                <div key={item.label} className="mega-menu-item-container flex items-start gap-3 p-2 rounded-lg hover:bg-gray-800/50 transition-colors">
+                  {item.image && (
+                    <div className="menu-item-image flex-shrink-0">
+                      <Image 
+                        src={item.image} 
+                        alt={item.label} 
+                        width={48} 
+                        height={48} 
+                        className="w-12 h-12 object-cover rounded-md"
+                      />
+                    </div>
+                  )}
+                  {item.external ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mega-menu-item"
+                      onClick={closeMegaMenu}
+                    >
+                      <h5>{item.label} ↗</h5>
+                      {item.description && <p>{item.description}</p>}
+                    </a>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="mega-menu-item flex-1 min-w-0"
+                      onClick={closeMegaMenu}
+                    >
+                      <h5 className="text-white text-sm font-medium leading-tight">{item.label}</h5>
+                      {item.description && <p className="text-gray-400 text-xs mt-1 leading-tight">{item.description}</p>}
+                    </Link>
+                  )}
+                </div>
               ))}
             </div>
           </div>
@@ -955,13 +1035,13 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
       .mega-menu-categories {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 2rem;
+        gap: 0.5rem;
       }
       
       .category-items {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.25rem;
       }
       
       .mega-menu-left-sidebar {
