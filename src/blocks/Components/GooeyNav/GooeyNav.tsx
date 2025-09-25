@@ -267,22 +267,22 @@ const megaMenuContent: MegaMenuContentMap = {
       {
         title: "By Industry",
         items: [
-          { label: "Web Apps", href: "/case-studies/web-apps", description: "Custom web applications" },
-          { label: "SaaS Platforms", href: "/case-studies/saas", description: "Scalable software solutions" },
-          { label: "E-commerce", href: "/case-studies/ecommerce", description: "Online retail success" },
-          { label: "Enterprise", href: "/case-studies/enterprise", description: "Large-scale implementations" },
-          { label: "WordPress Projects", href: "/case-studies/wordpress", description: "Custom WordPress sites & plugins" } // Added WordPress
+          { label: "Web Apps", href: "/case-studies#case-studies-grid", description: "Custom web applications" },
+          { label: "SaaS Platforms", href: "/case-studies#case-studies-grid", description: "Scalable software solutions" },
+          { label: "E-commerce", href: "/case-studies#case-studies-grid", description: "Online retail success" },
+          { label: "Enterprise", href: "/case-studies#case-studies-grid", description: "Large-scale implementations" },
+          { label: "WordPress Projects", href: "/case-studies#case-studies-grid", description: "Custom WordPress sites & plugins" } // Added WordPress
         ]
       },
       {
         title: "By Technology",
         items: [
-          { label: "React & Next.js", href: "/case-studies/react", description: "Modern web frameworks" },
-          { label: "Mobile Apps", href: "/case-studies/mobile", description: "iOS & Android development" },
-          { label: "AI & ML", href: "/case-studies/ai-ml", description: "Machine learning projects" },
-          { label: "Blockchain", href: "/case-studies/blockchain", description: "Decentralized solutions" },
-          { label: "WordPress & PHP", href: "/case-studies/wordpress-php", description: "WordPress, plugins & theme development" }, // Added WordPress tech
-          { label: "Frontend Web", href: "/case-studies/frontend-web", description: "HTML, CSS, JS, and modern frameworks" } // Added general web
+          { label: "React & Next.js", href: "/case-studies#case-studies-grid", description: "Modern web frameworks" },
+          { label: "Mobile Apps", href: "/case-studies#case-studies-grid", description: "iOS & Android development" },
+          { label: "AI & ML", href: "/case-studies#case-studies-grid", description: "Machine learning projects" },
+          { label: "Blockchain", href: "/case-studies#case-studies-grid", description: "Decentralized solutions" },
+          { label: "WordPress & PHP", href: "/case-studies#case-studies-grid", description: "WordPress, plugins & theme development" }, // Added WordPress tech
+          { label: "Frontend Web", href: "/case-studies#case-studies-grid", description: "HTML, CSS, JS, and modern frameworks" } // Added general web
         ]
       }
       
@@ -293,7 +293,7 @@ const megaMenuContent: MegaMenuContentMap = {
       subtitle: "SaaS Platform: 10x Growth",
       description: "How we helped a startup scale their SaaS platform to serve 100,000+ users with 99.9% uptime.",
       image: "📊",
-      href: "/case-studies/saas-growth"
+      href: "/case-studies#case-studies-grid"
     },
     showcase: {
       title: "VerdeOS",

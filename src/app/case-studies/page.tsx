@@ -9,7 +9,9 @@ export default function CaseStudiesPage() {
   return (
     <div>
       <CaseStudyHero />
-      <CaseStudyGrid />
+      <section id="case-studies-grid" className="scroll-mt-20">
+        <CaseStudyGrid />
+      </section>
       <EcommerceGrowth />
       <CaseStudyCTA />
     </div>
