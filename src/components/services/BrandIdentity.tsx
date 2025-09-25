@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { PenTool, Palette, Type, BookText, Users, BadgeCheck, Globe, Layers, Target } from 'lucide-react';
-
+import Link from "next/link";
 const BrandIdentity = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
@@ -322,17 +322,17 @@ const BrandIdentity = () => {
             </div>
           </div>
         </div>
-
         {/* CTA Section */}
         <div className="text-center">
           <div className="inline-flex items-center gap-4">
-            <button className="group px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300 flex items-center gap-2 text-base">
+            
+            <Link href="/#contact" className="group px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300 flex items-center gap-2 text-base">
               Start Your Brand Journey
               <BadgeCheck className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button className="px-6 py-3 border border-slate-600 text-slate-300 rounded-xl hover:bg-slate-800/50 hover:text-white hover:border-purple-500/30 transition-all duration-300 text-base">
-              View Brand Portfolio
-            </button>
+            </Link>
+            <Link href="/case-studies/ecommerce-growth" className="px-6 py-3 border border-slate-600 text-slate-300 rounded-xl hover:bg-slate-800/50 hover:text-white hover:border-purple-500/30 transition-all duration-300 text-base">
+              View Case Study 
+            </Link>
           </div>
         </div>
       </div>
