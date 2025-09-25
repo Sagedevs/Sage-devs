@@ -145,7 +145,7 @@ const GuidesTemplates = () => {
   };
 
   return (
-    <section className="relative min-h-screen bg-slate-950 overflow-hidden px-[110px]">
+    <section className="relative min-h-screen bg-slate-950 overflow-hidden px-4 sm:px-6 lg:px-[140px]">
       {/* Subtle Background Effects */}
       <div className="absolute inset-0 bg-slate-950">
         {/* Darker overlay */}
@@ -168,32 +168,32 @@ const GuidesTemplates = () => {
         <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-blue-800/3 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="relative z-10 container mx-auto py-12 sm:py-16 lg:py-20">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-950/30 border border-blue-800/20 rounded-full backdrop-blur-sm mb-6">
-            <Code className="w-4 h-4 text-blue-400" />
-            <span className="text-blue-300 text-sm font-medium">Professional Resources</span>
+        <div className="text-center mb-12 lg:mb-16">
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-blue-950/30 border border-blue-800/20 rounded-full backdrop-blur-sm mb-4 sm:mb-6">
+            <Code className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400" />
+            <span className="text-blue-300 text-xs sm:text-sm font-medium">Professional Resources</span>
           </div>
           
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">
             Guides & Templates
           </h2>
           
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto px-4">
             Professional-grade resources and templates to accelerate your workflow. 
             Each package includes detailed documentation and implementation guides.
           </p>
         </div>
 
         {/* Resources Grid */}
-        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
           {filteredResources.map((resource, index) => {
             const IconComponent = resource.icon;
             return (
               <div
                 key={index}
-                className={`group relative bg-slate-900/40 backdrop-blur-sm rounded-2xl border transition-all duration-300 ${
+                className={`group relative bg-slate-900/40 backdrop-blur-sm rounded-xl sm:rounded-2xl border transition-all duration-300 ${
                   hoveredCard === index 
                     ? 'border-blue-600/30 shadow-xl shadow-blue-600/10' 
                     : 'border-slate-800/50 hover:border-slate-700/50'
@@ -207,12 +207,12 @@ const GuidesTemplates = () => {
                 </div>
 
                 {/* Card Content */}
-                <div className="relative p-6">
+                <div className="relative p-4 sm:p-6">
                   {/* Header */}
                   <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 bg-blue-600/10 border border-blue-600/20 rounded-lg">
-                        <IconComponent className="w-5 h-5 text-blue-400" />
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <div className="p-1.5 sm:p-2 bg-blue-600/10 border border-blue-600/20 rounded-lg">
+                        <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
                       </div>
                       <div>
                         <span className="inline-block px-2 py-1 bg-blue-950/30 border border-blue-800/20 text-blue-300 text-xs font-medium rounded">
@@ -231,12 +231,12 @@ const GuidesTemplates = () => {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-blue-200 transition-colors">
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-3 group-hover:text-blue-200 transition-colors">
                     {resource.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-slate-400 text-sm mb-6 leading-relaxed">
+                  <p className="text-slate-400 text-sm mb-4 sm:mb-6 leading-relaxed">
                     {resource.description}
                   </p>
 
@@ -247,15 +247,15 @@ const GuidesTemplates = () => {
                   </div>
 
                   {/* Features */}
-                  <div className="mb-6">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Eye className="w-4 h-4 text-blue-400" />
+                  <div className="mb-4 sm:mb-6">
+                    <div className="flex items-center gap-2 mb-2 sm:mb-3">
+                      <Eye className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400" />
                       <span className="text-blue-400 text-sm font-medium">Includes</span>
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-1.5 sm:space-y-2">
                       {resource.features.map((feature, idx) => (
                         <div key={idx} className="flex items-center gap-2">
-                          <div className="w-1.5 h-1.5 bg-blue-400 rounded-full" />
+                          <div className="w-1.5 h-1.5 bg-blue-400 rounded-full flex-shrink-0" />
                           <span className="text-slate-400 text-sm">{feature}</span>
                         </div>
                       ))}
@@ -264,7 +264,7 @@ const GuidesTemplates = () => {
 
                   {/* Download Button */}
                   <button
-                    className="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 group/btn"
+                    className="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-2.5 sm:py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 group/btn text-sm sm:text-base"
                     onClick={() => window.open(resource.downloadLink, '_blank')}
                   >
                     <Download className="w-4 h-4" />
@@ -274,23 +274,23 @@ const GuidesTemplates = () => {
                 </div>
 
                 {/* Hover Effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl sm:rounded-2xl" />
               </div>
             );
           })}
         </div>
 
         {/* Newsletter Section */}
-        <div className="mt-16 text-center p-8 bg-slate-900/30 border border-slate-800/50 rounded-2xl backdrop-blur-sm">
+        <div className="mt-12 lg:mt-16 text-center p-6 sm:p-8 bg-slate-900/30 border border-slate-800/50 rounded-xl sm:rounded-2xl backdrop-blur-sm">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-950/30 border border-blue-800/20 rounded-full mb-4">
             <Zap className="w-3 h-3 text-blue-400" />
             <span className="text-blue-300 text-sm">Stay Updated</span>
           </div>
           
-          <h3 className="text-2xl font-bold text-white mb-3">
+          <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
             Get New Resources First
           </h3>
-          <p className="text-slate-400 mb-6 max-w-xl mx-auto">
+          <p className="text-slate-400 mb-6 max-w-xl mx-auto text-sm sm:text-base px-4">
             Subscribe to receive notifications when new templates and guides are released. 
             No spam, just valuable resources.
           </p>
@@ -299,9 +299,9 @@ const GuidesTemplates = () => {
             <input
               type="email"
               placeholder="Enter your email"
-              className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-600/50 transition-colors"
+              className="flex-1 px-4 py-2.5 sm:py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-600/50 transition-colors text-sm sm:text-base"
             />
-            <button className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg transition-colors">
+            <button className="px-4 sm:px-6 py-2.5 sm:py-3 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg transition-colors text-sm sm:text-base">
               Subscribe
             </button>
           </div>
