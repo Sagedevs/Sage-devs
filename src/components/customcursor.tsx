@@ -1,11 +1,9 @@
 "use client"
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef } from "react"
 
 const SmokeTrailCursor: React.FC = () => {
   const lastPos = useRef({ x: 0, y: 0 })
   const velocity = useRef({ x: 0, y: 0 })
-  const [isVisible, setIsVisible] = useState(false)
-  const animationId = useRef<number | null>(null)
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -69,15 +67,13 @@ const SmokeTrailCursor: React.FC = () => {
     let currentPos = { x: 0, y: 0 }
 
     const handleMove = (e: MouseEvent) => {
-      const newPos = { x: e.clientX, y: e.clientY }
+      currentPos = { x: e.clientX, y: e.clientY }
       
       // Calculate velocity
-      const deltaX = newPos.x - lastPos.current.x
-      const deltaY = newPos.y - lastPos.current.y
+      const deltaX = currentPos.x - lastPos.current.x
+      const deltaY = currentPos.y - lastPos.current.y
       velocity.current.x = deltaX
       velocity.current.y = deltaY
-      
-      currentPos = newPos
       
       // Generate smoke particles based on movement
       const speed = Math.sqrt(deltaX ** 2 + deltaY ** 2)
@@ -86,8 +82,8 @@ const SmokeTrailCursor: React.FC = () => {
         
         for (let i = 0; i < particleCount; i++) {
           // Create particles slightly behind the cursor
-          const trailX = newPos.x - (deltaX * 0.3) + (Math.random() - 0.5) * 8
-          const trailY = newPos.y - (deltaY * 0.3) + (Math.random() - 0.5) * 8
+          const trailX = currentPos.x - (deltaX * 0.3) + (Math.random() - 0.5) * 8
+          const trailY = currentPos.y - (deltaY * 0.3) + (Math.random() - 0.5) * 8
           
           createSmokeParticle(
             trailX,
@@ -98,16 +94,7 @@ const SmokeTrailCursor: React.FC = () => {
         }
       }
       
-      lastPos.current = { ...newPos }
-      setIsVisible(true)
-    }
-
-    const handleMouseEnter = () => {
-      setIsVisible(true)
-    }
-
-    const handleMouseLeave = () => {
-      setIsVisible(false)
+      lastPos.current = { ...currentPos }
     }
 
     // Initialize positions
@@ -117,8 +104,6 @@ const SmokeTrailCursor: React.FC = () => {
     }
 
     window.addEventListener("mousemove", handleMove)
-    window.addEventListener("mouseenter", handleMouseEnter)
-    window.addEventListener("mouseleave", handleMouseLeave)
     
     // Initialize on first mouse move
     const initHandler = (e: MouseEvent) => {
@@ -128,12 +113,7 @@ const SmokeTrailCursor: React.FC = () => {
     window.addEventListener("mousemove", initHandler)
 
     return () => {
-      if (animationId.current) {
-        cancelAnimationFrame(animationId.current)
-      }
       window.removeEventListener("mousemove", handleMove)
-      window.removeEventListener("mouseenter", handleMouseEnter)
-      window.removeEventListener("mouseleave", handleMouseLeave)
     }
   }, [])
 
@@ -181,9 +161,7 @@ const SmokeTrailCursor: React.FC = () => {
             opacity: 0;
           }
         }
-
-
-      `}      </style>
+      `}</style>
     </>
   )
 }
