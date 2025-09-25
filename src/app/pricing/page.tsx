@@ -126,8 +126,8 @@ const HireMePage = () => {
         "Ongoing Marketing Strategy",
         "Inventory Management beyond basic setup",
       ],
-      bgGradient: "from-purple-800/20 via-indigo-900/20 to-blue-900/20",
-      borderGradient: "from-purple-600 to-blue-700",
+      bgGradient: "from-blue-900/20 via-indigo-900/20 to-blue-900/20",
+      borderGradient: "from-blue-600 to-blue-700",
       bestFor: "Online sellers who need a full shop setup (up to 50 products)",
       skuDetails:
         "Need bulk products? Add $150 per 500 extra items. Over 2,000 SKUs? Ask about our Large-Scale E-Com plan (starts at $2,499)",
@@ -204,8 +204,8 @@ const HireMePage = () => {
         "Complex data analytics dashboards",
         "Third-party software licenses",
       ],
-      bgGradient: "from-indigo-800/20 via-purple-900/20 to-blue-900/20",
-      borderGradient: "from-indigo-600 to-purple-700",
+      bgGradient: "from-indigo-800/20 via-blue-900/20 to-blue-900/20",
+      borderGradient: "from-indigo-600 to-blue-700",
       bestFor:
         "Businesses requiring complex, scalable web applications or large-scale e-commerce solutions",
     },
@@ -279,7 +279,7 @@ const HireMePage = () => {
         "External software subscriptions",
         "CRM integration beyond basic setup",
       ],
-      bgGradient: "from-blue-800/20 via-indigo-900/20 to-purple-900/20",
+      bgGradient: "from-blue-800/20 via-indigo-900/20 to-blue-900/20",
       borderGradient: "from-blue-600 to-indigo-700",
       bestFor: "Businesses ready to scale features, SEO, ads & analytics",
     },
@@ -315,8 +315,8 @@ const HireMePage = () => {
         "Large-scale system architecture overhaul",
         "Content creation beyond strategic needs",
       ],
-      bgGradient: "from-purple-800/20 via-blue-900/20 to-black/20",
-      borderGradient: "from-purple-600 to-blue-700",
+      bgGradient: "from-blue-900/20 via-blue-900/20 to-black/20",
+      borderGradient: "from-blue-600 to-blue-700",
       bestFor:
         "Larger organizations seeking full-stack dev, BI dashboards & 24/7 support",
     },
@@ -391,7 +391,7 @@ const HireMePage = () => {
         "External software subscriptions",
         "CRM integration beyond basic setup",
       ],
-      bgGradient: "from-blue-800/20 via-indigo-900/20 to-purple-900/20",
+      bgGradient: "from-blue-800/20 via-indigo-900/20 to-blue-900/20",
       borderGradient: "from-blue-600 to-indigo-700",
       bestFor:
         "Businesses ready to commit to annual growth with dedicated support",
@@ -633,11 +633,11 @@ ${formData.projectDetails}`
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Main Background - Beautiful gradient with animated elements */}
-      <div className="fixed inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950">
+      <div className="fixed inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-blue-900">
         {/* Animated gradient orbs - Enhanced */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-r from-blue-700/40 to-purple-700/40 rounded-full animate-pulse-slowest transition-all duration-2000" style={{ filter: 'blur(60px)' }}></div>
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-r from-purple-700/40 to-cyan-700/40 rounded-full animate-pulse-slowest animation-delay-3s transition-all duration-2000" style={{ filter: 'blur(60px)' }}></div>
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-r from-blue-700/40 to-blue-800/40 rounded-full animate-pulse-slowest transition-all duration-2000" style={{ filter: 'blur(60px)' }}></div>
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-r from-blue-800/40 to-cyan-700/40 rounded-full animate-pulse-slowest animation-delay-3s transition-all duration-2000" style={{ filter: 'blur(60px)' }}></div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-blue-700/30 to-indigo-700/30 rounded-full animate-pulse-slowest animation-delay-6s transition-all duration-2000" style={{ filter: 'blur(70px)' }}></div>
         </div>
 
@@ -671,16 +671,16 @@ ${formData.projectDetails}`
       <section className="relative py-16 sm:py-20 lg:py-24 px-5 sm:px-10 md:px-20 text-center">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="mb-6 sm:mb-8">
-            <span className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-purple-500/30 rounded-full text-sm text-purple-300 mb-4 sm:mb-6 shadow-lg backdrop-blur-sm">
+            <span className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/20 to-blue-600/20 border border-blue-500/30 rounded-full text-sm text-blue-300 mb-4 sm:mb-6 shadow-lg backdrop-blur-sm">
               <Zap className="w-4 h-4 mr-2" />
               Available for New Projects
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-purple-300 to-blue-300 bg-clip-text text-transparent leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-blue-300 to-blue-400 bg-clip-text text-transparent leading-tight">
             Hire a Full Stack
             <br />
-            <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 to-blue-500 bg-clip-text text-transparent">
               Developer
             </span>
           </h1>
@@ -689,12 +689,12 @@ ${formData.projectDetails}`
             Bringing Your Digital Vision to Life with Cutting-Edge Web
             Solutions.
             <br />
-            <span className="text-purple-400 font-medium">
+            <span className="text-blue-400 font-medium">
               Specializing in Dynamic Websites, E-commerce Platforms, and Custom
               Web Applications using:
             </span>
           </p>
-          <p className="text-lg sm:text-xl lg:text-2xl text-purple-400 font-medium mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed px-4">
+          <p className="text-lg sm:text-xl lg:text-2xl text-blue-400 font-medium mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed px-4">
             WordPress • Shopify • React • Next.js • Node.js
           </p>
 
@@ -705,7 +705,7 @@ ${formData.projectDetails}`
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12 sm:mb-16 px-4">
             <button
               onClick={handleButtonClick(scrollToPlans, "Explore Services")}
-              className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               Explore My Services
             </button>
@@ -748,8 +748,8 @@ ${formData.projectDetails}`
               },
             ].map((tech, index) => (
               <div key={index} className="flex flex-col items-center group">
-                <div className="p-3 sm:p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 group-hover:border-purple-400/50 transition-all duration-300 group-hover:scale-110 shadow-lg group-hover:shadow-xl">
-                  <div className="text-gray-300 group-hover:text-purple-400 transition-colors duration-300">
+                <div className="p-3 sm:p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 group-hover:border-blue-400/50 transition-all duration-300 group-hover:scale-110 shadow-lg group-hover:shadow-xl">
+                  <div className="text-gray-300 group-hover:text-blue-400 transition-colors duration-300">
                     {tech.icon}
                   </div>
                 </div>
@@ -771,7 +771,7 @@ ${formData.projectDetails}`
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-purple-400 to-blue-400 bg-clip-text text-transparent">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-blue-400 to-blue-500 bg-clip-text text-transparent">
               🚀 Ready to Launch or Grow Your Online Presence? Pick the Perfect
               Plan Below!
             </h2>
@@ -797,13 +797,13 @@ ${formData.projectDetails}`
                     plan.bgGradient
                   } ${
                     plan.popular
-                      ? "border-purple-500 shadow-purple-500/30 shadow-xl"
+                      ? "border-blue-500 shadow-blue-500/30 shadow-xl"
                       : "border-gray-700 hover:border-blue-500 shadow-lg hover:shadow-xl"
                   }`}
                 >
                   {plan.popular && (
                     <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                      <span className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold shadow-lg">
+                      <span className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-1 rounded-full text-sm font-semibold shadow-lg">
                         Most Popular
                       </span>
                     </div>
@@ -813,11 +813,11 @@ ${formData.projectDetails}`
                     <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-white">
                       {plan.name}
                     </h3>
-                    <p className="text-purple-300 text-sm mb-2">
+                    <p className="text-blue-300 text-sm mb-2">
                       Best For: {plan.bestFor}
                     </p>
                     <div className="flex items-center justify-center gap-2 mb-4">
-                      <span className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-white to-purple-300 bg-clip-text text-transparent">
+                      <span className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-white to-blue-300 bg-clip-text text-transparent">
                         {plan.price}
                       </span>
                       {plan.originalPrice && (
@@ -852,7 +852,7 @@ ${formData.projectDetails}`
                   <div className="space-y-3">
                     <button
                       onClick={handleButtonClick(openEmail, "Book Consultation")}
-                      className="w-full py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                      className="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                     >
                       Book Consultation
                     </button>
@@ -879,12 +879,12 @@ ${formData.projectDetails}`
                   } ${
                     plan.popular
                       ? "border-blue-500 shadow-blue-500/30 shadow-xl"
-                      : "border-gray-700 hover:border-purple-500 shadow-lg hover:shadow-xl"
+                      : "border-gray-700 hover:border-blue-500 shadow-lg hover:shadow-xl"
                   }`}
                 >
                   {plan.popular && (
                     <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                      <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-semibold shadow-lg">
+                      <span className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-1 rounded-full text-sm font-semibold shadow-lg">
                         Recommended
                       </span>
                     </div>
@@ -922,7 +922,7 @@ ${formData.projectDetails}`
                   <div className="space-y-3">
                     <button
                       onClick={handleButtonClick(openEmail, "Get This Package")}
-                      className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                      className="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                     >
                       Get This Package
                     </button>
@@ -1005,7 +1005,7 @@ ${formData.projectDetails}`
           {/* Compare Plans Section */}
           <div id="compare-plans" className="mt-20">
             <div className="text-center mb-12 sm:mb-16">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-blue-400 to-blue-500 bg-clip-text text-transparent">
                 🔍 Compare Plans
               </h2>
               <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto px-4">
@@ -1517,7 +1517,7 @@ ${formData.projectDetails}`
               </h3>
               <ul className="space-y-4 text-gray-300 text-base leading-relaxed">
                 <li className="flex items-start gap-2">
-                  <span className="text-purple-400 font-bold mt-1">1.</span>
+                  <span className="text-blue-400 font-bold mt-1">1.</span>
                   <span>
                     <span className="font-semibold text-white">
                       Decide your goal:
@@ -1568,7 +1568,7 @@ ${formData.projectDetails}`
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-purple-400 font-bold mt-1">2.</span>
+                  <span className="text-blue-400 font-bold mt-1">2.</span>
                   <span>
                     <span className="font-semibold text-white">
                       Compare features side-by-side
@@ -1577,7 +1577,7 @@ ${formData.projectDetails}`
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-purple-400 font-bold mt-1">3.</span>
+                  <span className="text-blue-400 font-bold mt-1">3.</span>
                   <span>
                     <span className="font-semibold text-white">
                       Still not sure?
@@ -1639,7 +1639,7 @@ ${formData.projectDetails}`
             <div className="flex flex-col md:flex-row gap-8">
               <div className="flex-1">
                 <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                  <Award className="w-7 h-7 text-purple-400" /> Our Guarantee
+                  <Award className="w-7 h-7 text-blue-400" /> Our Guarantee
                 </h3>
                 <ul className="space-y-3 text-gray-300 text-base leading-relaxed">
                   <li className="flex items-start gap-2">
@@ -1771,12 +1771,12 @@ ${formData.projectDetails}`
       {/* Contact Form Section */}
       <section className="relative py-16 sm:py-20 px-5 sm:px-10 md:px-20">
         {/* Section Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-slate-900/50 to-blue-900/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-slate-900/50 to-blue-900/30"></div>
 
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 relative z-10">
           {/* Contact Form */}
           <div className="order-2 lg:order-1">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-white via-purple-300 to-blue-300 bg-clip-text text-transparent">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-white via-blue-300 to-blue-400 bg-clip-text text-transparent">
               Let&apos;s Discuss Your Project
             </h2>
 
@@ -1791,7 +1791,7 @@ ${formData.projectDetails}`
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all duration-200 shadow-sm backdrop-blur-sm text-white placeholder-gray-400"
+                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all duration-200 shadow-sm backdrop-blur-sm text-white placeholder-gray-400"
                   placeholder="Enter your name"
                   required
                 />
@@ -1807,7 +1807,7 @@ ${formData.projectDetails}`
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all duration-200 shadow-sm backdrop-blur-sm text-white placeholder-gray-400"
+                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all duration-200 shadow-sm backdrop-blur-sm text-white placeholder-gray-400"
                   placeholder="your@email.com"
                   required
                 />
@@ -1884,13 +1884,13 @@ ${formData.projectDetails}`
 
           {/* Consultation Calendar */}
           <div className="order-1 lg:order-2">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-white via-purple-300 to-blue-300 bg-clip-text text-transparent">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-white via-blue-300 to-blue-400 bg-clip-text text-transparent">
               Schedule a Consultation
             </h2>
 
             <div className="bg-white/10 border border-white/20 rounded-2xl p-6 backdrop-blur-sm shadow-lg">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2 text-white">
-                <Calendar className="w-5 h-5 text-purple-400" />
+                <Calendar className="w-5 h-5 text-blue-400" />
                 Available Dates
               </h3>
 
