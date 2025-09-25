@@ -2,9 +2,48 @@
 
 import React, { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+
+// Utility function to handle hash-based navigation
+const useHashNavigation = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleNavigation = useCallback((href: string) => {
+    if (!href) return;
+    
+    // Extract the base path and hash
+    const [basePath, hash] = href.split('#');
+    const currentPath = pathname || '';
+    
+    // If it's a hash link on the same page
+    if (href.startsWith('#')) {
+      const element = document.getElementById(href.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } 
+    // If it's a link to another page with a hash
+    else if (hash) {
+      if (basePath === currentPath || (basePath === '' && currentPath === '/')) {
+        // Same page, just scroll to the section
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        // Different page, navigate and then scroll
+        router.push(href);
+      }
+    } else {
+      // Regular navigation
+      router.push(href);
+    }
+  }, [router, pathname]);
+
+  return handleNavigation;
+};
 
 interface GooeyNavChildItem {
   label: string;
@@ -1585,11 +1624,34 @@ const GooeyNavWithHeader: React.FC<GooeyNavProps> = ({
 }) => {
   const pathname = usePathname();
   const [openMobileDropdowns, setOpenMobileDropdowns] = useState<{[key: string]: boolean}>({});
+  const handleNavigation = useHashNavigation();
 
-  // Debugging: Log mobileMenuOpen state
+  // Handle hash on initial load and route changes
   useEffect(() => {
-    console.log("mobileMenuOpen:", mobileMenuOpen);
-  }, [mobileMenuOpen]);
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const id = hash.substring(1);
+        const element = document.getElementById(id);
+        if (element) {
+          // Small delay to ensure the page is fully rendered
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
+        }
+      }
+    };
+
+    // Initial check
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, [pathname]);
 
   // Reset open dropdowns when mobile menu closes
   useEffect(() => {
@@ -1809,7 +1871,12 @@ const GooeyNavWithHeader: React.FC<GooeyNavProps> = ({
                                   <Link
                                     key={categoryItem.label}
                                     href={categoryItem.href}
-                                    onClick={() => { toggleMobileMenu(); setOpenMobileDropdowns({}); }}
+                                    onClick={(e) => { 
+                                      e.preventDefault();
+                                      handleNavigation(categoryItem.href);
+                                      toggleMobileMenu(); 
+                                      setOpenMobileDropdowns({}); 
+                                    }}
                                     className="block text-white text-lg hover:text-cyan-300 transition-colors"
                                   >
                                     {categoryItem.label}
@@ -1836,7 +1903,12 @@ const GooeyNavWithHeader: React.FC<GooeyNavProps> = ({
                             <Link
                               key={child.label}
                               href={child.href}
-                              onClick={() => { toggleMobileMenu(); setOpenMobileDropdowns({}); }}
+                              onClick={(e) => { 
+                                e.preventDefault();
+                                handleNavigation(child.href);
+                                toggleMobileMenu(); 
+                                setOpenMobileDropdowns({}); 
+                              }}
                               className="block text-white text-xl hover:text-cyan-300 transition-colors"
                             >
                               {child.label}
