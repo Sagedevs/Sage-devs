@@ -1243,37 +1243,7 @@ export default function BlogPage() {
               </div>
             </article>
 
-            {/* Related Articles Section */}
-            <div className="mt-12">
-              <h3 className="text-white text-2xl font-bold mb-6">Related Articles</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {blogPosts
-                  .filter(post => post.id !== selectedPost?.id && post.category === selectedPost?.category)
-                  .slice(0, 2)
-                  .map((post, index) => (
-                    <article
-                      key={index}
-                      onClick={() => navigateToPost(post)}
-                      className="group bg-black/20 backdrop-blur-lg border border-blue-500/10 rounded-xl overflow-hidden hover:transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/10 hover:border-blue-500/30 transition-all duration-300 cursor-pointer"
-                    >
-                      <div className="relative h-32 overflow-hidden">
-                        <div className="w-full h-full bg-gradient-to-br from-blue-900/20 to-black/60 flex items-center justify-center">
-                          <div className="text-blue-400/60 text-2xl font-bold opacity-50">
-                            {post.category.slice(0, 2).toUpperCase()}
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="p-4">
-                        <h4 className="text-white font-semibold mb-2 line-clamp-2 group-hover:text-blue-300 transition-colors duration-300">
-                          {post.title}
-                        </h4>
-                        <p className="text-blue-300/60 text-sm">{post.readTime}</p>
-                      </div>
-                    </article>
-                  ))}
-              </div>
-            </div>
+            
           </div>
         )}
 
