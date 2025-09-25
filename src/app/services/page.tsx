@@ -26,7 +26,6 @@ export default function ServicesIndexPage() {
     { id: "design", label: "Design & Strategy" },
     { id: "support", label: "Support & Infrastructure" },
   ];
-
   const developmentTabs = [
     { id: "web-app", label: "Web Development" },
     { id: "saas", label: "SaaS Products" },
@@ -40,8 +39,6 @@ export default function ServicesIndexPage() {
     { id: "digital-strategy", label: "Digital Strategy" },
     { id: "brand-identity", label: "Brand Identity" },
   ];
-
-  // Simple hash detection on mount
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
     if (!hash) return;
@@ -57,13 +54,12 @@ export default function ServicesIndexPage() {
     } else if (hash === "maintenance-support") {
       setActiveTab("support");
     }
-  }, []);
+  }, [developmentTabs, designTabs, setActiveTab, setActiveDevTab, setActiveDesignTab]);
 
   return (
     <main className="bg-slate-900">
       <HeroSection />
 
-      {/* Services Navigation */}
       <section className="bg-slate-900 py-16 border-y border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">

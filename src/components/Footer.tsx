@@ -518,7 +518,7 @@ const Footer = () => {
                       <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
                     </h3>
                     <div className="flex items-center space-x-4">
-                      {socialLinks.map((link, index) => (
+                      {socialLinks.map((link) => (
                         <div key={link.platform}>
                           <Link
                             href={link.href}
@@ -548,7 +548,7 @@ const Footer = () => {
                       <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
                     </h3>
                     <div className="space-y-3">
-                      {contactInfo.map((info, index) => (
+                      {contactInfo.map((info) => (
                         <div key={info.label}>
                           <LinkComponent
                             href={info.href}
