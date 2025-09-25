@@ -51,8 +51,8 @@ const items = [
     label: "About Us",
     href: "/about",
     children: [
-      { label: "Team", href: "/about/team" },
-      { label: "Careers", href: "/about/careers" },
+      { label: "Team", href: "/about#team" },  
+      { label: "Careers", href: "/about#careers" },  
     ],
   },
   {
@@ -62,7 +62,7 @@ const items = [
     children: [
       { label: "Get in Touch (form)", href: "/contact#contact-form" },
       { label: "FAQs", href: "/faq" },
-      { label: "Book a Call", href: "https://calendly.com/abdul-ahadt732", external: true },
+      { label: "Book a Call", href: "https://calendly.com/sagedevs-network/", external: true },
     ],
   }
   

@@ -14,10 +14,14 @@ export default function AboutPage() {
       <HeroSection />
       <OurStory />
       <OurProcess />
-      <Team />
+      <section id="team">
+    <Team />
+  </section>
       <Technologies />
       <Culture />
+      <section id="careers">
       <Careers />
+      </section>
       <CTASection />
     </main>
   );
