@@ -234,31 +234,31 @@ const megaMenuContent: MegaMenuContentMap = {
         items: [
           { 
             label: "React vs Vue.js in 2024", 
-            href: "/blog/react-vs-vue-2024",
+            href: "/blog#blog-post-6",
             description: "Complete developer's guide to choosing the right framework",
             image: "/blog/6.webp"
           },
           { 
             label: "Building Scalable APIs", 
-            href: "/blog/scalable-nodejs-apis",
+            href: "/blog#blog-post-7",
             description: "Node.js and Express best practices",
             image: "/blog/7.webp"
           },
           { 
             label: "CSS Grid vs Flexbox", 
-            href: "/blog/css-grid-vs-flexbox",
+            href: "/blog#blog-post-8",
             description: "When to use which layout system",
             image: "/blog/8.webp"
           },
           { 
             label: "Progressive Web Apps", 
-            href: "/blog/progressive-web-apps-guide",
+            href: "/blog#blog-post-9",
             description: "The complete guide to PWAs",
             image: "/blog/9.webp"
           },
           { 
             label: "Web Performance Optimization", 
-            href: "/blog/web-performance-optimization",
+            href: "/blog#blog-post-10",
             description: "From 3s to 300ms load times",
             image: "/blog/10.webp"
           }
