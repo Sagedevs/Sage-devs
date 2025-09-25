@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { Code2, Layers, Database, Shield, ArrowRight, Terminal, Server, Activity, Lock } from 'lucide-react';
-
+import Link from "next/link";
 const WebAppDevelopment = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
@@ -325,13 +325,13 @@ const WebAppDevelopment = () => {
         {/* CTA Section */}
         <div className="text-center">
           <div className="inline-flex items-center gap-4">
-            <button className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-2xl hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 flex items-center gap-3">
+            <Link href="/Contact" className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-2xl hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 flex items-center gap-3">
               Discuss Your Project
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button className="px-8 py-4 border border-slate-600 text-slate-300 rounded-2xl hover:bg-slate-800/50 hover:text-white hover:border-blue-500/30 transition-all duration-300">
+            </Link>
+            <Link href="/case-studies#case-studies-grid" className="px-8 py-4 border border-slate-600 text-slate-300 rounded-2xl hover:bg-slate-800/50 hover:text-white hover:border-blue-500/30 transition-all duration-300">
               View Case Studies
-            </button>
+            </Link>
           </div>
         </div>
       </div>

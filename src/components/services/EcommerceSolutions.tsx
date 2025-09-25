@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { ShoppingCart, Store, CreditCard, Layout, TrendingUp } from 'lucide-react';
+import Link from "next/link";
 
 const EcommerceSolutions = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
@@ -326,13 +327,13 @@ const EcommerceSolutions = () => {
         {/* CTA Section */}
         <div className="text-center">
           <div className="inline-flex items-center gap-4">
-            <button className="group px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 flex items-center gap-2 text-base">
+            <Link href="/Contact" className="group px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 flex items-center gap-2 text-base">
               Launch Your Store
               <Store className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button className="px-6 py-3 border border-slate-600 text-slate-300 rounded-xl hover:bg-slate-800/50 hover:text-white hover:border-blue-500/30 transition-all duration-300 text-base">
+            </Link>
+            <Link href="/case-studies#case-studies-grid" className="px-6 py-3 border border-slate-600 text-slate-300 rounded-xl hover:bg-slate-800/50 hover:text-white hover:border-blue-500/30 transition-all duration-300 text-base">
               View E-commerce Case Studies
-            </button>
+            </Link>
           </div>
         </div>
       </div>

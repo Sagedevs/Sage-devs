@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { Zap, TrendingUp, RefreshCcw, Bell, Lightbulb, Rocket, Cloud, Settings } from 'lucide-react';
-
+import Link from "next/link";
 const SaaSProductDev = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
@@ -325,13 +325,13 @@ const SaaSProductDev = () => {
         {/* CTA Section */}
         <div className="text-center">
           <div className="inline-flex items-center gap-4">
-            <button className="group px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 flex items-center gap-2 text-base">
+            <Link href="/Contact" className="group px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 flex items-center gap-2 text-base">
               Scale Your SaaS Idea
               <Rocket className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button className="px-6 py-3 border border-slate-600 text-slate-300 rounded-xl hover:bg-slate-800/50 hover:text-white hover:border-blue-500/30 transition-all duration-300 text-base">
+            </Link>
+            <Link href="/case-studies#case-studies-grid" className="px-6 py-3 border border-slate-600 text-slate-300 rounded-xl hover:bg-slate-800/50 hover:text-white hover:border-blue-500/30 transition-all duration-300 text-base">
               Explore Our SaaS Projects
-            </button>
+            </Link>
           </div>
         </div>
       </div>
