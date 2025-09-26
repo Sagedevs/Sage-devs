@@ -9,9 +9,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/customcursor";
 import { Analytics } from "@vercel/analytics/next";
+import OptimizedGalaxy from "@/components/Galaxy";
 import Footer from "@/components/Footer"; // Assuming this path is correct
 import Image from "next/image"; // Import Image for the logo
-// Navigation items for GooeyNav (desktop center)
 const items = [
   { label: "Home", href: "/" },
   { label: "Let's Talk AI", href: "/Letstalkai" },
@@ -396,6 +396,15 @@ export default function RootLayout({
             </svg>
           </div>
         )}
+
+        {/* Galaxy Background */}
+        <OptimizedGalaxy
+          starCount={120}
+          animationSpeed={1.2}
+          enableMouseInteraction={true}
+          enableTwinkle={true}
+          className="fixed inset-0"
+        />
 
         <GooeyNavWithHeader
           items={items}

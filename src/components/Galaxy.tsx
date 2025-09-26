@@ -179,9 +179,13 @@ export default function OptimizedGalaxy({
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) {
+      return;
+    }
     const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    if (!ctx) {
+      return;
+    }
 
     let time = 0;
 
@@ -377,15 +381,12 @@ export default function OptimizedGalaxy({
 
   return (
     <>
-      {/* Custom Cursor Follower */}
-      <CursorFollower />
-      
       <canvas
         ref={canvasRef}
         className={`absolute inset-0 w-full h-full ${className || ""}`}
         style={{
           zIndex: -10,
-          pointerEvents: 'auto',
+          pointerEvents: 'none',
         }}
         {...props}
       />
