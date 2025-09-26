@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import GooeyNavWithHeader from "@/blocks/Components/GooeyNav/GooeyNav";
 import { usePathname } from "next/navigation";
