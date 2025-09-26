@@ -64,7 +64,6 @@ interface GooeyNavItem {
 export interface GooeyNavProps {
   items: GooeyNavItem[];
   initialActiveIndex?: number;
-  scrolled: boolean;
   children?: React.ReactNode;
 }
 
@@ -74,7 +73,6 @@ interface GooeyNavWithHeaderProps {
   mobileMenuOpen: boolean;
   toggleMobileMenu: () => void;
   children?: React.ReactNode;
-  initialActiveIndex?: number;
 }
 
 
@@ -508,7 +506,6 @@ const megaMenuContent: MegaMenuContentMap = {
 const GooeyNav: React.FC<GooeyNavProps> = ({
   items,
   initialActiveIndex = 0,
-  scrolled,
 }) => {
   const [megaMenuTimeout, setMegaMenuTimeout] = useState<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -1688,7 +1685,6 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
   mobileMenuOpen,
   toggleMobileMenu,
   children,
-  initialActiveIndex = 0,
 }) => {
   const pathname = usePathname();
   const [openMobileDropdowns, setOpenMobileDropdowns] = useState<{[key: string]: boolean}>({});
@@ -1775,7 +1771,6 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
             <GooeyNav
               items={items}
               initialActiveIndex={activeIndex !== -1 ? activeIndex : 0}
-              scrolled={scrolled}
             />
           </div>
 

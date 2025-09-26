@@ -418,7 +418,6 @@ export default function RootLayout({
           scrolled={scrolled}
           mobileMenuOpen={mobileMenuOpen}
           toggleMobileMenu={toggleMobileMenu}
-          initialActiveIndex={activeIndex !== -1 ? activeIndex : 0}
         >
           <Image
             src="/logo/logofixxed.svg"
