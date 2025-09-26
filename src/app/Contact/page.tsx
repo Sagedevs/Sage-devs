@@ -113,6 +113,46 @@ export default function Contact() {
     <>
       {/* Hero Section with Background */}
       <section className="flex flex-col items-center justify-center min-h-screen py-12 md:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        {/* Custom CSS for animations */}
+        <style jsx>{`
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translateY(30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+          .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+          }
+          .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+          }
+          .delay-300 {
+            animation-delay: 0.3s;
+            opacity: 0;
+          }
+          .delay-500 {
+            animation-delay: 0.5s;
+            opacity: 0;
+          }
+          .delay-700 {
+            animation-delay: 0.7s;
+            opacity: 0;
+          }
+        `}</style>
+        
         {/* Enhanced Background with Multiple Layers */}
         <div className="absolute top-0 left-0 w-full h-full z-[-5] opacity-15">
           <Squares
@@ -132,20 +172,16 @@ export default function Contact() {
 
         <div className="text-center mb-12 md:mb-16 z-10">
           <div className="mb-4">
-            <BlurText
-              text="Get In Touch"
-              delay={50}
-              animateBy="letters"
-              direction="top"
-              className="text-5xl sm:text-6xl md:text-7xl font-black text-center bg-gradient-to-r from-white via-cyan-100 to-blue-100 bg-clip-text text-transparent"
-            />
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-black text-center bg-gradient-to-r from-white via-cyan-100 to-blue-100 bg-clip-text text-transparent animate-fade-in-up">
+              Get In Touch
+            </h1>
           </div>
-          <div className="w-24 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 mx-auto mb-8 rounded-full"></div>
-          <p className="mt-6 text-xl sm:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed font-light">
+          <div className="w-24 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 mx-auto mb-8 rounded-full animate-fade-in delay-300"></div>
+          <p className="mt-6 text-xl sm:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed font-light animate-fade-in delay-500">
             Ready to bring your ideas to life? Let's discuss your next
             project and create something amazing together.
           </p>
-          <div className="flex justify-center mt-8">
+          <div className="flex justify-center mt-8 animate-fade-in delay-700">
             <div className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
               <span className="text-white/70 text-sm">Available for projects</span>
