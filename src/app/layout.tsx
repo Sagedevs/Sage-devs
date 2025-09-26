@@ -147,22 +147,6 @@ export default function RootLayout({
     setMobileMenuOpen((prev) => !prev);
   }, []);
 
-  // Memoize activeIndex calculation (supports dropdown items)
-  const activeIndex = useMemo(() => {
-    const index = items.findIndex((item) => {
-      if (item.href) {
-        const currentPath = pathname || ''; // Ensure pathname is a string
-        return item.href === "/" ? currentPath === "/" : currentPath.startsWith(item.href);
-      }
-      if ((item as any).children) {
-        const currentPath = pathname || ''; // Ensure pathname is a string
-        return (item as any).children.some((c: any) => c.href && currentPath.startsWith(c.href));
-      }
-      return false;
-    });
-    return index === -1 ? 0 : index;
-  }, [pathname]); // Ensure pathname is in dependency array
-
   const baseBodyClasses = `${geistSans.variable} ${geistMono.variable} antialiased font-gilroy relative`;
 
   return (
