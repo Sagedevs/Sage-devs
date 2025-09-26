@@ -15,7 +15,6 @@ import {
   Rocket,
   PhoneCall
 } from "lucide-react";
-import BlurText from "@/blocks/TextAnimations/BlurText/BlurText";
 import Squares from "@/blocks/Backgrounds/Squares/Squares";
 
 const socialLinks = [
@@ -178,7 +177,7 @@ export default function Contact() {
           </div>
           <div className="w-24 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 mx-auto mb-8 rounded-full animate-fade-in delay-300"></div>
           <p className="mt-6 text-xl sm:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed font-light animate-fade-in delay-500">
-            Ready to bring your ideas to life? Let's discuss your next
+            Ready to bring your ideas to life? Let&apos;s discuss your next
             project and create something amazing together.
           </p>
           <div className="flex justify-center mt-8 animate-fade-in delay-700">
@@ -502,7 +501,7 @@ export default function Contact() {
             Ready to Start?
           </h3>
           <p className="text-xl text-white/80 mb-8 leading-relaxed">
-            Don't let your ideas stay as just ideas. Let's turn them
+            Don&apos;t let your ideas stay as just ideas. Let&apos;s turn them
             into reality together.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

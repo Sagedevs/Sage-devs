@@ -26,19 +26,19 @@ export default function ServicesIndexPage() {
     { id: "design", label: "Design & Strategy" },
     { id: "support", label: "Support & Infrastructure" },
   ];
-  const developmentTabs = [
+  const developmentTabs = React.useMemo(() => [
     { id: "web-app", label: "Web Development" },
     { id: "saas", label: "SaaS Products" },
     { id: "ecommerce", label: "E-commerce" },
     { id: "wordpress", label: "WordPress" },
     { id: "cloud", label: "Cloud & DevOps" },
-  ];
+  ], []);
 
-  const designTabs = [
+  const designTabs = React.useMemo(() => [
     { id: "ui-design", label: "UI/UX Design" },
     { id: "digital-strategy", label: "Digital Strategy" },
     { id: "brand-identity", label: "Brand Identity" },
-  ];
+  ], []);
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
     if (!hash) return;
