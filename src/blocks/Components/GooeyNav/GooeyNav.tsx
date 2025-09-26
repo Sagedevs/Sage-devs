@@ -65,10 +65,18 @@ export interface GooeyNavProps {
   items: GooeyNavItem[];
   initialActiveIndex?: number;
   scrolled: boolean;
+  children?: React.ReactNode;
+}
+
+interface GooeyNavWithHeaderProps {
+  items: GooeyNavItem[];
+  scrolled: boolean;
   mobileMenuOpen: boolean;
   toggleMobileMenu: () => void;
   children?: React.ReactNode;
+  initialActiveIndex?: number;
 }
+
 
 interface MegaMenuCategory {
   title: string;
@@ -500,8 +508,7 @@ const megaMenuContent: MegaMenuContentMap = {
 const GooeyNav: React.FC<GooeyNavProps> = ({
   items,
   initialActiveIndex = 0,
-  mobileMenuOpen,
-  toggleMobileMenu,
+  scrolled,
 }) => {
   const [megaMenuTimeout, setMegaMenuTimeout] = useState<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -672,7 +679,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
           <div key={category.title} className="mega-menu-category">
             <h4 className="text-lg font-semibold text-white mb-3">{category.title}</h4>
             <div className="category-items space-y-2">
-              {category.items.map((item) => (
+              {category.items.map((item: GooeyNavChildItem) => (
                 <div key={item.label} className="mega-menu-item-container flex items-start gap-3 p-2 rounded-lg hover:bg-gray-800/50 transition-colors">
                   {item.image && (
                     <div className="menu-item-image flex-shrink-0">
@@ -1522,26 +1529,6 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
     <>
       <style dangerouslySetInnerHTML={memoizedStyles} />
       <div className="gooey-nav-container" ref={containerRef}>
-        {/* Hamburger Toggle Button (visible on mobile and tablet, hidden on desktop) */}
-        <button
-          className="lg:hidden flex items-center px-3 py-2 rounded text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-          aria-label={mobileMenuOpen ? "Close navigation" : "Open navigation"}
-          onClick={toggleMobileMenu}
-        >
-          <svg
-            className="h-6 w-6 transition-all duration-200"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-          >
-            {mobileMenuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6 M6 6L18 18" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16 M4 12h16 M4 18h16" />
-            )}
-          </svg>
-        </button>
 
         {/* Nav */}
         <nav>
@@ -1550,7 +1537,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
             className={`
               gooey-nav-ul
               flex-col
-              ${mobileMenuOpen ? "flex" : "hidden"}
+              hidden
               lg:flex lg:flex-row
               gap-2 md:gap-3 lg:gap-4 xl:gap-6 list-none p-0 m-0
               absolute lg:static top-12 left-0 right-0 mx-auto w-max
@@ -1695,12 +1682,13 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   );
 };
 
-const GooeyNavWithHeader: React.FC<GooeyNavProps> = ({
+const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
   items,
   scrolled,
   mobileMenuOpen,
   toggleMobileMenu,
   children,
+  initialActiveIndex = 0,
 }) => {
   const pathname = usePathname();
   const [openMobileDropdowns, setOpenMobileDropdowns] = useState<{[key: string]: boolean}>({});
@@ -1788,8 +1776,6 @@ const GooeyNavWithHeader: React.FC<GooeyNavProps> = ({
               items={items}
               initialActiveIndex={activeIndex !== -1 ? activeIndex : 0}
               scrolled={scrolled}
-              mobileMenuOpen={mobileMenuOpen}
-              toggleMobileMenu={toggleMobileMenu}
             />
           </div>
 
@@ -1807,8 +1793,8 @@ const GooeyNavWithHeader: React.FC<GooeyNavProps> = ({
               aria-label="Toggle mobile menu"
             >
               <svg
-                className={`h-6 w-6 transition-transform duration-200 ${
-                  mobileMenuOpen ? "rotate-90" : ""
+                className={`h-6 w-6 transition-all duration-300 ${
+                  mobileMenuOpen ? "rotate-90 text-cyan-300" : "text-white"
                 }`}
                 fill="none"
                 stroke="currentColor"
@@ -1816,9 +1802,9 @@ const GooeyNavWithHeader: React.FC<GooeyNavProps> = ({
                 strokeWidth={2}
               >
                 {mobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6 M6 6L18 18" />
                 ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16 M4 12h16 M4 18h16" />
                 )}
               </svg>
             </button>
