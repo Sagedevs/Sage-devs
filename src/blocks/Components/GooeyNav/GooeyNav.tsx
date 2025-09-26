@@ -977,7 +977,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         transform: translateY(0);
         pointer-events: auto;
         width: 77rem;
-        transform: translate(-205px, 20px);
+        transform: translate(-215px, 10px);
         border-radius: 20px;
         box-shadow: 2px 2px 10px #fff;
       }
