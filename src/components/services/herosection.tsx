@@ -364,14 +364,14 @@ const HeroSection = () => {
             <div className="relative grid grid-cols-2 md:grid-cols-4 gap-8 p-8 bg-black/70 border border-white/20 rounded-3xl backdrop-blur-xl">
               {[
                 { 
-                  metric: "400+", 
+                  metric: "500+", 
                   label: "PROJECTS_DELIVERED", 
                   icon: "▲", 
                   status: "COMPLETED",
                   color: "text-green-400"
                 },
                 { 
-                  metric: "5+", 
+                  metric: "4+", 
                   label: "YEARS_EXPERIENCE", 
                   icon: "◆", 
                   status: "EXPERT",
