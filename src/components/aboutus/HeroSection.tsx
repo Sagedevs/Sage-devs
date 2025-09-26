@@ -206,7 +206,7 @@ const HeroSection = () => {
                 {/* Quick Stats */}
                 <div className="grid grid-cols-3 gap-3 lg:gap-6">
                   {[
-                    { label: 'Projects', value: '400+', icon: TrendingUp },
+                    { label: 'Projects', value: '500+', icon: TrendingUp },
                     { label: 'Success Rate', value: '98%', icon: Target },
                     { label: 'Team Size', value: '20', icon: Users }
                   ].map((stat, index) => (
