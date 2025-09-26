@@ -21,8 +21,8 @@ interface Star {
 }
 
 export default function OptimizedGalaxy({
-  starCount = 150,
-  animationSpeed = 1.2,
+  starCount = 100,
+  animationSpeed = 1.0,
   glowIntensity = 0.6,
   enableMouseInteraction = true,
   enableTwinkle = true,
@@ -35,6 +35,10 @@ export default function OptimizedGalaxy({
   const mouseRef = useRef({ x: 0.5, y: 0.5, active: false });
   const smoothedMouse = useRef({ x: 0.5, y: 0.5 });
   const [isLowPerf, setIsLowPerf] = useState(false);
+  
+  // Performance tracking
+  const frameTimeRef = useRef<number[]>([]);
+  const lastFrameTime = useRef(performance.now());
 
   // Performance detection
   useEffect(() => {
@@ -47,19 +51,19 @@ export default function OptimizedGalaxy({
 
   // Generate stars with movement
   useEffect(() => {
-    const actual = isLowPerf ? Math.min(Math.floor(starCount * 0.6), 90) : starCount;
+    const actual = isLowPerf ? Math.min(Math.floor(starCount * 0.4), 60) : Math.min(starCount, 120);
     const stars: Star[] = [];
     for (let i = 0; i < actual; i++) {
       stars.push({
         x: Math.random(),
         y: Math.random(),
-        size: Math.random() * 2.5 + 1.0,
-        opacity: Math.random() * 0.6 + 0.2,
-        speed: Math.random() * 2.0 + 0.5,
-        hue: 200 + Math.random() * 80,
+        size: Math.random() * 2.0 + 0.8,
+        opacity: Math.random() * 0.5 + 0.3,
+        speed: Math.random() * 1.5 + 0.5,
+        hue: 200 + Math.random() * 60,
         twinkleOffset: Math.random() * Math.PI * 2,
-        velocityX: (Math.random() - 0.5) * 0.0005,
-        velocityY: (Math.random() - 0.5) * 0.0005,
+        velocityX: (Math.random() - 0.5) * 0.0003,
+        velocityY: (Math.random() - 0.5) * 0.0003,
       });
     }
     starsRef.current = stars;
@@ -67,15 +71,13 @@ export default function OptimizedGalaxy({
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) {
-      return;
-    }
+    if (!canvas) return;
+    
     const ctx = canvas.getContext("2d");
-    if (!ctx) {
-      return;
-    }
+    if (!ctx) return;
 
     let time = 0;
+    let frameCount = 0;
 
     // Resize to container only
     const resize = () => {
@@ -83,7 +85,7 @@ export default function OptimizedGalaxy({
       if (!parent) return;
       
       const rect = parent.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, isLowPerf ? 1 : 2);
       
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
@@ -108,7 +110,26 @@ export default function OptimizedGalaxy({
     };
 
     const animate = () => {
-      time += 0.02 * animationSpeed;
+      const now = performance.now();
+      const deltaTime = now - lastFrameTime.current;
+      lastFrameTime.current = now;
+      
+      // Track performance and adjust quality
+      frameTimeRef.current.push(deltaTime);
+      if (frameTimeRef.current.length > 60) {
+        frameTimeRef.current.shift();
+      }
+      
+      // Skip frames if performance is poor
+      const avgFrameTime = frameTimeRef.current.reduce((a, b) => a + b, 0) / frameTimeRef.current.length;
+      if (avgFrameTime > 20 && frameCount % 2 === 0) { // Skip every other frame if slow
+        rafRef.current = requestAnimationFrame(animate);
+        frameCount++;
+        return;
+      }
+
+      time += 0.016 * animationSpeed; // More stable time increment
+      frameCount++;
 
       const rect = canvas.getBoundingClientRect();
       const W = rect.width;
@@ -117,122 +138,111 @@ export default function OptimizedGalaxy({
       // Clear canvas
       ctx.clearRect(0, 0, W, H);
 
-      // Smooth mouse tracking
-      smoothedMouse.current.x = lerp(smoothedMouse.current.x, mouseRef.current.x, 0.08);
-      smoothedMouse.current.y = lerp(smoothedMouse.current.y, mouseRef.current.y, 0.08);
+      // Smooth mouse tracking (less frequent updates)
+      if (frameCount % 2 === 0) {
+        smoothedMouse.current.x = lerp(smoothedMouse.current.x, mouseRef.current.x, 0.06);
+        smoothedMouse.current.y = lerp(smoothedMouse.current.y, mouseRef.current.y, 0.06);
+      }
 
-      // Background gradient
+      // Simplified background gradient
       const bgGradient = ctx.createLinearGradient(0, 0, W, H);
       bgGradient.addColorStop(0, "#020618"); 
-      bgGradient.addColorStop(0.3, "#0a1530");
-      bgGradient.addColorStop(0.7, "#051225");
+      bgGradient.addColorStop(0.5, "#0a1530");
       bgGradient.addColorStop(1, "#030812");
       ctx.fillStyle = bgGradient;
       ctx.fillRect(0, 0, W, H);
 
-      // Nebula clouds
-      ctx.globalCompositeOperation = "lighter";
-      ctx.filter = `blur(${isLowPerf ? 25 : 50}px)`;
-      
-      for(let i = 0; i < 2; i++) {
-        const angle = time * 0.2 + i * 2;
-        const cloudX = 0.3 + 0.4 * Math.sin(angle) + (smoothedMouse.current.x - 0.5) * 0.1;
-        const cloudY = 0.3 + 0.4 * Math.cos(angle * 0.7) + (smoothedMouse.current.y - 0.5) * 0.1;
+      // Simplified nebula clouds (less frequent updates)
+      if (frameCount % 3 === 0 || frameCount < 60) {
+        ctx.globalCompositeOperation = "lighter";
+        ctx.filter = `blur(${isLowPerf ? 20 : 30}px)`;
+        
+        const angle = time * 0.15;
+        const cloudX = 0.35 + 0.3 * Math.sin(angle) + (smoothedMouse.current.x - 0.5) * 0.08;
+        const cloudY = 0.35 + 0.3 * Math.cos(angle * 0.7) + (smoothedMouse.current.y - 0.5) * 0.08;
         
         const cloudGrad = ctx.createRadialGradient(
           cloudX * W, cloudY * H, 0,
-          cloudX * W, cloudY * H, Math.min(W, H) * 0.3
+          cloudX * W, cloudY * H, Math.min(W, H) * 0.25
         );
-        cloudGrad.addColorStop(0, `rgba(15, 35, 75, 0.15)`);
-        cloudGrad.addColorStop(0.4, `rgba(8, 20, 50, 0.08)`);
+        cloudGrad.addColorStop(0, `rgba(15, 35, 75, 0.1)`);
+        cloudGrad.addColorStop(0.4, `rgba(8, 20, 50, 0.05)`);
         cloudGrad.addColorStop(1, "transparent");
         
         ctx.fillStyle = cloudGrad;
         ctx.beginPath();
-        ctx.arc(cloudX * W, cloudY * H, Math.min(W, H) * 0.3, 0, Math.PI * 2);
+        ctx.arc(cloudX * W, cloudY * H, Math.min(W, H) * 0.25, 0, Math.PI * 2);
         ctx.fill();
+
+        ctx.filter = "none";
+        ctx.globalCompositeOperation = "source-over";
       }
 
-      ctx.filter = "none";
-      ctx.globalCompositeOperation = "source-over";
-
-      // Stars
+      // Stars with reduced complexity
       const stars = starsRef.current;
-      stars.forEach((star) => {
-        // Continuous movement
-        star.x += star.velocityX * animationSpeed;
-        star.y += star.velocityY * animationSpeed;
-        
-        // Add subtle orbital movement
-        star.x += Math.sin(time * star.speed * 0.015 + star.twinkleOffset) * 0.0005;
-        star.y += Math.cos(time * star.speed * 0.01 + star.twinkleOffset) * 0.0005;
+      stars.forEach((star, index) => {
+        // Update star position less frequently for some stars
+        if (frameCount % 2 === 0 || index % 3 === 0) {
+          star.x += star.velocityX * animationSpeed;
+          star.y += star.velocityY * animationSpeed;
+          
+          // Simplified orbital movement
+          star.x += Math.sin(time * star.speed * 0.01 + star.twinkleOffset) * 0.0003;
+          star.y += Math.cos(time * star.speed * 0.008 + star.twinkleOffset) * 0.0003;
 
-        // Wrap around edges
-        if (star.x > 1.05) star.x = -0.05;
-        if (star.x < -0.05) star.x = 1.05;
-        if (star.y > 1.05) star.y = -0.05;
-        if (star.y < -0.05) star.y = 1.05;
+          // Wrap around edges
+          if (star.x > 1.02) star.x = -0.02;
+          if (star.x < -0.02) star.x = 1.02;
+          if (star.y > 1.02) star.y = -0.02;
+          if (star.y < -0.02) star.y = 1.02;
+        }
 
         const x = star.x * W;
         const y = star.y * H;
 
-        // Mouse interaction effect - Color change instead of size change
+        // Simplified mouse interaction
         let colorShift = 0;
         let brightnessBoost = 1;
         
-        if (enableMouseInteraction && mouseRef.current.active) {
+        if (enableMouseInteraction && mouseRef.current.active && frameCount % 2 === 0) {
           const mx = smoothedMouse.current.x * W;
           const my = smoothedMouse.current.y * H;
           const distance = Math.hypot(x - mx, y - my);
-          const maxDistance = 100; // Larger interaction radius
+          const maxDistance = 80;
           
           if (distance < maxDistance) {
             const force = (1 - distance / maxDistance);
-            // Change color instead of size
-            colorShift = force * 120; // Shift hue
-            brightnessBoost = 1 + force * 0.8; // Slight brightness boost
+            colorShift = force * 80;
+            brightnessBoost = 1 + force * 0.5;
           }
         }
 
-        // Twinkling
+        // Simplified twinkling
         let twinkle = 1;
-        if (enableTwinkle) {
-          twinkle = 0.7 + 0.3 * Math.sin(time * 2 + star.twinkleOffset) * 
-                   Math.cos(time * 1.3 + star.twinkleOffset * 0.5);
+        if (enableTwinkle && frameCount % 4 === index % 4) {
+          twinkle = 0.8 + 0.2 * Math.sin(time * 1.5 + star.twinkleOffset);
         }
 
-        const finalOpacity = Math.min(star.opacity * twinkle * brightnessBoost, 0.9);
+        const finalOpacity = Math.min(star.opacity * twinkle * brightnessBoost, 0.8);
         const finalHue = (star.hue + colorShift) % 360;
 
-        // Outer glow
+        // Simplified rendering - combine glow effects
         ctx.globalCompositeOperation = "screen";
-        const outerGlow = ctx.createRadialGradient(x, y, 0, x, y, star.size * 8);
-        outerGlow.addColorStop(0, `hsla(${finalHue}, 70%, 50%, ${finalOpacity * 0.4})`);
-        outerGlow.addColorStop(0.5, `hsla(${finalHue}, 60%, 40%, ${finalOpacity * 0.2})`);
-        outerGlow.addColorStop(1, "transparent");
+        const glow = ctx.createRadialGradient(x, y, 0, x, y, star.size * 6);
+        glow.addColorStop(0, `hsla(${finalHue}, 70%, 60%, ${finalOpacity * 0.6})`);
+        glow.addColorStop(0.4, `hsla(${finalHue}, 60%, 50%, ${finalOpacity * 0.3})`);
+        glow.addColorStop(1, "transparent");
         
-        ctx.fillStyle = outerGlow;
+        ctx.fillStyle = glow;
         ctx.beginPath();
-        ctx.arc(x, y, star.size * 8, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Inner glow
-        ctx.globalCompositeOperation = "lighter";
-        const innerGlow = ctx.createRadialGradient(x, y, 0, x, y, star.size * 4);
-        innerGlow.addColorStop(0, `hsla(${finalHue}, 80%, 60%, ${finalOpacity * 0.7})`);
-        innerGlow.addColorStop(0.7, `hsla(${finalHue}, 70%, 50%, ${finalOpacity * 0.3})`);
-        innerGlow.addColorStop(1, "transparent");
-        
-        ctx.fillStyle = innerGlow;
-        ctx.beginPath();
-        ctx.arc(x, y, star.size * 4, 0, Math.PI * 2);
+        ctx.arc(x, y, star.size * 6, 0, Math.PI * 2);
         ctx.fill();
 
         // Core
         ctx.globalCompositeOperation = "source-over";
         ctx.fillStyle = `hsla(${finalHue}, 90%, 70%, ${finalOpacity})`;
         ctx.beginPath();
-        ctx.arc(x, y, Math.max(0.8, star.size * 0.4), 0, Math.PI * 2); // Made core slightly bigger
+        ctx.arc(x, y, Math.max(0.6, star.size * 0.3), 0, Math.PI * 2);
         ctx.fill();
       });
 
@@ -250,8 +260,8 @@ export default function OptimizedGalaxy({
     }
     
     if (enableMouseInteraction) {
-      canvas.addEventListener("mousemove", handleMouseMove);
-      canvas.addEventListener("mouseleave", handleMouseLeave);
+      canvas.addEventListener("mousemove", handleMouseMove, { passive: true });
+      canvas.addEventListener("mouseleave", handleMouseLeave, { passive: true });
     }
 
     // Cleanup
@@ -274,7 +284,7 @@ export default function OptimizedGalaxy({
         className={`absolute inset-0 w-full h-full ${className || ""}`}
         style={{
           zIndex: -10,
-          pointerEvents: 'none',
+          pointerEvents: enableMouseInteraction ? 'auto' : 'none',
         }}
         {...props}
       />
