@@ -10,6 +10,7 @@ import "./globals.css";
 import CustomCursor from "@/components/customcursor";
 import { Analytics } from "@vercel/analytics/next";
 import OptimizedGalaxy from "@/components/Galaxy";
+import DisableDevTools from '@/components/shortcuts';
 import Footer from "@/components/Footer"; // Assuming this path is correct
 import Image from "next/image"; // Import Image for the logo
 const items = [
@@ -223,6 +224,7 @@ export default function RootLayout({
         <link rel="canonical" href="https://sage-devs.vercel.app" />
       </head>
       <body className={baseBodyClasses} suppressHydrationWarning={true}>
+      <DisableDevTools />
         {/* cursor global overlay */}
         <CustomCursor />
         {/* Background Threads/Lines - Fixed z-index to be behind everything */}
