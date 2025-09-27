@@ -399,8 +399,8 @@ export default function RootLayout({
 
         {/* Galaxy Background */}
         <OptimizedGalaxy
-          starCount={120}
-          animationSpeed={1.2}
+          starCount={60}
+          animationSpeed={0.6}
           enableMouseInteraction={true}
           enableTwinkle={true}
           className="fixed inset-0"
