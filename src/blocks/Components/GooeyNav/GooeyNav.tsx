@@ -1783,18 +1783,20 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
 
             {/* Mobile Hamburger */}
             <button
-              className="lg:hidden relative z-[10000] p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              className={`lg:hidden fixed top-6 right-4 z-[10002] p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all duration-200 ${
+                mobileMenuOpen 
+                  ? 'bg-black/30 backdrop-blur-sm border border-white/20 shadow-lg' 
+                  : 'bg-transparent'
+              }`}
               onClick={toggleMobileMenu}
               aria-label="Toggle mobile menu"
             >
               <svg
-                className={`h-6 w-6 transition-all duration-300 ${
-                  mobileMenuOpen ? "rotate-90 text-cyan-300" : "text-white"
-                }`}
+                className="h-6 w-6 transition-all duration-300 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                strokeWidth={2}
+                strokeWidth={2.5}
               >
                 {mobileMenuOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6 M6 6L18 18" />
@@ -1809,12 +1811,29 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
 
       {/* Enhanced Mobile Overlay Menu */}
       <div
-        className={`lg:hidden fixed inset-0 bg-gradient-to-br from-slate-900/98 via-blue-900/95 to-slate-900/98 backdrop-blur-lg z-[9998] transition-opacity duration-200 ${
+        className={`lg:hidden fixed inset-0 bg-gradient-to-br from-slate-900/98 via-blue-900/95 to-slate-900/98 backdrop-blur-lg z-[9999] transition-opacity duration-200 ${
           mobileMenuOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
         }`}
       >
+        {/* Dedicated close button inside menu */}
+        <button
+          onClick={toggleMobileMenu}
+          className="absolute top-6 right-6 z-[10001] p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-200 shadow-lg"
+          aria-label="Close mobile menu"
+        >
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            strokeWidth={2.5}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6 M6 6L18 18" />
+          </svg>
+        </button>
+        
         <div className="h-full overflow-y-auto pt-24 pb-12 px-6">
           {/* Mobile Menu Content */}
           <div className="space-y-8 max-w-xl mx-auto">
