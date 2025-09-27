@@ -35,7 +35,6 @@ export default function OptimizedGalaxy({
   const mouseRef = useRef({ x: 0.5, y: 0.5, active: false });
   const smoothedMouse = useRef({ x: 0.5, y: 0.5 });
   const [isLowPerf, setIsLowPerf] = useState(false);
-  const [performanceLevel, setPerformanceLevel] = useState<'high' | 'medium' | 'low'>('high');
 
   // Performance monitoring and adaptive quality
   const frameTimeRef = useRef<number[]>([]);
@@ -132,12 +131,8 @@ export default function OptimizedGalaxy({
       let qualityMultiplier = 1;
       if (avgFrameTime > 25) {
         qualityMultiplier = 0.5; // Reduce quality for slow devices
-        setPerformanceLevel('low');
       } else if (avgFrameTime > 16) {
         qualityMultiplier = 0.75;
-        setPerformanceLevel('medium');
-      } else {
-        setPerformanceLevel('high');
       }
 
       // Skip frames if performance is very poor
