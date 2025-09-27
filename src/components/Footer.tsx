@@ -205,10 +205,10 @@ const Footer = () => {
 
   // Case Studies - Updated to match navbar
   const caseStudies: LinkItem[] = [
-    { label: "Web Apps", href: "/case-studies#web-apps" },
-    { label: "SaaS", href: "/case-studies#saas" },
-    { label: "E-commerce", href: "/case-studies#ecommerce" },
-    { label: "Enterprise", href: "/case-studies#enterprise" },
+    { label: "Web Apps", href: "/case-studies#case-studies-grid" },
+    { label: "SaaS", href: "/case-studies#case-studies-grid" },
+    { label: "E-commerce", href: "/case-studies#case-studies-grid" },
+    { label: "Enterprise", href: "/case-studies#case-studies-grid" },
   ];
 
   // Resources - Updated to match navbar
