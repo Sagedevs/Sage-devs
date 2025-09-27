@@ -99,16 +99,11 @@ const DisableDevTools = () => {
     // Apply selection styles
     disableSelection();
 
-    // Additional console warning/clearing (optional)
-    const clearConsole = () => {
-      if (typeof console !== 'undefined') {
-        console.clear();
-        console.log('%c🚫 Developer tools are disabled on this site.', 'color: red; font-size: 20px; font-weight: bold;');
-      }
-    };
-
-    // Clear console periodically (optional - might be annoying)
-    // const consoleInterval = setInterval(clearConsole, 1000);
+    // Additional console warning (optional)
+    if (typeof console !== 'undefined') {
+      console.clear();
+      console.log('%c🚫 Developer tools are disabled on this site.', 'color: red; font-size: 20px; font-weight: bold;');
+    }
 
     // Cleanup function
     return () => {
