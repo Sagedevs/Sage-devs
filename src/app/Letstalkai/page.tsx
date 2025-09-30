@@ -1,7 +1,6 @@
 // app/Letstalkai/page.tsx
 "use client";
 import React from 'react';
-import type { Metadata } from "next";
 import LetsTalkAIHero from '@/components/lets-talk-ai/LetsTalkAIHero';
 import LetsTalkAISecondSection from '@/components/lets-talk-ai/LetsTalkAISecondSection';
 import AIConsultation from '@/components/lets-talk-ai/AIConsultation';
