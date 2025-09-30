@@ -12,6 +12,7 @@ import { Analytics } from "@vercel/analytics/next";
 import Script from 'next/script';
 import OptimizedGalaxy from "@/components/Galaxy";
 import DisableDevTools from '@/components/shortcuts';
+import GoogleAnalytics from '@/components/analytics/GoogleAnalytics';
 import { OrganizationStructuredData } from "@/components/seo/StructuredData";
 import Footer from "@/components/Footer"; // Assuming this path is correct
 import Image from "next/image"; // Import Image for the logo
@@ -265,6 +266,7 @@ export default function RootLayout({
       </noscript>
       {/* End Google Tag Manager (noscript) */}
       <DisableDevTools />
+      <GoogleAnalytics />
         {/* cursor global overlay */}
         <CustomCursor />
         {/* Background Threads/Lines - Fixed z-index to be behind everything */}
