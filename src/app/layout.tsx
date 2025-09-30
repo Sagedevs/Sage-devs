@@ -9,6 +9,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/customcursor";
 import { Analytics } from "@vercel/analytics/next";
+import Script from 'next/script';
 import OptimizedGalaxy from "@/components/Galaxy";
 import DisableDevTools from '@/components/shortcuts';
 import { OrganizationStructuredData } from "@/components/seo/StructuredData";
@@ -155,23 +156,25 @@ export default function RootLayout({
     <html lang="en" className="overflow-x-hidden">
       <head>
         {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZ5HHWRT7M"></script>
-        <script dangerouslySetInnerHTML={{
-          __html: `
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-MZ5HHWRT7M" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-MZ5HHWRT7M');
-          `
-        }} />
+          `}
+        </Script>
         {/* Google Tag Manager */}
-        <script dangerouslySetInnerHTML={{
-          __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-          })(window,document,'script','dataLayer','GTM-KFR5TDDQ');`
-        }} />
+        <Script id="google-tag-manager" strategy="afterInteractive">
+          {`
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-KFR5TDDQ');
+          `}
+        </Script>
         {/* End Google Tag Manager */}
         <meta
           name="viewport"
