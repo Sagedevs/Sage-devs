@@ -63,7 +63,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.1 }}
         >
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white drop-shadow-[0_8px_24px_rgba(0,0,0,0.6)] max-w-5xl leading-tight sm:leading-tight md:leading-snug mb-4">
-            Transform Ideas Into
+            Sage Devs: Transform Ideas Into
             <br />
             <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
               Digital Excellence
