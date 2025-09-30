@@ -1,23 +1,22 @@
 'use client';
 
 import Script from 'next/script';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
-// Add type definitions for gtag
 declare global {
   interface Window {
-    gtag: (command: string, ...args: any[]) => void;
-    dataLayer: Record<string, any>[];
+    gtag?: (...args: any[]) => void;
+    dataLayer?: any[];
   }
 }
 
-export default function GoogleAnalytics() {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+// Move the component logic to a separate component
+function GoogleAnalyticsContent() {
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
+  const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
 
   useEffect(() => {
-    if (pathname && typeof window !== 'undefined' && window.gtag) {
+    if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('config', 'G-MZ5HHWRT7M', {
         page_path: pathname + (searchParams?.toString() ? `?${searchParams}` : ''),
         send_page_view: false,
@@ -29,7 +28,6 @@ export default function GoogleAnalytics() {
 
   return (
     <>
-      {/* Preconnect to Google domains */}
       <link 
         rel="preconnect" 
         href="https://www.googletagmanager.com" 
@@ -40,8 +38,6 @@ export default function GoogleAnalytics() {
         href="https://www.google-analytics.com" 
         crossOrigin="anonymous"
       />
-      
-      {/* GTM Script */}
       <Script
         id="gtm-script"
         strategy="afterInteractive"
@@ -65,5 +61,13 @@ export default function GoogleAnalytics() {
         }}
       />
     </>
+  );
+}
+
+export default function GoogleAnalytics() {
+  return (
+    <Suspense fallback={null}>
+      <GoogleAnalyticsContent />
+    </Suspense>
   );
 }
