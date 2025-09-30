@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, ChangeEvent } from 'react';
+import axios from 'axios';
 
 export default function AgencyCTA() {
   const [formData, setFormData] = useState({
@@ -22,34 +23,33 @@ export default function AgencyCTA() {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    
-    // Create email content
-    const emailSubject = `New Project Inquiry from ${formData.name}`;
-    const emailBody = `
-Name: ${formData.name}
-Email: ${formData.email}
-Company: ${formData.company || 'Not specified'}
-Budget: ${formData.budget || 'Not specified'}
+    setSubmitStatus('');
 
-Project Details:
-${formData.message}
+    try {
+      const response = await axios.post(
+        'https://form-automate.onrender.com/submit-form',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+        }
+      );
 
----
-This message was sent from the SageDevs contact form.
-    `;
-    
-    // Create mailto link
-    const mailtoLink = `mailto:sagedevs.network@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-    
-    // Open email client
-    window.location.href = mailtoLink;
-    
-    // Show success message
-    setTimeout(() => {
+      if (response.data.status === 'success') {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', company: '', budget: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+        console.error('Backend response:', response.data);
+      }
+    } catch (err) {
+      console.error('Failed to submit form:', err);
+      setSubmitStatus('error');
+    } finally {
       setIsSubmitting(false);
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', company: '', budget: '', message: '' });
-    }, 1000);
+    }
   };
 
   return (
@@ -272,7 +272,7 @@ This message was sent from the SageDevs contact form.
                     {isSubmitting ? (
                       <>
                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Opening Email Client...
+                        Sending Message...
                       </>
                     ) : (
                       <>
@@ -283,16 +283,15 @@ This message was sent from the SageDevs contact form.
                       </>
                     )}
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </button>
 
                 {submitStatus === 'success' && (
-                  <div className="p-4 bg-blue-500/10 border border-blue-400/30 rounded-xl">
+                  <div className="p-4 bg-blue-500/10 border border-blue-400/30 rounded-xl mt-4">
                     <div className="flex items-center gap-3 text-blue-400">
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      <span className="font-medium">Email client opened! Please send the message from your email app.</span>
+                      <span className="font-medium">Form submitted! We'll get back to you soon.</span>
                     </div>
                   </div>
                 )}

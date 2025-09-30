@@ -162,6 +162,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="My Portfolio" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="google-site-verification" content="googleb45aa620d0bc55ca" />
         <meta name="msapplication-config" content="/icons/browserconfig.xml" />
         <meta name="msapplication-TileColor" content="#2B5797" />
         <meta name="msapplication-tap-highlight" content="no" />
