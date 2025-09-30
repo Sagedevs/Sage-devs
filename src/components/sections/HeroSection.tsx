@@ -62,13 +62,13 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
         >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white drop-shadow-[0_8px_24px_rgba(0,0,0,0.6)] max-w-5xl leading-tight sm:leading-tight md:leading-snug mb-4">
-            Sage Devs: Transform Ideas Into
-            <br />
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Digital Excellence
-            </span>
-          </h1>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-extrabold tracking-tight text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.7)] max-w-4xl leading-snug sm:leading-snug md:leading-snug mb-6">
+  Transform Your Ideas into{' '}
+  <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+    Digital Masterpieces
+  </span>
+</h1>
+
         </motion.div>
 
         {/* Hero Subheadline */}
