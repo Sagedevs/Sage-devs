@@ -283,128 +283,131 @@ const LetsTalkAISection = () => {
                   </div>
           </div>
 
-                <div className="space-y-4 sm:space-y-6">
-                  <form onSubmit={handleSubmit} ref={formRef}>
-                    {/* Basic info row */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <input
-                        type="text"
-                        name="name"
-                        placeholder="Full Name *"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                        className="px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 text-sm sm:text-base"
-                      />
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="Email Address *"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                        className="px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 text-sm sm:text-base"
-                      />
-                    </div>
-
+                <form onSubmit={handleSubmit} ref={formRef} className="space-y-6 sm:space-y-8">
+                  {/* Basic info row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <input
                       type="text"
-                      name="company"
-                      placeholder="Company/Organization"
-                      value={formData.company}
+                      name="name"
+                      placeholder="Full Name *"
+                      value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 text-sm sm:text-base"
+                      required
+                      className="px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 text-sm sm:text-base"
                     />
-
-                    {/* AI-specific fields */}
-                    <select
-                      name="aiInterest"
-                      value={formData.aiInterest}
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email Address *"
+                      value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 text-sm sm:text-base"
+                      required
+                      className="px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 text-sm sm:text-base"
+                    />
+                  </div>
+
+                  {/* Company field */}
+                  <input
+                    type="text"
+                    name="company"
+                    placeholder="Company/Organization"
+                    value={formData.company}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 text-sm sm:text-base"
+                  />
+
+                  {/* AI-specific fields */}
+                  <select
+                    name="aiInterest"
+                    value={formData.aiInterest}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 text-sm sm:text-base"
+                  >
+                    <option value="" className="text-slate-400">Select AI Interest Area</option>
+                    {aiInterests.map(interest => (
+                      <option key={interest} value={interest}>{interest}</option>
+                    ))}
+                  </select>
+
+                  {/* Project scale and timeline */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <select
+                      name="projectScale"
+                      value={formData.projectScale}
+                      onChange={handleInputChange}
+                      className="px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 text-sm sm:text-base"
                     >
-                      <option value="" className="text-slate-400">Select AI Interest Area</option>
-                      {aiInterests.map(interest => (
-                        <option key={interest} value={interest}>{interest}</option>
+                      <option value="">Project Scale</option>
+                      {projectScales.map(scale => (
+                        <option key={scale} value={scale}>{scale}</option>
                       ))}
                     </select>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <select
-                        name="projectScale"
-                        value={formData.projectScale}
-                        onChange={handleInputChange}
-                        className="px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 text-sm sm:text-base"
-                      >
-                        <option value="">Project Scale</option>
-                        {projectScales.map(scale => (
-                          <option key={scale} value={scale}>{scale}</option>
-                        ))}
-                      </select>
-
-                      <select
-                        name="timeline"
-                        value={formData.timeline}
-                        onChange={handleInputChange}
-                        className="px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 text-sm sm:text-base"
-                      >
-                        <option value="">Timeline</option>
-                        {timelines.map(timeline => (
-                          <option key={timeline} value={timeline}>{timeline}</option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <textarea
-                      name="message"
-                      placeholder="Describe your AI vision, challenges, or specific requirements..."
-                      value={formData.message}
+                    <select
+                      name="timeline"
+                      value={formData.timeline}
                       onChange={handleInputChange}
-                      rows={4}
-                      className="w-full px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 resize-none text-sm sm:text-base"
-                    />
-
-                    <button
-                      type="submit"
-                      disabled={isSubmitting || !formData.name || !formData.email || !formData.message}
-                      className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold py-3 sm:py-4 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/30 flex items-center justify-center space-x-2 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 text-sm sm:text-base"
                     >
-                      {isSubmitting ? (
-                        <>
-                          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          Sending Message...
-                        </>
-                      ) : (
-                        <>
-                          <span>Let&apos;s Discuss AI Solutions</span>
-                          <span className="text-lg sm:text-xl">🚀</span>
-                        </>
-                      )}
-                    </button>
+                      <option value="">Timeline</option>
+                      {timelines.map(timeline => (
+                        <option key={timeline} value={timeline}>{timeline}</option>
+                      ))}
+                    </select>
+                  </div>
 
-                    {submitStatus === 'success' && (
-                      <div className="p-4 bg-green-500/10 border border-green-400/30 rounded-xl mt-4">
-                        <div className="flex items-center gap-3 text-green-400">
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span className="font-medium">Message sent successfully! We&apos;ll get back to you soon.</span>
-                        </div>
-                      </div>
-                    )}
+                  {/* Message field */}
+                  <textarea
+                    name="message"
+                    placeholder="Describe your AI vision, challenges, or specific requirements..."
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    rows={4}
+                    className="w-full px-4 py-3 bg-black/60 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:bg-black/80 transition-all duration-300 resize-none text-sm sm:text-base"
+                  />
 
-                    {submitStatus === 'error' && (
-                      <div className="p-4 bg-red-500/10 border border-red-400/30 rounded-xl mt-4">
-                        <div className="flex items-center gap-3 text-red-400">
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span className="font-medium">Failed to send message. Please try again.</span>
-                        </div>
-                      </div>
+                  {/* Submit button */}
+                  <button
+                    type="submit"
+                    disabled={isSubmitting || !formData.name || !formData.email || !formData.message}
+                    className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold py-3 sm:py-4 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/30 flex items-center justify-center space-x-2 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        Sending Message...
+                      </>
+                    ) : (
+                      <>
+                        <span>Let&apos;s Discuss AI Solutions</span>
+                        <span className="text-lg sm:text-xl">🚀</span>
+                      </>
                     )}
-                  </form>
-                </div>
+                  </button>
+
+                  {/* Status messages */}
+                  {submitStatus === 'success' && (
+                    <div className="p-4 bg-green-500/10 border border-green-400/30 rounded-xl">
+                      <div className="flex items-center gap-3 text-green-400">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="font-medium">Message sent successfully! We&apos;ll get back to you soon.</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {submitStatus === 'error' && (
+                    <div className="p-4 bg-red-500/10 border border-red-400/30 rounded-xl">
+                      <div className="flex items-center gap-3 text-red-400">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="font-medium">Failed to send message. Please try again.</span>
+                      </div>
+                    </div>
+                  )}
+                </form>
 
                 {/* Trust indicators */}
                 <div className="flex flex-wrap justify-center gap-4 sm:gap-6 mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-slate-700/30">
