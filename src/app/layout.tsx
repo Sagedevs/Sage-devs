@@ -189,10 +189,30 @@ export default function RootLayout({
         <meta name="google-site-verification" content="googleb45aa620d0bc55ca" />
         
         {/* Structured Data */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Sage Devs",
+            "url": "https://sagedevs.tech",
+            "logo": "https://sagedevs.tech/logo/logofixxed.svg",
+            "sameAs": [
+              "https://github.com/abdulahad-2",
+              "https://www.linkedin.com/in/abdulahad-2",
+              "https://x.com/abdulahad-2"
+            ]
+          })
+        }} />
         <OrganizationStructuredData />
         <meta name="msapplication-config" content="/icons/browserconfig.xml" />
         <meta name="msapplication-TileColor" content="#2B5797" />
         <meta name="msapplication-tap-highlight" content="no" />
+        
+        {/* Logo and Social Media Meta Tags */}
+        <link rel="icon" href="/logo/logofixxed.svg" type="image/svg+xml" />
+        <meta property="og:image" content="https://sagedevs.tech/logo/logofixxed.svg" />
+        <meta name="twitter:image" content="https://sagedevs.tech/logo/logofixxed.svg" />
+        
         <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
         <link
           rel="apple-touch-icon"
