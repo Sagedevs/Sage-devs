@@ -77,8 +77,10 @@ export default function PrivacyPolicy() {
     const fps = isMobile ? 30 : 60;
     const fpsInterval = 1000 / fps;
 
+    let animationId: number;
+    
     function animate(currentTime: number) {
-      requestAnimationFrame(animate);
+      animationId = requestAnimationFrame(animate);
       
       const elapsed = currentTime - lastTime;
       if (elapsed < fpsInterval) return;
@@ -86,8 +88,11 @@ export default function PrivacyPolicy() {
       lastTime = currentTime - (elapsed % fpsInterval);
 
       if (!canvasState.context) return;
+      // Use a slightly more performant clear method with opacity for trail effect
+      canvasState.context.globalCompositeOperation = 'source-over';
       canvasState.context.fillStyle = 'rgba(0, 0, 0, 0.05)';
       canvasState.context.fillRect(0, 0, canvasState.width, canvasState.height);
+      canvasState.context.globalCompositeOperation = 'lighter';
 
       particles.forEach((particle, i) => {
         particle.update();
@@ -121,8 +126,17 @@ export default function PrivacyPolicy() {
       canvas.height = canvasState.height;
     };
 
+    // Start the animation
+    animationId = requestAnimationFrame(animate);
+    
+    // Set up event listeners
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    
+    // Cleanup function
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(animationId);
+    };
   }, []);
 
   const schema = {
