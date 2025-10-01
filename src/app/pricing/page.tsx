@@ -1,21 +1,22 @@
-"use client"; // Add this directive at the very top of the file
+"use client";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
-import {
-  Calendar,
-  Clock,
-  Check,
-  Code,
-  Zap,
-  Globe,
-  Database,
-  Smartphone,
-  MessageCircle,
-  Send,
-  Sparkles, // For the 'Everything Included' plans
-  Award, // For Guarantee
-  Info, // For Notes
-  Gift, // For "Everything Included" section
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
+import { 
+  Calendar, 
+  Clock, 
+  Check, 
+  Code, 
+  Zap, 
+  Globe, 
+  Database, 
+  Smartphone, 
+  MessageCircle, 
+  Send, 
+  Sparkles, 
+  Award, 
+  Info, 
+  Gift 
 } from "lucide-react";
 
 // Define interfaces for plan types
@@ -46,6 +47,9 @@ const HireMePage = () => {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [isClient, setIsClient] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('');
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -473,65 +477,42 @@ const HireMePage = () => {
     "05:00 PM",
   ];
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('');
 
-    if (
-      !formData.name ||
-      !formData.email ||
-      !formData.projectDetails ||
-      !formData.budget
-    ) {
-      alert("Please fill in all required fields.");
-      return;
-    }
-
-    console.log("Form submitted:", formData);
+    const formData = new FormData(e.currentTarget);
+    
+    // Add selected date and time to form data
+    if (selectedDate) formData.append('selectedDate', selectedDate);
+    if (selectedTime) formData.append('selectedTime', selectedTime);
 
     try {
-      const subject = encodeURIComponent(
-        `Project Inquiry from ${formData.name}`
-      );
-      const body = encodeURIComponent(
-        `Name: ${formData.name}
-` +
-          `Email: ${formData.email}
-` +
-          `Budget: ${formData.budget}
-` +
-          `Selected Date: ${selectedDate || "Not selected"}
-` +
-          `Selected Time: ${selectedTime || "Not selected"}
-
-` +
-          `Project Details:
-${formData.projectDetails}`
+      const response = await axios.post(
+        'https://formspree.io/f/myznjkzv',
+        formData,
+        {
+          headers: {
+            'Accept': 'application/json'
+          }
+        }
       );
 
-      const mailtoLink = `mailto:contact@sagedevs.tech?subject=${subject}&body=${body}`;
-
-      const emailWindow = window.open(mailtoLink, "_blank");
-
-      if (
-        !emailWindow ||
-        emailWindow.closed ||
-        typeof emailWindow.closed == "undefined"
-      ) {
-        alert("Your browser might be blocking pop-ups. Please allow pop-ups for this site or email me directly at: contact@sagedevs.tech with your project details.");
+      if (response.status === 200) {
+        setSubmitStatus('success');
+        setFormData({ name: "", email: "", projectDetails: "", budget: "" });
+        setSelectedDate("");
+        setSelectedTime("");
+        formRef.current?.reset();
       } else {
-        alert(
-          "Thank you! Your email client should open with your message. I'll get back to you within 24 hours."
-        );
+        setSubmitStatus('error');
       }
-
-      setFormData({ name: "", email: "", projectDetails: "", budget: "" });
-      setSelectedDate("");
-      setSelectedTime("");
     } catch (error) {
-      console.error("Error submitting form:", error);
-      alert(
-        "There was an error. Please email me directly at contact@sagedevs.tech with your project details."
-      );
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -1780,13 +1761,20 @@ ${formData.projectDetails}`
               Let&apos;s Discuss Your Project
             </h2>
 
-            <form onSubmit={handleFormSubmit} className="space-y-6">
+            <form 
+              ref={formRef}
+              onSubmit={handleFormSubmit} 
+              action="https://formspree.io/f/myznjkzv"
+              method="POST"
+              className="space-y-6"
+            >
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Your Name
+                  Your Name *
                 </label>
                 <input
                   type="text"
+                  name="name"
                   value={formData.name}
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
@@ -1799,10 +1787,11 @@ ${formData.projectDetails}`
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Email Address
+                  Email Address *
                 </label>
                 <input
                   type="email"
+                  name="email"
                   value={formData.email}
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
@@ -1815,9 +1804,10 @@ ${formData.projectDetails}`
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Project Details
+                  Project Details *
                 </label>
                 <textarea
+                  name="message"
                   value={formData.projectDetails}
                   onChange={(e) =>
                     setFormData({ ...formData, projectDetails: e.target.value })
@@ -1831,9 +1821,10 @@ ${formData.projectDetails}`
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Budget Range
+                  Budget Range *
                 </label>
                 <select
+                  name="budget"
                   value={formData.budget}
                   onChange={(e) =>
                     setFormData({ ...formData, budget: e.target.value })
@@ -1865,20 +1856,55 @@ ${formData.projectDetails}`
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <button
                   type="submit"
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                  disabled={isSubmitting}
+                  className={`flex-1 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                 >
-                  <Send className="w-4 h-4" />
-                  Send Message
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" />
+                      Send Message
+                    </>
+                  )}
                 </button>
                 <button
                   type="button"
-                  onClick={handleButtonClick(openWhatsApp, "WhatsApp")}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openWhatsApp();
+                  }}
                   className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
                 >
                   <MessageCircle className="w-4 h-4" />
                   WhatsApp
                 </button>
               </div>
+              
+              {submitStatus === 'success' && (
+                <div className="p-4 bg-green-500/10 border border-green-400/30 rounded-xl">
+                  <div className="flex items-center gap-3 text-green-400">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="font-medium">Message sent successfully! We'll get back to you soon.</span>
+                  </div>
+                </div>
+              )}
+              
+              {submitStatus === 'error' && (
+                <div className="p-4 bg-red-500/10 border border-red-400/30 rounded-xl">
+                  <div className="flex items-center gap-3 text-red-400">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="font-medium">Failed to send message. Please try again.</span>
+                  </div>
+                </div>
+              )}
             </form>
           </div>
 
