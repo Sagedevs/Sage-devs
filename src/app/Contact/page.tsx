@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
@@ -87,6 +87,7 @@ const faqs = [
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     console.log("Contact component mounted!");
@@ -112,7 +113,7 @@ export default function Contact() {
 
       if (response.status === 200) {
         setSubmitStatus('success');
-        event.currentTarget.reset();
+        formRef.current?.reset();
       } else {
         setSubmitStatus('error');
       }
@@ -341,6 +342,7 @@ export default function Contact() {
             <form
               id="contact-form"
               onSubmit={handleSubmit}
+              ref={formRef}
               className="space-y-6 scroll-mt-28"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
