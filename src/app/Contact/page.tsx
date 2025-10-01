@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import axios from "axios";
 import { 
   Zap, 
   Target, 
@@ -84,9 +85,44 @@ const faqs = [
 ];
 
 export default function Contact() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('');
+
   useEffect(() => {
     console.log("Contact component mounted!");
   }, []);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('');
+
+    const formData = new FormData(event.currentTarget);
+
+    try {
+      const response = await axios.post(
+        'https://formspree.io/f/xeorkorj',
+        formData,
+        {
+          headers: {
+            'Accept': 'application/json'
+          }
+        }
+      );
+
+      if (response.status === 200) {
+        setSubmitStatus('success');
+        event.currentTarget.reset();
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <>
@@ -304,8 +340,7 @@ export default function Contact() {
             </h2>
             <form
               id="contact-form"
-              action="https://formspree.io/f/xeorkorj"
-              method="POST"
+              onSubmit={handleSubmit}
               className="space-y-6 scroll-mt-28"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
