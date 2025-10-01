@@ -414,16 +414,47 @@ export default function Contact() {
 
               <button
                 type="submit"
-                className="w-full px-6 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold rounded-xl hover:from-cyan-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl flex items-center justify-center gap-2"
+                disabled={isSubmitting}
+                className="w-full px-6 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold rounded-xl hover:from-cyan-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Send Message
-                <Mail className="w-5 h-5" />
+                {isSubmitting ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    Send Message
+                    <Mail className="w-5 h-5" />
+                  </>
+                )}
               </button>
+
+              {submitStatus === 'success' && (
+                <div className="p-4 bg-green-500/10 border border-green-400/30 rounded-xl mt-4">
+                  <div className="flex items-center gap-3 text-green-400">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="font-medium">Message sent successfully! We'll get back to you soon.</span>
+                  </div>
+                </div>
+              )}
+
+              {submitStatus === 'error' && (
+                <div className="p-4 bg-red-500/10 border border-red-400/30 rounded-xl mt-4">
+                  <div className="flex items-center gap-3 text-red-400">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="font-medium">Failed to send message. Please try again.</span>
+                  </div>
+                </div>
+              )}
             </form>
           </div>
         </div>
       </section>
-
       {/* Working Hours & FAQ Section with Background */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 relative">
         {/* Background */}
