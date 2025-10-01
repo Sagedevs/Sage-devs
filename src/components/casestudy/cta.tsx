@@ -1,7 +1,9 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 
 const CaseStudyCTA = () => {
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -9,10 +11,8 @@ const CaseStudyCTA = () => {
     message: ''
   });
 
-  useEffect(() => {
-    console.log('CaseStudyCTA component mounted');
-    return () => console.log('CaseStudyCTA component unmounted');
-  }, []);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -22,10 +22,37 @@ const CaseStudyCTA = () => {
     }));
   };
 
-  const handleSubmit = () => {
-    console.log('Form submitted:', formData);
-    // Handle form submission here
-    alert('Thank you for your interest! We\'ll get back to you soon.');
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('');
+
+    const formDataToSend = new FormData(event.currentTarget);
+
+    try {
+      const response = await axios.post(
+        'https://formspree.io/f/xzzjgdbq',
+        formDataToSend,
+        {
+          headers: {
+            'Accept': 'application/json'
+          }
+        }
+      );
+
+      if (response.status === 200) {
+        setSubmitStatus('success');
+        formRef.current?.reset();
+        setFormData({ name: '', email: '', company: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -191,7 +218,7 @@ const CaseStudyCTA = () => {
                 <p className="text-slate-300 text-lg leading-relaxed">Ready to join the digital elite? Share your vision and we&apos;ll craft a strategy that transforms your business landscape.</p>
               </div>
               
-              <div className="space-y-6">
+              <form onSubmit={handleSubmit} ref={formRef} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-slate-200 mb-2">
@@ -205,6 +232,7 @@ const CaseStudyCTA = () => {
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
                       placeholder="John Doe"
+                      required
                     />
                   </div>
                   
@@ -236,6 +264,7 @@ const CaseStudyCTA = () => {
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
                     placeholder="john@company.com"
+                    required
                   />
                 </div>
                 
@@ -251,22 +280,53 @@ const CaseStudyCTA = () => {
                     rows={4}
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all resize-none"
                     placeholder="Tell us about your project goals, timeline, and requirements..."
+                    required
                   />
                 </div>
                 
                 <button
-                  onClick={handleSubmit}
-                  className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold py-4 px-6 rounded-lg hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+                  type="submit"
+                  disabled={isSubmitting || !formData.name || !formData.email || !formData.message}
+                  className={`w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold py-4 px-6 rounded-lg hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all transform hover:scale-[1.02] active:scale-[0.98] ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
-                  Start Your Project
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto" />
+                      Sending Message...
+                    </>
+                  ) : (
+                    'Start Your Project'
+                  )}
                 </button>
+
+                {submitStatus === 'success' && (
+                  <div className="p-4 bg-green-500/10 border border-green-400/30 rounded-xl">
+                    <div className="flex items-center gap-3 text-green-400">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="font-medium">Message sent successfully! We&apos;ll get back to you soon.</span>
+                    </div>
+                  </div>
+                )}
+
+                {submitStatus === 'error' && (
+                  <div className="p-4 bg-red-500/10 border border-red-400/30 rounded-xl">
+                    <div className="flex items-center gap-3 text-red-400">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="font-medium">Failed to send message. Please try again.</span>
+                    </div>
+                  </div>
+                )}
                 
-                <div className="text-center">
+                <div className="text-center mt-4">
                   <p className="text-sm text-slate-400">
                     By submitting this form, you agree to our privacy policy.
                   </p>
                 </div>
-              </div>
+              </form>
             </div>
             
             {/* Decorative elements */}
