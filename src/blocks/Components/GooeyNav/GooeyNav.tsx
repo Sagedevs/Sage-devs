@@ -526,7 +526,10 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   // Close mega menu function
   const closeMegaMenu = useCallback((e: React.MouseEvent) => {
     // Only handle blog post links
-    const articleCard = (e.target as HTMLElement).closest('.article-card');
+    const target = e.target as HTMLElement;
+    if (!target || !target.closest) return;
+
+    const articleCard = target.closest('.article-card');
     if (articleCard) {
       e.preventDefault();
       const href = (articleCard as HTMLAnchorElement).getAttribute('href');
