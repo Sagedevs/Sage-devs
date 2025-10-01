@@ -24,23 +24,20 @@ const socialLinks = [
     iconPath: "/icons/github_icon.svg",
   },
   {
-    platform: "LinkedIn",
     href: "https://www.linkedin.com/in/abdul-ahad-7908a82b4/",
     iconPath: "/icons/linkedin_icon.svg",
   },
   {
     platform: "Gmail",
-    href: "mailto:contact@sagedevs.tech
-",
+    href: "mailto:contact@sagedevs.tech",
     iconPath: "/icons/gmail_icon.svg",
   },
 ];
 
 const contactInfo = {
-  email: "contact@sagedevs.tech
-",
+  email: "contact@sagedevs.tech",
   phone: "+92 3259684493",
-  location: "Lahore, Punjab, Pakistan",
+  location: "Lahore, Punjab, Pakistan"
 };
 
 const workingHours = [
