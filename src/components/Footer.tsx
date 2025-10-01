@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
 
 // Type definitions
 interface Particle {
@@ -50,6 +51,10 @@ interface LinkComponentProps {
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('');
+  const formRef = useRef<HTMLFormElement>(null);
 
   // Animated background effect
   useEffect(() => {
@@ -183,6 +188,42 @@ const Footer = () => {
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
+
+  const handleNewsletterSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('');
+
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('_subject', 'New Newsletter Subscription');
+    formData.append('_format', 'plain');
+
+    try {
+      const response = await axios.post(
+        'https://formspree.io/f/xeorkowb',
+        formData,
+        {
+          headers: {
+            'Accept': 'application/json'
+          }
+        }
+      );
+
+      if (response.status === 200) {
+        setSubmitStatus('success');
+        setEmail('');
+        formRef.current?.reset();
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Newsletter subscription error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   // Main navigation - Updated to match navbar
   const mainNavigation: LinkItem[] = [
@@ -495,18 +536,33 @@ const Footer = () => {
                     <p className="text-gray-400 text-sm leading-relaxed mb-6">
                       Subscribe to our newsletter for the latest insights, exclusive offers, and industry news.
                     </p>
-                    <form className="flex flex-col gap-3">
+                    <form 
+                      ref={formRef}
+                      onSubmit={handleNewsletterSubmit}
+                      className="flex flex-col gap-3"
+                    >
                       <input
                         type="email"
+                        name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         placeholder="Your email address"
                         className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 text-sm"
+                        required
                       />
                       <button
                         type="submit"
-                        className="w-full px-4 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-lg shadow-lg hover:from-blue-700 hover:to-cyan-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-950 transition-all duration-300 text-sm"
+                        disabled={isSubmitting}
+                        className={`w-full px-4 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-lg shadow-lg hover:from-blue-700 hover:to-cyan-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-950 transition-all duration-300 text-sm ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                       >
-                        Subscribe
+                        {isSubmitting ? 'Subscribing...' : 'Subscribe'}
                       </button>
+                      {submitStatus === 'success' && (
+                        <p className="text-green-400 text-sm mt-2">Thank you for subscribing!</p>
+                      )}
+                      {submitStatus === 'error' && (
+                        <p className="text-red-400 text-sm mt-2">Something went wrong. Please try again.</p>
+                      )}
                     </form>
                   </motion.div>
 
