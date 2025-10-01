@@ -224,7 +224,7 @@ export default function PrivacyPolicy() {
                 <section className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all">
                   <h2 className="text-3xl font-semibold text-blue-400 mb-4">1. Introduction</h2>
                   <p className="text-gray-200 leading-relaxed">
-                    At Sage Devs ("we," "our," or "us"), we respect your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website at sagedevs.tech, use our full-stack development and UI/UX design services, or interact with us in any capacity.
+                    At Sage Devs (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;), we respect your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website at sagedevs.tech, use our full-stack development and UI/UX design services, or interact with us in any capacity.
                   </p>
                 </section>
 
@@ -442,7 +442,7 @@ export default function PrivacyPolicy() {
                 </section>
 
                 <section className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all">
-                  <h2 className="text-3xl font-semibold text-blue-400 mb-4">11. Children's Privacy</h2>
+                  <h2 className="text-3xl font-semibold text-blue-400 mb-4">11. Children&apos;s Privacy</h2>
                   <p className="text-gray-200 leading-relaxed">
                     Our services are not intended for individuals under the age of 18. We do not knowingly collect personal information from children under 18. If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately, and we will take steps to delete such information from our systems.
                   </p>
@@ -501,7 +501,7 @@ export default function PrivacyPolicy() {
                 <section className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all">
                   <h2 className="text-3xl font-semibold text-blue-400 mb-4">14. Changes to This Privacy Policy</h2>
                   <p className="text-gray-200 leading-relaxed">
-                    We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors. We will notify you of any material changes by posting the new Privacy Policy on this page and updating the "Last updated" date. We encourage you to review this Privacy Policy periodically. Continued use of our services after changes constitutes acceptance of the updated policy.
+                    We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors. We will notify you of any material changes by posting the new Privacy Policy on this page and updating the &quot;Last updated&quot; date. We encourage you to review this Privacy Policy periodically. Continued use of our services after changes constitutes acceptance of the updated policy.
                   </p>
                 </section>
 
