@@ -324,6 +324,29 @@ const webPageSchema = {
 export default function ResourcesIndexPage() {
   return (
     <>
+      {/* SEO Meta Tags */}
+      <title>Developer Resources & Tools | Free Guides, Templates & Project Calculator | Sage Devs</title>
+      <meta name="title" content="Developer Resources & Tools | Free Guides, Templates & Project Calculator | Sage Devs" />
+      <meta name="description" content="Free developer resources, guides, templates, webinars, and tools for web development, AI integration, and software engineering. Project cost calculator, technology recommendations, and 24/7 support." />
+      <meta name="keywords" content="developer resources, web development guides, code templates, project cost calculator, AI integration tutorials, React best practices, Next.js guides, software engineering tools, technical webinars, developer support" />
+      <link rel="canonical" href="https://sagedevs.tech/resources" />
+
+      {/* Open Graph / Facebook */}
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://sagedevs.tech/resources" />
+      <meta property="og:title" content="Developer Resources & Tools | Sage Devs" />
+      <meta property="og:description" content="Free comprehensive developer resources including guides, templates, project calculator, and technical webinars for modern web development and AI integration." />
+      <meta property="og:image" content="https://sagedevs.tech/og-banner.webp" />
+      <meta property="og:site_name" content="Sage Devs" />
+      <meta property="og:locale" content="en_US" />
+
+      {/* Twitter */}
+      <meta property="twitter:card" content="summary_large_image" />
+      <meta property="twitter:url" content="https://sagedevs.tech/resources" />
+      <meta property="twitter:title" content="Developer Resources & Tools | Sage Devs" />
+      <meta property="twitter:description" content="Free developer resources, guides, templates, and project cost calculator for web development and AI integration." />
+      <meta property="twitter:image" content="https://sagedevs.tech/og-banner.webp" />
+
       {/* SEO Structured Data */}
       <script
         type="application/ld+json"

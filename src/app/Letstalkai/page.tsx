@@ -1,5 +1,5 @@
 // app/Letstalkai/page.tsx
-"use client";
+import type { Metadata } from "next";
 import React from 'react';
 import LetsTalkAIHero from '@/components/lets-talk-ai/LetsTalkAIHero';
 import LetsTalkAISecondSection from '@/components/lets-talk-ai/LetsTalkAISecondSection';
@@ -11,8 +11,89 @@ import AIStrategy from '@/components/lets-talk-ai/AIStrategy';
 import LetsTalkAIFinalSection from '@/components/lets-talk-ai/LetsTalkAIFinalSection';
 import AITransformationGuide from '@/components/lets-talk-ai/AITransformationGuide';
 
-// Note: For metadata, you'll need to export it from a separate server component
-// or add it to your layout. This inline version won't work with "use client"
+// JSONLDSchema Helper Component
+const JSONLDSchema: React.FC<{ schema: any }> = ({ schema }) => (
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+  />
+);
+
+export const metadata: Metadata = {
+  title: "AI Solutions & Machine Learning Services | Custom AI Development | Sage Devs",
+  description: "Expert AI development services: Machine learning, natural language processing, computer vision, AI chatbots, and intelligent automation. Transform your business with GPT-4, TensorFlow, and custom AI solutions.",
+  keywords: [
+    "AI development services",
+    "machine learning solutions",
+    "natural language processing",
+    "computer vision",
+    "AI chatbot development",
+    "predictive analytics",
+    "intelligent automation",
+    "GPT-4 integration",
+    "TensorFlow development",
+    "AI consulting",
+    "artificial intelligence services",
+    "custom AI solutions",
+    "NLP development",
+    "computer vision services",
+    "AI automation",
+    "machine learning consulting",
+    "AI integration services",
+    "custom AI models",
+    "AI strategy consulting",
+    "enterprise AI solutions"
+  ],
+  authors: [{ name: "Sage Devs" }],
+  creator: "Sage Devs",
+  publisher: "Sage Devs",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL("https://sagedevs.tech"),
+  alternates: {
+    canonical: "https://sagedevs.tech/Letstalkai",
+  },
+  openGraph: {
+    title: "AI Solutions & Machine Learning Services | Sage Devs",
+    description: "Transform your business with cutting-edge AI solutions including machine learning, NLP, computer vision, and intelligent automation using GPT-4, TensorFlow, and PyTorch.",
+    url: "https://sagedevs.tech/Letstalkai",
+    siteName: "Sage Devs",
+    images: [
+      {
+        url: "https://sagedevs.tech/og-banner.webp",
+        width: 1200,
+        height: 630,
+        alt: "Sage Devs AI Solutions & Machine Learning Services",
+        type: "image/webp",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI Solutions & Machine Learning Services | Sage Devs",
+    description: "Expert AI development: Machine learning, NLP, computer vision, and intelligent automation with GPT-4 and TensorFlow.",
+    images: ["https://sagedevs.tech/og-banner.webp"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  category: "Technology Services",
+  classification: "AI Development Services",
+};
 
 const aiServiceSchema = {
   "@context": "https://schema.org",
@@ -20,7 +101,7 @@ const aiServiceSchema = {
   "@id": "https://sagedevs.tech/Letstalkai#aiservice",
   name: "Sage Devs - AI Solutions & Machine Learning Services",
   alternateName: "AI Development Agency",
-  image: "https://sagedevs.tech/og-ai-solutions.jpg",
+  image: "https://sagedevs.tech/og-banner.webp",
   description: "Leading AI development agency specializing in machine learning, natural language processing, computer vision, AI chatbots, predictive analytics, and intelligent automation solutions using GPT-4, TensorFlow, PyTorch, and LangChain.",
   url: "https://sagedevs.tech/Letstalkai",
   priceRange: "$$$$",
@@ -439,27 +520,11 @@ const howToSchema = {
 const LetsTalkAIPage: React.FC = () => {
   return (
     <>
-      {/* SEO Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(aiServiceSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(aiTechnologiesSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
-      />
+      <JSONLDSchema schema={aiServiceSchema} />
+      <JSONLDSchema schema={aiTechnologiesSchema} />
+      <JSONLDSchema schema={breadcrumbSchema} />
+      <JSONLDSchema schema={faqSchema} />
+      <JSONLDSchema schema={howToSchema} />
 
       {/* Page Content */}
       <main>

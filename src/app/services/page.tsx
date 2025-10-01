@@ -45,17 +45,16 @@ export const metadata: Metadata = {
     canonical: "https://sagedevs.tech/services",
   },
   openGraph: {
-    title: "Complete Software Development Services | Sage Devs",
     description: "End-to-end software development services: Web & mobile apps, AI solutions, SaaS platforms, e-commerce, cloud infrastructure, and UI/UX design. Trusted by 150+ clients worldwide.",
     url: "https://sagedevs.tech/services",
     siteName: "Sage Devs",
     images: [
       {
-        url: "https://sagedevs.tech/og-services.jpg",
+        url: "https://sagedevs.tech/og-banner.webp",
         width: 1200,
         height: 630,
         alt: "Sage Devs Software Development Services",
-        type: "image/jpeg",
+        type: "image/webp",
       },
     ],
     locale: "en_US",
@@ -65,7 +64,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Complete Software Development Services | Sage Devs",
     description: "Expert web & mobile development, AI automation, SaaS platforms, cloud infrastructure, and UI/UX design. 100+ projects delivered with 99.9% uptime.",
-    images: ["https://sagedevs.tech/og-services.jpg"],
+    images: ["https://sagedevs.tech/og-banner.webp"],
   },
   robots: {
     index: true,

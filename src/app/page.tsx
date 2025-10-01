@@ -48,17 +48,16 @@ export const metadata: Metadata = {
     canonical: "https://sagedevs.tech",
   },
   openGraph: {
-    title: "Sage Devs — Transform Ideas Into Digital Excellence",
     description: "Premium full-stack development agency with 100+ projects delivered. Expert web & mobile development, AI automation, and SaaS solutions. 99.9% uptime guarantee.",
     url: "https://sagedevs.tech",
     siteName: "Sage Devs",
     images: [
       {
-        url: "https://sagedevs.tech/og-image.jpg",
+        url: "https://sagedevs.tech/og-banner.webp",
         width: 1200,
         height: 630,
         alt: "Sage Devs - Full Stack Software Development Agency",
-        type: "image/jpeg",
+        type: "image/webp",
       },
     ],
     locale: "en_US",
@@ -68,7 +67,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sage Devs — Full Stack Software Agency & UI/UX Studio",
     description: "Transform ideas into digital excellence. 100+ projects delivered with cutting-edge tech. Expert React, Next.js, AI & SaaS development.",
-    images: ["https://sagedevs.tech/og-image.jpg"],
+    images: ["https://sagedevs.tech/og-banner.webp"],
   },
   robots: {
     index: true,
