@@ -13,7 +13,6 @@ import Script from 'next/script';
 import OptimizedGalaxy from "@/components/Galaxy";
 import DisableDevTools from '@/components/shortcuts';
 import GoogleAnalytics from '@/components/analytics/GoogleAnalytics';
-import { OrganizationStructuredData } from "@/components/seo/StructuredData";
 import Footer from "@/components/Footer"; // Assuming this path is correct
 import Image from "next/image"; // Import Image for the logo
 const items = [
@@ -199,19 +198,16 @@ export default function RootLayout({
             "sameAs": [
               "https://github.com/abdulahad-2",
               "https://www.linkedin.com/in/abdulahad-2",
-              "https://x.com/abdulahad-2"
+              "https://x.com/Abdul_Ahadt1"
             ]
           })
         }} />
-        <OrganizationStructuredData />
         <meta name="msapplication-config" content="/icons/browserconfig.xml" />
         <meta name="msapplication-TileColor" content="#2B5797" />
         <meta name="msapplication-tap-highlight" content="no" />
         
         {/* Logo and Social Media Meta Tags */}
         <link rel="icon" href="/logo/logofixxed.svg" type="image/svg+xml" />
-        <meta property="og:image" content="https://sagedevs.tech/logo/logofixxed.svg" />
-        <meta name="twitter:image" content="https://sagedevs.tech/logo/logofixxed.svg" />
         
         <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
         <link
@@ -257,7 +253,8 @@ export default function RootLayout({
         <meta property="og:description" content="We are Sage Devs, a global software agency delivering scalable web apps and exceptional UI/UX design with modern technologies like Next.js, React, and Tailwind CSS." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://sagedevs.tech" />
-        <meta property="og:image" content="https://sagedevs.tech/og-image.png" />
+        <meta property="og:image" content="https://sagedevs.tech/logo/logofixxed.svg" />
+        <meta name="twitter:image" content="https://sagedevs.tech/logo/logofixxed.svg" />
         <meta property="og:site_name" content="Sage Devs" />
         <meta property="og:locale" content="en_US" />
 
@@ -265,7 +262,7 @@ export default function RootLayout({
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Sage Devs — Full Stack Software Agency & UI/UX Studio" />
         <meta name="twitter:description" content="Sage Devs builds modern, reliable, and scalable digital solutions with a focus on web development and UI/UX design." />
-        <meta name="twitter:image" content="https://sagedevs.tech/og-image.png" />
+        <meta name="twitter:image" content="https://sagedevs.tech/logo/logofixxed.svg" />
         <meta name="twitter:site" content="@SageDevs" />
 
         {/* Theme color (browser bar + PWA style) */}
