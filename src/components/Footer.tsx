@@ -247,7 +247,8 @@ const Footer = () => {
     },
     {
       platform: "Email",
-      href: "mailto:sagedevs.network@gmail.com",
+      href: "mailto:contact@sagedevs.tech
+",
       iconPath: "/icons/gmail_icon.svg",
       label: "Email"
     }
@@ -257,8 +258,10 @@ const Footer = () => {
   const contactInfo: ContactInfo[] = [
     {
       label: "Email",
-      value: "sagedevs.network@gmail.com",
-      href: "mailto:sagedevs.network@gmail.com",
+      value: "contact@sagedevs.tech
+",
+      href: "mailto:contact@sagedevs.tech
+",
     },
     {
       label: "Phone",

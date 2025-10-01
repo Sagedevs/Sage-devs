@@ -85,7 +85,8 @@ const socialLinks = [
   },
   {
     platform: "Gmail",
-    href: "mailto:sagedevs.network@gmail.com",
+    href: "mailto:contact@sagedevs.tech
+",
     iconPath: "/icons/gmail_icon.svg",
   },
 ];

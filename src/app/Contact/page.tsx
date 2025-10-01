@@ -30,13 +30,15 @@ const socialLinks = [
   },
   {
     platform: "Gmail",
-    href: "mailto:sagedevs.network@gmail.com",
+    href: "mailto:contact@sagedevs.tech
+",
     iconPath: "/icons/gmail_icon.svg",
   },
 ];
 
 const contactInfo = {
-  email: "sagedevs.network@gmail.com",
+  email: "contact@sagedevs.tech
+",
   phone: "+92 3259684493",
   location: "Lahore, Punjab, Pakistan",
 };
