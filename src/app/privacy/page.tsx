@@ -25,7 +25,7 @@ export default function PrivacyPolicy() {
               <section>
                 <h2 className="text-2xl font-semibold text-white mb-4">1. Introduction</h2>
                 <p>
-                  At Sage Devs ("we," "our," or "us"), we respect your privacy and are committed to protecting your personal information.
+                  At Sage Devs (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;), we respect your privacy and are committed to protecting your personal information.
                   This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website,
                   use our services, or interact with us.
                 </p>
@@ -161,7 +161,7 @@ export default function PrivacyPolicy() {
               </section>
 
               <section>
-                <h2 className="text-2xl font-semibold text-white mb-4">11. Children's Privacy</h2>
+                <h2 className="text-2xl font-semibold text-white mb-4">11. Children&apos;s Privacy</h2>
                 <p>
                   Our services are not intended for individuals under the age of 18. We do not knowingly collect personal
                   information from children under 18. If you are a parent or guardian and believe your child has provided

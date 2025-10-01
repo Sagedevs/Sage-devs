@@ -323,7 +323,7 @@ export default function TermsOfService() {
                         We warrant that our services will be performed in a professional manner consistent with industry standards. We do not warrant that our services will be uninterrupted or error-free.
                       </p>
                       <p className="text-gray-300 leading-relaxed">
-                        Custom software solutions are provided "as-is" after delivery and acceptance. Bug fixes within the warranty period (typically 30-90 days) are included at no additional cost.
+                        Custom software solutions are provided &quot;as-is&quot; after delivery and acceptance. Bug fixes within the warranty period (typically 30-90 days) are included at no additional cost.
                       </p>
                     </div>
                   </div>
@@ -528,7 +528,7 @@ export default function TermsOfService() {
                   Ready to Start Your Project?
                 </h3>
                 <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-                  By proceeding with our services, you agree to these Terms of Service. Let's build something amazing together!
+                  By proceeding with our services, you agree to these Terms of Service. Let&apos;s build something amazing together!
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <a 
