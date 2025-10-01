@@ -1,7 +1,9 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 
 const FinalSection = () => {
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,6 +14,8 @@ const FinalSection = () => {
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [, setIsHovered] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('');
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -29,17 +33,37 @@ const FinalSection = () => {
     }));
   };
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Your project is ready for liftoff! We\'ll contact you within 24 hours.');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      service: '',
-      message: ''
-    });
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('');
+
+    const formDataToSend = new FormData(event.currentTarget);
+
+    try {
+      const response = await axios.post(
+        'https://formspree.io/f/xldpndqz',
+        formDataToSend,
+        {
+          headers: {
+            'Accept': 'application/json'
+          }
+        }
+      );
+
+      if (response.status === 200) {
+        setSubmitStatus('success');
+        formRef.current?.reset();
+        setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -105,7 +129,7 @@ const FinalSection = () => {
                   <p className="text-gray-300 text-base">Transform your vision into reality</p>
                 </div>
 
-                <div className="space-y-8">
+                <form onSubmit={handleSubmit} ref={formRef} className="space-y-8">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="relative group/input">
                       <input
@@ -173,16 +197,51 @@ const FinalSection = () => {
                   ></textarea>
 
                   <button
-                    onClick={handleSubmit}
-                    className="relative w-full group/btn overflow-hidden bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 text-white px-8 py-5 rounded-2xl font-black text-lg transition duration-300 transform hover:scale-[1.02] hover:shadow-2xl shadow-blue-500/25"
+                    type="submit"
+                    disabled={isSubmitting || !formData.name || !formData.email || !formData.message}
+                    className={`relative w-full group/btn overflow-hidden bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 text-white px-8 py-5 rounded-2xl font-black text-lg transition duration-300 transform hover:scale-[1.02] hover:shadow-2xl shadow-blue-500/25 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-400 to-blue-600 opacity-0 group-hover/btn:opacity-100 transition duration-500"></div>
-                    <span className="relative z-10 flex items-center justify-center gap-2">
-                      LAUNCH PROJECT
-                      <span className="group-hover/btn:translate-x-2 transition duration-300 text-xl">→</span>
-                    </span>
+                    {isSubmitting ? (
+                      <>
+                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-400 to-blue-600 opacity-100"></div>
+                        <span className="relative z-10 flex items-center justify-center gap-2">
+                          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          Sending Message...
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-400 to-blue-600 opacity-0 group-hover/btn:opacity-100 transition duration-500"></div>
+                        <span className="relative z-10 flex items-center justify-center gap-2">
+                          LAUNCH PROJECT
+                          <span className="group-hover/btn:translate-x-2 transition duration-300 text-xl">→</span>
+                        </span>
+                      </>
+                    )}
                   </button>
-                </div>
+
+                  {submitStatus === 'success' && (
+                    <div className="p-4 bg-green-500/10 border border-green-400/30 rounded-xl">
+                      <div className="flex items-center gap-3 text-green-400">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="font-medium">Message sent successfully! We'll contact you within 24 hours.</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {submitStatus === 'error' && (
+                    <div className="p-4 bg-red-500/10 border border-red-400/30 rounded-xl">
+                      <div className="flex items-center gap-3 text-red-400">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="font-medium">Failed to send message. Please try again.</span>
+                      </div>
+                    </div>
+                  )}
+                </form>
               </div>
             </div>
 

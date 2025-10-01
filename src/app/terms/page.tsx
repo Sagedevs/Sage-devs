@@ -93,23 +93,7 @@ export default function TermsOfService() {
 
         {/* Content */}
         <div className="relative z-10">
-          {/* Breadcrumb */}
-          <nav className="container mx-auto px-4 pt-6" aria-label="Breadcrumb">
-            <ol className="flex items-center gap-2 text-sm" itemScope itemType="https://schema.org/BreadcrumbList">
-              <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-                <a href="https://sagedevs.tech" className="text-blue-400 hover:text-blue-300 transition-colors" itemProp="item">
-                  <span itemProp="name">Home</span>
-                </a>
-                <meta itemProp="position" content="1" />
-              </li>
-              <li className="text-gray-500">/</li>
-              <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-                <span className="text-gray-400" itemProp="name">Terms of Service</span>
-                <meta itemProp="position" content="2" />
-              </li>
-            </ol>
-          </nav>
-
+          
           {/* Hero Section */}
           <div className="container mx-auto px-4 py-20 md:py-32">
             <div className="max-w-5xl mx-auto text-center mb-16">
