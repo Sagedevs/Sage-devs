@@ -13,9 +13,9 @@ declare global {
 // Move the component logic to a separate component
 function GoogleAnalyticsContent() {
   const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
-  const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
 
   useEffect(() => {
+    const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('config', 'G-MZ5HHWRT7M', {
         page_path: pathname + (searchParams?.toString() ? `?${searchParams}` : ''),
@@ -24,7 +24,7 @@ function GoogleAnalyticsContent() {
         first_party_collection: true
       });
     }
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   return (
     <>

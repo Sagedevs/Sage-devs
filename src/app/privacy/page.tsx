@@ -173,7 +173,7 @@ export default function PrivacyPolicy() {
                 <h2 className="text-2xl font-semibold text-white mb-4">12. Changes to This Privacy Policy</h2>
                 <p>
                   We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new
-                  Privacy Policy on this page and updating the "Last updated" date. We encourage you to review this Privacy
+                  Privacy Policy on this page and updating the &quot;Last updated&quot; date. We encourage you to review this Privacy
                   Policy periodically.
                 </p>
               </section>
