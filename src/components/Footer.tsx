@@ -247,21 +247,17 @@ const Footer = () => {
     },
     {
       platform: "Email",
-      href: "mailto:contact@sagedevs.tech
-",
+      href: "mailto:contact@sagedevs.tech",
       iconPath: "/icons/gmail_icon.svg",
       label: "Email"
     }
   ];
-
   // Contact info
   const contactInfo: ContactInfo[] = [
     {
       label: "Email",
-      value: "contact@sagedevs.tech
-",
-      href: "mailto:contact@sagedevs.tech
-",
+      value: "contact@sagedevs.tech",
+      href: "mailto:contact@sagedevs.tech",
     },
     {
       label: "Phone",
