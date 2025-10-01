@@ -27,22 +27,21 @@ export default function AgencyCTA() {
 
     try {
       const response = await axios.post(
-        'https://form-automate.onrender.com/submit-form',
+        'https://formspree.io/f/mdkwzkzj',
         formData,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
+        { 
+          headers: { 
+            'Accept': 'application/json' 
+          } 
         }
       );
 
-      if (response.data.status === 'success') {
+      if (response.status === 200) {
         setSubmitStatus('success');
         setFormData({ name: '', email: '', company: '', budget: '', message: '' });
       } else {
         setSubmitStatus('error');
-        console.error('Backend response:', response.data);
+        console.error('Formspree response:', response.data);
       }
     } catch (err) {
       console.error('Failed to submit form:', err);
