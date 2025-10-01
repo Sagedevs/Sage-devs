@@ -88,25 +88,6 @@ export default function Contact() {
     console.log("Contact component mounted!");
   }, []);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-
-    const name = formData.get("name")?.toString() || "";
-    const email = formData.get("email")?.toString() || "";
-    const subject = formData.get("subject")?.toString() || "";
-    const message = formData.get("message")?.toString() || "";
-
-    const emailBody = `Name: ${name}\nEmail: ${email}\n\n${message}`;
-    const encodedSubject = encodeURIComponent(subject);
-    const encodedBody = encodeURIComponent(emailBody);
-
-    const mailtoLink = `mailto:${contactInfo.email}?subject=${encodedSubject}&body=${encodedBody}`;
-    window.location.href = mailtoLink;
-  };
-
   return (
     <>
       {/* Hero Section with Background */}
@@ -321,7 +302,12 @@ export default function Contact() {
             <h2 className="text-3xl sm:text-4xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
               Send a Message
             </h2>
-            <form id="contact-form" onSubmit={handleSubmit} className="space-y-6 scroll-mt-28">
+            <form
+              id="contact-form"
+              action="https://formspree.io/f/xeorkorj"
+              method="POST"
+              className="space-y-6 scroll-mt-28"
+            >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label
