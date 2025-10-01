@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useRef } from 'react';
 import axios from 'axios';
 
 export default function AgencyCTA() {
@@ -13,6 +13,7 @@ export default function AgencyCTA() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -21,30 +22,33 @@ export default function AgencyCTA() {
     });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('');
+
+    const formDataToSend = new FormData(event.currentTarget);
 
     try {
       const response = await axios.post(
         'https://formspree.io/f/mdkwzkzj',
-        formData,
-        { 
-          headers: { 
-            'Accept': 'application/json' 
-          } 
+        formDataToSend,
+        {
+          headers: {
+            'Accept': 'application/json'
+          }
         }
       );
 
       if (response.status === 200) {
         setSubmitStatus('success');
+        formRef.current?.reset();
         setFormData({ name: '', email: '', company: '', budget: '', message: '' });
       } else {
         setSubmitStatus('error');
-        console.error('Formspree response:', response.data);
       }
-    } catch (err) {
-      console.error('Failed to submit form:', err);
+    } catch (error) {
+      console.error('Form submission error:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -184,118 +188,130 @@ export default function AgencyCTA() {
               </div>
 
               <div className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div className="group">
-                    <label className="block text-sm font-medium text-gray-300 mb-2 group-focus-within:text-blue-400 transition-colors">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 bg-white/5 border border-gray-600/30 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition-all duration-300"
-                      placeholder="John Doe"
-                    />
-                  </div>
-                  <div className="group">
-                    <label className="block text-sm font-medium text-gray-300 mb-2 group-focus-within:text-blue-400 transition-colors">
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 bg-white/5 border border-gray-600/30 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition-all duration-300"
-                      placeholder="john@company.com"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div className="group">
-                    <label className="block text-sm font-medium text-gray-300 mb-2 group-focus-within:text-blue-400 transition-colors">
-                      Company
-                    </label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-white/5 border border-gray-600/30 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition-all duration-300"
-                      placeholder="Your Company"
-                    />
-                  </div>
-                  <div className="group">
-                    <label className="block text-sm font-medium text-gray-300 mb-2 group-focus-within:text-blue-400 transition-colors">
-                      Project Budget
-                    </label>
-                    <select
-                      name="budget"
-                      value={formData.budget}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-white/5 border border-gray-600/30 rounded-xl text-white focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition-all duration-300"
-                    >
-                      <option value="" className="bg-gray-900">Select Range</option>
-                      <option value="5k-10k" className="bg-gray-900">$5k - $10k</option>
-                      <option value="10k-25k" className="bg-gray-900">$10k - $25k</option>
-                      <option value="25k-50k" className="bg-gray-900">$25k - $50k</option>
-                      <option value="50k+" className="bg-gray-900">$50k+</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="group">
-                  <label className="block text-sm font-medium text-gray-300 mb-2 group-focus-within:text-blue-400 transition-colors">
-                    Project Details *
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                    rows={5}
-                    className="w-full px-4 py-3 bg-white/5 border border-gray-600/30 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition-all duration-300 resize-none"
-                    placeholder="Tell us about your project, goals, and requirements..."
-                  />
-                </div>
-
-                <button
-                  type="button"
-                  onClick={handleSubmit}
-                  disabled={isSubmitting || !formData.name || !formData.email || !formData.message}
-                  className="w-full relative group overflow-hidden bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-                >
-                  <span className="relative z-10 flex items-center justify-center gap-3">
-                    {isSubmitting ? (
-                      <>
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Sending Message...
-                      </>
-                    ) : (
-                      <>
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                        </svg>
-                        Send Message
-                      </>
-                    )}
-                  </span>
-                </button>
-
-                {submitStatus === 'success' && (
-                  <div className="p-4 bg-blue-500/10 border border-blue-400/30 rounded-xl mt-4">
-                    <div className="flex items-center gap-3 text-blue-400">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <span className="font-medium">Form submitted! We&apos;ll get back to you soon.</span>
+                <form onSubmit={handleSubmit} ref={formRef}>
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    <div className="group">
+                      <label className="block text-sm font-medium text-gray-300 mb-2 group-focus-within:text-blue-400 transition-colors">
+                        Full Name *
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 bg-white/5 border border-gray-600/30 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition-all duration-300"
+                        placeholder="John Doe"
+                      />
+                    </div>
+                    <div className="group">
+                      <label className="block text-sm font-medium text-gray-300 mb-2 group-focus-within:text-blue-400 transition-colors">
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 bg-white/5 border border-gray-600/30 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition-all duration-300"
+                        placeholder="john@company.com"
+                      />
                     </div>
                   </div>
-                )}
+
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    <div className="group">
+                      <label className="block text-sm font-medium text-gray-300 mb-2 group-focus-within:text-blue-400 transition-colors">
+                        Company
+                      </label>
+                      <input
+                        type="text"
+                        name="company"
+                        value={formData.company}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 bg-white/5 border border-gray-600/30 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition-all duration-300"
+                        placeholder="Your Company"
+                      />
+                    </div>
+                    <div className="group">
+                      <label className="block text-sm font-medium text-gray-300 mb-2 group-focus-within:text-blue-400 transition-colors">
+                        Project Budget
+                      </label>
+                      <select
+                        name="budget"
+                        value={formData.budget}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 bg-white/5 border border-gray-600/30 rounded-xl text-white focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition-all duration-300"
+                      >
+                        <option value="" className="bg-gray-900">Select Range</option>
+                        <option value="5k-10k" className="bg-gray-900">$5k - $10k</option>
+                        <option value="10k-25k" className="bg-gray-900">$10k - $25k</option>
+                        <option value="25k-50k" className="bg-gray-900">$25k - $50k</option>
+                        <option value="50k+" className="bg-gray-900">$50k+</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="group">
+                    <label className="block text-sm font-medium text-gray-300 mb-2 group-focus-within:text-blue-400 transition-colors">
+                      Project Details *
+                    </label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                      rows={5}
+                      className="w-full px-4 py-3 bg-white/5 border border-gray-600/30 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition-all duration-300 resize-none"
+                      placeholder="Tell us about your project, goals, and requirements..."
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting || !formData.name || !formData.email || !formData.message}
+                    className="w-full relative group overflow-hidden bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  >
+                    <span className="relative z-10 flex items-center justify-center gap-3">
+                      {isSubmitting ? (
+                        <>
+                          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          Sending Message...
+                        </>
+                      ) : (
+                        <>
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                          </svg>
+                          Send Message
+                        </>
+                      )}
+                    </span>
+                  </button>
+
+                  {submitStatus === 'success' && (
+                    <div className="p-4 bg-blue-500/10 border border-blue-400/30 rounded-xl mt-4">
+                      <div className="flex items-center gap-3 text-blue-400">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="font-medium">Form submitted! We&apos;ll get back to you soon.</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {submitStatus === 'error' && (
+                    <div className="p-4 bg-red-500/10 border border-red-400/30 rounded-xl mt-4">
+                      <div className="flex items-center gap-3 text-red-400">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="font-medium">Failed to send message. Please try again.</span>
+                      </div>
+                    </div>
+                  )}
+                </form>
               </div>
 
               <div className="mt-6 pt-6 border-t border-gray-700/50">
