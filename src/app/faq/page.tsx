@@ -2,6 +2,9 @@
 "use client";
 import React from "react";
 import FAQ from '@/components/faq';
+import metadata from './metadata';
+
+export { metadata };
 
 // Structured Data Schemas
 const faqPageSchema = {

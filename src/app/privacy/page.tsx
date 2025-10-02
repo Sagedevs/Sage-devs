@@ -2,16 +2,6 @@
 
 import React, { useEffect, useRef } from 'react';
 
-interface Particle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  radius: number;
-  update(): void;
-  draw(): void;
-}
-
 export default function PrivacyPolicy() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -32,6 +22,16 @@ export default function PrivacyPolicy() {
     // Set initial canvas dimensions
     canvas.width = canvasState.width;
     canvas.height = canvasState.height;
+
+    interface Particle {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      radius: number;
+      update(): void;
+      draw(): void;
+    }
 
     const particles: Particle[] = [];
     const isMobile = window.innerWidth < 768;
@@ -126,9 +126,6 @@ export default function PrivacyPolicy() {
       canvas.height = canvasState.height;
     };
 
-    // Start the animation
-    animationId = requestAnimationFrame(animate);
-    
     // Set up event listeners
     window.addEventListener('resize', handleResize);
     
@@ -203,7 +200,6 @@ export default function PrivacyPolicy() {
           style={{ zIndex: 0 }}
           aria-hidden="true"
         />
-
         <div className="relative z-10">
           <main className="container mx-auto px-4 py-12">
             <article className="max-w-4xl mx-auto">
@@ -540,5 +536,6 @@ export default function PrivacyPolicy() {
           </main>
         </div>
       </div>
-    </>  );
+    </>
+  );
 }
