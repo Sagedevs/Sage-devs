@@ -31,7 +31,7 @@ export function OrganizationStructuredData() {
     '@type': 'Organization',
     name: 'Sage Devs',
     url: 'https://sagedevs.tech',
-    logo: 'https://sagedevs.tech/logo.png',
+    logo: 'https://sagedevs.tech/logofixxed.png',
     description: 'Full Stack Software Agency & UI/UX Studio specializing in modern web development and design.',
     contactPoint: {
       '@type': 'ContactPoint',
