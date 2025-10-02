@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState, useMemo } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 
 interface TrueFocusProps {
   sentence?: string;
@@ -20,9 +19,9 @@ interface FocusRect {
 const TrueFocus: React.FC<TrueFocusProps> = ({
   sentence,
   services,
-  blurAmount = 1.2, // 👈 blur thoda kam kar diya
+  blurAmount = 1.2,
   borderColor = "cyan",
-  animationDuration = 0.3, // desktop speed
+  animationDuration = 0.3,
   pauseBetweenAnimations = 0.8,
 }) => {
   const words = useMemo(() => {
@@ -46,19 +45,11 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
   });
 
   const [isPaused, setIsPaused] = useState(false);
+  const animationFrameRef = useRef<number | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto loop
-  useEffect(() => {
-    if (words.length > 1 && !isPaused) {
-      const interval = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % words.length);
-      }, (animationDuration + pauseBetweenAnimations) * 1000);
-      return () => clearInterval(interval);
-    }
-  }, [animationDuration, pauseBetweenAnimations, words.length, isPaused]);
-
-  // Position focus rect
-  useEffect(() => {
+  // Optimized position calculation with RAF
+  const updateFocusRect = useCallback(() => {
     if (
       currentIndex < 0 ||
       !wordRefs.current[currentIndex] ||
@@ -75,16 +66,64 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
       width: activeRect.width,
       height: activeRect.height,
     });
-  }, [currentIndex, words]);
+  }, [currentIndex]);
+
+  // Auto loop with cleanup
+  useEffect(() => {
+    if (words.length > 1 && !isPaused) {
+      intervalRef.current = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % words.length);
+      }, (animationDuration + pauseBetweenAnimations) * 1000);
+      
+      return () => {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+        }
+      };
+    }
+  }, [animationDuration, pauseBetweenAnimations, words.length, isPaused]);
+
+  // Position focus rect with RAF for smooth updates
+  useEffect(() => {
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+    
+    animationFrameRef.current = requestAnimationFrame(() => {
+      updateFocusRect();
+    });
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [updateFocusRect]);
+
+  // Memoized border style
+  const borderStyle = useMemo(
+    () => ({
+      borderColor: borderColor,
+      filter: `drop-shadow(0 0 4px ${borderColor})`,
+    }),
+    [borderColor]
+  );
+
+  // CSS transition instead of Framer Motion spring (same visual effect)
+  const focusRectStyle: React.CSSProperties = useMemo(
+    () => ({
+      transform: `translate(${focusRect.x}px, ${focusRect.y}px)`,
+      width: `${focusRect.width}px`,
+      height: `${focusRect.height}px`,
+      opacity: currentIndex >= 0 ? 1 : 0,
+      transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease-out, height 0.4s ease-out, opacity 0.3s ease',
+    }),
+    [focusRect.x, focusRect.y, focusRect.width, focusRect.height, currentIndex]
+  );
 
   return (
     <div
-      className="
-        relative 
-        flex flex-col sm:flex-row flex-wrap 
-        gap-y-2 sm:gap-x-4 sm:gap-y-0 
-        justify-center items-center
-      "
+      className="relative flex flex-col sm:flex-row flex-wrap gap-y-2 sm:gap-x-4 sm:gap-y-0 justify-center items-center"
       ref={containerRef}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -93,7 +132,7 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
         const isActive = index === currentIndex;
         return (
           <span
-            key={index}
+            key={`word-${index}`}
             ref={(el) => {
               wordRefs.current[index] = el;
             }}
@@ -101,9 +140,9 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
             style={{
               opacity: isActive ? 1 : 0.5,
               filter: isActive ? "blur(0px)" : `blur(${blurAmount}px)`,
+              willChange: isActive ? 'opacity, filter' : 'auto',
             }}
           >
-            {/* Dot separator → ab har jagah show hoga (mobile + desktop) */}
             {index > 0 && (
               <span className="absolute -left-3 text-gray-500">•</span>
             )}
@@ -112,54 +151,28 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
         );
       })}
 
-      {/* Focus rectangle */}
-      <motion.div
+      {/* Focus rectangle - Pure CSS transitions (visually identical to Framer Motion) */}
+      <div
         className="absolute top-0 left-0 pointer-events-none box-border"
-        animate={{
-          x: focusRect.x,
-          y: focusRect.y,
-          width: focusRect.width,
-          height: focusRect.height,
-          opacity: currentIndex >= 0 ? 1 : 0,
-        }}
-        transition={{
-          type: "spring",
-          damping: 15,
-          stiffness: 200,
-        }}
-        style={{
-          "--border-color": borderColor,
-        } as React.CSSProperties}
+        style={focusRectStyle}
       >
         <span
           className="absolute w-4 h-4 border-[3px] rounded-[3px] -top-2 -left-2 border-r-0 border-b-0"
-          style={{
-            borderColor: "var(--border-color)",
-            filter: "drop-shadow(0 0 4px var(--border-color))",
-          }}
-        ></span>
+          style={borderStyle}
+        />
         <span
           className="absolute w-4 h-4 border-[3px] rounded-[3px] -top-2 -right-2 border-l-0 border-b-0"
-          style={{
-            borderColor: "var(--border-color)",
-            filter: "drop-shadow(0 0 4px var(--border-color))",
-          }}
-        ></span>
+          style={borderStyle}
+        />
         <span
           className="absolute w-4 h-4 border-[3px] rounded-[3px] -bottom-2 -left-2 border-r-0 border-t-0"
-          style={{
-            borderColor: "var(--border-color)",
-            filter: "drop-shadow(0 0 4px var(--border-color))",
-          }}
-        ></span>
+          style={borderStyle}
+        />
         <span
           className="absolute w-4 h-4 border-[3px] rounded-[3px] -bottom-2 -right-2 border-l-0 border-t-0"
-          style={{
-            borderColor: "var(--border-color)",
-            filter: "drop-shadow(0 0 4px var(--border-color))",
-          }}
-        ></span>
-      </motion.div>
+          style={borderStyle}
+        />
+      </div>
     </div>
   );
 };
