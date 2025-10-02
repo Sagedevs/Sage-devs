@@ -332,6 +332,7 @@ const Footer = () => {
       <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-cyan-500/5 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
     </Link>
   ));
+  LinkComponent.displayName = 'LinkComponent';
 
   return (
     <footer className="relative bg-slate-950 border-t border-blue-500/20 overflow-hidden">
