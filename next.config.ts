@@ -3,41 +3,42 @@ import withPWA from 'next-pwa';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true', // Only runs if you explicitly set ANALYZE=true
+});
+
 const nextConfig: NextConfig = {
+  reactStrictMode: true,
+
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'api.uifaces.co',
-        port: '',
         pathname: '/our-content/donated/**',
       },
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
-        port: '',
         pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'html.tailus.io',
-        port: '',
         pathname: '/blocks/customers/**',
       },
       {
-        protocol: "https",
-        hostname: "wisdomcoders.us",
+        protocol: 'https',
+        hostname: 'wisdomcoders.us',
       },
       {
         protocol: 'https',
         hostname: 'cdn.pixabay.com',
-        port: '',
         pathname: '/photo/**',
       },
       {
         protocol: 'https',
         hostname: 'cdn-icons-png.flaticon.com',
-        port: '',
         pathname: '/**',
       },
       {
@@ -77,14 +78,14 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  reactStrictMode: true,
 };
 
-// export default withPWA({
-//   dest: 'public',
-//   register: true,
-//   skipWaiting: true,
-//   disable: !isProduction,
-// })(nextConfig);
-
-export default nextConfig;
+// ✅ Wrap PWA inside Bundle Analyzer
+module.exports = withBundleAnalyzer(
+  withPWA({
+    dest: 'public',
+    register: true,
+    skipWaiting: true,
+    disable: !isProduction, // only enable PWA in production
+  })(nextConfig)
+);
