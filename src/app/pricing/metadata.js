@@ -1,6 +1,4 @@
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
+export const metadata = {
   title: 'Pricing & Plans | Sage Devs - Transparent Development Costs',
   description: 'Simple, transparent pricing for all your development needs. Choose from our flexible plans for web development, mobile apps, AI solutions, and custom software development.',
   keywords: 'web development pricing, mobile app development cost, custom software pricing, SaaS development plans, e-commerce website pricing, AI development cost, software development rates, web design pricing, monthly development plans, fixed price projects',

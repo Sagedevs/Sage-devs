@@ -1,7 +1,4 @@
 "use client";
-
-// Import metadata from the separate file
-import { metadata } from './metadata';
 import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
