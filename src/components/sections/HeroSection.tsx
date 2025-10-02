@@ -2,27 +2,46 @@
 import React from "react";
 import Image from "next/image";
 import TrueFocus from "@/blocks/TextAnimations/TrueFocus/TrueFocus";
-import OptimizedGalaxy from "@/components/Galaxy";
 import { clientLogos, heroCards } from "@/data/heroSectionData";
 
 export default function HeroSection() {
   return (
     <section className="relative w-full min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-6 sm:py-12 overflow-hidden">
-      {/* Galaxy Background - Reduced stars */}
-      <OptimizedGalaxy
-        starCount={80}
-        animationSpeed={0.6}
-        enableMouseInteraction={false}
-        enableTwinkle={false}
-        className="absolute inset-0 -z-10"
-      />
+      {/* Stunning Pure CSS Background - No Canvas, No JS */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a1628] via-[#0f2350] to-[#060d1f]" />
+        
+        {/* Animated gradient orbs */}
+        <div className="absolute top-0 -left-1/4 w-1/2 h-1/2 bg-blue-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob" />
+        <div className="absolute top-0 -right-1/4 w-1/2 h-1/2 bg-cyan-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000" />
+        <div className="absolute -bottom-1/4 left-1/3 w-1/2 h-1/2 bg-purple-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000" />
+        
+        {/* Radial gradient overlay */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-blue-950/30 to-transparent" />
+        
+        {/* Grid pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e3a8a10_1px,transparent_1px),linear-gradient(to_bottom,#1e3a8a10_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        
+        {/* Diagonal lines */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-blue-400/5 to-transparent transform rotate-12" />
+          <div className="absolute inset-0 bg-gradient-to-tl from-transparent via-cyan-400/5 to-transparent transform -rotate-12" />
+        </div>
+        
+        {/* Noise texture */}
+        <div className="absolute inset-0 opacity-[0.015] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=')]" />
+        
+        {/* Shimmer effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/5 to-transparent animate-shimmer" />
+      </div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 -z-5" />
+      {/* Vignette overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50 -z-5" />
 
       {/* Main Hero Content */}
       <div className="w-full max-w-7xl mx-auto flex flex-col items-center justify-center text-center relative z-10">
-        {/* Trust Badge - No animation */}
+        {/* Trust Badge */}
         <div className="mb-8">
           <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-400/20 backdrop-blur-sm">
             <div className="flex -space-x-2">
@@ -44,17 +63,17 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Hero Headline - Immediate load, no animation */}
+        {/* Hero Headline */}
         <div className="mb-6">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-extrabold tracking-tight text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.7)] max-w-4xl leading-snug sm:leading-snug md:leading-snug mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.7)] max-w-4xl leading-tight mb-6">
             Transform Your Ideas into{' '}
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent animate-gradient">
               Digital Masterpieces
             </span>
           </h1>
         </div>
 
-        {/* Hero Subheadline - No animation */}
+        {/* Hero Subheadline */}
         <div className="mb-8">
           <p className="text-center text-gray-300 max-w-3xl text-base sm:text-lg md:text-xl leading-relaxed font-medium">
             We&apos;re Sage Devs—a premium full-stack development agency that partners with ambitious businesses to create
@@ -63,7 +82,7 @@ export default function HeroSection() {
           </p>
         </div>
 
-        {/* Hero CTAs - Simple hover effects only */}
+        {/* Hero CTAs */}
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mb-16">
           <a 
             href="#contact" 
@@ -93,7 +112,7 @@ export default function HeroSection() {
           </a>
         </div>
 
-        {/* TrueFocus Animation - Keep but optimize */}
+        {/* TrueFocus Animation */}
         <div className="w-full max-w-5xl mx-auto mb-16">
           <div className="relative">
             <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-purple-500/10 rounded-3xl blur-xl" />
@@ -109,7 +128,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Value Proposition Cards - No animation */}
+        {/* Value Proposition Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
           {heroCards.map((card, index) => (
             <div
@@ -162,6 +181,46 @@ export default function HeroSection() {
           ))}
         </div>
       </div>
+      
+      {/* Add required CSS animations to your globals.css */}
+      <style jsx>{`
+        @keyframes blob {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        
+        @keyframes shimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+        
+        @keyframes gradient {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+        
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+        
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+        
+        .animate-shimmer {
+          animation: shimmer 8s ease-in-out infinite;
+        }
+        
+        .animate-gradient {
+          background-size: 200% 200%;
+          animation: gradient 3s ease infinite;
+        }
+      `}</style>
     </section>
   );
 }

@@ -10,7 +10,7 @@ import Image from "next/image";
 // Lazy load heavy components
 const GooeyNavWithHeader = lazy(() => import("@/blocks/Components/GooeyNav/GooeyNav"));
 const CustomCursor = lazy(() => import("@/components/customcursor"));
-const OptimizedGalaxy = lazy(() => import("@/components/Galaxy"));
+
 const DisableDevTools = lazy(() => import("@/components/shortcuts"));
 const Footer = lazy(() => import("@/components/Footer"));
 const Analytics = lazy(() => import("@vercel/analytics/next").then(mod => ({ default: mod.Analytics })));
@@ -281,18 +281,8 @@ export default function RootLayout({
         {/* Lightweight static background */}
         <StaticBackground />
 
-        {/* Galaxy - Lazy loaded */}
-        {isClient && (
-          <Suspense fallback={null}>
-            <OptimizedGalaxy
-              starCount={40}
-              animationSpeed={0.6}
-              enableMouseInteraction={false}
-              enableTwinkle={false}
-              className="fixed inset-0"
-            />
-          </Suspense>
-        )}
+        
+        
 
         {/* Navigation - Critical, but lazy load to reduce initial bundle */}
         <Suspense fallback={
