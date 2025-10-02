@@ -54,11 +54,28 @@ const Star = ({ className }: { className?: string }) => (
 );
 
 const GoogleLogo = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" aria-label="Google">
-    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    aria-label="Google"
+  >
+    <path
+      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+      fill="#4285F4"
+    />
+    <path
+      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+      fill="#34A853"
+    />
+    <path
+      d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+      fill="#FBBC05"
+    />
+    <path
+      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+      fill="#EA4335"
+    />
   </svg>
 );
 
@@ -79,7 +96,8 @@ const testimonials: Testimonial[] = [
     role: "CEO",
     company: "TechStart Inc",
     content: "Abdul's work exceeded all expectations...",
-    image: "https://images.pexels.com/photos/3290244/pexels-photo-3290244.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/3290244/pexels-photo-3290244.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 5,
   },
   {
@@ -88,7 +106,8 @@ const testimonials: Testimonial[] = [
     role: "CTO",
     company: "InnovateNow",
     content: "Working with Abdul was a game-changer...",
-    image: "https://images.pexels.com/photos/8499301/pexels-photo-8499301.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/8499301/pexels-photo-8499301.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 4,
   },
   {
@@ -98,7 +117,8 @@ const testimonials: Testimonial[] = [
     company: "GrowthLab",
     content:
       "The website Abdul created for us is not just beautiful, it's incredibly functional. Our conversion rates improved by 250% within the first month!",
-    image: "https://images.pexels.com/photos/7707306/pexels-photo-7707306.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/7707306/pexels-photo-7707306.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 5,
   },
   {
@@ -108,7 +128,8 @@ const testimonials: Testimonial[] = [
     company: "StartupVision",
     content:
       "Abdul's ability to understand our vision and translate it into a stunning digital experience is remarkable. The project was delivered on time and exceeded our expectations.",
-    image: "https://images.pexels.com/photos/7119106/pexels-photo-7119106.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/7119106/pexels-photo-7119106.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 4,
   },
   {
@@ -118,7 +139,8 @@ const testimonials: Testimonial[] = [
     company: "DigitalFlow",
     content:
       "The attention to user experience and modern design principles Abdul brought to our project was outstanding. Our users love the new interface!",
-    image: "https://images.pexels.com/photos/1520760/pexels-photo-1520760.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/1520760/pexels-photo-1520760.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 5,
   },
   {
@@ -128,7 +150,8 @@ const testimonials: Testimonial[] = [
     company: "CodeCraft",
     content:
       "Abdul's technical skills are top-notch. He delivered a complex web application that performs flawlessly. Highly recommend his services!",
-    image: "https://images.pexels.com/photos/3831612/pexels-photo-3831612.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/3831612/pexels-photo-3831612.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 5,
   },
   {
@@ -138,7 +161,8 @@ const testimonials: Testimonial[] = [
     company: "DesignStudio",
     content:
       "The perfect blend of creativity and functionality. Abdul transformed our ideas into a visual masterpiece that our clients absolutely love.",
-    image: "https://images.pexels.com/photos/5240190/pexels-photo-5240190.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/5240190/pexels-photo-5240190.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 4,
   },
   {
@@ -148,7 +172,8 @@ const testimonials: Testimonial[] = [
     company: "EcomSuccess",
     content:
       "Our e-commerce platform built by Abdul has been a huge success. Sales increased by 180% and customer satisfaction is at an all-time high.",
-    image: "https://images.pexels.com/photos/9301866/pexels-photo-9301866.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/9301866/pexels-photo-9301866.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 5,
   },
   {
@@ -158,7 +183,8 @@ const testimonials: Testimonial[] = [
     company: "StreamlineOps",
     content:
       "The workflow automation Abdul implemented saved us countless hours. His solutions are elegant, efficient, and incredibly user-friendly.",
-    image: "https://images.pexels.com/photos/7709150/pexels-photo-7709150.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/7709150/pexels-photo-7709150.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 4,
   },
   {
@@ -168,7 +194,8 @@ const testimonials: Testimonial[] = [
     company: "FutureTech",
     content:
       "Abdul's code quality is exceptional. Clean, well-documented, and scalable. The architecture he designed will serve us for years to come.",
-    image: "https://images.pexels.com/photos/20596252/pexels-photo-20596252.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/20596252/pexels-photo-20596252.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 5,
   },
   {
@@ -178,7 +205,8 @@ const testimonials: Testimonial[] = [
     company: "UserFirst",
     content:
       "Collaborating with Abdul was seamless. He understood our design vision perfectly and brought it to life with incredible attention to detail.",
-    image: "https://images.pexels.com/photos/15780886/pexels-photo-15780886.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/15780886/pexels-photo-15780886.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 4,
   },
   {
@@ -188,7 +216,8 @@ const testimonials: Testimonial[] = [
     company: "NextGen Solutions",
     content:
       "Abdul helped us launch our MVP in record time. His expertise in modern web technologies and agile development practices is impressive.",
-    image: "https://images.pexels.com/photos/5506141/pexels-photo-5506141.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/5506141/pexels-photo-5506141.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 5,
   },
   {
@@ -198,7 +227,8 @@ const testimonials: Testimonial[] = [
     company: "BrandBoost",
     content:
       "The website Abdul created for our agency is not only stunning but also highly optimized for conversions. Our client acquisition has doubled!",
-    image: "https://images.pexels.com/photos/8519048/pexels-photo-8519048.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/8519048/pexels-photo-8519048.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 5,
   },
   {
@@ -208,17 +238,19 @@ const testimonials: Testimonial[] = [
     company: "AgileWorks",
     content:
       "Professional, reliable, and incredibly talented. Abdul delivered our complex project on time and within budget. Will definitely work with him again!",
-    image: "https://images.pexels.com/photos/7715717/pexels-photo-7715717.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/7715717/pexels-photo-7715717.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 4,
   },
   {
     id: 15,
-    author: "Sophia Martinez",
+    author: "Alice Martinez",
     role: "Brand Manager",
     company: "CreativeLabs",
     content:
       "Abdul's creative approach to our branding website was phenomenal. The site now perfectly reflects our brand identity and has increased our leads by 400%.",
-    image: "https://images.pexels.com/photos/14244274/pexels-photo-14244274.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/14244274/pexels-photo-14244274.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 5,
   },
   {
@@ -228,7 +260,8 @@ const testimonials: Testimonial[] = [
     company: "TechPioneer",
     content:
       "The scalable architecture Abdul designed for our platform is brilliant. It handles millions of users effortlessly and the performance is outstanding.",
-    image: "https://images.pexels.com/photos/8353832/pexels-photo-8353832.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/8353832/pexels-photo-8353832.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 5,
   },
   {
@@ -238,7 +271,8 @@ const testimonials: Testimonial[] = [
     company: "ShopSmart",
     content:
       "Our online store transformation by Abdul was incredible. The new design increased our sales by 320% and customer retention by 85%.",
-    image: "https://images.pexels.com/photos/8171180/pexels-photo-8171180.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/8171180/pexels-photo-8171180.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 5,
   },
   {
@@ -248,7 +282,8 @@ const testimonials: Testimonial[] = [
     company: "InnovateTech",
     content:
       "Abdul's full-stack expertise saved our startup months of development time. His solutions are modern, secure, and perfectly aligned with our business goals.",
-    image: "https://images.pexels.com/photos/30767572/pexels-photo-30767572/free-photo-of-professional-portrait-of-a-smiling-man.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/30767572/pexels-photo-30767572/free-photo-of-professional-portrait-of-a-smiling-man.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 5,
   },
   {
@@ -258,7 +293,8 @@ const testimonials: Testimonial[] = [
     company: "GrowthHackers",
     content:
       "The analytics dashboard Abdul built for us is a game-changer. Real-time insights have helped us optimize our campaigns and increase ROI by 275%.",
-    image: "https://images.pexels.com/photos/15780886/pexels-photo-15780886.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/15780886/pexels-photo-15780886.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 4,
   },
   {
@@ -268,7 +304,8 @@ const testimonials: Testimonial[] = [
     company: "CloudVision",
     content:
       "Abdul's cloud infrastructure setup is flawless. Our app now handles 10x more traffic with zero downtime. His DevOps skills are world-class.",
-    image: "https://images.pexels.com/photos/12666764/pexels-photo-12666764.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/12666764/pexels-photo-12666764.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 5,
   },
   {
@@ -278,7 +315,8 @@ const testimonials: Testimonial[] = [
     company: "TechForward",
     content:
       "Working with Abdul was transformative. His AI-powered features revolutionized our user experience and positioned us as industry leaders.",
-    image: "https://images.pexels.com/photos/9304685/pexels-photo-9304685.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/9304685/pexels-photo-9304685.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 5,
   },
   {
@@ -288,11 +326,11 @@ const testimonials: Testimonial[] = [
     company: "GlobalTech",
     content:
       "Abdul's enterprise-grade solution exceeded all expectations. The system he built processes millions of transactions daily with remarkable efficiency.",
-    image: "https://images.pexels.com/photos/8638714/pexels-photo-8638714.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image:
+      "https://images.pexels.com/photos/8638714/pexels-photo-8638714.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 5,
   },
 ];
-
 
 const StarRating = ({ rating }: { rating: number }) => {
   return (
@@ -522,15 +560,25 @@ export default function EnhancedTestimonialSlider() {
                 <div className="relative">
                   <GoogleLogo className="w-12 h-12 drop-shadow-lg" />
                   <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
-                    <svg className="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    <svg
+                      className="w-2 h-2 text-white"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                   </div>
                 </div>
                 <div className="flex flex-col">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-white font-bold text-xl">Google</span>
-                    <span className="text-gray-300 font-medium text-lg">Reviews</span>
+                    <span className="text-gray-300 font-medium text-lg">
+                      Reviews
+                    </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent font-semibold text-sm">
@@ -539,20 +587,27 @@ export default function EnhancedTestimonialSlider() {
                   </div>
                 </div>
               </div>
-              
+
               <div className="h-12 w-px bg-gradient-to-b from-transparent via-blue-500/50 to-transparent sm:block hidden"></div>
-              
+
               <div className="flex flex-col sm:flex-row items-center gap-3">
                 <div className="text-center sm:text-right">
                   <div className="flex items-center justify-center sm:justify-end gap-2">
-                    <span className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">4.9</span>
+                    <span className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+                      4.9
+                    </span>
                     <div className="flex">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400 drop-shadow-sm" />
+                        <Star
+                          key={i}
+                          className="w-5 h-5 text-yellow-400 fill-yellow-400 drop-shadow-sm"
+                        />
                       ))}
                     </div>
                   </div>
-                  <p className="text-gray-300 text-sm font-medium">Based on 500+ reviews</p>
+                  <p className="text-gray-300 text-sm font-medium">
+                    Based on 500+ reviews
+                  </p>
                 </div>
               </div>
             </div>
@@ -597,18 +652,3 @@ export default function EnhancedTestimonialSlider() {
     </section>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
