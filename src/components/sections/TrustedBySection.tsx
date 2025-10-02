@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,7 +16,7 @@ const clientLogos = [
   { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/unnamed-file.webp", alt: "Unnamed" },
 ];
 
-// Stats Section (kept same)
+// Stats Section
 const statsData = [
   {
     number: "500+",
@@ -57,98 +57,113 @@ const statsData = [
 ];
 
 export default function TrustedBySection() {
-  // typed ref so TS won't complain about scrollWidth
   const containerRef = useRef<HTMLDivElement | null>(null);
   const controls = useAnimation();
+  const [isMounted, setIsMounted] = useState(false);
 
-  // Smooth infinite carousel
+  // Prevent animation flash on mobile
   useEffect(() => {
-    if (!containerRef.current) return;
+    setIsMounted(true);
+  }, []);
+
+  // Smooth infinite carousel - only start after mount
+  useEffect(() => {
+    if (!containerRef.current || !isMounted) return;
+    
     const totalLogos = clientLogos.length;
-    const logoWidth = 220; // px including gap estimate
+    const logoWidth = 220;
     const totalWidth = totalLogos * logoWidth;
 
     controls.start({
       x: [0, -totalWidth],
       transition: {
-        duration: 40, // slower for smoothness
+        duration: 40,
         ease: "linear",
         repeat: Infinity,
       },
     });
-  }, [controls]);
+  }, [controls, isMounted]);
 
   return (
     <div className="relative w-full bg-gradient-to-br from-[#020618] via-[#051225] to-[#0a1530] overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-0 w-full h-[300px] -translate-y-1/2 bg-gradient-to-r from-cyan-400/20 via-blue-500/10 to-purple-400/20 blur-3xl" />
+      {/* Background Glow - static, no animation */}
+      <div className="absolute top-1/2 left-0 w-full h-[300px] -translate-y-1/2 bg-gradient-to-r from-cyan-400/20 via-blue-500/10 to-purple-400/20 blur-3xl opacity-50" />
 
-      {/* Logos Section - reduced vertical padding */}
-      <div className="relative z-10 py-8"> {/* <-- reduced from py-12 */}
-        {/* ===== Improved Heading Block ===== */}
-<div className="text-center mb-6">
-  {/* small decorative strokes + tiny label */}
-  <div className="flex items-center justify-center gap-4 mb-3">
-    <span className="w-12 h-0.5 rounded-full bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600" />
-    <span className="text-xs tracking-wider text-blue-200 uppercase font-medium">Trusted by</span>
-    <span className="w-12 h-0.5 rounded-full bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600" />
-  </div>
+      {/* Logos Section */}
+      <div className="relative z-10 py-8">
+        {/* Heading Block */}
+        <div className="text-center mb-6">
+          <div className="flex items-center justify-center gap-4 mb-3">
+            <span className="w-12 h-0.5 rounded-full bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600" />
+            <span className="text-xs tracking-wider text-blue-200 uppercase font-medium">Trusted by</span>
+            <span className="w-12 h-0.5 rounded-full bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600" />
+          </div>
 
-  {/* main heading — parts highlighted with gradient */}
-  <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-extrabold leading-tight">
-    <span className="block">
-      <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-300 to-blue-500">
-        Global Brands & Enterprises
-      </span>
-    </span>
-    <span className="block text-lg md:text-xl mt-2 text-blue-200">
-      Empowering <span className="text-white font-bold">Web Developers</span> & <span className="text-white font-bold">AI Innovators</span>
-    </span>
-  </h3>
+          <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-extrabold leading-tight">
+            <span className="block">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-300 to-blue-500">
+                Global Brands & Enterprises
+              </span>
+            </span>
+            <span className="block text-lg md:text-xl mt-2 text-blue-200">
+              Empowering <span className="text-white font-bold">Web Developers</span> & <span className="text-white font-bold">AI Innovators</span>
+            </span>
+          </h3>
 
-  {/* slim gradient underline */}
-  <div className="w-28 h-1 mx-auto rounded-full mt-4 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600" />
-</div>
+          <div className="w-28 h-1 mx-auto rounded-full mt-4 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600" />
+        </div>
 
+        {/* Infinite Carousel - prevent layout shift */}
+        <div className="relative overflow-hidden min-h-[120px] md:min-h-[140px] lg:min-h-[160px]">
+          {/* Fade edges */}
+          <div className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-[#0a0f2e] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-[#0a0f2e] to-transparent z-10 pointer-events-none" />
 
-        {/* Infinite Carousel */}
-        <div className="relative overflow-hidden">
-          <div className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-[#0a0f2e] to-transparent z-10" />
-          <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-[#0a0f2e] to-transparent z-10" />
+          {isMounted ? (
+            <motion.div
+              ref={containerRef}
+              className="flex items-center will-change-transform -mt-3 md:-mt-6"
+              style={{ gap: "60px" }}
+              animate={controls}
+            >
+              {[...clientLogos, ...clientLogos].map((logo, i) => (
+                <div
+                  key={i}
+                  className="flex-shrink-0 flex items-center justify-center w-52 h-28 md:w-64 md:h-32 lg:w-72 lg:h-40 group"
+                >
+                  <div className="w-full h-full bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 flex items-center justify-center relative overflow-hidden transition-colors duration-300 hover:bg-white/[0.08]">
+                    {/* White glow under logo */}
+                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-11/12 md:w-3/4 h-10 md:h-12 bg-white/90 rounded-full blur-3xl z-0 pointer-events-none" />
 
-          <motion.div
-            ref={containerRef}
-            className="flex items-center will-change-transform -mt-3 md:-mt-6" /* <-- pulled up a bit */
-            style={{ gap: "60px" }} /* <-- reduced from 80px */
-            animate={controls}
-          >
-            {/* duplicate logos for smoother loop */}
-            {[...clientLogos, ...clientLogos].map((logo, i) => (
-              <div
-                key={i}
-                className="flex-shrink-0 flex items-center justify-center w-52 h-28 md:w-64 md:h-32 lg:w-72 lg:h-40 group"
-              >
-                <div className="w-full h-full bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 flex items-center justify-center relative overflow-hidden">
-                  {/* === STRONGER WHITE GLOW UNDER LOGO === */}
-                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-11/12 md:w-3/4 h-10 md:h-12 bg-white/90 rounded-full blur-3xl z-0 pointer-events-none" />
-
-                  {/* Shimmer overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out z-10"></div>
-
-                  {/* Image sits above glow */}
-                  <div className="relative z-20 w-11/12 h-3/4 flex items-center justify-center">
-                    <Image
-                      src={logo.src}
-                      alt={logo.alt}
-                      fill
-                      sizes="(max-width: 768px) 10rem, (max-width: 1024px) 14rem, 18rem"
-                      className="object-contain opacity-95 group-hover:opacity-100 transition-all duration-300 relative z-20"
-                    />
+                    {/* Image */}
+                    <div className="relative z-20 w-11/12 h-3/4 flex items-center justify-center">
+                      <Image
+                        src={logo.src}
+                        alt={logo.alt}
+                        fill
+                        sizes="(max-width: 768px) 10rem, (max-width: 1024px) 14rem, 18rem"
+                        className="object-contain opacity-95 group-hover:opacity-100 transition-opacity duration-300"
+                        loading="lazy"
+                        quality={85}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            // Placeholder during SSR to prevent layout shift
+            <div className="flex items-center gap-[60px] -mt-3 md:-mt-6">
+              {clientLogos.slice(0, 3).map((logo, i) => (
+                <div
+                  key={i}
+                  className="flex-shrink-0 flex items-center justify-center w-52 h-28 md:w-64 md:h-32 lg:w-72 lg:h-40"
+                >
+                  <div className="w-full h-full bg-white/5 backdrop-blur-sm rounded-lg border border-white/10" />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
@@ -203,7 +218,7 @@ export default function TrustedBySection() {
             <div className="bg-gradient-to-r from-white/5 to-white/[0.02] backdrop-blur-sm rounded-2xl p-8 border border-white/10 inline-block">
               <div className="flex items-center gap-4 flex-wrap justify-center">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5-5 5M6 12h12" />
                     </svg>

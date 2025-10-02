@@ -35,8 +35,14 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
   }, [services, sentence]);
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [isMounted, setIsMounted] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  
   const containerRef = useRef<HTMLDivElement | null>(null);
   const wordRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const resizeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
   const [focusRect, setFocusRect] = useState<FocusRect>({
     x: 0,
     y: 0,
@@ -44,33 +50,47 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
     height: 0,
   });
 
-  const [isPaused, setIsPaused] = useState(false);
-  const animationFrameRef = useRef<number | null>(null);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  // Detect mobile device
+  const isMobile = useMemo(() => {
+    if (typeof window === 'undefined') return false;
+    return window.innerWidth < 768 || 'ontouchstart' in window;
+  }, []);
 
-  // Optimized position calculation with RAF
+  // Optimized position calculation - debounced for mobile
   const updateFocusRect = useCallback(() => {
-    if (
-      currentIndex < 0 ||
-      !wordRefs.current[currentIndex] ||
-      !containerRef.current
-    )
+    if (!isMounted || currentIndex < 0 || !wordRefs.current[currentIndex] || !containerRef.current) {
       return;
+    }
 
-    const parentRect = containerRef.current.getBoundingClientRect();
-    const activeRect = wordRefs.current[currentIndex]!.getBoundingClientRect();
+    try {
+      const parentRect = containerRef.current.getBoundingClientRect();
+      const activeRect = wordRefs.current[currentIndex]!.getBoundingClientRect();
 
-    setFocusRect({
-      x: activeRect.left - parentRect.left,
-      y: activeRect.top - parentRect.top,
-      width: activeRect.width,
-      height: activeRect.height,
-    });
-  }, [currentIndex]);
+      setFocusRect({
+        x: activeRect.left - parentRect.left,
+        y: activeRect.top - parentRect.top,
+        width: activeRect.width,
+        height: activeRect.height,
+      });
+    } catch (error) {
+      console.error('Error updating focus rect:', error);
+    }
+  }, [currentIndex, isMounted]);
+
+  // Mount effect
+  useEffect(() => {
+    setIsMounted(true);
+    // Small delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      updateFocusRect();
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, [updateFocusRect]);
 
   // Auto loop with cleanup
   useEffect(() => {
-    if (words.length > 1 && !isPaused) {
+    if (words.length > 1 && !isPaused && isMounted) {
       intervalRef.current = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % words.length);
       }, (animationDuration + pauseBetweenAnimations) * 1000);
@@ -81,24 +101,46 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
         }
       };
     }
-  }, [animationDuration, pauseBetweenAnimations, words.length, isPaused]);
+  }, [animationDuration, pauseBetweenAnimations, words.length, isPaused, isMounted]);
 
-  // Position focus rect with RAF for smooth updates
+  // Update position when index changes
   useEffect(() => {
-    if (animationFrameRef.current) {
-      cancelAnimationFrame(animationFrameRef.current);
-    }
+    if (!isMounted) return;
     
-    animationFrameRef.current = requestAnimationFrame(() => {
+    // Debounce on mobile for better performance
+    if (isMobile) {
+      const timer = setTimeout(() => {
+        updateFocusRect();
+      }, 50);
+      return () => clearTimeout(timer);
+    } else {
       updateFocusRect();
-    });
+    }
+  }, [currentIndex, isMobile, isMounted, updateFocusRect]);
 
+  // Handle resize with debounce
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const handleResize = () => {
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+      
+      resizeTimeoutRef.current = setTimeout(() => {
+        updateFocusRect();
+      }, 150);
+    };
+
+    window.addEventListener('resize', handleResize, { passive: true });
+    
     return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
+      window.removeEventListener('resize', handleResize);
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
       }
     };
-  }, [updateFocusRect]);
+  }, [isMounted, updateFocusRect]);
 
   // Memoized border style
   const borderStyle = useMemo(
@@ -109,24 +151,48 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
     [borderColor]
   );
 
-  // CSS transition instead of Framer Motion spring (same visual effect)
+  // Simplified transitions for mobile
   const focusRectStyle: React.CSSProperties = useMemo(
     () => ({
       transform: `translate(${focusRect.x}px, ${focusRect.y}px)`,
       width: `${focusRect.width}px`,
       height: `${focusRect.height}px`,
-      opacity: currentIndex >= 0 ? 1 : 0,
-      transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease-out, height 0.4s ease-out, opacity 0.3s ease',
+      opacity: currentIndex >= 0 && isMounted ? 1 : 0,
+      transition: isMobile 
+        ? 'transform 0.3s ease-out, width 0.3s ease-out, height 0.3s ease-out, opacity 0.2s ease'
+        : 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease-out, height 0.4s ease-out, opacity 0.3s ease',
+      willChange: 'transform',
     }),
-    [focusRect.x, focusRect.y, focusRect.width, focusRect.height, currentIndex]
+    [focusRect.x, focusRect.y, focusRect.width, focusRect.height, currentIndex, isMounted, isMobile]
   );
+
+  // Don't render focus rect until mounted
+  if (!isMounted) {
+    return (
+      <div className="relative flex flex-col sm:flex-row flex-wrap gap-y-2 sm:gap-x-4 sm:gap-y-0 justify-center items-center min-h-[40px]">
+        {words.map((word, index) => (
+          <span
+            key={`word-${index}`}
+            className="relative text-lg sm:text-xl md:text-2xl font-semibold text-gray-300"
+          >
+            {index > 0 && (
+              <span className="absolute -left-3 text-gray-500">•</span>
+            )}
+            {word}
+          </span>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div
-      className="relative flex flex-col sm:flex-row flex-wrap gap-y-2 sm:gap-x-4 sm:gap-y-0 justify-center items-center"
+      className="relative flex flex-col sm:flex-row flex-wrap gap-y-2 sm:gap-x-4 sm:gap-y-0 justify-center items-center min-h-[40px]"
       ref={containerRef}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+      onMouseEnter={() => !isMobile && setIsPaused(true)}
+      onMouseLeave={() => !isMobile && setIsPaused(false)}
+      onTouchStart={() => setIsPaused(true)}
+      onTouchEnd={() => setIsPaused(false)}
     >
       {words.map((word, index) => {
         const isActive = index === currentIndex;
@@ -139,8 +205,9 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
             className="relative text-lg sm:text-xl md:text-2xl font-semibold text-gray-300 transition-all duration-300"
             style={{
               opacity: isActive ? 1 : 0.5,
-              filter: isActive ? "blur(0px)" : `blur(${blurAmount}px)`,
+              filter: isActive ? "blur(0px)" : `blur(${isMobile ? blurAmount * 0.7 : blurAmount}px)`,
               willChange: isActive ? 'opacity, filter' : 'auto',
+              transform: 'translateZ(0)', // Force GPU acceleration
             }}
           >
             {index > 0 && (
@@ -151,7 +218,7 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
         );
       })}
 
-      {/* Focus rectangle - Pure CSS transitions (visually identical to Framer Motion) */}
+      {/* Focus rectangle - hidden until mounted to prevent layout shift */}
       <div
         className="absolute top-0 left-0 pointer-events-none box-border"
         style={focusRectStyle}
