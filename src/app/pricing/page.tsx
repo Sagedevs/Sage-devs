@@ -1,3 +1,5 @@
+"use client";
+
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -28,8 +30,6 @@ export const metadata: Metadata = {
     images: ['https://sagedevs.tech/og-banner.webp'],
   },
 };
-
-"use client";
 import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
