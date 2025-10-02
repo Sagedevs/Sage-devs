@@ -7,6 +7,10 @@ const SmokeTrailCursor: React.FC = () => {
 
   useEffect(() => {
     if (typeof window === "undefined") return
+    
+    // Disable on touch devices
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+    if (isTouchDevice) return
 
     const createSmokeParticle = (
       x: number, 
