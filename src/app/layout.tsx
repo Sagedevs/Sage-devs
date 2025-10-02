@@ -12,7 +12,6 @@ import { Analytics } from "@vercel/analytics/next";
 import Script from 'next/script';
 import OptimizedGalaxy from "@/components/Galaxy";
 import DisableDevTools from '@/components/shortcuts';
-import GoogleAnalytics from '@/components/analytics/GoogleAnalytics';
 import Footer from "@/components/Footer"; // Assuming this path is correct
 import Image from "next/image"; // Import Image for the logo
 const items = [
@@ -272,18 +271,7 @@ export default function RootLayout({
         <link rel="canonical" href="https://sagedevs.tech/" />
       </head>
       <body className={baseBodyClasses} suppressHydrationWarning={true}>
-      {/* Google Tag Manager (noscript) */}
-      <noscript>
-        <iframe 
-          src="https://www.googletagmanager.com/ns.html?id=GTM-KFR5TDDQ"
-          height="0" 
-          width="0" 
-          style={{display:'none', visibility: 'hidden'}}
-        />
-      </noscript>
-      {/* End Google Tag Manager (noscript) */}
-      <DisableDevTools />
-      <GoogleAnalytics />
+<DisableDevTools />
         {/* cursor global overlay */}
         <CustomCursor />
         {/* Background Threads/Lines - Fixed z-index to be behind everything */}
