@@ -1,14 +1,45 @@
 // app/page.tsx
+import { Suspense, lazy } from 'react';
 import type { Metadata } from "next";
+
+// Critical: Load HeroSection immediately (above the fold)
 import HeroSection from "@/components/sections/HeroSection";
-import TrustedBySection from "@/components/sections/TrustedBySection";
-import TestimonialSlider from "@/components/TestimonialSlider";
-import Services from "@/components/sections/Services";
-import CaseStudies from "@/components/sections/CaseStudies";
-import WhyChooseUs from "@/components/sections/WhyChooseUs";
-import Tabs from "@/components/sections/tabs";
-import Extra from "@/components/sections/extra";
-import FinalCTA from "@/components/sections/FinalCTA";
+
+// Non-critical: Lazy load other components
+const TrustedBySection = lazy(() => import("@/components/sections/TrustedBySection"));
+const Services = lazy(() => import("@/components/sections/Services"));
+const CaseStudies = lazy(() => import("@/components/sections/CaseStudies"));
+const WhyChooseUs = lazy(() => import("@/components/sections/WhyChooseUs"));
+const TestimonialSlider = lazy(() => import("@/components/TestimonialSlider"));
+const Tabs = lazy(() => import("@/components/sections/tabs"));
+const Extra = lazy(() => import("@/components/sections/extra"));
+const FinalCTA = lazy(() => import("@/components/sections/FinalCTA"));
+
+// Import the client-side logic wrapper
+import ClientLogicWrapper from '@/components/ClientLogicWrapper';
+
+// Loading component with proper min-height for each section
+const SectionPlaceholder = ({ 
+  className = '', 
+  minHeight = 'min-h-[400px]' 
+}: { 
+  className?: string;
+  minHeight?: string;
+}) => (
+  <div className={`w-full py-20 ${minHeight} ${className}`}>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="animate-pulse flex space-x-4">
+        <div className="flex-1 space-y-4 py-1">
+          <div className="h-4 bg-gray-800 rounded w-3/4"></div>
+          <div className="space-y-2">
+            <div className="h-4 bg-gray-800 rounded"></div>
+            <div className="h-4 bg-gray-800 rounded w-5/6"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
 export const metadata: Metadata = {
   title: "Sage Devs — Full Stack Software Agency & UI/UX Studio | Custom Web & AI Development",
@@ -302,6 +333,7 @@ const breadcrumbSchema = {
 export default function Home() {
   return (
     <>
+      {/* Schema markup - renders on server */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
@@ -319,16 +351,45 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
+      {/* Preload client-side logic */}
+      <ClientLogicWrapper />
+
       <main className="flex-grow flex flex-col items-center h-full relative w-full">
+        {/* Hero Section - Critical, loaded immediately */}
         <HeroSection />
-        <TrustedBySection />
-        <Services />
-        <CaseStudies />
-        <WhyChooseUs />
-        <TestimonialSlider />
-        <Tabs />
-        <Extra />
-        <FinalCTA />
+
+        {/* Non-critical sections with proper min-heights to prevent layout shift */}
+        <Suspense fallback={<SectionPlaceholder minHeight="min-h-[300px]" />}>
+          <TrustedBySection />
+        </Suspense>
+
+        <Suspense fallback={<SectionPlaceholder minHeight="min-h-[600px] md:min-h-[800px]" className="bg-gray-900/50" />}>
+          <Services />
+        </Suspense>
+
+        <Suspense fallback={<SectionPlaceholder minHeight="min-h-[700px] md:min-h-[900px]" />}>
+          <CaseStudies />
+        </Suspense>
+
+        <Suspense fallback={<SectionPlaceholder minHeight="min-h-[500px] md:min-h-[700px]" className="bg-gray-900/50" />}>
+          <WhyChooseUs />
+        </Suspense>
+
+        <Suspense fallback={<SectionPlaceholder minHeight="min-h-[400px] md:min-h-[600px]" />}>
+          <TestimonialSlider />
+        </Suspense>
+
+        <Suspense fallback={<SectionPlaceholder minHeight="min-h-[500px] md:min-h-[700px]" className="bg-gray-900/50" />}>
+          <Tabs />
+        </Suspense>
+
+        <Suspense fallback={<SectionPlaceholder minHeight="min-h-[400px] md:min-h-[600px]" />}>
+          <Extra />
+        </Suspense>
+
+        <Suspense fallback={<SectionPlaceholder minHeight="min-h-[300px]" />}>
+          <FinalCTA />
+        </Suspense>
       </main>
     </>
   );
