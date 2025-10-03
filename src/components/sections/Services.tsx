@@ -1,6 +1,7 @@
 "use client";
-import React, { useState, useLayoutEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useRef, useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
   Code, 
   Cloud, 
@@ -13,6 +14,8 @@ import {
   Brain
 } from 'lucide-react';
 import Link from 'next/link';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface ServiceItem {
   title: string;
@@ -118,10 +121,9 @@ const services: ServiceItem[] = [
   }
 ];
 
-// Simplified static background - NO BLUR on mobile + smaller blobs + memoized
+// Memoized static background
 const StaticBackground = React.memo(({ isMobile }: { isMobile: boolean }) => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none">
-    {/* Static gradient orbs - blur removed + smaller size on mobile */}
     <div className={`absolute top-1/4 left-1/3 ${isMobile ? 'w-[300px] h-[300px]' : 'w-[600px] h-[600px]'} bg-gradient-radial from-blue-500/10 via-blue-500/5 to-transparent rounded-full ${isMobile ? '' : 'blur-3xl'}`} />
     <div className={`absolute bottom-1/4 right-1/3 ${isMobile ? 'w-[250px] h-[250px]' : 'w-[500px] h-[500px]'} bg-gradient-radial from-purple-500/8 via-purple-500/4 to-transparent rounded-full ${isMobile ? '' : 'blur-3xl'}`} />
   </div>
@@ -129,29 +131,67 @@ const StaticBackground = React.memo(({ isMobile }: { isMobile: boolean }) => (
 
 StaticBackground.displayName = 'StaticBackground';
 
-const ServiceCard = ({ service, isMobile }: { service: ServiceItem; isMobile: boolean }) => {
-  const [isHovered, setIsHovered] = useState(false);
+const ServiceCard = ({ service, isMobile, index }: { service: ServiceItem; isMobile: boolean; index: number }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
   const IconComponent = service.icon;
 
-  // Conditional wrapper: motion.div only on desktop
-  const CardWrapper = isMobile ? 'div' : motion.div;
-  const wrapperProps = isMobile 
-    ? { className: "group relative h-full" }
-    : {
-        className: "group relative h-full",
-        onMouseEnter: () => setIsHovered(true),
-        onMouseLeave: () => setIsHovered(false),
-        whileHover: { y: -8 },
-        transition: { duration: 0.2 }
-      };
+  useEffect(() => {
+    if (!cardRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Initial state
+      gsap.set(cardRef.current, {
+        opacity: 0,
+        y: isMobile ? 30 : 50,
+        scale: isMobile ? 1 : 0.95
+      });
+
+      // Scroll animation
+      gsap.to(cardRef.current, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: isMobile ? 0.5 : 0.7,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: cardRef.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        }
+      });
+
+      // Desktop hover effect
+      if (!isMobile && cardRef.current) {
+        const card = cardRef.current;
+        
+        card.addEventListener('mouseenter', () => {
+          gsap.to(card, {
+            y: -8,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        });
+
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, {
+            y: 0,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        });
+      }
+    }, cardRef);
+
+    return () => ctx.revert();
+  }, [isMobile, index]);
 
   return (
-    <CardWrapper {...wrapperProps}>
-      <div className={`relative h-full p-8 rounded-3xl bg-gradient-to-br from-gray-900/80 via-gray-800/40 to-gray-900/80 ${isMobile ? '' : 'backdrop-blur-xl'} border border-gray-700/30 ${isMobile ? '' : 'transition-all duration-300 group-hover:border-blue-500/50 group-hover:shadow-2xl group-hover:shadow-blue-500/20'}`}>
+    <div ref={cardRef} className="group relative h-full">
+      <div className={`relative h-full p-8 rounded-3xl bg-gradient-to-br from-gray-900/80 via-gray-800/40 to-gray-900/80 ${isMobile ? '' : 'backdrop-blur-xl'} border border-gray-700/30 ${isMobile ? '' : 'transition-all duration-300 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/20'}`}>
         
-        {/* Hover effect - desktop only */}
+        {/* Hover gradient overlay - desktop only */}
         {!isMobile && (
-          <div className={`absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-blue-500/5 rounded-3xl transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`} />
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-blue-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         )}
 
         {/* Corner decoration */}
@@ -186,7 +226,7 @@ const ServiceCard = ({ service, isMobile }: { service: ServiceItem; isMobile: bo
             {service.description}
           </p>
 
-          {/* Features - simplified on mobile */}
+          {/* Features */}
           <div className="mb-6">
             <h5 className="text-sm font-bold text-white mb-4 flex items-center">
               <div className="w-2 h-2 bg-blue-400 rounded-full mr-2" />
@@ -202,7 +242,7 @@ const ServiceCard = ({ service, isMobile }: { service: ServiceItem; isMobile: bo
             </div>
           </div>
 
-          {/* Tech Stack - fewer badges on mobile */}
+          {/* Tech Stack */}
           <div className="mb-8">
             <h5 className="text-sm font-bold text-white mb-3 flex items-center">
               <div className="w-2 h-2 bg-blue-400 rounded-full mr-2" />
@@ -220,9 +260,9 @@ const ServiceCard = ({ service, isMobile }: { service: ServiceItem; isMobile: bo
             </div>
           </div>
 
-          {/* CTA - Direct Link */}
+          {/* CTA Button */}
           <Link href={service.href} className="w-full block">
-            <div className={`w-full p-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold rounded-2xl border border-blue-500/50 ${isMobile ? '' : 'transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/30 group-hover:from-blue-500 group-hover:to-blue-400'}`}>
+            <div className={`w-full p-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold rounded-2xl border border-blue-500/50 text-center ${isMobile ? '' : 'transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/30 hover:from-blue-500 hover:to-blue-400'}`}>
               <div className="flex items-center justify-center gap-3">
                 <span>Explore Service</span>
                 <span className="text-lg">→</span>
@@ -231,27 +271,64 @@ const ServiceCard = ({ service, isMobile }: { service: ServiceItem; isMobile: bo
           </Link>
         </div>
       </div>
-    </CardWrapper>
+    </div>
   );
 };
 
 export default function Services() {
   const [isMobile, setIsMobile] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
-    let timeout: NodeJS.Timeout;
-    const checkMobile = () => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => setIsMobile(window.innerWidth < 768), 200);
-    };
-    
+  // Detect mobile
+  useEffect(() => {
+    setIsMounted(true);
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    return () => {
-      clearTimeout(timeout);
-      window.removeEventListener('resize', checkMobile);
-    };
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Header and CTA animations
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const ctx = gsap.context(() => {
+      // Header animation
+      if (headerRef.current) {
+        gsap.from(headerRef.current.children, {
+          opacity: 0,
+          y: isMobile ? 20 : 30,
+          duration: isMobile ? 0.6 : 0.8,
+          stagger: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          }
+        });
+      }
+
+      // CTA animation
+      if (ctaRef.current) {
+        gsap.from(ctaRef.current, {
+          opacity: 0,
+          y: isMobile ? 20 : 30,
+          duration: isMobile ? 0.6 : 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ctaRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          }
+        });
+      }
+    });
+
+    return () => ctx.revert();
+  }, [isMounted, isMobile]);
 
   return (
     <section className="relative w-full min-h-screen bg-[#020618] overflow-hidden">
@@ -272,7 +349,7 @@ export default function Services() {
       {/* Main content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-24">
         {/* Header */}
-        <div className="text-center mb-20">
+        <div ref={headerRef} className="text-center mb-20">
           <div className="inline-block mb-8">
             <div className={`px-6 py-3 bg-gradient-to-r from-blue-500/20 to-blue-600/20 border border-blue-500/30 rounded-full ${isMobile ? '' : 'backdrop-blur-sm'}`}>
               <span className="text-blue-400 font-bold tracking-wide">Our Services</span>
@@ -294,13 +371,18 @@ export default function Services() {
 
         {/* Services grid */}
         <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-20">
-          {services.map((service) => (
-            <ServiceCard key={service.title} service={service} isMobile={isMobile} />
+          {services.map((service, index) => (
+            <ServiceCard 
+              key={service.title} 
+              service={service} 
+              isMobile={isMobile}
+              index={index}
+            />
           ))}
         </div>
 
         {/* CTA */}
-        <div className="text-center">
+        <div ref={ctaRef} className="text-center">
           <Link href="/services" className={`inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold rounded-full text-lg ${isMobile ? '' : 'hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300'}`}>
             View All Services →
           </Link>
