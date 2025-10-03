@@ -16,15 +16,22 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     // Detect if it's a touch device (mobile/tablet)
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-    // Initialize Lenis
+    // Skip Lenis initialization on mobile - use native scroll
+    if (isTouchDevice) {
+      // Just sync native scroll with ScrollTrigger
+      ScrollTrigger.refresh();
+      return;
+    }
+
+    // Initialize Lenis only for desktop
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
-      smoothWheel: !isTouchDevice, // disable smooth wheel on mobile
+      smoothWheel: true,
       wheelMultiplier: 1,
-      touchMultiplier: isTouchDevice ? 1 : 2,
+      touchMultiplier: 2,
       infinite: false,
     });
 
