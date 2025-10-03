@@ -1,56 +1,137 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-// import TrueFocus from "@/blocks/TextAnimations/TrueFocus/TrueFocus";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { clientLogos, heroCards } from "@/data/heroSectionData";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const trustBadgeRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLDivElement>(null);
+  const subheadlineRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Initial state - everything hidden
+      gsap.set([trustBadgeRef.current, headlineRef.current, subheadlineRef.current, ctaRef.current], {
+        opacity: 0,
+        y: 30,
+      });
+
+      // Hero entrance animation sequence
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out" }
+      });
+
+      tl.to(trustBadgeRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+      })
+      .to(headlineRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+      }, "-=0.4")
+      .to(subheadlineRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+      }, "-=0.4")
+      .to(ctaRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+      }, "-=0.4");
+
+      // Cards stagger animation on scroll
+      if (cardsRef.current) {
+        const cards = cardsRef.current.querySelectorAll('.hero-card');
+        
+        gsap.fromTo(cards,
+          {
+            opacity: 0,
+            y: 50,
+            scale: 0.9,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: cardsRef.current,
+              start: "top 80%",
+              end: "bottom 20%",
+              toggleActions: "play none none reverse",
+            }
+          }
+        );
+      }
+
+      // Parallax effect on scroll
+      gsap.to(sectionRef.current, {
+        yPercent: 15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+        }
+      });
+
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="relative w-full min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-6 sm:py-12 overflow-hidden">
+    <section 
+      ref={sectionRef}
+      className="relative w-full min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-6 sm:py-12 overflow-hidden"
+    >
       {/* Mobile: Simple static background (NO animations) */}
       <div className="md:hidden absolute inset-0 -z-10 bg-gradient-to-br from-[#0a1628] via-[#0f2350] to-[#060d1f]">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e3a8a10_1px,transparent_1px),linear-gradient(to_bottom,#1e3a8a10_1px,transparent_1px)] bg-[size:4rem_4rem]" />
-        {/* Simple static orbs for mobile */}
         <div className="absolute top-0 -left-1/4 w-1/2 h-1/2 bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50" />
         <div className="absolute top-0 -right-1/4 w-1/2 h-1/2 bg-cyan-500/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50" />
       </div>
 
       {/* Desktop: Stunning Pure CSS Background with ANIMATIONS */}
       <div className="hidden md:block absolute inset-0 -z-10 overflow-hidden">
-        {/* Base gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0a1628] via-[#0f2350] to-[#060d1f]" />
         
-        {/* Animated gradient orbs - ONLY ON DESKTOP */}
         <div className="absolute top-0 -left-1/4 w-1/2 h-1/2 bg-blue-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob" />
         <div className="absolute top-0 -right-1/4 w-1/2 h-1/2 bg-cyan-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000" />
         <div className="absolute -bottom-1/4 left-1/3 w-1/2 h-1/2 bg-purple-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000" />
         
-        {/* Radial gradient overlay */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-blue-950/30 to-transparent" />
-        
-        {/* Grid pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e3a8a10_1px,transparent_1px),linear-gradient(to_bottom,#1e3a8a10_1px,transparent_1px)] bg-[size:4rem_4rem]" />
         
-        {/* Diagonal lines */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0 bg-gradient-to-br from-transparent via-blue-400/5 to-transparent transform rotate-12" />
           <div className="absolute inset-0 bg-gradient-to-tl from-transparent via-cyan-400/5 to-transparent transform -rotate-12" />
         </div>
         
-        {/* Noise texture */}
         <div className="absolute inset-0 opacity-[0.015] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=')]" />
         
-        {/* Shimmer effect - ONLY ON DESKTOP */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/5 to-transparent animate-shimmer" />
       </div>
 
-      {/* Vignette overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50 -z-5" />
 
       {/* Main Hero Content */}
       <div className="w-full max-w-7xl mx-auto flex flex-col items-center justify-center text-center relative z-10">
         {/* Trust Badge */}
-        <div className="mb-8">
+        <div ref={trustBadgeRef} className="mb-8">
           <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-400/20 backdrop-blur-sm">
             <div className="flex -space-x-2">
               {clientLogos.map((logo, index) => (
@@ -71,8 +152,8 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Hero Headline - Gradient animation ONLY on desktop */}
-        <div className="mb-6">
+        {/* Hero Headline */}
+        <div ref={headlineRef} className="mb-6">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.7)] max-w-4xl leading-tight mb-6">
             Transform Your Ideas into{' '}
             <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent md:animate-gradient">
@@ -82,7 +163,7 @@ export default function HeroSection() {
         </div>
 
         {/* Hero Subheadline */}
-        <div className="mb-8">
+        <div ref={subheadlineRef} className="mb-8">
           <p className="text-center text-gray-300 max-w-3xl text-base sm:text-lg md:text-xl leading-relaxed font-medium">
             We&apos;re Sage Devs—a premium full-stack development agency that partners with ambitious businesses to create
             <span className="text-cyan-300"> scalable web applications</span> and
@@ -90,8 +171,8 @@ export default function HeroSection() {
           </p>
         </div>
 
-        {/* Hero CTAs - Reduced hover effects on mobile */}
-        <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mb-16">
+        {/* Hero CTAs */}
+        <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 items-center justify-center mb-16">
           <a 
             href="#contact" 
             className="relative group inline-flex items-center justify-center h-14 px-10 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 text-white text-lg font-bold transition-all duration-300 border border-blue-400/30 md:hover:border-cyan-300/50 md:hover:shadow-2xl md:hover:shadow-cyan-500/40 overflow-hidden backdrop-blur-sm w-full sm:w-auto md:hover:scale-105 active:scale-95"
@@ -120,28 +201,12 @@ export default function HeroSection() {
           </a>
         </div>
 
-        {/* TrueFocus Animation
-        <div className="w-full max-w-5xl mx-auto mb-16">
-          <div className="relative">
-            <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-purple-500/10 rounded-3xl blur-xl" />
-            <div className="relative bg-black/30 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8">
-              <TrueFocus
-                sentence="Full-StackDevelopment • UI/UX-Design • WordPress-Solutions • E-commerceStores • SaaS-Platforms • Cloud&DevOps • Enterprise-Applications • Mobile-Development"
-                blurAmount={8}
-                borderColor="cyan"
-                animationDuration={0.4}
-                pauseBetweenAnimations={1.2}
-              />
-            </div>
-          </div>
-        </div> */}
-
-        {/* Value Proposition Cards - Reduced hover animations on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
+        {/* Value Proposition Cards */}
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
           {heroCards.map((card, index) => (
             <div
               key={index}
-              className={`group relative p-6 rounded-2xl backdrop-blur-sm border transition-all duration-300 md:hover:transform md:hover:-translate-y-2 active:scale-95
+              className={`hero-card group relative p-6 rounded-2xl backdrop-blur-sm border transition-all duration-300 md:hover:transform md:hover:-translate-y-2 active:scale-95
                 ${
                   index === 0
                     ? "bg-gradient-to-br from-blue-900/20 to-cyan-900/10 border-blue-400/20 md:hover:border-blue-300/40"
@@ -190,9 +255,8 @@ export default function HeroSection() {
         </div>
       </div>
       
-      {/* CSS Animations - ONLY ACTIVE ON DESKTOP (md breakpoint) */}
+      {/* CSS Animations */}
       <style jsx>{`
-        /* Desktop-only animations */
         @media (min-width: 768px) {
           @keyframes blob {
             0%, 100% { transform: translate(0, 0) scale(1); }
@@ -232,7 +296,6 @@ export default function HeroSection() {
           }
         }
         
-        /* Respect user preferences */
         @media (prefers-reduced-motion: reduce) {
           .animate-blob,
           .animate-shimmer,

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Image from "next/image";
+import SmoothScroll from "@/components/SmoothScroll";
 
 // Lazy load heavy components
 const GooeyNavWithHeader = lazy(() => import("@/blocks/Components/GooeyNav/GooeyNav"));
@@ -312,6 +313,7 @@ export default function RootLayout({
       </head>
       
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased font-gilroy relative`} suppressHydrationWarning>
+      <SmoothScroll>
         {/* Only load dev tools in development */}
         {process.env.NODE_ENV === 'development' && (
           <Suspense fallback={null}>
@@ -394,6 +396,7 @@ export default function RootLayout({
         )}
 
         <div id="modal-root" />
+        </SmoothScroll>
       </body>
     </html>
   );
