@@ -17,22 +17,22 @@ const SmokeTrailCursor: React.FC = () => {
     const createSmokeParticle = (x: number, y: number) => {
       const particle = document.createElement("div")
       
-      const size = 40 + Math.random() * 40
+      const size = 25 + Math.random() * 25
       const isWhite = Math.random() > 0.25
       const color = isWhite ? '255, 255, 255' : '60, 60, 80'
-      const opacity = isWhite ? 0.8 + Math.random() * 0.2 : 0.6 + Math.random() * 0.3
-      const duration = 2.0 + Math.random() * 1.5
+      const opacity = isWhite ? 0.5 + Math.random() * 0.3 : 0.3 + Math.random() * 0.3
+      const duration = 1.8 + Math.random() * 1.2
       
-      // Slight random offset for natural look
-      const offsetX = (Math.random() - 0.5) * 15
-      const offsetY = (Math.random() - 0.5) * 15
+      // Better spacing for particles
+      const offsetX = (Math.random() - 0.5) * 20
+      const offsetY = (Math.random() - 0.5) * 20
       
-      // Random drift direction - less upward, more visible on screen
-      const driftX = (Math.random() - 0.5) * 80
-      const driftY = -20 - Math.random() * 40
+      // Random drift direction - varied for natural spread
+      const driftX = (Math.random() - 0.5) * 50
+      const driftY = -15 - Math.random() * 30
       
       // Random blur for depth
-      const blur = 4 + Math.random() * 6
+      const blur = 2 + Math.random() * 4
       
       particle.style.cssText = `
         position: fixed;
@@ -76,23 +76,20 @@ const SmokeTrailCursor: React.FC = () => {
       const deltaX = currentPos.x - lastPos.current.x
       const deltaY = currentPos.y - lastPos.current.y
       const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY)
-      const timeDelta = currentTime - lastTime.current
       
-      // Only spawn particles if moving
-      if (distance > 0.5 && timeDelta > 3) {
-        // Spawn MANY particles for thick, continuous trail
-        const numParticles = Math.min(Math.ceil(distance / 3), 12)
+      // ALWAYS spawn particles when moving, no time restriction
+      if (distance > 0.1) {
+        // Fewer particles but better spaced
+        const numParticles = Math.max(1, Math.min(Math.ceil(distance / 8), 6))
         
         for (let i = 0; i < numParticles; i++) {
-          // Place particles along the line from last position to current
-          const t = (i + 1) / (numParticles + 1)
+          // Spread particles evenly along the movement path
+          const t = i / numParticles
           const px = lastPos.current.x + deltaX * t
           const py = lastPos.current.y + deltaY * t
           
           createSmokeParticle(px, py)
         }
-        
-        lastTime.current = currentTime
       }
       
       lastPos.current = { ...currentPos }
@@ -117,28 +114,35 @@ const SmokeTrailCursor: React.FC = () => {
 
         @keyframes smokeRise {
           0% {
-            transform: translate(-50%, -50%) scale(0.8);
+            transform: translate(-50%, -50%) scale(0.6);
             opacity: 1;
           }
-          30% {
+          25% {
             transform: translate(
-              calc(-50% + var(--drift-x) * 0.3), 
-              calc(-50% + var(--drift-y) * 0.3)
-            ) scale(2);
-            opacity: 0.9;
+              calc(-50% + var(--drift-x) * 0.25), 
+              calc(-50% + var(--drift-y) * 0.25)
+            ) scale(1.5);
+            opacity: 0.8;
           }
-          60% {
+          50% {
             transform: translate(
-              calc(-50% + var(--drift-x) * 0.6), 
-              calc(-50% + var(--drift-y) * 0.6)
-            ) scale(4);
-            opacity: 0.6;
+              calc(-50% + var(--drift-x) * 0.5), 
+              calc(-50% + var(--drift-y) * 0.5)
+            ) scale(2.5);
+            opacity: 0.5;
+          }
+          75% {
+            transform: translate(
+              calc(-50% + var(--drift-x) * 0.75), 
+              calc(-50% + var(--drift-y) * 0.75)
+            ) scale(3.5);
+            opacity: 0.2;
           }
           100% {
             transform: translate(
               calc(-50% + var(--drift-x)), 
               calc(-50% + var(--drift-y))
-            ) scale(6);
+            ) scale(4.5);
             opacity: 0;
           }
         }
