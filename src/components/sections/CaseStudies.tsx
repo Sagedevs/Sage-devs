@@ -98,7 +98,7 @@ const caseStudies: CaseStudy[] = [
 ];
 
 // ----------------------
-// Modal Component (fixed)
+// Modal Component (fixed for scrolling)
 // ----------------------
 const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => void }) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -131,14 +131,14 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
       style={{
         paddingTop: "80px",
         paddingBottom: "20px",
-        overflow: "hidden", // important: backdrop shouldn't scroll
+        overflow: "hidden", // backdrop shouldn't scroll
         WebkitOverflowScrolling: "auto",
       }}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
     >
-      {/* center wrapper so content can be scrolled inside */}
+      {/* center wrapper */}
       <div className="min-h-full flex items-start justify-center px-4">
         <div
           ref={contentRef}
@@ -146,14 +146,15 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
           style={{
             maxHeight: "85vh",
             minHeight: "400px",
-            overflow: "auto", // <-- only this element scrolls
+            overflow: "auto", // <-- the only scrollable element
             WebkitOverflowScrolling: "touch",
             overscrollBehavior: "contain",
             touchAction: "pan-y",
           }}
           onClick={(e) => e.stopPropagation()}
+          tabIndex={-1}
         >
-          {/* Close Button */}
+          {/* close */}
           <button
             className="absolute top-4 right-4 z-[10000] w-10 h-10 rounded-full bg-slate-800/90 backdrop-blur-sm text-gray-300 hover:text-white hover:bg-red-600/90 transition-all duration-300 flex items-center justify-center border border-slate-600/50 shadow-lg"
             onClick={(e) => {
@@ -161,13 +162,14 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
               onClose();
             }}
             aria-label="Close modal"
+            type="button"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
 
-          {/* Modal content (scrollable) */}
+          {/* Modal scrollable content */}
           <div className="flex-shrink-0">
             <div className="relative">
               <div className="aspect-video overflow-hidden relative rounded-t-2xl">
@@ -179,10 +181,12 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
                   priority={true}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/30 to-transparent" />
+                {/* decorative gradient overlay — pointer-events none so it doesn't block scroll/touch */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/30 to-transparent pointer-events-none" />
               </div>
 
-              <div className="absolute inset-0 flex flex-col justify-end p-5">
+              {/* hero text — allow pointer events (so links/buttons inside work) */}
+              <div className="absolute inset-0 flex flex-col justify-end p-5 pointer-events-auto">
                 <span className="inline-block px-2.5 py-1 text-xs font-medium bg-blue-500/30 text-blue-200 rounded-full mb-2 backdrop-blur-sm border border-blue-400/30 w-fit">
                   {caseStudy.category}
                 </span>
@@ -277,7 +281,7 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
             </div>
           </div>
         </div>
-      </div>
+      </div> {/* end center wrapper */}
     </div>
   );
 };
@@ -293,7 +297,6 @@ export default function CaseStudies() {
   const cardsRef = useRef<HTMLDivElement | null>(null);
   const ctaRef = useRef<HTMLDivElement | null>(null);
 
-  // update isMobile on resize
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -357,7 +360,6 @@ export default function CaseStudies() {
       }
     }
 
-    // cleanup on unmount
     return () => {
       document.removeEventListener("keydown", handleEscape);
       document.body.style.position = "";
@@ -447,11 +449,11 @@ export default function CaseStudies() {
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent pointer-events-none" />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
                     <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4">
-                      <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2 sm:p-3 border border-white/20">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2 sm:p-3 border border-white/20 pointer-events-auto">
                         <p className="text-white text-xs sm:text-sm font-medium">Click to view full case study</p>
                       </div>
                     </div>
