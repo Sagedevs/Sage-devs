@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
+      animation: {
+        blob: 'blob 7s infinite ease-in-out',
+      },
       fontFamily: {
         gilroy: ["var(--font-gilroy)"],
         geist: ["var(--font-geist-sans)"],

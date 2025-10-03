@@ -7,8 +7,13 @@ import { clientLogos, heroCards } from "@/data/heroSectionData";
 export default function HeroSection() {
   return (
     <section className="relative w-full min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-6 sm:py-12 overflow-hidden">
-      {/* Stunning Pure CSS Background - No Canvas, No JS */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
+      {/* Mobile: Simple background (no animations) */}
+      <div className="md:hidden absolute inset-0 -z-10 bg-gradient-to-br from-[#0a1628] via-[#0f2350] to-[#060d1f]">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e3a8a10_1px,transparent_1px),linear-gradient(to_bottom,#1e3a8a10_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      </div>
+
+      {/* Desktop: Stunning Pure CSS Background */}
+      <div className="hidden md:block absolute inset-0 -z-10 overflow-hidden">
         {/* Base gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0a1628] via-[#0f2350] to-[#060d1f]" />
         
@@ -67,7 +72,7 @@ export default function HeroSection() {
         <div className="mb-6">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.7)] max-w-4xl leading-tight mb-6">
             Transform Your Ideas into{' '}
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent animate-gradient">
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent md:animate-gradient">
               Digital Masterpieces
             </span>
           </h1>
@@ -182,7 +187,7 @@ export default function HeroSection() {
         </div>
       </div>
       
-      {/* Add required CSS animations to your globals.css */}
+      {/* CSS Animations */}
       <style jsx>{`
         @keyframes blob {
           0%, 100% { transform: translate(0, 0) scale(1); }
@@ -201,7 +206,7 @@ export default function HeroSection() {
         }
         
         .animate-blob {
-          animation: blob 7s infinite;
+          animation: blob 7s infinite ease-in-out;
         }
         
         .animation-delay-2000 {
@@ -219,6 +224,14 @@ export default function HeroSection() {
         .animate-gradient {
           background-size: 200% 200%;
           animation: gradient 3s ease infinite;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+          .animate-blob,
+          .animate-shimmer,
+          .animate-gradient {
+            animation: none;
+          }
         }
       `}</style>
     </section>
