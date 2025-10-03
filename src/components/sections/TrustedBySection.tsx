@@ -106,7 +106,7 @@ export default function TrustedBySection() {
     const slider = mobileSliderRef.current;
     let animationId: number;
     let currentScroll = 0;
-    const speed = 0.4; // Slightly slower for better performance
+    const speed = 1; // Slightly slower for better performance
 
     const animate = () => {
       currentScroll += speed;
