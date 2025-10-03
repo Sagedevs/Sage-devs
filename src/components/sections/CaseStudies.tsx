@@ -113,19 +113,23 @@ const Modal = ({ caseStudy, onClose, isMobile }: { caseStudy: CaseStudy; onClose
   return (
     <div
       ref={modalRef}
-      className="fixed inset-0 bg-black/90 backdrop-blur-md z-[9999] flex items-center justify-center p-4 overflow-y-auto"
-      style={{ paddingTop: '80px', paddingBottom: '20px' }}
+      className="fixed inset-0 bg-black/90 backdrop-blur-md z-[9999] p-4 overflow-y-auto"
+      style={{ 
+        paddingTop: '100px', 
+        paddingBottom: '40px',
+        overscrollBehavior: 'contain',
+        WebkitOverflowScrolling: 'touch'
+      }}
       onClick={onClose}
     >
       <div
         ref={contentRef}
-        className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-sm rounded-2xl w-full max-w-3xl border border-slate-700/50 relative shadow-2xl my-auto"
-        style={{ maxHeight: 'calc(100vh - 120px)' }}
+        className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-sm rounded-2xl w-full max-w-3xl border border-slate-700/50 relative shadow-2xl mx-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button - FIXED with higher z-index */}
         <button
-          className="sticky top-0 left-full -ml-12 mb-4 z-[10000] w-10 h-10 rounded-full bg-slate-800/90 backdrop-blur-sm text-gray-300 hover:text-white hover:bg-red-600/90 transition-all duration-300 flex items-center justify-center border border-slate-600/50 shadow-lg hover:shadow-red-500/50"
+          className="absolute -top-4 -right-4 z-[10000] w-12 h-12 rounded-full bg-slate-800/90 backdrop-blur-sm text-gray-300 hover:text-white hover:bg-red-600/90 transition-all duration-300 flex items-center justify-center border border-slate-600/50 shadow-lg hover:shadow-red-500/50"
           onClick={(e) => {
             e.stopPropagation();
             onClose();
@@ -137,14 +141,9 @@ const Modal = ({ caseStudy, onClose, isMobile }: { caseStudy: CaseStudy; onClose
           </svg>
         </button>
 
-        {/* Scrollable Content */}
+        {/* Content - No inner scroll, uses parent scroll */}
         <div 
-          className="overflow-y-auto overflow-x-hidden custom-scrollbar -mt-14"
-          style={{
-            maxHeight: 'calc(100vh - 120px)',
-            overscrollBehavior: 'contain',
-            WebkitOverflowScrolling: 'touch'
-          }}
+          className="w-full"
         >
           {/* Hero Section - Smaller */}
           <div className="relative">
