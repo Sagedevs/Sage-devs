@@ -85,7 +85,7 @@ const caseStudies: CaseStudy[] = [
   },
 ];
 
-// Modal Component - FIXED VERSION
+// Modal Component - COMPLETELY FIXED
 const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => void }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -113,170 +113,192 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
   return (
     <div
       ref={modalRef}
-      className="fixed inset-0 bg-black/90 backdrop-blur-md z-[9999] flex items-center justify-center p-4"
-      style={{ paddingTop: '80px', paddingBottom: '20px' }}
+      className="fixed inset-0 bg-black/90 backdrop-blur-md z-[9999] p-4"
+      style={{ 
+        paddingTop: '80px', 
+        paddingBottom: '20px',
+        overflowY: 'scroll',
+        overflowX: 'hidden'
+      }}
       onClick={onClose}
     >
-      <div
-        ref={contentRef}
-        className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-sm rounded-2xl w-full max-w-3xl border border-slate-700/50 relative shadow-2xl my-auto overflow-hidden flex flex-col"
-        style={{ maxHeight: 'calc(100vh - 120px)' }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Close Button - Inside popup */}
-        <button
-          className="absolute top-4 right-4 z-[10000] w-10 h-10 rounded-full bg-slate-800/90 backdrop-blur-sm text-gray-300 hover:text-white hover:bg-red-600/90 transition-all duration-300 flex items-center justify-center border border-slate-600/50 shadow-lg hover:shadow-red-500/50"
-          onClick={(e) => {
-            e.stopPropagation();
-            onClose();
-          }}
-          aria-label="Close modal"
+      <div className="min-h-full flex items-center justify-center">
+        <div
+          ref={contentRef}
+          className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-sm rounded-2xl w-full max-w-3xl border border-slate-700/50 relative shadow-2xl overflow-hidden flex flex-col"
+          style={{ maxHeight: '85vh', minHeight: '400px' }}
+          onClick={(e) => e.stopPropagation()}
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+          {/* Close Button */}
+          <button
+            className="absolute top-4 right-4 z-[10000] w-10 h-10 rounded-full bg-slate-800/90 backdrop-blur-sm text-gray-300 hover:text-white hover:bg-red-600/90 transition-all duration-300 flex items-center justify-center border border-slate-600/50 shadow-lg hover:shadow-red-500/50"
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
+            aria-label="Close modal"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
 
-        {/* Scrollable Content */}
-        <div 
-          className="overflow-y-auto overflow-x-hidden flex-1"
-          style={{
-            overscrollBehavior: 'contain',
-            WebkitOverflowScrolling: 'touch',
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none'
-          }}
-        >
-          {/* Hero Section - Smaller */}
-          <div className="relative">
-            <div className="aspect-video overflow-hidden relative rounded-t-2xl">
-              <Image 
-                src={caseStudy.image} 
-                alt={caseStudy.title}
-                width={900} 
-                height={500} 
-                priority={true} 
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/30 to-transparent" />
-            </div>
-            
-            {/* Hero Content - Compact */}
-            <div className="absolute inset-0 flex flex-col justify-end p-5">
-              <span className="inline-block px-2.5 py-1 text-xs font-medium bg-blue-500/30 text-blue-200 rounded-full mb-2 backdrop-blur-sm border border-blue-400/30 w-fit">
-                {caseStudy.category}
-              </span>
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-1 leading-tight">
-                {caseStudy.title}
-              </h3>
-              <p className="text-gray-200 text-sm md:text-base mb-2">{caseStudy.subtitle}</p>
-              <p className="text-blue-300 text-sm md:text-base font-semibold">{caseStudy.outcome}</p>
-            </div>
-          </div>
-
-          {/* Content Sections - More compact */}
-          <div className="p-5 md:p-6 space-y-6">
-            {/* Project Overview */}
-            <div>
-              <h4 className="text-lg md:text-xl font-bold text-white mb-4">Project Overview</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="bg-gradient-to-br from-slate-800/60 to-slate-700/40 backdrop-blur-sm rounded-xl p-4 border border-slate-600/30">
-                  <h5 className="text-blue-300 font-semibold mb-1 text-xs uppercase tracking-wide">Duration</h5>
-                  <p className="text-white text-sm font-medium">{caseStudy.duration}</p>
-                </div>
-                <div className="bg-gradient-to-br from-slate-800/60 to-slate-700/40 backdrop-blur-sm rounded-xl p-4 border border-slate-600/30">
-                  <h5 className="text-blue-300 font-semibold mb-1 text-xs uppercase tracking-wide">Scope</h5>
-                  <p className="text-white text-sm font-medium">{caseStudy.scope}</p>
-                </div>
-                <div className="bg-gradient-to-br from-slate-800/60 to-slate-700/40 backdrop-blur-sm rounded-xl p-4 border border-slate-600/30">
-                  <h5 className="text-blue-300 font-semibold mb-1 text-xs uppercase tracking-wide">Impact</h5>
-                  <p className="text-white text-sm font-medium">{caseStudy.outcome}</p>
-                </div>
+          {/* Scrollable Content */}
+          <div 
+            className="overflow-y-scroll overflow-x-hidden flex-1"
+            style={{
+              overscrollBehavior: 'contain',
+              WebkitOverflowScrolling: 'touch',
+              touchAction: 'pan-y',
+              scrollbarWidth: 'thin',
+              scrollbarColor: 'rgba(59, 130, 246, 0.5) rgba(51, 65, 85, 0.3)'
+            }}
+          >
+            {/* Hero Section */}
+            <div className="relative">
+              <div className="aspect-video overflow-hidden relative rounded-t-2xl">
+                <Image 
+                  src={caseStudy.image} 
+                  alt={caseStudy.title}
+                  width={900} 
+                  height={500} 
+                  priority={true} 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/30 to-transparent" />
+              </div>
+              
+              {/* Hero Content */}
+              <div className="absolute inset-0 flex flex-col justify-end p-5">
+                <span className="inline-block px-2.5 py-1 text-xs font-medium bg-blue-500/30 text-blue-200 rounded-full mb-2 backdrop-blur-sm border border-blue-400/30 w-fit">
+                  {caseStudy.category}
+                </span>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-1 leading-tight">
+                  {caseStudy.title}
+                </h3>
+                <p className="text-gray-200 text-sm md:text-base mb-2">{caseStudy.subtitle}</p>
+                <p className="text-blue-300 text-sm md:text-base font-semibold">{caseStudy.outcome}</p>
               </div>
             </div>
 
-            {/* Challenge & Solution */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {/* Content Sections */}
+            <div className="p-5 md:p-6 space-y-6">
+              {/* Project Overview */}
               <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-7 h-7 bg-red-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg className="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                    </svg>
+                <h4 className="text-lg md:text-xl font-bold text-white mb-4">Project Overview</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="bg-gradient-to-br from-slate-800/60 to-slate-700/40 backdrop-blur-sm rounded-xl p-4 border border-slate-600/30">
+                    <h5 className="text-blue-300 font-semibold mb-1 text-xs uppercase tracking-wide">Duration</h5>
+                    <p className="text-white text-sm font-medium">{caseStudy.duration}</p>
                   </div>
-                  <h4 className="text-lg font-bold text-white">The Challenge</h4>
+                  <div className="bg-gradient-to-br from-slate-800/60 to-slate-700/40 backdrop-blur-sm rounded-xl p-4 border border-slate-600/30">
+                    <h5 className="text-blue-300 font-semibold mb-1 text-xs uppercase tracking-wide">Scope</h5>
+                    <p className="text-white text-sm font-medium">{caseStudy.scope}</p>
+                  </div>
+                  <div className="bg-gradient-to-br from-slate-800/60 to-slate-700/40 backdrop-blur-sm rounded-xl p-4 border border-slate-600/30">
+                    <h5 className="text-blue-300 font-semibold mb-1 text-xs uppercase tracking-wide">Impact</h5>
+                    <p className="text-white text-sm font-medium">{caseStudy.outcome}</p>
+                  </div>
                 </div>
-                <p className="text-gray-300 leading-relaxed text-sm">{caseStudy.challenge}</p>
               </div>
+
+              {/* Challenge & Solution */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-7 h-7 bg-red-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                      </svg>
+                    </div>
+                    <h4 className="text-lg font-bold text-white">The Challenge</h4>
+                  </div>
+                  <p className="text-gray-300 leading-relaxed text-sm">{caseStudy.challenge}</p>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-7 h-7 bg-green-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                      </svg>
+                    </div>
+                    <h4 className="text-lg font-bold text-white">The Solution</h4>
+                  </div>
+                  <p className="text-gray-300 leading-relaxed text-sm">{caseStudy.solution}</p>
+                </div>
+              </div>
+
+              {/* Results */}
               <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-7 h-7 bg-green-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                    </svg>
-                  </div>
-                  <h4 className="text-lg font-bold text-white">The Solution</h4>
+                <h4 className="text-lg md:text-xl font-bold text-white mb-4">Key Results</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {caseStudy.results.map((result: string, index: number) => (
+                    <div 
+                      key={index} 
+                      className="flex items-center gap-3 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-lg p-3 border border-blue-500/20 backdrop-blur-sm"
+                    >
+                      <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full flex-shrink-0" />
+                      <span className="text-gray-200 text-sm">{result}</span>
+                    </div>
+                  ))}
                 </div>
-                <p className="text-gray-300 leading-relaxed text-sm">{caseStudy.solution}</p>
               </div>
-            </div>
 
-            {/* Results */}
-            <div>
-              <h4 className="text-lg md:text-xl font-bold text-white mb-4">Key Results</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {caseStudy.results.map((result: string, index: number) => (
-                  <div 
-                    key={index} 
-                    className="flex items-center gap-3 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-lg p-3 border border-blue-500/20 backdrop-blur-sm"
-                  >
-                    <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full flex-shrink-0" />
-                    <span className="text-gray-200 text-sm">{result}</span>
-                  </div>
-                ))}
+              {/* Technologies */}
+              <div>
+                <h4 className="text-lg md:text-xl font-bold text-white mb-3">Technologies</h4>
+                <div className="flex flex-wrap gap-2">
+                  {caseStudy.technologies.map((tech: string, index: number) => (
+                    <span 
+                      key={index} 
+                      className="px-3 py-1.5 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 text-blue-200 rounded-full text-xs font-medium border border-blue-400/30 backdrop-blur-sm"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            {/* Technologies */}
-            <div>
-              <h4 className="text-lg md:text-xl font-bold text-white mb-3">Technologies</h4>
-              <div className="flex flex-wrap gap-2">
-                {caseStudy.technologies.map((tech: string, index: number) => (
-                  <span 
-                    key={index} 
-                    className="px-3 py-1.5 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 text-blue-200 rounded-full text-xs font-medium border border-blue-400/30 backdrop-blur-sm"
-                  >
-                    {tech}
-                  </span>
-                ))}
+              {/* CTA */}
+              <div className="text-center pt-4 pb-2">
+                <a
+                  href={caseStudy.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-full hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl border border-blue-500/30 text-sm"
+                >
+                  <span>View Live Project</span>
+                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
               </div>
-            </div>
-
-            {/* CTA */}
-            <div className="text-center pt-4 pb-2">
-              <a
-                href={caseStudy.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-full hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl border border-blue-500/30 text-sm"
-              >
-                <span>View Live Project</span>
-                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </a>
             </div>
           </div>
         </div>
       </div>
 
       <style jsx>{`
-        div[style*="overflow-y: auto"] {
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-        }
-        div[style*="overflow-y: auto"]::-webkit-scrollbar {
+        /* Modal backdrop scrollbar - hidden */
+        div[ref="modalRef"]::-webkit-scrollbar {
+          width: 0px;
           display: none;
+        }
+        
+        /* Content scrollbar - visible */
+        div[style*="overflow-y: scroll"]::-webkit-scrollbar {
+          width: 8px;
+        }
+        div[style*="overflow-y: scroll"]::-webkit-scrollbar-track {
+          background: rgba(51, 65, 85, 0.3);
+          border-radius: 4px;
+        }
+        div[style*="overflow-y: scroll"]::-webkit-scrollbar-thumb {
+          background: rgba(59, 130, 246, 0.6);
+          border-radius: 4px;
+        }
+        div[style*="overflow-y: scroll"]::-webkit-scrollbar-thumb:hover {
+          background: rgba(59, 130, 246, 0.8);
         }
       `}</style>
     </div>
@@ -305,14 +327,38 @@ export default function CaseStudies() {
 
     if (selectedCase) {
       document.addEventListener('keydown', handleEscape);
+      
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      
+      // Block background scroll - simple approach
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
+      
+      // Prevent scrollbar layout shift
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+      
+      // Store scroll position for restoration
+      document.body.setAttribute('data-scroll-y', scrollY.toString());
     } else {
+      // Restore scroll
+      const scrollY = parseInt(document.body.getAttribute('data-scroll-y') || '0');
+      
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+      document.body.removeAttribute('data-scroll-y');
+      
+      window.scrollTo(0, scrollY);
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscape);
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+      document.body.removeAttribute('data-scroll-y');
     };
   }, [selectedCase]);
 
