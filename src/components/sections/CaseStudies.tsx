@@ -98,7 +98,7 @@ const caseStudies: CaseStudy[] = [
 ];
 
 // ----------------------
-// Modal Component (now supports mouse wheel/trackpad)
+// Modal Component (supports wheel/trackpad + keyboard + focus)
 // ----------------------
 const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => void }) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -125,32 +125,31 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
     // Focus the scrollable panel so keyboard scroll works
     const contentEl = contentRef.current;
     contentEl.setAttribute("tabindex", "-1");
-    contentEl.focus();
+    // focus after a tick so animation doesn't steal it
+    setTimeout(() => contentEl.focus(), 50);
 
     // Wheel/trackpad forwarding:
-    // Some browsers / setups end up delivering wheel events to the backdrop and not the inner scrollable panel.
-    // This listener captures wheel on the backdrop and scrolls the content panel manually.
+    // Capture wheel on the backdrop and forward to the content panel,
+    // preventing the page behind from scrolling (or overscrolling).
     const onWheel = (e: WheelEvent) => {
       if (!contentRef.current) return;
-
-      // Determine whether content can scroll in the event direction
       const el = contentRef.current;
       const delta = e.deltaY;
 
       const canScrollUp = el.scrollTop > 0;
-      const canScrollDown = el.scrollTop + el.clientHeight < el.scrollHeight;
+      const canScrollDown = el.scrollTop + el.clientHeight < el.scrollHeight - 1; // -1 tolerance
 
       if ((delta > 0 && canScrollDown) || (delta < 0 && canScrollUp)) {
         // Move content scroll and prevent background from receiving it
         el.scrollTop += delta;
         e.preventDefault();
       } else {
-        // content can't scroll further - prevent background scroll/overscroll
+        // content can't scroll further in that direction — prevent background/overscroll
         e.preventDefault();
       }
     };
 
-    // add listener on the modal backdrop (capture phase) to intercept wheel from anywhere over modal
+    // Add listener on modal backdrop (capture phase isn't necessary here but passive=false is)
     modalRef.current.addEventListener("wheel", onWheel, { passive: false });
 
     return () => {
@@ -166,7 +165,7 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
       style={{
         paddingTop: "80px",
         paddingBottom: "20px",
-        overflow: "hidden", // backdrop should not scroll
+        overflow: "hidden", // backdrop itself must not scroll
         WebkitOverflowScrolling: "auto",
       }}
       onClick={onClose}
@@ -345,13 +344,13 @@ export default function CaseStudies() {
       // Save current scroll position
       const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
 
-      // prevent background scroll by fixing body
+      // Prevent layout shift by compensating with paddingRight
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       if (scrollbarWidth && scrollbarWidth > 0) {
         document.body.style.paddingRight = `${scrollbarWidth}px`;
       }
 
-      // position fixed approach (prevents iOS overscroll)
+      // Fix body in place (this prevents background scroll + iOS overscroll)
       document.body.style.position = "fixed";
       document.body.style.top = `-${scrollY}px`;
       document.body.style.left = "0";
