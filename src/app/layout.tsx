@@ -10,7 +10,6 @@ import Image from "next/image";
 // Lazy load heavy components
 const GooeyNavWithHeader = lazy(() => import("@/blocks/Components/GooeyNav/GooeyNav"));
 const CustomCursor = lazy(() => import("@/components/customcursor"));
-
 const DisableDevTools = lazy(() => import("@/components/shortcuts"));
 const Footer = lazy(() => import("@/components/Footer"));
 const Analytics = lazy(() => import("@vercel/analytics/next").then(mod => ({ default: mod.Analytics })));
@@ -88,21 +87,22 @@ const socialLinks = [
   },
 ];
 
+// Optimized font loading - optional display for better mobile performance
 const geistSans = Geist({ 
   variable: "--font-geist-sans", 
   subsets: ["latin"],
-  display: "swap",
+  display: "optional", // Changed from "swap" for better mobile performance
   preload: true
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-  display: "swap",
+  display: "optional", // Changed from "swap" for better mobile performance
   preload: true
 });
 
-// Lightweight background component
+// Lightweight background component with CSS-only animation
 const StaticBackground = () => (
   <div className="fixed inset-0 z-[-1] pointer-events-none">
     <svg
@@ -148,21 +148,33 @@ export default function RootLayout({
     setIsClient(true);
   }, []);
 
-  // Optimized scroll handler with debouncing
+  // More aggressive debouncing for mobile (100ms instead of 10ms)
   const handleScroll = useCallback(() => {
-    setScrolled(window.scrollY > 20);
+    const scrollY = window.scrollY;
+    setScrolled(scrollY > 20);
   }, []);
 
   useEffect(() => {
     if (!isClient) return;
+    
     let timeoutId: NodeJS.Timeout;
+    let rafId: number;
+    
     const debouncedScroll = () => {
+      // Use RAF for smoother performance
+      if (rafId) cancelAnimationFrame(rafId);
       clearTimeout(timeoutId);
-      timeoutId = setTimeout(handleScroll, 10);
+      
+      rafId = requestAnimationFrame(() => {
+        timeoutId = setTimeout(handleScroll, 100); // Increased from 10ms to 100ms
+      });
     };
+    
     window.addEventListener("scroll", debouncedScroll, { passive: true });
+    
     return () => {
       window.removeEventListener("scroll", debouncedScroll);
+      if (rafId) cancelAnimationFrame(rafId);
       clearTimeout(timeoutId);
     };
   }, [handleScroll, isClient]);
@@ -225,10 +237,12 @@ export default function RootLayout({
           }} 
         />
         
-        {/* Icons - Optimized loading */}
+        {/* Icons - Fixed paths for public folder */}
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="icon" href="/logo/logofixxed.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180x180.png" />
-        <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#5bbad5" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png" />
+        <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png" />
+        <link rel="mask-icon" href="/logo/logofixxed.svg" color="#5bbad5" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
         
@@ -270,19 +284,22 @@ export default function RootLayout({
       </head>
       
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased font-gilroy relative`} suppressHydrationWarning>
-        <Suspense fallback={null}>
-          <DisableDevTools />
-        </Suspense>
+        {/* Only load dev tools in development */}
+        {process.env.NODE_ENV === 'development' && (
+          <Suspense fallback={null}>
+            <DisableDevTools />
+          </Suspense>
+        )}
 
-        <Suspense fallback={null}>
-          <CustomCursor />
-        </Suspense>
+        {/* Disable custom cursor on mobile for better performance */}
+        {isClient && typeof window !== 'undefined' && window.innerWidth > 1024 && (
+          <Suspense fallback={null}>
+            <CustomCursor />
+          </Suspense>
+        )}
 
         {/* Lightweight static background */}
         <StaticBackground />
-
-        
-        
 
         {/* Navigation - Critical, but lazy load to reduce initial bundle */}
         <Suspense fallback={
@@ -309,7 +326,7 @@ export default function RootLayout({
         {/* Main Content */}
         <main className="pt-20 lg:pt-24 relative z-[1]">{children}</main>
 
-        {/* Social Icons - Optimized */}
+        {/* Social Icons - Optimized with will-change hint */}
         <aside className="fixed bottom-4 right-4 lg:bottom-8 lg:right-8 z-50" aria-label="Social Media Links">
           <div className="bg-black/70 border border-white/20 border-dashed rounded-full p-3 lg:p-4 backdrop-blur-sm">
             <nav className="flex flex-col items-center space-y-4 lg:space-y-5">
@@ -320,7 +337,8 @@ export default function RootLayout({
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Visit our ${link.platform}`}
-                  className="block transition-all duration-200 hover:scale-105 hover:rotate-6"
+                  className="block transition-transform duration-200 hover:scale-105 hover:rotate-6"
+                  style={{ willChange: 'transform' }}
                 >
                   <Image
                     src={link.iconPath}
@@ -340,9 +358,12 @@ export default function RootLayout({
           <Footer />
         </Suspense>
 
-        <Suspense fallback={null}>
-          <Analytics />
-        </Suspense>
+        {/* Only load analytics in production */}
+        {process.env.NODE_ENV === 'production' && (
+          <Suspense fallback={null}>
+            <Analytics />
+          </Suspense>
+        )}
 
         <div id="modal-root" />
       </body>
