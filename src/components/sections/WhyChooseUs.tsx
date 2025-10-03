@@ -39,7 +39,7 @@ export default function WhyChooseUs() {
       // Stats cards
       if (statsRef.current) {
         const stats = Array.from(statsRef.current.children);
-        stats.forEach((stat, _index) => {
+        stats.forEach((stat) => {
           gsap.from(stat, {
             opacity: 0,
             y: isMobile ? 20 : 30,
