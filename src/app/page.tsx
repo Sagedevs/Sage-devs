@@ -1,7 +1,5 @@
 // app/page.tsx
 import type { Metadata } from "next";
-
-// Import all components directly (no lazy loading)
 import HeroSection from "@/components/sections/HeroSection";
 import TrustedBySection from "@/components/sections/TrustedBySection";
 import Services from "@/components/sections/Services";
@@ -304,7 +302,6 @@ const breadcrumbSchema = {
 export default function Home() {
   return (
     <>
-      {/* Schema markup - renders on server */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
@@ -322,7 +319,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <main className="flex-grow flex flex-col items-center h-full relative w-full">
+      <main className="relative w-full">
         <HeroSection />
         <TrustedBySection />
         <Services />
