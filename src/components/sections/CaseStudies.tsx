@@ -86,7 +86,7 @@ const caseStudies: CaseStudy[] = [
 ];
 
 // Modal Component - FIXED VERSION
-const Modal = ({ caseStudy, onClose, isMobile }: { caseStudy: CaseStudy; onClose: () => void; isMobile: boolean }) => {
+const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => void }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -113,23 +113,19 @@ const Modal = ({ caseStudy, onClose, isMobile }: { caseStudy: CaseStudy; onClose
   return (
     <div
       ref={modalRef}
-      className="fixed inset-0 bg-black/90 backdrop-blur-md z-[9999] p-4 overflow-y-auto"
-      style={{ 
-        paddingTop: '100px', 
-        paddingBottom: '40px',
-        overscrollBehavior: 'contain',
-        WebkitOverflowScrolling: 'touch'
-      }}
+      className="fixed inset-0 bg-black/90 backdrop-blur-md z-[9999] flex items-center justify-center p-4"
+      style={{ paddingTop: '80px', paddingBottom: '20px' }}
       onClick={onClose}
     >
       <div
         ref={contentRef}
-        className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-sm rounded-2xl w-full max-w-3xl border border-slate-700/50 relative shadow-2xl mx-auto"
+        className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-sm rounded-2xl w-full max-w-3xl border border-slate-700/50 relative shadow-2xl my-auto overflow-hidden flex flex-col"
+        style={{ maxHeight: 'calc(100vh - 120px)' }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button - FIXED with higher z-index */}
+        {/* Close Button - Inside popup */}
         <button
-          className="absolute -top-4 -right-4 z-[10000] w-12 h-12 rounded-full bg-slate-800/90 backdrop-blur-sm text-gray-300 hover:text-white hover:bg-red-600/90 transition-all duration-300 flex items-center justify-center border border-slate-600/50 shadow-lg hover:shadow-red-500/50"
+          className="absolute top-4 right-4 z-[10000] w-10 h-10 rounded-full bg-slate-800/90 backdrop-blur-sm text-gray-300 hover:text-white hover:bg-red-600/90 transition-all duration-300 flex items-center justify-center border border-slate-600/50 shadow-lg hover:shadow-red-500/50"
           onClick={(e) => {
             e.stopPropagation();
             onClose();
@@ -141,9 +137,15 @@ const Modal = ({ caseStudy, onClose, isMobile }: { caseStudy: CaseStudy; onClose
           </svg>
         </button>
 
-        {/* Content - No inner scroll, uses parent scroll */}
+        {/* Scrollable Content */}
         <div 
-          className="w-full"
+          className="overflow-y-auto overflow-x-hidden flex-1"
+          style={{
+            overscrollBehavior: 'contain',
+            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none'
+          }}
         >
           {/* Hero Section - Smaller */}
           <div className="relative">
@@ -269,23 +271,12 @@ const Modal = ({ caseStudy, onClose, isMobile }: { caseStudy: CaseStudy; onClose
       </div>
 
       <style jsx>{`
-        .custom-scrollbar {
-          scrollbar-width: thin;
-          scrollbar-color: rgba(59, 130, 246, 0.5) rgba(15, 23, 42, 0.3);
+        div[style*="overflow-y: auto"] {
+          scrollbar-width: none;
+          -ms-overflow-style: none;
         }
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 8px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(15, 23, 42, 0.3);
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(59, 130, 246, 0.5);
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(59, 130, 246, 0.7);
+        div[style*="overflow-y: auto"]::-webkit-scrollbar {
+          display: none;
         }
       `}</style>
     </div>
@@ -444,7 +435,7 @@ export default function CaseStudies() {
       </section>
 
       {selectedCase && (
-        <Modal caseStudy={selectedCase} onClose={() => setSelectedCase(null)} isMobile={isMobile} />
+        <Modal caseStudy={selectedCase} onClose={() => setSelectedCase(null)} />
       )}
     </>
   );
