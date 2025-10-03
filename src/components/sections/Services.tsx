@@ -127,6 +127,8 @@ const StaticBackground = React.memo(({ isMobile }: { isMobile: boolean }) => (
   </div>
 ));
 
+StaticBackground.displayName = 'StaticBackground';
+
 const ServiceCard = ({ service, isMobile }: { service: ServiceItem; isMobile: boolean }) => {
   const [isHovered, setIsHovered] = useState(false);
   const IconComponent = service.icon;
