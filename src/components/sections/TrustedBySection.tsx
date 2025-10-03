@@ -1,8 +1,11 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Client Logos
 const clientLogos = [
@@ -21,121 +24,158 @@ const statsData = [
   {
     number: "500+",
     title: "Digital Platforms Delivered",
-    description:
-      "From SaaS dashboards to custom marketplaces, SageDevs has built scalable and reliable platforms for diverse industries.",
+    description: "From SaaS dashboards to custom marketplaces, SageDevs has built scalable and reliable platforms for diverse industries.",
   },
   {
     number: "50+",
     title: "AI & ML Projects Launched",
-    description:
-      "Deployed intelligent solutions ranging from chatbots to predictive models, tailored to solve real business challenges.",
+    description: "Deployed intelligent solutions ranging from chatbots to predictive models, tailored to solve real business challenges.",
   },
   {
     number: "500+",
     title: "Clients Served",
-    description:
-      "Startups, agencies, and enterprises across the globe trust SageDevs as their technology partner for growth and innovation.",
+    description: "Startups, agencies, and enterprises across the globe trust SageDevs as their technology partner for growth and innovation.",
   },
   {
     number: "∞",
     title: "Code Shipped",
-    description:
-      "We measure success not by lines of code, but by the lasting impact of the products and systems we deliver.",
+    description: "We measure success not by lines of code, but by the lasting impact of the products and systems we deliver.",
   },
   {
     number: "15+",
     title: "Industries Covered",
-    description:
-      "Successfully delivered solutions across healthcare, fintech, logistics, education, and more.",
+    description: "Successfully delivered solutions across healthcare, fintech, logistics, education, and more.",
   },
   {
     number: "24/7",
     title: "Technical Support",
-    description:
-      "Dedicated to ensuring reliability and continuity, with round-the-clock support for mission-critical projects.",
+    description: "Dedicated to ensuring reliability and continuity, with round-the-clock support for mission-critical projects.",
   },
 ];
 
 export default function TrustedBySection() {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const mobileSliderRef = useRef<HTMLDivElement | null>(null);
-  const controls = useAnimation();
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const logoCarouselRef = useRef<HTMLDivElement | null>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const statsHeadingRef = useRef<HTMLDivElement>(null);
+  const statsGridRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Check if desktop on mount
   useEffect(() => {
     setIsMounted(true);
-    const checkDesktop = () => {
-      setIsDesktop(window.innerWidth >= 768);
-    };
-    checkDesktop();
-    window.addEventListener('resize', checkDesktop);
-    return () => window.removeEventListener('resize', checkDesktop);
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Desktop carousel animation
+  // GSAP Animations
   useEffect(() => {
-    if (!containerRef.current || !isMounted || !isDesktop) {
-      controls.stop();
-      return;
-    }
-    
-    const totalLogos = clientLogos.length;
-    const logoWidth = 220;
-    const totalWidth = totalLogos * logoWidth;
+    if (!isMounted) return;
 
-    controls.start({
-      x: [0, -totalWidth],
-      transition: {
-        duration: 40,
-        ease: "linear",
-        repeat: Infinity,
-      },
-    });
-
-    return () => {
-      controls.stop();
-    };
-  }, [controls, isMounted, isDesktop]);
-
-  // Mobile auto-scroll carousel - OPTIMIZED
-  useEffect(() => {
-    if (isDesktop || !mobileSliderRef.current || !isMounted) return;
-
-    const slider = mobileSliderRef.current;
-    let animationId: number;
-    let currentScroll = 0;
-    const speed = 1; // Slightly slower for better performance
-
-    const animate = () => {
-      currentScroll += speed;
-      const scrollWidth = slider.scrollWidth;
-      
-      // Seamless loop - only duplicate once for mobile
-      if (currentScroll >= scrollWidth / 2) {
-        currentScroll = 0;
+    const ctx = gsap.context(() => {
+      // Heading fade in
+      if (headingRef.current) {
+        gsap.from(headingRef.current, {
+          opacity: 0,
+          y: isMobile ? 20 : 30,
+          duration: isMobile ? 0.6 : 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: headingRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          }
+        });
       }
-      slider.scrollLeft = currentScroll;
-      animationId = requestAnimationFrame(animate);
-    };
 
-    animationId = requestAnimationFrame(animate);
+      // Logo carousel - slower on mobile for performance
+      if (logoCarouselRef.current) {
+        const totalWidth = logoCarouselRef.current.scrollWidth / 2;
+        const duration = isMobile ? 60 : 40;
 
-    return () => {
-      if (animationId) cancelAnimationFrame(animationId);
-    };
-  }, [isMounted, isDesktop]);
+        gsap.to(logoCarouselRef.current, {
+          x: -totalWidth,
+          duration: duration,
+          ease: "none",
+          repeat: -1,
+          modifiers: {
+            x: gsap.utils.unitize(x => parseFloat(x) % totalWidth)
+          }
+        });
+      }
+
+      // Stats heading
+      if (statsHeadingRef.current) {
+        gsap.from(statsHeadingRef.current, {
+          opacity: 0,
+          y: isMobile ? 20 : 40,
+          duration: isMobile ? 0.6 : 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: statsHeadingRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          }
+        });
+      }
+
+      // Stats cards stagger - FIXED
+      if (statsGridRef.current) {
+        const cards = Array.from(statsGridRef.current.children);
+        
+        // Clear any previous animations
+        gsap.set(cards, { clearProps: "all" });
+        
+        cards.forEach((card, index) => {
+          gsap.from(card, {
+            opacity: 0,
+            y: isMobile ? 20 : 40,
+            scale: isMobile ? 1 : 0.95,
+            duration: isMobile ? 0.5 : 0.7,
+            delay: index * (isMobile ? 0.08 : 0.12),
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+              once: false,
+            }
+          });
+        });
+      }
+
+      // CTA fade in
+      if (ctaRef.current) {
+        gsap.from(ctaRef.current, {
+          opacity: 0,
+          y: isMobile ? 20 : 30,
+          duration: isMobile ? 0.6 : 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ctaRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          }
+        });
+      }
+
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [isMounted, isMobile]);
 
   return (
-    <div className="relative w-full bg-gradient-to-br from-[#020618] via-[#051225] to-[#0a1530] overflow-hidden">
+    <div ref={sectionRef} className="relative w-full bg-gradient-to-br from-[#020618] via-[#051225] to-[#0a1530] overflow-hidden">
       {/* Background Glow - lighter on mobile */}
-      <div className="absolute top-1/2 left-0 w-full h-[300px] -translate-y-1/2 bg-gradient-to-r from-cyan-400/10 via-blue-500/5 to-purple-400/10 md:from-cyan-400/20 md:via-blue-500/10 md:to-purple-400/20 blur-3xl opacity-50" />
+      <div className="absolute top-1/2 left-0 w-full h-[300px] -translate-y-1/2 bg-gradient-to-r from-cyan-400/5 via-blue-500/3 to-purple-400/5 md:from-cyan-400/20 md:via-blue-500/10 md:to-purple-400/20 blur-3xl opacity-50" />
 
       {/* Logos Section */}
       <div className="relative z-10 py-8">
         {/* Heading Block */}
-        <div className="text-center mb-6">
+        <div ref={headingRef} className="text-center mb-6">
           <div className="flex items-center justify-center gap-4 mb-3">
             <span className="w-12 h-0.5 rounded-full bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600" />
             <span className="text-xs tracking-wider text-blue-200 uppercase font-medium">Trusted by</span>
@@ -156,38 +196,32 @@ export default function TrustedBySection() {
           <div className="w-28 h-1 mx-auto rounded-full mt-4 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600" />
         </div>
 
-        {/* Logo Display */}
-        <div className="relative min-h-[160px] md:min-h-[140px] lg:min-h-[160px]">
-          {/* Mobile: Optimized Scrolling Carousel */}
-          <div className="md:hidden relative">
-            {/* Simplified fade edges - no blur */}
-            <div className="absolute left-0 top-0 w-12 h-full bg-gradient-to-r from-[#0a0f2e] to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 w-12 h-full bg-gradient-to-l from-[#0a0f2e] to-transparent z-10 pointer-events-none" />
-            
+        {/* Logo Carousel */}
+        <div className="relative min-h-[160px] md:min-h-[140px] lg:min-h-[160px] overflow-hidden">
+          <div className="absolute left-0 top-0 w-8 md:w-32 h-full bg-gradient-to-r from-[#0a0f2e] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 w-8 md:w-32 h-full bg-gradient-to-l from-[#0a0f2e] to-transparent z-10 pointer-events-none" />
+          
+          {isMounted && (
             <div 
-              ref={mobileSliderRef}
-              className="flex gap-3 overflow-x-hidden px-4 py-4"
-              style={{ scrollBehavior: 'auto', WebkitOverflowScrolling: 'touch' }}
+              ref={logoCarouselRef}
+              className="flex items-center gap-3 md:gap-[60px] py-4 will-change-transform"
             >
-              {/* Only duplicate once for mobile performance */}
-              {[...clientLogos, ...clientLogos].map((logo, i) => (
+              {[...clientLogos, ...clientLogos, ...clientLogos].map((logo, i) => (
                 <div
                   key={i}
-                  className="flex-shrink-0 w-36 h-24 sm:w-40 sm:h-28"
+                  className="flex-shrink-0 w-32 h-20 sm:w-36 sm:h-24 md:w-64 md:h-32 lg:w-72 lg:h-40"
                 >
-                  {/* NO backdrop-blur on mobile, simple bg */}
-                  <div className="w-full h-full bg-white/[0.03] rounded-lg border border-white/[0.08] flex items-center justify-center relative overflow-hidden">
-                    {/* Lighter glow for mobile performance */}
-                    <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-2/3 h-8 bg-white/60 rounded-full blur-2xl z-0 pointer-events-none" />
+                  <div className="w-full h-full bg-white/[0.02] md:bg-white/5 md:backdrop-blur-sm rounded-lg border border-white/[0.06] md:border-white/10 flex items-center justify-center relative overflow-hidden md:hover:bg-white/[0.08] transition-colors duration-300">
+                    <div className="absolute bottom-1 md:bottom-2 left-1/2 -translate-x-1/2 w-2/3 md:w-3/4 h-6 md:h-12 bg-white/40 md:bg-white/90 rounded-full blur-xl md:blur-3xl z-0 pointer-events-none" />
                     <div className="relative z-20 w-11/12 h-3/4 flex items-center justify-center">
                       <Image
                         src={logo.src}
                         alt={logo.alt}
                         fill
-                        sizes="(max-width: 768px) 120px"
-                        className="object-contain opacity-90"
+                        sizes="(max-width: 768px) 100px, (max-width: 1024px) 14rem, 18rem"
+                        className="object-contain opacity-85 md:opacity-95 md:hover:opacity-100 transition-opacity duration-300"
                         loading="lazy"
-                        quality={75}
+                        quality={isMobile ? 60 : 75}
                         priority={false}
                       />
                     </div>
@@ -195,46 +229,7 @@ export default function TrustedBySection() {
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Desktop: Animated Carousel with blur effects */}
-          <div className="hidden md:block overflow-hidden">
-            {/* Desktop fade edges with blur */}
-            <div className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-[#0a0f2e] to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-[#0a0f2e] to-transparent z-10 pointer-events-none" />
-
-            {isMounted && isDesktop && (
-              <motion.div
-                ref={containerRef}
-                className="flex items-center will-change-transform -mt-6"
-                style={{ gap: "60px" }}
-                animate={controls}
-              >
-                {[...clientLogos, ...clientLogos].map((logo, i) => (
-                  <div
-                    key={i}
-                    className="flex-shrink-0 flex items-center justify-center w-64 h-32 lg:w-72 lg:h-40 group"
-                  >
-                    {/* Desktop gets full effects */}
-                    <div className="w-full h-full bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 flex items-center justify-center relative overflow-hidden transition-colors duration-300 hover:bg-white/[0.08]">
-                      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-3/4 h-12 bg-white/90 rounded-full blur-3xl z-0 pointer-events-none" />
-                      <div className="relative z-20 w-11/12 h-3/4 flex items-center justify-center">
-                        <Image
-                          src={logo.src}
-                          alt={logo.alt}
-                          fill
-                          sizes="(max-width: 1024px) 14rem, 18rem"
-                          className="object-contain opacity-95 group-hover:opacity-100 transition-opacity duration-300"
-                          loading="lazy"
-                          quality={85}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </motion.div>
-            )}
-          </div>
+          )}
         </div>
       </div>
 
@@ -242,7 +237,7 @@ export default function TrustedBySection() {
       <div className="relative z-10 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Heading */}
-          <div className="text-center mb-16">
+          <div ref={statsHeadingRef} className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Empowering{" "}
               <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">
@@ -264,12 +259,12 @@ export default function TrustedBySection() {
             </p>
           </div>
 
-          {/* Stats Grid - Optimized for mobile */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Stats Grid */}
+          <div ref={statsGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {statsData.map((stat, index) => (
               <div
                 key={index}
-                className="bg-white/[0.03] md:bg-gradient-to-br md:from-white/5 md:to-white/[0.02] md:backdrop-blur-sm rounded-2xl p-8 border border-white/10 md:hover:border-white/20 transition-all duration-300 md:hover:bg-white/[0.08] active:bg-white/[0.06] h-full"
+                className="bg-white/[0.02] md:bg-gradient-to-br md:from-white/5 md:to-white/[0.02] md:backdrop-blur-sm rounded-2xl p-8 border border-white/10 md:hover:border-white/20 transition-all duration-300 md:hover:bg-white/[0.08] active:bg-white/[0.06] h-full"
               >
                 <div className="mb-6">
                   <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-2">
@@ -284,9 +279,9 @@ export default function TrustedBySection() {
             ))}
           </div>
 
-          {/* CTA - Simplified for mobile */}
-          <div className="text-center mt-16">
-            <div className="bg-white/[0.03] md:bg-gradient-to-r md:from-white/5 md:to-white/[0.02] md:backdrop-blur-sm rounded-2xl p-8 border border-white/10 inline-block">
+          {/* CTA */}
+          <div ref={ctaRef} className="text-center mt-16">
+            <div className="bg-white/[0.02] md:bg-gradient-to-r md:from-white/5 md:to-white/[0.02] md:backdrop-blur-sm rounded-2xl p-8 border border-white/10 inline-block">
               <div className="flex items-center gap-4 flex-wrap justify-center">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
