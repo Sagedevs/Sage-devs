@@ -98,7 +98,7 @@ const caseStudies: CaseStudy[] = [
 ];
 
 // ----------------------
-// Modal Component (fixed for scrolling)
+// Modal Component (now supports mouse wheel/trackpad)
 // ----------------------
 const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => void }) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -107,6 +107,7 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
   useEffect(() => {
     if (!modalRef.current || !contentRef.current) return;
 
+    // GSAP open animations
     const ctx = gsap.context(() => {
       gsap.fromTo(
         modalRef.current,
@@ -121,7 +122,41 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
       );
     }, modalRef);
 
-    return () => ctx.revert();
+    // Focus the scrollable panel so keyboard scroll works
+    const contentEl = contentRef.current;
+    contentEl.setAttribute("tabindex", "-1");
+    contentEl.focus();
+
+    // Wheel/trackpad forwarding:
+    // Some browsers / setups end up delivering wheel events to the backdrop and not the inner scrollable panel.
+    // This listener captures wheel on the backdrop and scrolls the content panel manually.
+    const onWheel = (e: WheelEvent) => {
+      if (!contentRef.current) return;
+
+      // Determine whether content can scroll in the event direction
+      const el = contentRef.current;
+      const delta = e.deltaY;
+
+      const canScrollUp = el.scrollTop > 0;
+      const canScrollDown = el.scrollTop + el.clientHeight < el.scrollHeight;
+
+      if ((delta > 0 && canScrollDown) || (delta < 0 && canScrollUp)) {
+        // Move content scroll and prevent background from receiving it
+        el.scrollTop += delta;
+        e.preventDefault();
+      } else {
+        // content can't scroll further - prevent background scroll/overscroll
+        e.preventDefault();
+      }
+    };
+
+    // add listener on the modal backdrop (capture phase) to intercept wheel from anywhere over modal
+    modalRef.current.addEventListener("wheel", onWheel, { passive: false });
+
+    return () => {
+      ctx.revert();
+      if (modalRef.current) modalRef.current.removeEventListener("wheel", onWheel as any);
+    };
   }, []);
 
   return (
@@ -131,14 +166,13 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
       style={{
         paddingTop: "80px",
         paddingBottom: "20px",
-        overflow: "hidden", // backdrop shouldn't scroll
+        overflow: "hidden", // backdrop should not scroll
         WebkitOverflowScrolling: "auto",
       }}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
     >
-      {/* center wrapper */}
       <div className="min-h-full flex items-start justify-center px-4">
         <div
           ref={contentRef}
@@ -146,7 +180,7 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
           style={{
             maxHeight: "85vh",
             minHeight: "400px",
-            overflow: "auto", // <-- the only scrollable element
+            overflow: "auto", // only this element scrolls
             WebkitOverflowScrolling: "touch",
             overscrollBehavior: "contain",
             touchAction: "pan-y",
@@ -154,7 +188,7 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
           onClick={(e) => e.stopPropagation()}
           tabIndex={-1}
         >
-          {/* close */}
+          {/* Close */}
           <button
             className="absolute top-4 right-4 z-[10000] w-10 h-10 rounded-full bg-slate-800/90 backdrop-blur-sm text-gray-300 hover:text-white hover:bg-red-600/90 transition-all duration-300 flex items-center justify-center border border-slate-600/50 shadow-lg"
             onClick={(e) => {
@@ -169,7 +203,7 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
             </svg>
           </button>
 
-          {/* Modal scrollable content */}
+          {/* Hero */}
           <div className="flex-shrink-0">
             <div className="relative">
               <div className="aspect-video overflow-hidden relative rounded-t-2xl">
@@ -181,11 +215,9 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
                   priority={true}
                   className="w-full h-full object-cover"
                 />
-                {/* decorative gradient overlay — pointer-events none so it doesn't block scroll/touch */}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/30 to-transparent pointer-events-none" />
               </div>
 
-              {/* hero text — allow pointer events (so links/buttons inside work) */}
               <div className="absolute inset-0 flex flex-col justify-end p-5 pointer-events-auto">
                 <span className="inline-block px-2.5 py-1 text-xs font-medium bg-blue-500/30 text-blue-200 rounded-full mb-2 backdrop-blur-sm border border-blue-400/30 w-fit">
                   {caseStudy.category}
@@ -197,8 +229,8 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
             </div>
           </div>
 
+          {/* Content */}
           <div className="p-5 md:p-6 space-y-6">
-            {/* Project Overview */}
             <div>
               <h4 className="text-lg md:text-xl font-bold text-white mb-4">Project Overview</h4>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -217,7 +249,6 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
               </div>
             </div>
 
-            {/* Challenge & Solution */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
                 <div className="flex items-center gap-2 mb-3">
@@ -244,7 +275,6 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
               </div>
             </div>
 
-            {/* Results */}
             <div>
               <h4 className="text-lg md:text-xl font-bold text-white mb-4">Key Results</h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -257,7 +287,6 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
               </div>
             </div>
 
-            {/* Technologies & CTA */}
             <div>
               <h4 className="text-lg md:text-xl font-bold text-white mb-3">Technologies</h4>
               <div className="flex flex-wrap gap-2 mb-4">
@@ -281,7 +310,7 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
             </div>
           </div>
         </div>
-      </div> {/* end center wrapper */}
+      </div>
     </div>
   );
 };
