@@ -295,21 +295,8 @@ export default function Services() {
     if (!isMounted) return;
 
     const ctx = gsap.context(() => {
-      // Header animation
-      if (headerRef.current) {
-        gsap.from(headerRef.current.children, {
-          opacity: 0,
-          y: isMobile ? 20 : 30,
-          duration: isMobile ? 0.6 : 0.8,
-          stagger: 0.15,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: headerRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          }
-        });
-      }
+     
+      
 
       // CTA animation
       if (ctaRef.current) {
