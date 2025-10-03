@@ -17,22 +17,22 @@ const SmokeTrailCursor: React.FC = () => {
     const createSmokeParticle = (x: number, y: number) => {
       const particle = document.createElement("div")
       
-      const size = 30 + Math.random() * 35
-      const isWhite = Math.random() > 0.3
-      const color = isWhite ? '255, 255, 255' : '40, 40, 60'
-      const opacity = isWhite ? 0.7 + Math.random() * 0.25 : 0.5 + Math.random() * 0.3
-      const duration = 1.5 + Math.random() * 1.0
+      const size = 40 + Math.random() * 40
+      const isWhite = Math.random() > 0.25
+      const color = isWhite ? '255, 255, 255' : '60, 60, 80'
+      const opacity = isWhite ? 0.8 + Math.random() * 0.2 : 0.6 + Math.random() * 0.3
+      const duration = 2.0 + Math.random() * 1.5
       
       // Slight random offset for natural look
       const offsetX = (Math.random() - 0.5) * 15
       const offsetY = (Math.random() - 0.5) * 15
       
-      // Random drift direction
-      const driftX = (Math.random() - 0.5) * 60
-      const driftY = -40 - Math.random() * 50
+      // Random drift direction - less upward, more visible on screen
+      const driftX = (Math.random() - 0.5) * 80
+      const driftY = -20 - Math.random() * 40
       
       // Random blur for depth
-      const blur = 3 + Math.random() * 5
+      const blur = 4 + Math.random() * 6
       
       particle.style.cssText = `
         position: fixed;
@@ -79,9 +79,9 @@ const SmokeTrailCursor: React.FC = () => {
       const timeDelta = currentTime - lastTime.current
       
       // Only spawn particles if moving
-      if (distance > 1 && timeDelta > 12) {
-        // Spawn more particles for bigger trail
-        const numParticles = Math.min(Math.ceil(distance / 10), 5)
+      if (distance > 0.5 && timeDelta > 3) {
+        // Spawn MANY particles for thick, continuous trail
+        const numParticles = Math.min(Math.ceil(distance / 3), 12)
         
         for (let i = 0; i < numParticles; i++) {
           // Place particles along the line from last position to current
@@ -117,21 +117,28 @@ const SmokeTrailCursor: React.FC = () => {
 
         @keyframes smokeRise {
           0% {
-            transform: translate(-50%, -50%) scale(0.5);
+            transform: translate(-50%, -50%) scale(0.8);
             opacity: 1;
           }
-          50% {
+          30% {
             transform: translate(
-              calc(-50% + var(--drift-x) * 0.5), 
-              calc(-50% + var(--drift-y) * 0.5)
-            ) scale(2.5);
-            opacity: 0.4;
+              calc(-50% + var(--drift-x) * 0.3), 
+              calc(-50% + var(--drift-y) * 0.3)
+            ) scale(2);
+            opacity: 0.9;
+          }
+          60% {
+            transform: translate(
+              calc(-50% + var(--drift-x) * 0.6), 
+              calc(-50% + var(--drift-y) * 0.6)
+            ) scale(4);
+            opacity: 0.6;
           }
           100% {
             transform: translate(
               calc(-50% + var(--drift-x)), 
               calc(-50% + var(--drift-y))
-            ) scale(3.5);
+            ) scale(6);
             opacity: 0;
           }
         }
