@@ -7,17 +7,20 @@ import { clientLogos, heroCards } from "@/data/heroSectionData";
 export default function HeroSection() {
   return (
     <section className="relative w-full min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-6 sm:py-12 overflow-hidden">
-      {/* Mobile: Simple background (no animations) */}
+      {/* Mobile: Simple static background (NO animations) */}
       <div className="md:hidden absolute inset-0 -z-10 bg-gradient-to-br from-[#0a1628] via-[#0f2350] to-[#060d1f]">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e3a8a10_1px,transparent_1px),linear-gradient(to_bottom,#1e3a8a10_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        {/* Simple static orbs for mobile */}
+        <div className="absolute top-0 -left-1/4 w-1/2 h-1/2 bg-blue-500/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50" />
+        <div className="absolute top-0 -right-1/4 w-1/2 h-1/2 bg-cyan-500/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50" />
       </div>
 
-      {/* Desktop: Stunning Pure CSS Background */}
+      {/* Desktop: Stunning Pure CSS Background with ANIMATIONS */}
       <div className="hidden md:block absolute inset-0 -z-10 overflow-hidden">
         {/* Base gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0a1628] via-[#0f2350] to-[#060d1f]" />
         
-        {/* Animated gradient orbs */}
+        {/* Animated gradient orbs - ONLY ON DESKTOP */}
         <div className="absolute top-0 -left-1/4 w-1/2 h-1/2 bg-blue-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob" />
         <div className="absolute top-0 -right-1/4 w-1/2 h-1/2 bg-cyan-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000" />
         <div className="absolute -bottom-1/4 left-1/3 w-1/2 h-1/2 bg-purple-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000" />
@@ -37,7 +40,7 @@ export default function HeroSection() {
         {/* Noise texture */}
         <div className="absolute inset-0 opacity-[0.015] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=')]" />
         
-        {/* Shimmer effect */}
+        {/* Shimmer effect - ONLY ON DESKTOP */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/5 to-transparent animate-shimmer" />
       </div>
 
@@ -68,7 +71,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Hero Headline */}
+        {/* Hero Headline - Gradient animation ONLY on desktop */}
         <div className="mb-6">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.7)] max-w-4xl leading-tight mb-6">
             Transform Your Ideas into{' '}
@@ -87,11 +90,11 @@ export default function HeroSection() {
           </p>
         </div>
 
-        {/* Hero CTAs */}
+        {/* Hero CTAs - Reduced hover effects on mobile */}
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mb-16">
           <a 
             href="#contact" 
-            className="relative group inline-flex items-center justify-center h-14 px-10 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 text-white text-lg font-bold transition-all duration-300 border border-blue-400/30 hover:border-cyan-300/50 hover:shadow-2xl hover:shadow-cyan-500/40 overflow-hidden backdrop-blur-sm w-full sm:w-auto hover:scale-105"
+            className="relative group inline-flex items-center justify-center h-14 px-10 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 text-white text-lg font-bold transition-all duration-300 border border-blue-400/30 md:hover:border-cyan-300/50 md:hover:shadow-2xl md:hover:shadow-cyan-500/40 overflow-hidden backdrop-blur-sm w-full sm:w-auto md:hover:scale-105 active:scale-95"
           >
             <span className="relative z-10 flex items-center gap-3">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,14 +102,14 @@ export default function HeroSection() {
               </svg>
               Start Your Project
             </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 md:group-hover:opacity-100 transition-opacity duration-300" />
           </a>
 
           <a 
             href="https://calendly.com/sagedevs-network/" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="relative group inline-flex items-center justify-center h-14 px-10 rounded-xl bg-white/5 text-white text-lg font-semibold transition-all duration-300 border-2 border-white/20 hover:border-purple-300/50 hover:shadow-xl hover:shadow-purple-500/30 backdrop-blur-sm w-full sm:w-auto hover:scale-105"
+            className="relative group inline-flex items-center justify-center h-14 px-10 rounded-xl bg-white/5 text-white text-lg font-semibold transition-all duration-300 border-2 border-white/20 md:hover:border-purple-300/50 md:hover:shadow-xl md:hover:shadow-purple-500/30 backdrop-blur-sm w-full sm:w-auto md:hover:scale-105 active:scale-95"
           >
             <span className="relative z-10 flex items-center gap-3">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -133,23 +136,23 @@ export default function HeroSection() {
           </div>
         </div> */}
 
-        {/* Value Proposition Cards */}
+        {/* Value Proposition Cards - Reduced hover animations on mobile */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
           {heroCards.map((card, index) => (
             <div
               key={index}
-              className={`group relative p-6 rounded-2xl backdrop-blur-sm border transition-all duration-300 hover:transform hover:-translate-y-2
+              className={`group relative p-6 rounded-2xl backdrop-blur-sm border transition-all duration-300 md:hover:transform md:hover:-translate-y-2 active:scale-95
                 ${
                   index === 0
-                    ? "bg-gradient-to-br from-blue-900/20 to-cyan-900/10 border-blue-400/20 hover:border-blue-300/40"
+                    ? "bg-gradient-to-br from-blue-900/20 to-cyan-900/10 border-blue-400/20 md:hover:border-blue-300/40"
                     : index === 1
-                    ? "bg-gradient-to-br from-purple-900/20 to-fuchsia-900/10 border-purple-400/20 hover:border-purple-300/40"
-                    : "bg-gradient-to-br from-emerald-900/20 to-teal-900/10 border-emerald-400/20 hover:border-emerald-300/40"
+                    ? "bg-gradient-to-br from-purple-900/20 to-fuchsia-900/10 border-purple-400/20 md:hover:border-purple-300/40"
+                    : "bg-gradient-to-br from-emerald-900/20 to-teal-900/10 border-emerald-400/20 md:hover:border-emerald-300/40"
                 }
               `}
             >
               <div
-                className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300
+                className={`absolute inset-0 rounded-2xl opacity-0 md:group-hover:opacity-100 transition-opacity duration-300
                   ${
                     index === 0
                       ? "bg-gradient-to-br from-blue-500/5 to-cyan-500/10"
@@ -187,45 +190,49 @@ export default function HeroSection() {
         </div>
       </div>
       
-      {/* CSS Animations */}
+      {/* CSS Animations - ONLY ACTIVE ON DESKTOP (md breakpoint) */}
       <style jsx>{`
-        @keyframes blob {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
+        /* Desktop-only animations */
+        @media (min-width: 768px) {
+          @keyframes blob {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+          }
+          
+          @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+          }
+          
+          @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+          }
+          
+          .animate-blob {
+            animation: blob 7s infinite ease-in-out;
+          }
+          
+          .animation-delay-2000 {
+            animation-delay: 2s;
+          }
+          
+          .animation-delay-4000 {
+            animation-delay: 4s;
+          }
+          
+          .animate-shimmer {
+            animation: shimmer 8s ease-in-out infinite;
+          }
+          
+          .animate-gradient {
+            background-size: 200% 200%;
+            animation: gradient 3s ease infinite;
+          }
         }
         
-        @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        
-        @keyframes gradient {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        
-        .animate-blob {
-          animation: blob 7s infinite ease-in-out;
-        }
-        
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-        
-        .animate-shimmer {
-          animation: shimmer 8s ease-in-out infinite;
-        }
-        
-        .animate-gradient {
-          background-size: 200% 200%;
-          animation: gradient 3s ease infinite;
-        }
-        
+        /* Respect user preferences */
         @media (prefers-reduced-motion: reduce) {
           .animate-blob,
           .animate-shimmer,

@@ -102,37 +102,65 @@ const geistMono = Geist_Mono({
   preload: true
 });
 
-// Lightweight background component with CSS-only animation
-const StaticBackground = () => (
-  <div className="fixed inset-0 z-[-1] pointer-events-none">
-    <svg
-      width="100%"
-      height="100%"
-      className="absolute inset-0"
-      style={{ minHeight: "100vh" }}
-      preserveAspectRatio="none"
-    >
-      <defs>
-        <linearGradient id="tg" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="rgba(34, 197, 94, 0.05)" />
-          <stop offset="50%" stopColor="rgba(59, 130, 246, 0.05)" />
-          <stop offset="100%" stopColor="rgba(147, 51, 234, 0.05)" />
-        </linearGradient>
-        <linearGradient id="tg2" x1="100%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="rgba(236, 72, 153, 0.05)" />
-          <stop offset="50%" stopColor="rgba(245, 101, 101, 0.05)" />
-          <stop offset="100%" stopColor="rgba(251, 191, 36, 0.05)" />
-        </linearGradient>
-      </defs>
-      <line x1="0" y1="0" x2="100%" y2="100%" stroke="url(#tg)" strokeWidth="0.5" />
-      <line x1="100%" y1="0" x2="0" y2="100%" stroke="url(#tg2)" strokeWidth="0.5" />
-      <line x1="0" y1="30%" x2="100%" y2="30%" stroke="rgba(99, 102, 241, 0.05)" strokeWidth="0.5" />
-      <line x1="0" y1="70%" x2="100%" y2="70%" stroke="rgba(16, 185, 129, 0.05)" strokeWidth="0.5" />
-      <line x1="25%" y1="0" x2="25%" y2="100%" stroke="rgba(245, 101, 101, 0.05)" strokeWidth="0.5" />
-      <line x1="75%" y1="0" x2="75%" y2="100%" stroke="rgba(168, 85, 247, 0.05)" strokeWidth="0.5" />
-    </svg>
-  </div>
-);
+// Responsive background - animated on desktop, simple on mobile
+const StaticBackground = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Check if window is defined (client-side)
+    if (typeof window !== 'undefined') {
+      const checkIfMobile = () => {
+        setIsMobile(window.innerWidth < 1024); // Match your lg breakpoint
+      };
+      
+      // Initial check
+      checkIfMobile();
+      
+      // Add resize listener
+      window.addEventListener('resize', checkIfMobile);
+      return () => window.removeEventListener('resize', checkIfMobile);
+    }
+  }, []);
+
+  // Simple gradient for mobile
+  if (isMobile) {
+    return (
+      <div className="fixed inset-0 z-[-1] bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950" />
+    );
+  }
+
+  // Full animation for desktop
+  return (
+    <div className="fixed inset-0 z-[-1] pointer-events-none">
+      <svg
+        width="100%"
+        height="100%"
+        className="absolute inset-0"
+        style={{ minHeight: "100vh" }}
+        preserveAspectRatio="none"
+      >
+        <defs>
+          <linearGradient id="tg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="rgba(34, 197, 94, 0.05)" />
+            <stop offset="50%" stopColor="rgba(59, 130, 246, 0.05)" />
+            <stop offset="100%" stopColor="rgba(147, 51, 234, 0.05)" />
+          </linearGradient>
+          <linearGradient id="tg2" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="rgba(236, 72, 153, 0.05)" />
+            <stop offset="50%" stopColor="rgba(245, 101, 101, 0.05)" />
+            <stop offset="100%" stopColor="rgba(251, 191, 36, 0.05)" />
+          </linearGradient>
+        </defs>
+        <line x1="0" y1="0" x2="100%" y2="100%" stroke="url(#tg)" strokeWidth="0.5" />
+        <line x1="100%" y1="0" x2="0" y2="100%" stroke="url(#tg2)" strokeWidth="0.5" />
+        <line x1="0" y1="30%" x2="100%" y2="30%" stroke="rgba(99, 102, 241, 0.05)" strokeWidth="0.5" />
+        <line x1="0" y1="70%" x2="100%" y2="70%" stroke="rgba(16, 185, 129, 0.05)" strokeWidth="0.5" />
+        <line x1="25%" y1="0" x2="25%" y2="100%" stroke="rgba(245, 101, 101, 0.05)" strokeWidth="0.5" />
+        <line x1="75%" y1="0" x2="75%" y2="100%" stroke="rgba(168, 85, 247, 0.05)" strokeWidth="0.5" />
+      </svg>
+    </div>
+  );
+};
 
 export default function RootLayout({
   children,
