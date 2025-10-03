@@ -34,21 +34,17 @@ export default function WhyChooseUs() {
   }, []);
 
   useEffect(() => {
-    if (!sectionRef.current) return;
-
     const ctx = gsap.context(() => {
-
 
       // Stats cards
       if (statsRef.current) {
         const stats = Array.from(statsRef.current.children);
-        stats.forEach((stat, index) => {
+        stats.forEach((stat, _index) => {
           gsap.from(stat, {
             opacity: 0,
             y: isMobile ? 20 : 30,
             scale: isMobile ? 1 : 0.9,
             duration: 0.5,
-            ease: "power2.out",
             scrollTrigger: {
               trigger: stat,
               start: "top 85%",
