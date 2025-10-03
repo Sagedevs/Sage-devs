@@ -58,17 +58,28 @@ const statsData = [
 
 export default function TrustedBySection() {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const mobileSliderRef = useRef<HTMLDivElement | null>(null);
   const controls = useAnimation();
   const [isMounted, setIsMounted] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
-  // Prevent animation flash on mobile
+  // Check if desktop on mount
   useEffect(() => {
     setIsMounted(true);
+    const checkDesktop = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    return () => window.removeEventListener('resize', checkDesktop);
   }, []);
 
-  // Smooth infinite carousel - only start after mount
+  // Desktop carousel animation
   useEffect(() => {
-    if (!containerRef.current || !isMounted) return;
+    if (!containerRef.current || !isMounted || !isDesktop) {
+      controls.stop();
+      return;
+    }
     
     const totalLogos = clientLogos.length;
     const logoWidth = 220;
@@ -82,12 +93,44 @@ export default function TrustedBySection() {
         repeat: Infinity,
       },
     });
-  }, [controls, isMounted]);
+
+    return () => {
+      controls.stop();
+    };
+  }, [controls, isMounted, isDesktop]);
+
+  // Mobile auto-scroll carousel - OPTIMIZED
+  useEffect(() => {
+    if (isDesktop || !mobileSliderRef.current || !isMounted) return;
+
+    const slider = mobileSliderRef.current;
+    let animationId: number;
+    let currentScroll = 0;
+    const speed = 0.4; // Slightly slower for better performance
+
+    const animate = () => {
+      currentScroll += speed;
+      const scrollWidth = slider.scrollWidth;
+      
+      // Seamless loop - only duplicate once for mobile
+      if (currentScroll >= scrollWidth / 2) {
+        currentScroll = 0;
+      }
+      slider.scrollLeft = currentScroll;
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animationId = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationId) cancelAnimationFrame(animationId);
+    };
+  }, [isMounted, isDesktop]);
 
   return (
     <div className="relative w-full bg-gradient-to-br from-[#020618] via-[#051225] to-[#0a1530] overflow-hidden">
-      {/* Background Glow - static, no animation */}
-      <div className="absolute top-1/2 left-0 w-full h-[300px] -translate-y-1/2 bg-gradient-to-r from-cyan-400/20 via-blue-500/10 to-purple-400/20 blur-3xl opacity-50" />
+      {/* Background Glow - lighter on mobile */}
+      <div className="absolute top-1/2 left-0 w-full h-[300px] -translate-y-1/2 bg-gradient-to-r from-cyan-400/10 via-blue-500/5 to-purple-400/10 md:from-cyan-400/20 md:via-blue-500/10 md:to-purple-400/20 blur-3xl opacity-50" />
 
       {/* Logos Section */}
       <div className="relative z-10 py-8">
@@ -113,57 +156,85 @@ export default function TrustedBySection() {
           <div className="w-28 h-1 mx-auto rounded-full mt-4 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600" />
         </div>
 
-        {/* Infinite Carousel - prevent layout shift */}
-        <div className="relative overflow-hidden min-h-[120px] md:min-h-[140px] lg:min-h-[160px]">
-          {/* Fade edges */}
-          <div className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-[#0a0f2e] to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-[#0a0f2e] to-transparent z-10 pointer-events-none" />
-
-          {isMounted ? (
-            <motion.div
-              ref={containerRef}
-              className="flex items-center will-change-transform -mt-3 md:-mt-6"
-              style={{ gap: "60px" }}
-              animate={controls}
+        {/* Logo Display */}
+        <div className="relative min-h-[160px] md:min-h-[140px] lg:min-h-[160px]">
+          {/* Mobile: Optimized Scrolling Carousel */}
+          <div className="md:hidden relative">
+            {/* Simplified fade edges - no blur */}
+            <div className="absolute left-0 top-0 w-12 h-full bg-gradient-to-r from-[#0a0f2e] to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 w-12 h-full bg-gradient-to-l from-[#0a0f2e] to-transparent z-10 pointer-events-none" />
+            
+            <div 
+              ref={mobileSliderRef}
+              className="flex gap-3 overflow-x-hidden px-4 py-4"
+              style={{ scrollBehavior: 'auto', WebkitOverflowScrolling: 'touch' }}
             >
+              {/* Only duplicate once for mobile performance */}
               {[...clientLogos, ...clientLogos].map((logo, i) => (
                 <div
                   key={i}
-                  className="flex-shrink-0 flex items-center justify-center w-52 h-28 md:w-64 md:h-32 lg:w-72 lg:h-40 group"
+                  className="flex-shrink-0 w-36 h-24 sm:w-40 sm:h-28"
                 >
-                  <div className="w-full h-full bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 flex items-center justify-center relative overflow-hidden transition-colors duration-300 hover:bg-white/[0.08]">
-                    {/* White glow under logo */}
-                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-11/12 md:w-3/4 h-10 md:h-12 bg-white/90 rounded-full blur-3xl z-0 pointer-events-none" />
-
-                    {/* Image */}
+                  {/* NO backdrop-blur on mobile, simple bg */}
+                  <div className="w-full h-full bg-white/[0.03] rounded-lg border border-white/[0.08] flex items-center justify-center relative overflow-hidden">
+                    {/* Lighter glow for mobile performance */}
+                    <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-2/3 h-8 bg-white/60 rounded-full blur-2xl z-0 pointer-events-none" />
                     <div className="relative z-20 w-11/12 h-3/4 flex items-center justify-center">
                       <Image
                         src={logo.src}
                         alt={logo.alt}
                         fill
-                        sizes="(max-width: 768px) 10rem, (max-width: 1024px) 14rem, 18rem"
-                        className="object-contain opacity-95 group-hover:opacity-100 transition-opacity duration-300"
+                        sizes="(max-width: 768px) 120px"
+                        className="object-contain opacity-90"
                         loading="lazy"
-                        quality={85}
+                        quality={75}
+                        priority={false}
                       />
                     </div>
                   </div>
                 </div>
               ))}
-            </motion.div>
-          ) : (
-            // Placeholder during SSR to prevent layout shift
-            <div className="flex items-center gap-[60px] -mt-3 md:-mt-6">
-              {clientLogos.slice(0, 3).map((logo, i) => (
-                <div
-                  key={i}
-                  className="flex-shrink-0 flex items-center justify-center w-52 h-28 md:w-64 md:h-32 lg:w-72 lg:h-40"
-                >
-                  <div className="w-full h-full bg-white/5 backdrop-blur-sm rounded-lg border border-white/10" />
-                </div>
-              ))}
             </div>
-          )}
+          </div>
+
+          {/* Desktop: Animated Carousel with blur effects */}
+          <div className="hidden md:block overflow-hidden">
+            {/* Desktop fade edges with blur */}
+            <div className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-[#0a0f2e] to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-[#0a0f2e] to-transparent z-10 pointer-events-none" />
+
+            {isMounted && isDesktop && (
+              <motion.div
+                ref={containerRef}
+                className="flex items-center will-change-transform -mt-6"
+                style={{ gap: "60px" }}
+                animate={controls}
+              >
+                {[...clientLogos, ...clientLogos].map((logo, i) => (
+                  <div
+                    key={i}
+                    className="flex-shrink-0 flex items-center justify-center w-64 h-32 lg:w-72 lg:h-40 group"
+                  >
+                    {/* Desktop gets full effects */}
+                    <div className="w-full h-full bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 flex items-center justify-center relative overflow-hidden transition-colors duration-300 hover:bg-white/[0.08]">
+                      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-3/4 h-12 bg-white/90 rounded-full blur-3xl z-0 pointer-events-none" />
+                      <div className="relative z-20 w-11/12 h-3/4 flex items-center justify-center">
+                        <Image
+                          src={logo.src}
+                          alt={logo.alt}
+                          fill
+                          sizes="(max-width: 1024px) 14rem, 18rem"
+                          className="object-contain opacity-95 group-hover:opacity-100 transition-opacity duration-300"
+                          loading="lazy"
+                          quality={85}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -193,12 +264,12 @@ export default function TrustedBySection() {
             </p>
           </div>
 
-          {/* Stats Grid */}
+          {/* Stats Grid - Optimized for mobile */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {statsData.map((stat, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-white/20 transition-all duration-300 hover:bg-white/[0.08] h-full"
+                className="bg-white/[0.03] md:bg-gradient-to-br md:from-white/5 md:to-white/[0.02] md:backdrop-blur-sm rounded-2xl p-8 border border-white/10 md:hover:border-white/20 transition-all duration-300 md:hover:bg-white/[0.08] active:bg-white/[0.06] h-full"
               >
                 <div className="mb-6">
                   <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-2">
@@ -213,9 +284,9 @@ export default function TrustedBySection() {
             ))}
           </div>
 
-          {/* CTA */}
+          {/* CTA - Simplified for mobile */}
           <div className="text-center mt-16">
-            <div className="bg-gradient-to-r from-white/5 to-white/[0.02] backdrop-blur-sm rounded-2xl p-8 border border-white/10 inline-block">
+            <div className="bg-white/[0.03] md:bg-gradient-to-r md:from-white/5 md:to-white/[0.02] md:backdrop-blur-sm rounded-2xl p-8 border border-white/10 inline-block">
               <div className="flex items-center gap-4 flex-wrap justify-center">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
@@ -226,7 +297,7 @@ export default function TrustedBySection() {
                   <span className="text-white text-lg font-medium">Ready to build something legendary?</span>
                 </div>
                 <Link href="/contact">
-                  <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
+                  <button className="bg-gradient-to-r from-blue-500 to-purple-600 md:hover:from-blue-600 md:hover:to-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 md:hover:scale-105 md:hover:shadow-lg md:hover:shadow-purple-500/25 active:scale-95">
                     Partner With Us
                   </button>
                 </Link>
