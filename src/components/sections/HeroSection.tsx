@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import TrueFocus from "@/blocks/TextAnimations/TrueFocus/TrueFocus";
+// import TrueFocus from "@/blocks/TextAnimations/TrueFocus/TrueFocus";
 import { clientLogos, heroCards } from "@/data/heroSectionData";
 
 export default function HeroSection() {
@@ -117,7 +117,7 @@ export default function HeroSection() {
           </a>
         </div>
 
-        {/* TrueFocus Animation */}
+        {/* TrueFocus Animation
         <div className="w-full max-w-5xl mx-auto mb-16">
           <div className="relative">
             <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-purple-500/10 rounded-3xl blur-xl" />
@@ -131,7 +131,7 @@ export default function HeroSection() {
               />
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Value Proposition Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
