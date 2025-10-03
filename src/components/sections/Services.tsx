@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Code, 
@@ -118,31 +118,39 @@ const services: ServiceItem[] = [
   }
 ];
 
-// Simplified static background - no animations
-const StaticBackground = () => (
+// Simplified static background - NO BLUR on mobile + smaller blobs + memoized
+const StaticBackground = React.memo(({ isMobile }: { isMobile: boolean }) => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none">
-    {/* Static gradient orbs */}
-    <div className="absolute top-1/4 left-1/3 w-[600px] h-[600px] bg-gradient-radial from-blue-500/10 via-blue-500/5 to-transparent rounded-full blur-3xl" />
-    <div className="absolute bottom-1/4 right-1/3 w-[500px] h-[500px] bg-gradient-radial from-purple-500/8 via-purple-500/4 to-transparent rounded-full blur-3xl" />
+    {/* Static gradient orbs - blur removed + smaller size on mobile */}
+    <div className={`absolute top-1/4 left-1/3 ${isMobile ? 'w-[300px] h-[300px]' : 'w-[600px] h-[600px]'} bg-gradient-radial from-blue-500/10 via-blue-500/5 to-transparent rounded-full ${isMobile ? '' : 'blur-3xl'}`} />
+    <div className={`absolute bottom-1/4 right-1/3 ${isMobile ? 'w-[250px] h-[250px]' : 'w-[500px] h-[500px]'} bg-gradient-radial from-purple-500/8 via-purple-500/4 to-transparent rounded-full ${isMobile ? '' : 'blur-3xl'}`} />
   </div>
-);
+));
 
-const ServiceCard = ({ service }: { service: ServiceItem }) => {
+const ServiceCard = ({ service, isMobile }: { service: ServiceItem; isMobile: boolean }) => {
   const [isHovered, setIsHovered] = useState(false);
   const IconComponent = service.icon;
 
+  // Conditional wrapper: motion.div only on desktop
+  const CardWrapper = isMobile ? 'div' : motion.div;
+  const wrapperProps = isMobile 
+    ? { className: "group relative h-full" }
+    : {
+        className: "group relative h-full",
+        onMouseEnter: () => setIsHovered(true),
+        onMouseLeave: () => setIsHovered(false),
+        whileHover: { y: -8 },
+        transition: { duration: 0.2 }
+      };
+
   return (
-    <motion.div
-      className="group relative h-full"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ y: -8 }}
-      transition={{ duration: 0.2 }}
-    >
-      <div className="relative h-full p-8 rounded-3xl bg-gradient-to-br from-gray-900/80 via-gray-800/40 to-gray-900/80 backdrop-blur-xl border border-gray-700/30 transition-all duration-300 group-hover:border-blue-500/50 group-hover:shadow-2xl group-hover:shadow-blue-500/20">
+    <CardWrapper {...wrapperProps}>
+      <div className={`relative h-full p-8 rounded-3xl bg-gradient-to-br from-gray-900/80 via-gray-800/40 to-gray-900/80 ${isMobile ? '' : 'backdrop-blur-xl'} border border-gray-700/30 ${isMobile ? '' : 'transition-all duration-300 group-hover:border-blue-500/50 group-hover:shadow-2xl group-hover:shadow-blue-500/20'}`}>
         
-        {/* Simplified hover effect */}
-        <div className={`absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-blue-500/5 rounded-3xl transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`} />
+        {/* Hover effect - desktop only */}
+        {!isMobile && (
+          <div className={`absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-blue-500/5 rounded-3xl transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`} />
+        )}
 
         {/* Corner decoration */}
         <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-blue-500/20 via-blue-500/10 to-transparent rounded-bl-3xl" />
@@ -151,7 +159,7 @@ const ServiceCard = ({ service }: { service: ServiceItem }) => {
         <div className="relative z-10 h-full flex flex-col">
           {/* Header */}
           <div className="flex items-start justify-between mb-6">
-            <div className="p-4 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 border border-blue-500/30 backdrop-blur-sm">
+            <div className={`p-4 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 border border-blue-500/30 ${isMobile ? '' : 'backdrop-blur-sm'}`}>
               <IconComponent className="w-8 h-8 text-white" />
             </div>
             
@@ -163,7 +171,7 @@ const ServiceCard = ({ service }: { service: ServiceItem }) => {
 
           {/* Title */}
           <div className="mb-4">
-            <h4 className="text-2xl font-bold text-white mb-2 transition-colors duration-300 group-hover:text-blue-300">
+            <h4 className={`text-2xl font-bold text-white mb-2 ${isMobile ? '' : 'transition-colors duration-300 group-hover:text-blue-300'}`}>
               {service.title}
             </h4>
             <p className="text-blue-400 font-medium text-sm uppercase tracking-wide">
@@ -176,14 +184,14 @@ const ServiceCard = ({ service }: { service: ServiceItem }) => {
             {service.description}
           </p>
 
-          {/* Features */}
+          {/* Features - simplified on mobile */}
           <div className="mb-6">
             <h5 className="text-sm font-bold text-white mb-4 flex items-center">
               <div className="w-2 h-2 bg-blue-400 rounded-full mr-2" />
               Key Features
             </h5>
-            <div className="grid grid-cols-2 gap-3">
-              {service.features.map((feature, idx) => (
+            <div className={`grid ${isMobile ? 'grid-cols-1' : 'grid-cols-2'} gap-3`}>
+              {service.features.slice(0, isMobile ? 3 : 4).map((feature, idx) => (
                 <div key={idx} className="flex items-center text-xs text-gray-400">
                   <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 flex-shrink-0" />
                   {feature}
@@ -192,14 +200,14 @@ const ServiceCard = ({ service }: { service: ServiceItem }) => {
             </div>
           </div>
 
-          {/* Tech Stack */}
+          {/* Tech Stack - fewer badges on mobile */}
           <div className="mb-8">
             <h5 className="text-sm font-bold text-white mb-3 flex items-center">
               <div className="w-2 h-2 bg-blue-400 rounded-full mr-2" />
               Tech Stack
             </h5>
             <div className="flex flex-wrap gap-2">
-              {service.technologies.map((tech, idx) => (
+              {service.technologies.slice(0, isMobile ? 3 : 4).map((tech, idx) => (
                 <span
                   key={idx}
                   className="px-3 py-1 text-xs bg-blue-500/10 text-blue-300 rounded-full border border-blue-500/20 font-medium"
@@ -210,24 +218,43 @@ const ServiceCard = ({ service }: { service: ServiceItem }) => {
             </div>
           </div>
 
-          {/* CTA */}
-          <button className="w-full p-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold rounded-2xl border border-blue-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/30 group-hover:from-blue-500 group-hover:to-blue-400">
-            <div className="flex items-center justify-center gap-3">
-              <span>Explore Service</span>
-              <span className="text-lg">→</span>
+          {/* CTA - Direct Link */}
+          <Link href={service.href} className="w-full block">
+            <div className={`w-full p-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold rounded-2xl border border-blue-500/50 ${isMobile ? '' : 'transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/30 group-hover:from-blue-500 group-hover:to-blue-400'}`}>
+              <div className="flex items-center justify-center gap-3">
+                <span>Explore Service</span>
+                <span className="text-lg">→</span>
+              </div>
             </div>
-          </button>
+          </Link>
         </div>
       </div>
-    </motion.div>
+    </CardWrapper>
   );
 };
 
 export default function Services() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useLayoutEffect(() => {
+    let timeout: NodeJS.Timeout;
+    const checkMobile = () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => setIsMobile(window.innerWidth < 768), 200);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+
   return (
     <section className="relative w-full min-h-screen bg-[#020618] overflow-hidden">
       {/* Static background */}
-      <StaticBackground />
+      <StaticBackground isMobile={isMobile} />
       
       {/* Subtle grid overlay */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
@@ -245,7 +272,7 @@ export default function Services() {
         {/* Header */}
         <div className="text-center mb-20">
           <div className="inline-block mb-8">
-            <div className="px-6 py-3 bg-gradient-to-r from-blue-500/20 to-blue-600/20 border border-blue-500/30 rounded-full backdrop-blur-sm">
+            <div className={`px-6 py-3 bg-gradient-to-r from-blue-500/20 to-blue-600/20 border border-blue-500/30 rounded-full ${isMobile ? '' : 'backdrop-blur-sm'}`}>
               <span className="text-blue-400 font-bold tracking-wide">Our Services</span>
             </div>
           </div>
@@ -266,15 +293,13 @@ export default function Services() {
         {/* Services grid */}
         <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-20">
           {services.map((service) => (
-            <Link key={service.title} href={service.href}>
-              <ServiceCard service={service} />
-            </Link>
+            <ServiceCard key={service.title} service={service} isMobile={isMobile} />
           ))}
         </div>
 
         {/* CTA */}
         <div className="text-center">
-          <Link href="/services" className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold rounded-full text-lg hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300">
+          <Link href="/services" className={`inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold rounded-full text-lg ${isMobile ? '' : 'hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300'}`}>
             View All Services →
           </Link>
         </div>
