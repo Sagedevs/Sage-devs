@@ -71,7 +71,7 @@ const testimonials: Testimonial[] = [
     author: "Michael Chen",
     role: "CTO",
     company: "InnovateNow",
-    content: "Working with Abdul was a game-changer for our startup. His technical expertise is unmatched.",
+    content: "Working with Abdul was a game-changer for our startup. His technical expertise is unmatched.Also he did oue work right on time",
     image: "https://images.pexels.com/photos/8499301/pexels-photo-8499301.jpeg?auto=compress&cs=tinysrgb&w=600",
     rating: 4,
   },
