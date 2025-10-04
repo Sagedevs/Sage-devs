@@ -56,7 +56,7 @@ export default function TermsOfService() {
       "@type": "Organization",
       "name": "Sage Devs",
       "url": "https://sagedevs.tech",
-      "logo": "https://sagedevs.tech/logo.png",
+      "logo": "https://sagedevs.tech/og-banner.webp",
       "sameAs": [
         "https://www.instagram.com/abdul_ahadt",
         "https://www.facebook.com/share/16PkdAEeVW/",

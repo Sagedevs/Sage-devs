@@ -63,7 +63,7 @@ const testimonials: Testimonial[] = [
     role: "CEO",
     company: "TechStart Inc",
     content: "Abdul's work exceeded all expectations. The platform he delivered transformed our business operations completely.",
-    image: "https://images.pexels.com/photos/3290244/pexels-photo-3290244.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1759594629/pexels-photo-3290244_bq9uhk.webp",
     rating: 5,
   },
   {
@@ -72,7 +72,7 @@ const testimonials: Testimonial[] = [
     role: "CTO",
     company: "InnovateNow",
     content: "Working with Abdul was a game-changer for our startup. His technical expertise is unmatched.Also he did oue work right on time",
-    image: "https://images.pexels.com/photos/8499301/pexels-photo-8499301.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1759594630/pexels-photo-8499301_hjpzh5.webp",
     rating: 4,
   },
   {
@@ -81,7 +81,7 @@ const testimonials: Testimonial[] = [
     role: "Marketing Director",
     company: "GrowthLab",
     content: "The website Abdul created for us is not just beautiful, it's incredibly functional. Our conversion rates improved by 250%!",
-    image: "https://images.pexels.com/photos/7707306/pexels-photo-7707306.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1759594630/pexels-photo-7707306_mrgx6n.webp",
     rating: 5,
   },
   {
@@ -90,7 +90,7 @@ const testimonials: Testimonial[] = [
     role: "Founder",
     company: "StartupVision",
     content: "Abdul's ability to understand our vision and translate it into a stunning digital experience is remarkable.",
-    image: "https://images.pexels.com/photos/7119106/pexels-photo-7119106.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1759594630/pexels-photo-7119106_ogaxpv.webp",
     rating: 4,
   },
   {
@@ -99,7 +99,7 @@ const testimonials: Testimonial[] = [
     role: "Product Manager",
     company: "DigitalFlow",
     content: "The attention to user experience and modern design principles Abdul brought to our project was outstanding.",
-    image: "https://images.pexels.com/photos/1520760/pexels-photo-1520760.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1759594629/pexels-photo-1520760_jzwhsy.webp",
     rating: 5,
   },
   {
@@ -108,7 +108,7 @@ const testimonials: Testimonial[] = [
     role: "VP Engineering",
     company: "CodeCraft",
     content: "Abdul's technical skills are top-notch. He delivered a complex web application that performs flawlessly.",
-    image: "https://images.pexels.com/photos/3831612/pexels-photo-3831612.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1759594629/pexels-photo-3831612_bs89fv.webp",
     rating: 5,
   },
 ];

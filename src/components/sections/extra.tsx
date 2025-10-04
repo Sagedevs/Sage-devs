@@ -99,7 +99,7 @@ const SagedevsPartnerships = () => {
             <div className="relative z-10 text-center">
               <div className="mb-6 flex justify-center">
                 <Image
-                  src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/aws-partner.svg"
+                  src="https://res.cloudinary.com/dg01hf9pm/image/upload/v1759592919/aws-partner_lcgml6.svg"
                   alt="Amazon Web Services"
                   className="h-16 w-auto"
                   width={64} // Assuming a reasonable width for h-16
@@ -116,7 +116,7 @@ const SagedevsPartnerships = () => {
             <div className="relative z-10 text-center">
               <div className="mb-6 flex justify-center">
                 <Image
-                  src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/mongodb-partner.svg"
+                  src="https://res.cloudinary.com/dg01hf9pm/image/upload/v1759593026/mongodb-partner_tjjidf.svg"
                   alt="MongoDB"
                   className="h-16 w-auto"
                   width={64} // Assuming a reasonable width for h-16
@@ -133,7 +133,7 @@ const SagedevsPartnerships = () => {
             <div className="relative z-10 text-center">
               <div className="mb-6 flex justify-center">
                 <Image
-                  src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/google-cloud-partner.svg"
+                  src="https://res.cloudinary.com/dg01hf9pm/image/upload/v1759592985/google-cloud-partner_gjmh47.svg"
                   alt="Google Cloud Platform"
                   className="h-16 w-auto"
                   width={64} // Assuming a reasonable width for h-16
@@ -150,7 +150,7 @@ const SagedevsPartnerships = () => {
             <div className="relative z-10 text-center">
               <div className="mb-6 flex justify-center">
                 <Image
-                  src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/cloudinary-partner.svg"
+                  src="https://res.cloudinary.com/dg01hf9pm/image/upload/v1759592922/cloudinary-partner_iybuvd.svg"
                   alt="Cloudinary"
                   className="h-16 w-auto"
                   width={64} // Assuming a reasonable width for h-16
@@ -173,7 +173,7 @@ const SagedevsPartnerships = () => {
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
                     <Image
-                      src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/aws-sagemaker.svg"
+                      src="https://res.cloudinary.com/dg01hf9pm/image/upload/v1759592916/aws-sagemaker_lfmhbc.svg"
                       alt="AWS Sagemaker"
                       className="h-12 w-12"
                       width={48} // h-12 w-12 suggests 48x48
@@ -198,7 +198,7 @@ const SagedevsPartnerships = () => {
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
                     <Image
-                      src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/aws-bedrock.svg"
+                      src="https://res.cloudinary.com/dg01hf9pm/image/upload/v1759592918/aws-bedrock_b612j0.svg"
                       alt="AWS Bedrock"
                       className="h-12 w-12"
                       width={48} // h-12 w-12 suggests 48x48
@@ -252,7 +252,7 @@ const SagedevsPartnerships = () => {
                     <div className="relative z-10">
                       <div className="flex items-center mb-6">
                         <Image
-                          src="https://appinventiv.com/wp-content/themes/twentynineteen-child/new-images/business-card-icon.svg"
+                          src="https://res.cloudinary.com/dg01hf9pm/image/upload/v1759592920/business-card-icon_vcjxia.svg"
                           alt={challenge.title}
                           className="w-12 h-12 mr-4"
                           width={48} // w-12 h-12 suggests 48x48

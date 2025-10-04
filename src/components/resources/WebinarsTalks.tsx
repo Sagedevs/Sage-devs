@@ -41,7 +41,7 @@ const WebinarsTalks = () => {
       topics: ['Neural Networks', 'GPT Models', 'Computer Vision', 'Ethics in AI'],
       level: 'Intermediate',
       status: 'upcoming',
-      speakerImage: 'https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg',
+      speakerImage: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759594695/xZ4wg2Xj_aqup4s.webp',
       backgroundImage: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop&crop=entropy&auto=format',
       price: 'Free'
     },
@@ -60,7 +60,7 @@ const WebinarsTalks = () => {
       topics: ['React 19', 'Next.js 15', 'TypeScript', 'Performance'],
       level: 'Advanced',
       status: 'upcoming',
-      speakerImage: 'https://api.uifaces.co/our-content/donated/FJkauyEa.jpg',
+      speakerImage: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759593914/FJkauyEa_ht5ah1.webp',
       backgroundImage: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop&crop=entropy&auto=format',
       price: '$49'
     },
@@ -79,7 +79,7 @@ const WebinarsTalks = () => {
       topics: ['User Psychology', 'Behavioral Design', 'A/B Testing', 'Conversion'],
       level: 'Intermediate',
       status: 'upcoming',
-      speakerImage: 'https://api.uifaces.co/our-content/donated/bUkmHPKs.jpg',
+      speakerImage: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759593212/bUkmHPKs_rivnrj.webp',
       backgroundImage: 'https://images.unsplash.com/photo-1559028012-481c04fa702d?w=800&h=600&fit=crop&crop=entropy&auto=format',
       price: '$29'
     },
@@ -98,7 +98,7 @@ const WebinarsTalks = () => {
       topics: ['AI Marketing', 'Automation', 'Personalization', 'Analytics'],
       level: 'Beginner',
       status: 'upcoming',
-      speakerImage: 'https://api.uifaces.co/our-content/donated/1H_7AxP0.jpg',
+      speakerImage: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759593182/1H_7AxP0_qsluke.webp',
       backgroundImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop&crop=entropy&auto=format',
       price: 'Free'
     },
@@ -117,7 +117,7 @@ const WebinarsTalks = () => {
       topics: ['Zero Trust', 'Cloud Security', 'Threat Detection', 'Compliance'],
       level: 'Intermediate',
       status: 'completed',
-      speakerImage: 'https://api.uifaces.co/our-content/donated/KtCFjlD4.jpg',
+      speakerImage: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759594628/KtCFjlD4_cmb71t.webp',
       backgroundImage: 'https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=800&h=600&fit=crop&crop=entropy&auto=format',
       price: '$39'
     },
