@@ -42,7 +42,7 @@ const WebinarsTalks = () => {
       level: 'Intermediate',
       status: 'upcoming',
       speakerImage: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759594695/xZ4wg2Xj_aqup4s.webp',
-      backgroundImage: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop&crop=entropy&auto=format',
+      backgroundImage: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605011/migrated/photo-1677442136019-21780ecad995_673ce26e.jpg',
       price: 'Free'
     },
     {
@@ -61,7 +61,7 @@ const WebinarsTalks = () => {
       level: 'Advanced',
       status: 'upcoming',
       speakerImage: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759593914/FJkauyEa_ht5ah1.webp',
-      backgroundImage: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop&crop=entropy&auto=format',
+      backgroundImage: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605012/migrated/photo-1461749280684-dccba630e2f6_c0f8d293.jpg',
       price: '$49'
     },
     {
@@ -80,7 +80,7 @@ const WebinarsTalks = () => {
       level: 'Intermediate',
       status: 'upcoming',
       speakerImage: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759593212/bUkmHPKs_rivnrj.webp',
-      backgroundImage: 'https://images.unsplash.com/photo-1559028012-481c04fa702d?w=800&h=600&fit=crop&crop=entropy&auto=format',
+      backgroundImage: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605014/migrated/photo-1559028012-481c04fa702d_8c4e40b8.jpg',
       price: '$29'
     },
     {
@@ -99,7 +99,7 @@ const WebinarsTalks = () => {
       level: 'Beginner',
       status: 'upcoming',
       speakerImage: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759593182/1H_7AxP0_qsluke.webp',
-      backgroundImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop&crop=entropy&auto=format',
+      backgroundImage: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605016/migrated/photo-1460925895917-afdab827c52f_8750d705.jpg',
       price: 'Free'
     },
     {
@@ -118,7 +118,7 @@ const WebinarsTalks = () => {
       level: 'Intermediate',
       status: 'completed',
       speakerImage: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759594628/KtCFjlD4_cmb71t.webp',
-      backgroundImage: 'https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=800&h=600&fit=crop&crop=entropy&auto=format',
+      backgroundImage: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605018/migrated/photo-1563206767-5b18f218e8de_f0c5c520.jpg',
       price: '$39'
     },
     {
@@ -137,7 +137,7 @@ const WebinarsTalks = () => {
       level: 'Advanced',
       status: 'upcoming',
       speakerImage: 'https://api.uifaces.co/our-content/donated/BiIqPuGk.jpg',
-      backgroundImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop&crop=entropy&auto=format',
+      backgroundImage: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605020/migrated/photo-1451187580459-43490279c0fa_00863abd.jpg',
       price: '$79'
     }
   ];

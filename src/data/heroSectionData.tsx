@@ -91,9 +91,9 @@ export const heroCards = [
 
 
 export const clientLogos: { src: string; alt: string }[] = [
-  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/GSK-Group-Logo.webp", alt: "GSK Group" },
-  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/sara-smith-logo-300x300.webp", alt: "Sara Smith" },
-  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/A1-Taxis-300x274.webp", alt: "A1 Taxis" },
+  { src: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605025/migrated/GSK-Group-Logo_443e8358.png", alt: "GSK Group" },
+  { src: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605028/migrated/sara-smith-logo-300x300_7fc99b2b.png", alt: "Sara Smith" },
+  { src: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605030/migrated/A1-Taxis-300x274_015aafa2.png", alt: "A1 Taxis" },
   // { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/supplement-logo.webp", alt: "Supplement" },
   // { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/justroofinc-logo-removebg-preview-300x193.webp", alt: "JustRoof Inc" },
   // { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/eb_logo.webp", alt: "EB Logo" },

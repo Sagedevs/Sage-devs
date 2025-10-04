@@ -9,14 +9,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Client Logos
 const clientLogos = [
-  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/GSK-Group-Logo.webp", alt: "GSK Group" },
-  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/sara-smith-logo-300x300.webp", alt: "Sara Smith" },
-  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/A1-Taxis-300x274.webp", alt: "A1 Taxis" },
-  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/supplement-logo.webp", alt: "Supplement" },
-  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/justroofinc-logo-removebg-preview-300x193.webp", alt: "JustRoof Inc" },
-  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/eb_logo.webp", alt: "EB Logo" },
-  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/logos-300x110.webp", alt: "Logos" },
-  { src: "https://wisdomcoders.us/wp-content/uploads/2024/08/unnamed-file.webp", alt: "Unnamed" },
+  { src: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605025/migrated/GSK-Group-Logo_443e8358.png", alt: "GSK Group" },
+  { src: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605028/migrated/sara-smith-logo-300x300_7fc99b2b.png", alt: "Sara Smith" },
+  { src: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605030/migrated/A1-Taxis-300x274_015aafa2.png", alt: "A1 Taxis" },
+  { src: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605033/migrated/supplement-logo_bdaa0098.png", alt: "Supplement" },
+  { src: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605036/migrated/justroofinc-logo-removebg-preview-300x193_ec226fbd.png", alt: "JustRoof Inc" },
+  { src: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605038/migrated/eb_logo_b5964641.png", alt: "EB Logo" },
+  { src: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605040/migrated/logos-300x110_e4c50b2a.png", alt: "Logos" },
+  { src: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605043/migrated/unnamed-file_900cf23f.png", alt: "Unnamed" },
 ];
 
 // Stats Section

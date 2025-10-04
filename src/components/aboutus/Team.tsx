@@ -7,7 +7,7 @@ const team = [
   {
     name: 'Abdul Ahad',
     role: 'CEO & Founder',
-    image: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=500&fit=crop&crop=face',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759604989/migrated/photo-1582750433449-648ed127bb54_210acffe.jpg',
     bio: 'Visionary leader with 12+ years driving digital innovation and transforming businesses across Pakistan.',
     icon: Briefcase
   },
@@ -21,42 +21,42 @@ const team = [
   {
     name: 'Hassan Ali',
     role: 'Lead Designer',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759604992/migrated/photo-1507003211169-0a1dd7228f2d_fad214d4.jpg',
     bio: 'Passionate about creating intuitive and beautiful user experiences for everyone in the region.',
     icon: Target
   },
   {
     name: 'Ayesha Ahmed',
     role: 'Senior Developer',
-    image: 'https://images.unsplash.com/photo-1596815064285-45ed8a9c0463?w=400&h=500&fit=crop&crop=face',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759604995/migrated/photo-1596815064285-45ed8a9c0463_cd27ecc8.jpg',
     bio: 'Full-stack developer with expertise in modern web technologies and frameworks from Lahore.',
     icon: Zap
   },
   {
     name: 'Muhammad Usman',
     role: 'Product Manager',
-    image: 'https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=400&h=500&fit=crop&crop=face',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759604997/migrated/photo-1507591064344-4c6ce005b128_25a6ba65.jpg',
     bio: 'Strategic thinker focused on delivering exceptional user experiences across South Asia.',
     icon: Users
   },
   {
     name: 'Sana Malik',
     role: 'Marketing Director',
-    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=500&fit=crop&crop=face',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759604999/migrated/photo-1534528741775-53994a69daeb_d78ae855.jpg',
     bio: 'Expert in digital marketing and brand strategy with extensive experience in Pakistani markets.',
     icon: Globe
   },
   {
     name: 'Omar Sheikh',
     role: 'Senior Engineer',
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=500&fit=crop&crop=face',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605001/migrated/photo-1519085360753-af0119f7cbe7_7a4bdd20.jpg',
     bio: 'Backend specialist with a passion for performance optimization and innovation from Islamabad.',
     icon: Award
   },
   {
     name: 'Zainab Rashid',
     role: 'UX Researcher',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=500&fit=crop&crop=face',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605003/migrated/photo-1580489944761-15a19d654956_e3944a53.jpg',
     bio: 'User-centered design advocate with deep research expertise and creative solutions for local markets.',
     icon: User
   }

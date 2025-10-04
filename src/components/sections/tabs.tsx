@@ -177,8 +177,8 @@ const tabsData: TabData[] = [
     icon: '/tabs/ecomerce.png',
     items: [
       { id: 'shopify', name: 'Shopify', logo: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759593156/shopify_ay7tdc.svg', website: 'https://shopify.com' },
-      { id: 'woocommerce', name: 'WooCommerce', logo: 'https://woocommerce.com/wp-content/themes/woo/images/logo-woocommerce@2x.png', website: 'https://woocommerce.com' },
-      { id: 'magento', name: 'Magento', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magento_Logo.svg/2560px-Magento_Logo.svg.png', website: 'https://magento.com' },
+      { id: 'woocommerce', name: 'WooCommerce', logo: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605046/migrated/logo-woocommerce%402x_962caf43.png', website: 'https://woocommerce.com' },
+      { id: 'magento', name: 'Magento', logo: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605022/migrated/2560px-Magento_Logo.svg_f8587830.png', website: 'https://magento.com' },
       { id: 'bigcommerce', name: 'BigCommerce', logo: '/tabs/bigcommerce.png', website: 'https://bigcommerce.com' },
       { id: 'prestashop', name: 'PrestaShop', logo: '/tabs/download(19).png', website: 'https://prestashop.com' },
       { id: 'opencart', name: 'OpenCart', logo: '/tabs/opencart.png', website: 'https://opencart.com' },

@@ -369,9 +369,9 @@ const LetsTalkAIHero = () => {
         <div className="absolute z-20 top-20 left-1/2 transform -translate-x-1/2 md:top-4">
           <div className="inline-flex items-center space-x-2 px-4 lg:px-6 py-2 lg:py-3 bg-slate-800/90 backdrop-blur-md rounded-full border border-blue-500/40 shadow-2xl text-white text-xs lg:text-sm font-medium transition-all duration-300 hover:scale-105 hover:border-blue-400/60">
             <div className="flex -space-x-2 overflow-hidden">
-              <Image className="inline-block h-6 w-6 lg:h-8 lg:w-8 rounded-full ring-2 ring-slate-800" src="https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg" alt="Partner 1" width={32} height={32} />
-              <Image className="inline-block h-6 w-6 lg:h-8 lg:w-8 rounded-full ring-2 ring-slate-800" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="Partner 2" width={32} height={32} />
-              <Image className="inline-block h-6 w-6 lg:h-8 lg:w-8 rounded-full ring-2 ring-slate-800" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Partner 3" width={32} height={32} />
+              <Image className="inline-block h-6 w-6 lg:h-8 lg:w-8 rounded-full ring-2 ring-slate-800" src="https://res.cloudinary.com/dg01hf9pm/image/upload/v1759604985/migrated/xZ4wg2Xj_add05bfd.jpg" alt="Partner 1" width={32} height={32} />
+              <Image className="inline-block h-6 w-6 lg:h-8 lg:w-8 rounded-full ring-2 ring-slate-800" src="https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605006/migrated/photo-1500648767791-00dcc994a43e_46ad61b5.jpg" alt="Partner 2" width={32} height={32} />
+              <Image className="inline-block h-6 w-6 lg:h-8 lg:w-8 rounded-full ring-2 ring-slate-800" src="https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605008/migrated/photo-1472099645785-5658abf4ff4e_b92b01c3.jpg" alt="Partner 3" width={32} height={32} />
             </div>
             <span className="hidden sm:inline">Trusted by diverse software partners</span>
             <span className="sm:hidden">Trusted by 500+</span>
