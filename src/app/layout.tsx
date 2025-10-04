@@ -14,6 +14,7 @@ const CustomCursor = lazy(() => import("@/components/customcursor"));
 const DisableDevTools = lazy(() => import("@/components/shortcuts"));
 const Footer = lazy(() => import("@/components/Footer"));
 const Analytics = lazy(() => import("@vercel/analytics/next").then(mod => ({ default: mod.Analytics })));
+const SpeedInsights = lazy(() => import("@vercel/speed-insights/next").then(mod => ({ default: mod.SpeedInsights })));
 
 const items = [
   { label: "Home", href: "/" },
@@ -313,10 +314,9 @@ export default function RootLayout({
       </head>
       
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased font-gilroy relative`} suppressHydrationWarning>
-      <SmoothScroll>
-       
-            <DisableDevTools />
-         
+        <SmoothScroll>
+          <DisableDevTools />
+
 
         {/* Disable custom cursor on mobile for better performance */}
         {isClient && typeof window !== 'undefined' && window.innerWidth > 1024 && (
@@ -381,19 +381,25 @@ export default function RootLayout({
           </div>
         </aside>
 
+        {/* Main Content */}
+        <main className="pt-20 lg:pt-24 relative z-[1]">
+          {children}
+          
+          {/* Only load analytics in production */}
+          {process.env.NODE_ENV === 'production' && (
+            <Suspense fallback={null}>
+              <Analytics />
+              <SpeedInsights />
+            </Suspense>
+          )}
+        </main>
+
         <Suspense fallback={null}>
           <Footer />
         </Suspense>
-
-        {/* Only load analytics in production */}
-        {process.env.NODE_ENV === 'production' && (
-          <Suspense fallback={null}>
-            <Analytics />
-          </Suspense>
-        )}
-
+        
         <div id="modal-root" />
-        </SmoothScroll>
+      </SmoothScroll>
       </body>
     </html>
   );
