@@ -418,8 +418,8 @@ export default function CaseStudies() {
             ease: "power2.out",
             scrollTrigger: {
               trigger: card,
-              start: "top 85%",
-              toggleActions: "play none none reverse",
+              start: "top 90%",
+              once: true,
             },
           });
         });
@@ -433,8 +433,8 @@ export default function CaseStudies() {
           ease: "power2.out",
           scrollTrigger: {
             trigger: ctaRef.current,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
+            start: "top 90%",
+            once: true,
           },
         });
       }
