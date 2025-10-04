@@ -209,8 +209,6 @@ export default function EnhancedTestimonialSlider() {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      
-
       if (statsRef.current) {
         const stats = Array.from(statsRef.current.children);
         stats.forEach((stat) => {
@@ -221,8 +219,8 @@ export default function EnhancedTestimonialSlider() {
             ease: "power2.out",
             scrollTrigger: {
               trigger: stat,
-              start: "top 85%",
-              toggleActions: "play none none reverse",
+              start: "top 90%",
+              once: true,
             }
           });
         });
@@ -267,6 +265,35 @@ export default function EnhancedTestimonialSlider() {
         </div>
 
         <div className="relative max-w-6xl mx-auto mb-10 md:mb-16">
+          {/* Google Badge */}
+          <div className="flex justify-center mb-6 md:mb-8">
+            <div className="bg-black/40 backdrop-blur-xl border border-blue-500/40 rounded-2xl md:rounded-3xl px-4 py-3 md:px-6 md:py-4 flex flex-col sm:flex-row items-center gap-4 md:gap-6">
+              <div className="flex items-center gap-3 md:gap-4">
+                <GoogleLogo className="w-10 h-10 md:w-12 md:h-12" />
+                <div>
+                  <div className="text-green-400 text-xs md:text-sm mb-0.5">✓ 100% Verified</div>
+                  <div className="text-white font-bold text-base md:text-lg">Google Reviews</div>
+                </div>
+              </div>
+              
+              {!isMobile && (
+                <div className="h-10 w-px bg-blue-500/50 hidden sm:block"></div>
+              )}
+              
+              <div className="text-center sm:text-left">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl md:text-3xl font-bold text-yellow-400">4.9</span>
+                  <div className="flex">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 md:w-5 md:h-5 text-yellow-400 fill-yellow-400" />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-gray-300 text-xs md:text-sm">Based on 500+ reviews</p>
+              </div>
+            </div>
+          </div>
+
           {/* Controls */}
           <div className="flex justify-center gap-3 md:gap-4 mb-6 md:mb-8">
             <button
@@ -294,35 +321,6 @@ export default function EnhancedTestimonialSlider() {
             >
               <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-white" />
             </button>
-          </div>
-
-          {/* Google Badge */}
-          <div className="flex justify-center mb-8 md:mb-12">
-            <div className="bg-black/40 backdrop-blur-xl border border-blue-500/40 rounded-2xl md:rounded-3xl px-4 py-3 md:px-6 md:py-4 flex flex-col sm:flex-row items-center gap-4 md:gap-6">
-              <div className="flex items-center gap-3 md:gap-4">
-                <GoogleLogo className="w-10 h-10 md:w-12 md:h-12" />
-                <div>
-                  <div className="text-white font-bold text-base md:text-lg">Google Reviews</div>
-                  <div className="text-green-400 text-xs md:text-sm">✓ 100% Verified</div>
-                </div>
-              </div>
-              
-              {!isMobile && (
-                <div className="h-10 w-px bg-blue-500/50 hidden sm:block"></div>
-              )}
-              
-              <div className="text-center sm:text-left">
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl md:text-3xl font-bold text-yellow-400">4.9</span>
-                  <div className="flex">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 md:w-5 md:h-5 text-yellow-400 fill-yellow-400" />
-                    ))}
-                  </div>
-                </div>
-                <p className="text-gray-300 text-xs md:text-sm">Based on 500+ reviews</p>
-              </div>
-            </div>
           </div>
 
           {/* Cards */}
