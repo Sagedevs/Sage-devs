@@ -314,12 +314,9 @@ export default function RootLayout({
       
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased font-gilroy relative`} suppressHydrationWarning>
       <SmoothScroll>
-        {/* Only load dev tools in development */}
-        {process.env.NODE_ENV === 'development' && (
-          <Suspense fallback={null}>
+       
             <DisableDevTools />
-          </Suspense>
-        )}
+         
 
         {/* Disable custom cursor on mobile for better performance */}
         {isClient && typeof window !== 'undefined' && window.innerWidth > 1024 && (
