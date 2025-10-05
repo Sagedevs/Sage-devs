@@ -19,7 +19,7 @@ const team = [
     icon: Code
   },
   {
-    name: 'Hassan Ali',
+    name: 'Amjad',
     role: 'Lead Designer',
     image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759604992/migrated/photo-1507003211169-0a1dd7228f2d_fad214d4.jpg',
     bio: 'Passionate about creating intuitive and beautiful user experiences for everyone in the region.',
