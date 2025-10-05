@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-
+import Link from 'next/link';
 const LetsTalkAIHero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
@@ -428,15 +428,21 @@ const LetsTalkAIHero = () => {
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
             >
-              <button className="group relative px-8 lg:px-12 py-4 lg:py-5 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-base lg:text-lg font-bold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 border border-blue-500/20">
-                <span className="relative z-10 tracking-wide">Start Your AI Journey</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-all duration-300" />
-                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </button>
-              
-              <button className="group relative px-8 lg:px-12 py-4 lg:py-5 border-2 border-blue-500/50 text-blue-300 text-base lg:text-lg font-bold rounded-xl transition-all duration-300 hover:border-blue-400 hover:bg-blue-950/30 hover:text-white hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 backdrop-blur-sm">
-                <span className="relative z-10 tracking-wide">Explore AI Solutions</span>
-              </button>
+             <Link 
+  href="/Contact#contact-form" 
+  className="group relative px-8 lg:px-12 py-4 lg:py-5 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-base lg:text-lg font-bold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 border border-blue-500/20 inline-flex justify-center"
+>
+  <span className="relative z-10 tracking-wide">Start Your AI Journey</span>
+  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-all duration-300" />
+  <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+</Link>
+
+<Link 
+  href="/services#ai-solutions" 
+  className="group relative px-8 lg:px-12 py-4 lg:py-5 border-2 border-blue-500/50 text-blue-300 text-base lg:text-lg font-bold rounded-xl transition-all duration-300 hover:border-blue-400 hover:bg-blue-950/30 hover:text-white hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 backdrop-blur-sm inline-flex justify-center"
+>
+  <span className="relative z-10 tracking-wide">Explore AI Solutions</span>
+</Link>
             </div>
           </div>
 
