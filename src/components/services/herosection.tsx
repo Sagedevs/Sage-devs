@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
-
+import Link from 'next/link';
 interface Particle {
   x: number;
   y: number;
@@ -345,15 +345,21 @@ const HeroSection = () => {
         {/* Professional CTA */}
         <div className={`mb-24 transition-all duration-1500 delay-800 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="flex flex-col sm:flex-row gap-8 items-center">
-            <button className="group relative overflow-hidden px-12 py-4 bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 rounded-xl font-semibold text-lg text-black transition-all duration-500 hover:scale-105 shadow-2xl shadow-blue-500/25">
-              <span className="relative z-10">Start Your Project</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-white/20 -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-            </button>
-            
-            <button className="group relative overflow-hidden px-12 py-4 bg-black/70 border-2 border-white/30 hover:border-cyan-400 rounded-xl font-semibold text-lg text-white transition-all duration-500 hover:scale-105 backdrop-blur-xl">
-              <span className="relative z-10">View Our Work</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"></div>
-            </button>
+          <Link 
+  href="/Contact#contact-form" 
+  className="group relative overflow-hidden px-12 py-4 bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 rounded-xl font-semibold text-lg text-black transition-all duration-500 hover:scale-105 shadow-2xl shadow-blue-500/25 inline-flex justify-center"
+>
+  <span className="relative z-10">Start Your Project</span>
+  <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-white/20 -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+</Link>
+
+<Link 
+  href="/case-studies#case-studies-grid" 
+  className="group relative overflow-hidden px-12 py-4 bg-black/70 border-2 border-white/30 hover:border-cyan-400 rounded-xl font-semibold text-lg text-white transition-all duration-500 hover:scale-105 backdrop-blur-xl inline-flex justify-center"
+>
+  <span className="relative z-10">View Our Work</span>
+  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
+</Link>
           </div>
         </div>
 
