@@ -98,7 +98,7 @@ const caseStudies: CaseStudy[] = [
 ];
 
 // ----------------------
-// Modal Component (now supports mouse wheel/trackpad)
+// Modal Component
 // ----------------------
 const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => void }) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -127,13 +127,10 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
     contentEl.setAttribute("tabindex", "-1");
     contentEl.focus();
 
-    // Wheel/trackpad forwarding:
-    // Some browsers / setups end up delivering wheel events to the backdrop and not the inner scrollable panel.
-    // This listener captures wheel on the backdrop and scrolls the content panel manually.
+    // Wheel/trackpad forwarding
     const onWheel = (e: WheelEvent) => {
       if (!contentRef.current) return;
 
-      // Determine whether content can scroll in the event direction
       const el = contentRef.current;
       const delta = e.deltaY;
 
@@ -141,16 +138,13 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
       const canScrollDown = el.scrollTop + el.clientHeight < el.scrollHeight;
 
       if ((delta > 0 && canScrollDown) || (delta < 0 && canScrollUp)) {
-        // Move content scroll and prevent background from receiving it
         el.scrollTop += delta;
         e.preventDefault();
       } else {
-        // content can't scroll further - prevent background scroll/overscroll
         e.preventDefault();
       }
     };
 
-    // add listener on the modal backdrop (capture phase) to intercept wheel from anywhere over modal
     modalRef.current.addEventListener("wheel", onWheel, { passive: false });
 
     return () => {
@@ -159,6 +153,20 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
     };
   }, []);
 
+  const handleCloseClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onClose();
+  };
+
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
     <div
       ref={modalRef}
@@ -166,21 +174,21 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
       style={{
         paddingTop: "80px",
         paddingBottom: "20px",
-        overflow: "hidden", // backdrop should not scroll
+        overflow: "hidden",
         WebkitOverflowScrolling: "auto",
       }}
-      onClick={onClose}
+      onClick={handleBackdropClick}
       role="dialog"
       aria-modal="true"
     >
       <div className="min-h-full flex items-start justify-center px-4">
         <div
           ref={contentRef}
-          className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-sm rounded-2xl w-full max-w-3xl border border-slate-700/50 relative shadow-2xl flex flex-col"
+          className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-sm rounded-2xl w-full max-w-3xl relative shadow-2xl flex flex-col"
           style={{
             maxHeight: "85vh",
             minHeight: "400px",
-            overflow: "auto", // only this element scrolls
+            overflow: "auto",
             WebkitOverflowScrolling: "touch",
             overscrollBehavior: "contain",
             touchAction: "pan-y",
@@ -188,25 +196,24 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
           onClick={(e) => e.stopPropagation()}
           tabIndex={-1}
         >
-          {/* Close */}
-          <button
-            className="absolute top-4 right-4 z-[10000] w-10 h-10 rounded-full bg-slate-800/90 backdrop-blur-sm text-gray-300 hover:text-white hover:bg-red-600/90 transition-all duration-300 flex items-center justify-center border border-slate-600/50 shadow-lg"
-            onClick={(e) => {
-              e.stopPropagation();
-              onClose();
-            }}
-            aria-label="Close modal"
-            type="button"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+          {/* Close Button - Absolute positioned over image */}
+          <div className="absolute top-4 right-4 z-50">
+            <button
+              className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-800/90 backdrop-blur-sm text-gray-300 hover:text-white hover:bg-red-600/90 transition-all duration-300 flex items-center justify-center border border-slate-600/50 shadow-lg"
+              onClick={handleCloseClick}
+              aria-label="Close modal"
+              type="button"
+            >
+              <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
 
           {/* Hero */}
           <div className="flex-shrink-0">
             <div className="relative">
-              <div className="aspect-video overflow-hidden relative rounded-t-2xl">
+              <div className="aspect-video overflow-hidden relative">
                 <Image
                   src={caseStudy.image}
                   alt={caseStudy.title}
@@ -333,7 +340,7 @@ export default function CaseStudies() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Body scroll lock when modal opens — robust (works on iOS/desktop)
+  // Body scroll lock when modal opens
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") setSelectedCase(null);
@@ -342,16 +349,13 @@ export default function CaseStudies() {
     if (selectedCase) {
       document.addEventListener("keydown", handleEscape);
 
-      // Save current scroll position
       const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
 
-      // prevent background scroll by fixing body
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       if (scrollbarWidth && scrollbarWidth > 0) {
         document.body.style.paddingRight = `${scrollbarWidth}px`;
       }
 
-      // position fixed approach (prevents iOS overscroll)
       document.body.style.position = "fixed";
       document.body.style.top = `-${scrollY}px`;
       document.body.style.left = "0";
@@ -359,12 +363,10 @@ export default function CaseStudies() {
       document.body.style.width = "100%";
       document.body.style.overflow = "hidden";
 
-      // store scroll for restore
       document.body.setAttribute("data-modal-scroll-y", String(scrollY));
     } else {
       document.removeEventListener("keydown", handleEscape);
 
-      // restore body styles and scroll
       const stored = document.body.getAttribute("data-modal-scroll-y");
       if (stored) {
         const scrollY = parseInt(stored, 10) || 0;
@@ -378,7 +380,6 @@ export default function CaseStudies() {
         document.body.removeAttribute("data-modal-scroll-y");
         window.scrollTo(0, scrollY);
       } else {
-        // fallback cleanup
         document.body.style.position = "";
         document.body.style.top = "";
         document.body.style.left = "";
