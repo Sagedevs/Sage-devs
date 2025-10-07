@@ -546,7 +546,7 @@ const Footer = () => {
 
                   <motion.div variants={itemVariants} className="footer-section-follow-us">
                     <h3 className="text-white font-bold text-lg mb-4 relative">
-                      <span className="relative z-10">Follow Us</span>
+                      <span className="relative z-10">Contact Us</span>
                       <div className="absolute bottom-0 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full" />
                     </h3>
                     <div className="flex items-center space-x-4">
