@@ -75,7 +75,6 @@ interface GooeyNavWithHeaderProps {
   children?: React.ReactNode;
 }
 
-
 interface MegaMenuCategory {
   title: string;
   items: GooeyNavChildItem[];
@@ -119,7 +118,7 @@ interface MegaMenuItemContent {
   title: string;
   subtitle: string;
   categories?: MegaMenuCategory[];
-  cta?: MegaMenuCTA;  // Made optional with ?
+  cta?: MegaMenuCTA;
   featured: MegaMenuFeatured;
   articles?: MegaMenuArticle[];
   leftSidebar?: {
@@ -128,6 +127,7 @@ interface MegaMenuItemContent {
   };
   showcase?: MegaMenuShowcase;
 }
+
 type MegaMenuContentMap = {
   [key: string]: MegaMenuItemContent;
 };
@@ -309,9 +309,7 @@ const megaMenuContent: MegaMenuContentMap = {
           { label: "Maintenance & Support", href: "/services#maintenance-support", description: "Ongoing technical support" }
         ]
       }
-      
     ],
-    
     featured: {
       title: "Featured Service",
       subtitle: "Full-Stack Development",
@@ -331,9 +329,7 @@ const megaMenuContent: MegaMenuContentMap = {
         "Mobile Optimization",
         "SEO Ready"
       ]
-      
     }
-    
   },
   "Case Studies": {
     title: "Success Stories",
@@ -346,7 +342,7 @@ const megaMenuContent: MegaMenuContentMap = {
           { label: "SaaS Platforms", href: "/case-studies#case-studies-grid", description: "Scalable software solutions" },
           { label: "E-commerce", href: "/case-studies#case-studies-grid", description: "Online retail success" },
           { label: "Enterprise", href: "/case-studies#case-studies-grid", description: "Large-scale implementations" },
-          { label: "WordPress Projects", href: "/case-studies#case-studies-grid", description: "Custom WordPress sites & plugins" } // Added WordPress
+          { label: "WordPress Projects", href: "/case-studies#case-studies-grid", description: "Custom WordPress sites & plugins" }
         ]
       },
       {
@@ -356,13 +352,11 @@ const megaMenuContent: MegaMenuContentMap = {
           { label: "Mobile Apps", href: "/case-studies#case-studies-grid", description: "iOS & Android development" },
           { label: "AI & ML", href: "/case-studies#case-studies-grid", description: "Machine learning projects" },
           { label: "Blockchain", href: "/case-studies#case-studies-grid", description: "Decentralized solutions" },
-          { label: "WordPress & PHP", href: "/case-studies#case-studies-grid", description: "WordPress, plugins & theme development" }, // Added WordPress tech
-          { label: "Frontend Web", href: "/case-studies#case-studies-grid", description: "HTML, CSS, JS, and modern frameworks" } // Added general web
+          { label: "WordPress & PHP", href: "/case-studies#case-studies-grid", description: "WordPress, plugins & theme development" },
+          { label: "Frontend Web", href: "/case-studies#case-studies-grid", description: "HTML, CSS, JS, and modern frameworks" }
         ]
       }
-      
     ],
-    
     featured: {
       title: "Latest Success",
       subtitle: "SaaS Platform: 10x Growth",
@@ -389,118 +383,7 @@ const megaMenuContent: MegaMenuContentMap = {
         "SaaS Applications"
       ]
     }
-  },
-  // "Resources": {
-  //   title: "Knowledge Hub",
-  //   subtitle: "Insights, guides, and resources to fuel your growth",
-  //   categories: [
-  //     {
-  //       title: "Learning Resources",
-  //       items: [
-  //         { label: "Blog / Insights", href: "/blog", description: "Latest industry trends & tips" },
-  //         { label: "Guides & Templates", href: "/resources/guides-templates", description: "Free downloadable resources" },
-  //         { label: "Webinars / Talks", href: "/resources/webinars", description: "Expert-led sessions" },
-  //         { label: "Case Studies", href: "/case-studies", description: "Real-world success stories" }
-  //       ]
-  //     },
-  //     {
-  //       title: "Tools & Support",
-  //       items: [
-  //         { label: "Project Calculator", href: "/resources/calculator", description: "Estimate your project cost" },
-  //         { label: "Technology Stack", href: "/resources/tech-stack", description: "Our preferred technologies" },
-  //         { label: "FAQs", href: "/faq", description: "Frequently asked questions" },
-  //         { label: "Support Center", href: "/support", description: "Get help when you need it" }
-  //       ]
-  //     }
-  //   ],
-  //   cta: {
-  //     title: "Stay Updated",
-  //     description: "Subscribe to our newsletter for the latest insights and updates.",
-  //     buttonText: "Subscribe Now",
-  //     buttonHref: "/newsletter"
-  //   },
-  //   featured: {
-  //     title: "Featured Guide",
-  //     subtitle: "Digital Transformation Roadmap",
-  //     description: "A comprehensive guide to planning your digital transformation journey.",
-  //     image: "🗺️",
-  //     href: "/resources/transformation-guide"
-  //   }
-  // },
-  // "About Us": {
-  //   title: "About Our Company",
-  //   subtitle: "Your trusted partner in digital innovation",
-  //   categories: [
-  //     {
-  //       title: "Our Company",
-  //       items: [
-  //         { label: "Our Story", href: "/about", description: "How we got started" },
-  //         { label: "Team", href: "/about/team", description: "Meet our experts" },
-  //         { label: "Careers", href: "/about/careers", description: "Join our growing team" },
-  //         { label: "Culture", href: "/about/culture", description: "Our values & approach" }
-  //       ]
-  //     },
-  //     {
-  //       title: "Why Choose Us",
-  //       items: [
-  //         { label: "Our Process", href: "/about/process", description: "How we work with clients" },
-  //         { label: "Technologies", href: "/about/technologies", description: "Our tech expertise" },
-  //         { label: "Testimonials", href: "/about/testimonials", description: "What clients say" },
-  //         { label: "Awards", href: "/about/awards", description: "Recognition & achievements" }
-  //       ]
-  //     }
-  //   ],
-  //   cta: {
-  //     title: "Ready to Work Together?",
-  //     description: "Let's discuss how we can help achieve your goals.",
-  //     buttonText: "Get In Touch",
-  //     buttonHref: "/Contact"
-  //   },
-  //   featured: {
-  //     title: "Join Our Team",
-  //     subtitle: "We're Hiring!",
-  //     description: "Exciting opportunities for developers, designers, and digital strategists.",
-  //     image: "👥",
-  //     href: "/about/careers"
-  //   }
-  // },
-  // "Contact": {
-  //   title: "Get In Touch",
-  //   subtitle: "Ready to start your next project? Let's talk!",
-  //   categories: [
-  //     {
-  //       title: "Contact Options",
-  //       items: [
-  //         { label: "Get in Touch (form)", href: "/contact#contact-form", description: "Send us a message" },
-  //         { label: "Book a Call", href: "https://calendly.com/abdul-ahadt732", external: true, description: "Schedule a consultation" },
-  //         { label: "FAQs", href: "/faq", description: "Common questions answered" },
-  //         { label: "Support", href: "/support", description: "Technical assistance" }
-  //       ]
-  //     },
-  //     {
-  //       title: "Quick Links",
-  //       items: [
-  //         { label: "Project Quote", href: "/quote", description: "Get instant pricing" },
-  //         { label: "Partnership", href: "/partnership", description: "Collaborate with us" },
-  //         { label: "Press & Media", href: "/press", description: "Media resources" },
-  //         { label: "Office Locations", href: "/locations", description: "Find us worldwide" }
-  //       ]
-  //     }
-  //   ],
-  //   cta: {
-  //     title: "Start Your Project Today",
-  //     description: "Transform your ideas into reality with our expert team.",
-  //     buttonText: "Let's Get Started",
-  //     buttonHref: "/Contact"
-  //   },
-  //   featured: {
-  //     title: "Quick Response",
-  //     subtitle: "We Reply Within 24 Hours",
-  //     description: "Get expert consultation and project estimates quickly.",
-  //     image: "⚡",
-  //     href: "/contact#contact-form"
-  //   }
-  // }
+  }
 };
 
 const GooeyNav: React.FC<GooeyNavProps> = ({
@@ -523,27 +406,34 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   const [megaMenuOpen, setMegaMenuOpen] = useState<string | null>(null);
   const router = useRouter();
 
-  // Prevent background scroll when mega menu is open
+  // Improved background scroll prevention - preserves scrollbar space
   useEffect(() => {
     if (megaMenuOpen) {
-      // Store current scroll position
+      // Store current scroll position and calculate scrollbar width
       const scrollY = window.scrollY;
       const scrollX = window.scrollX;
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       
-      // Add styles to prevent background scroll
+      // Add styles to prevent background scroll while preserving layout
       document.body.style.position = 'fixed';
       document.body.style.top = `-${scrollY}px`;
       document.body.style.left = `-${scrollX}px`;
       document.body.style.right = '0';
       document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = `${scrollbarWidth}px`; // Preserve scrollbar space
       
       return () => {
         // Restore styles and scroll position
+        const scrollY = parseInt(document.body.style.top || '0', 10) * -1;
+        const scrollX = parseInt(document.body.style.left || '0', 10) * -1;
+        
         document.body.style.position = '';
         document.body.style.top = '';
         document.body.style.left = '';
         document.body.style.right = '';
         document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+        
         window.scrollTo(scrollX, scrollY);
       };
     }
@@ -577,7 +467,6 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
 
   // Close mega menu function
   const closeMegaMenu = useCallback((e: React.MouseEvent) => {
-    // Only handle blog post links
     const target = e.target as HTMLElement;
     if (!target || !target.closest) return;
 
@@ -586,10 +475,8 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
       e.preventDefault();
       const href = (articleCard as HTMLAnchorElement).getAttribute('href');
       if (href) {
-        // Use Next.js router for client-side navigation
         void router.push(href);
         setMegaMenuOpen(null);
-        // Force a scroll to top after navigation
         window.scrollTo(0, 0);
       }
     } else {
@@ -603,7 +490,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
     }
     const timeout = setTimeout(() => {
       setMegaMenuOpen(null);
-    }, 100); // Very short delay - 100ms instead of default
+    }, 150); // Slightly increased for smoother transition
     setMegaMenuTimeout(timeout);
   }, [megaMenuTimeout]);
 
@@ -660,8 +547,8 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
             href={article.href}
             className="article-card block"
             onClick={closeMegaMenu}
-            scroll={false} // Prevent default scroll behavior
-            shallow={true} // Shallow routing to prevent full page reload
+            scroll={false}
+            shallow={true}
           >
             <div className="article-image">
               <Image src={article.image} alt={article.title} width={80} height={80} className="w-full h-full object-cover rounded-md" />
@@ -697,7 +584,6 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
             <h5 className="showcase-subtitle">{content.showcase.subtitle}</h5>
             <p className="showcase-description">{content.showcase.description}</p>
             
-            {/* Stats for AI showcase */}
             {content.showcase.stats && (
               <div className="showcase-stats">
                 {content.showcase.stats.map((stat, index) => (
@@ -774,7 +660,6 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
 
       {/* Right Column with Featured and Showcase */}
       <div className="mega-menu-right-sidebar">
-        {/* Showcase Section */}
         {content.showcase && (
           <div className="mega-menu-showcase">
             <div className="showcase-image">
@@ -797,7 +682,6 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
             <h5 className="showcase-subtitle">{content.showcase.subtitle}</h5>
             <p className="showcase-description">{content.showcase.description}</p>
             
-            {/* Features for Services */}
             {content.showcase.features && (
               <ul className="showcase-features">
                 {content.showcase.features.map((feature, index) => (
@@ -809,7 +693,6 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
               </ul>
             )}
             
-            {/* Results for Case Studies */}
             {content.showcase.results && (
               <div className="showcase-results">
                 {content.showcase.results.map((result, index) => (
@@ -831,7 +714,6 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
           </div>
         )}
 
-        {/* CTA Section */}
         {content.cta && (
           <div className="mega-menu-cta">
             <h4 className="cta-title">{content.cta.title}</h4>
@@ -1031,7 +913,6 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
         overscroll-behavior: contain;
-        overflow-y: auto;
       }
       
       .mega-menu.open {
@@ -1045,23 +926,23 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
       
       /* Custom Scrollbar for Mega Menu */
       .mega-menu::-webkit-scrollbar {
-        width: 5px; /* Adjust as needed */
-        height: 3px; /* For horizontal scrollbar, if any */
+        width: 5px;
+        height: 3px;
       }
 
       .mega-menu::-webkit-scrollbar-track {
-        background: #2a334a; /* Darker track */
+        background: #2a334a;
         border-radius: 10px;
       }
 
       .mega-menu::-webkit-scrollbar-thumb {
-        background-color: #60a5fa; /* Blue thumb */
+        background-color: #60a5fa;
         border-radius: 10px;
-        border: 1px solid #2a334a; /* Padding around thumb */
+        border: 1px solid #2a334a;
       }
 
       .mega-menu::-webkit-scrollbar-thumb:hover {
-        background-color: #3b82f6; /* Darker blue on hover */
+        background-color: #3b82f6;
       }
       
       /* AppInventiv Style Layout */
@@ -1225,7 +1106,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         width: 80px;
         height: 80px;
         border-radius: 8px;
-        overflow: hidden; /* Ensure image corners are rounded */
+        overflow: hidden;
         flex-shrink: 0;
       }
       .article-image img {
@@ -1482,27 +1363,6 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-      /* Responsive Adjustments */
-      @media (max-width: 1024px) {
-        .appinventiv-layout,
-        .standard-mega-menu-layout {
-          height: auto;
-          min-height: 100%;
-          grid-template-columns: 1fr;
-          gap: 2rem;
-          overflow-y: scroll;
-          scrollbar-width: thin;
-          scrollbar-color: rgba(255, 255, 255, 0.1) rgba(0, 0, 0, 0.1);
-        }
-        
-        .mega-menu-showcase,
-        .mega-menu-right-sidebar {
-          margin-top: 2rem;
-        }
-        
-        .mega-menu-categories {
-          grid-template-columns: 1fr;
-        }
       }
       
       .mega-menu-item {
@@ -1549,19 +1409,23 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
       }
       
       @media (max-width: 1024px) {
-        .appinventiv-layout {
+        .appinventiv-layout,
+        .standard-mega-menu-layout {
+          height: auto;
+          min-height: 100%;
           grid-template-columns: 1fr;
           gap: 2rem;
-          padding: 1.5rem;
+          overflow-y: scroll;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255, 255, 255, 0.1) rgba(0, 0, 0, 0.1);
         }
         
-        .mega-menu-content {
-          grid-template-columns: 1fr;
-          gap: 1.5rem;
-          padding: 1.5rem;
+        .mega-menu-showcase,
+        .mega-menu-right-sidebar {
+          margin-top: 2rem;
         }
         
-        .mega-menu-articles {
+        .mega-menu-categories {
           grid-template-columns: 1fr;
         }
       }
@@ -1735,7 +1599,6 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         >
           {(() => {
             const content = megaMenuContent[megaMenuOpen as keyof typeof megaMenuContent];
-            // Use AppInventiv style for "Let's Talk AI", standard style for others
             return megaMenuOpen === "Let's Talk AI" 
               ? renderAppInventivMegaMenu(content)
               : renderStandardMegaMenu(content);
@@ -1765,7 +1628,6 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
         const id = hash.substring(1);
         const element = document.getElementById(id);
         if (element) {
-          // Small delay to ensure the page is fully rendered
           setTimeout(() => {
             element.scrollIntoView({ behavior: 'smooth' });
           }, 100);
@@ -1901,7 +1763,7 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
             viewBox="0 0 24 24"
             strokeWidth={2.5}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6 M6 6L18 18" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18-6 M6 6L18 18" />
           </svg>
         </button>
         
