@@ -72,11 +72,6 @@ const items = [
 
 const socialLinks = [
   {
-    platform: "GitHub",
-    href: "https://github.com/abdulahad-2",
-    iconPath: "/icons/github_icon.svg",
-  },
-  {
     platform: "LinkedIn",
     href: "https://www.linkedin.com/in/abdul-ahad-7908a82b4/",
     iconPath: "/icons/linkedin_icon.svg",
