@@ -345,86 +345,46 @@ export default function CaseStudies() {
     if (selectedCase) {
       document.addEventListener("keydown", handleEscape);
 
-      // Store current scroll position BEFORE locking
-      const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+      // Store current scroll position
+      const scrollY = window.scrollY;
       modalScrollYRef.current = scrollY;
 
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      
-      // Apply scroll lock styles
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.left = "0";
-      document.body.style.right = "0";
-      document.body.style.width = "100%";
-      document.body.style.overflow = "hidden";
-      
-      if (scrollbarWidth && scrollbarWidth > 0) {
-        document.body.style.paddingRight = `${scrollbarWidth}px`;
-      }
+      // Simply prevent scrolling without changing layout
+      document.body.style.overflow = 'hidden';
+      document.body.style.height = '100vh';
+      document.body.style.position = 'relative';
 
     } else {
       document.removeEventListener("keydown", handleEscape);
 
       const storedScrollY = modalScrollYRef.current ?? 0;
 
-      // Remove scroll lock styles FIRST
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.left = "";
-      document.body.style.right = "";
-      document.body.style.width = "";
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
+      // Restore styles
+      document.body.style.overflow = '';
+      document.body.style.height = '';
+      document.body.style.position = '';
 
-      // Use requestAnimationFrame for more reliable scroll restoration
-      if (restoreTimerRef.current) {
-        window.clearTimeout(restoreTimerRef.current);
-        restoreTimerRef.current = null;
-      }
-
-      restoreTimerRef.current = window.setTimeout(() => {
-        // Restore scroll position
+      // Restore scroll position and focus
+      requestAnimationFrame(() => {
         window.scrollTo(0, storedScrollY);
-        
-        // Force a reflow to ensure scroll position is applied
-        document.documentElement.scrollTop = storedScrollY;
-        document.body.scrollTop = storedScrollY;
-        
-        // Restore focus
         try {
           prevActiveElementRef.current?.focus?.();
         } catch {
           // ignore
         }
         prevActiveElementRef.current = null;
-        restoreTimerRef.current = null;
-      }, 16); // Reduced to 16ms (one frame)
+      });
       
       modalScrollYRef.current = null;
+      restoreTimerRef.current = null;
     }
 
     return () => {
       document.removeEventListener("keydown", handleEscape);
-      
-      // Cleanup function to ensure styles are reset
-      if (!selectedCase) {
-        document.body.style.position = "";
-        document.body.style.top = "";
-        document.body.style.left = "";
-        document.body.style.right = "";
-        document.body.style.width = "";
-        document.body.style.overflow = "";
-        document.body.style.paddingRight = "";
-        
-        if (restoreTimerRef.current) {
-          window.clearTimeout(restoreTimerRef.current);
-          restoreTimerRef.current = null;
-        }
-        
-        prevActiveElementRef.current = null;
-        modalScrollYRef.current = null;
-      }
+      // Ensure cleanup
+      document.body.style.overflow = '';
+      document.body.style.height = '';
+      document.body.style.position = '';
     };
   }, [selectedCase]);
 
