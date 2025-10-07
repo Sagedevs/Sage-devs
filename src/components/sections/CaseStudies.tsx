@@ -101,35 +101,25 @@ const caseStudies: CaseStudy[] = [
 // Modal Component
 // ----------------------
 const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => void }) => {
-  const modalRef = useRef<HTMLDivElement | null>(null);
-  const contentRef = useRef<HTMLDivElement | null>(null);
+  const backdropRef = useRef<HTMLDivElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const innerScrollRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!modalRef.current || !contentRef.current) return;
+    if (!backdropRef.current || !innerScrollRef.current) return;
 
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        modalRef.current,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.28, ease: "power2.out" }
-      );
+      gsap.fromTo(backdropRef.current, { opacity: 0 }, { opacity: 1, duration: 0.28, ease: "power2.out" });
+      gsap.fromTo(innerScrollRef.current, { y: 18, opacity: 0, scale: 0.98 }, { y: 0, opacity: 1, scale: 1, duration: 0.36, ease: "power2.out", delay: 0.06 });
+    }, backdropRef);
 
-      gsap.fromTo(
-        contentRef.current,
-        { scale: 0.96, opacity: 0, y: 18 },
-        { scale: 1, opacity: 1, y: 0, duration: 0.36, ease: "power2.out", delay: 0.06 }
-      );
-    }, modalRef);
+    // focus the inner scroll container for keyboard wheel support
+    innerScrollRef.current.setAttribute("tabindex", "-1");
+    innerScrollRef.current.focus();
 
-    // Focus the panel so keyboard scrolling works
-    const contentEl = contentRef.current;
-    contentEl.setAttribute("tabindex", "-1");
-    contentEl.focus();
-
-    // Wheel forwarding to keep scroll inside modal and prevent background scroll jitter
     const onWheel = (e: WheelEvent) => {
-      if (!contentRef.current) return;
-      const el = contentRef.current;
+      if (!innerScrollRef.current) return;
+      const el = innerScrollRef.current;
       const delta = e.deltaY;
       const canScrollUp = el.scrollTop > 0;
       const canScrollDown = el.scrollTop + el.clientHeight < el.scrollHeight;
@@ -138,88 +128,83 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
         el.scrollTop += delta;
         e.preventDefault();
       } else {
-        // stop background scroll
         e.preventDefault();
       }
     };
 
-    modalRef.current.addEventListener("wheel", onWheel, { passive: false });
+    backdropRef.current.addEventListener("wheel", onWheel, { passive: false });
 
     return () => {
       ctx.revert();
-      if (modalRef.current) modalRef.current.removeEventListener("wheel", onWheel as any);
+      if (backdropRef.current) backdropRef.current.removeEventListener("wheel", onWheel as any);
     };
   }, []);
 
-  const handleCloseClick = (e: React.MouseEvent) => {
+  // robust outside click close: check if click happened outside wrapper
+  const handleBackdropClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    onClose();
-  };
-
-  const handleBackdropClick = (e: React.MouseEvent) => {
-    // only close if clicked on backdrop itself
-    if (e.target === e.currentTarget) {
+    const target = e.target as Node;
+    if (!wrapperRef.current) {
+      if (e.target === e.currentTarget) onClose();
+      return;
+    }
+    if (!wrapperRef.current.contains(target)) {
       onClose();
     }
   };
 
   return (
     <div
-      ref={modalRef}
-      className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md"
-      style={{
-        paddingTop: "80px",
-        paddingBottom: "20px",
-        overflow: "hidden",
-        WebkitOverflowScrolling: "auto",
-      }}
+      ref={backdropRef}
+      className="fixed inset-0 z-[99999] bg-black/90 backdrop-blur-md flex items-start justify-center px-4"
+      style={{ paddingTop: 88, paddingBottom: 20, overflow: "hidden", WebkitOverflowScrolling: "auto" }} // 88px top to sit below header; change if your header height differs
       onClick={handleBackdropClick}
       role="dialog"
       aria-modal="true"
     >
-      <div className="min-h-full flex items-start justify-center px-4">
+      {/* wrapper: absolute X will not affect inner scroll container layout */}
+      <div ref={wrapperRef} className="relative w-full max-w-3xl mb-4">
+        {/* absolute close button; no layout shift */}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onClose();
+          }}
+          aria-label="Close modal"
+          className="absolute -translate-y-1/2 top-4 right-4 z-50 w-9 h-9 md:w-10 md:h-10 rounded-full bg-slate-800/90 text-gray-300 hover:text-white hover:bg-red-600/90 border-none shadow-lg flex items-center justify-center focus:outline-none focus:ring-0"
+          style={{ border: "none" }}
+        >
+          <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        {/* inner scrollable modal content */}
         <div
-          ref={contentRef}
-          className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-sm rounded-2xl w-full max-w-3xl relative shadow-2xl flex flex-col outline-none"
+          ref={innerScrollRef}
+          className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-sm rounded-2xl relative shadow-2xl flex flex-col overflow-auto ring-0 outline-none"
           style={{
             maxHeight: "85vh",
             minHeight: "400px",
-            overflow: "auto",
             WebkitOverflowScrolling: "touch",
             overscrollBehavior: "contain",
             touchAction: "pan-y",
+            border: "none",
+            outline: "none",
+            boxShadow: "0 6px 30px rgba(2,6,23,0.6)",
+            backgroundClip: "padding-box", // avoid any border bleed
           }}
           onClick={(e) => e.stopPropagation()}
           tabIndex={-1}
         >
-          {/* Sticky close button inside the scrollable content so it stays visible */}
-          <div className="sticky top-4 z-50 pointer-events-auto flex justify-end pr-4">
-            <button
-              className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-800/90 backdrop-blur-sm text-gray-300 hover:text-white hover:bg-red-600/90 transition-all duration-300 flex items-center justify-center border border-slate-600/50 shadow-lg focus:outline-none focus:ring-0"
-              onClick={handleCloseClick}
-              aria-label="Close modal"
-              type="button"
-            >
-              <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-
           {/* Hero */}
           <div className="flex-shrink-0">
             <div className="relative">
-              <div className="aspect-video overflow-hidden relative">
-                <Image
-                  src={caseStudy.image}
-                  alt={caseStudy.title}
-                  width={900}
-                  height={500}
-                  priority={true}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/30 to-transparent pointer-events-none" />
+              <div className="aspect-video overflow-hidden relative rounded-t-2xl">
+                <Image src={caseStudy.image} alt={caseStudy.title} width={1400} height={720} priority className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/30 to-transparent pointer-events-none rounded-t-2xl" />
               </div>
 
               <div className="absolute inset-0 flex flex-col justify-end p-5 pointer-events-auto">
@@ -326,12 +311,13 @@ export default function CaseStudies() {
   const [selectedCase, setSelectedCase] = useState<CaseStudy | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const headerRef = useRef<HTMLDivElement | null>(null);
   const cardsRef = useRef<HTMLDivElement | null>(null);
   const ctaRef = useRef<HTMLDivElement | null>(null);
 
-  // store page Y when modal opens
+  // store page Y when modal opens & prev focused element
   const modalScrollYRef = useRef<number | null>(null);
+  const prevActiveElementRef = useRef<HTMLElement | null>(null);
+  const restoreTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -340,6 +326,13 @@ export default function CaseStudies() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  // open modal helper: store activeElement before opening
+  const openModal = (study: CaseStudy) => {
+    prevActiveElementRef.current = (document.activeElement as HTMLElement) ?? null;
+    setSelectedCase(study);
+  };
+
+  // scroll lock with reliable restore & focus restore
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") setSelectedCase(null);
@@ -356,6 +349,7 @@ export default function CaseStudies() {
         document.body.style.paddingRight = `${scrollbarWidth}px`;
       }
 
+      // freeze background
       document.body.style.position = "fixed";
       document.body.style.top = `-${scrollY}px`;
       document.body.style.left = "0";
@@ -366,6 +360,8 @@ export default function CaseStudies() {
       document.removeEventListener("keydown", handleEscape);
 
       const stored = modalScrollYRef.current ?? 0;
+
+      // remove fixed styles first
       document.body.style.position = "";
       document.body.style.top = "";
       document.body.style.left = "";
@@ -374,7 +370,24 @@ export default function CaseStudies() {
       document.body.style.overflow = "";
       document.body.style.paddingRight = "";
 
-      window.scrollTo(0, stored);
+      // micro-delay restore to avoid race
+      if (restoreTimerRef.current) {
+        window.clearTimeout(restoreTimerRef.current);
+        restoreTimerRef.current = null;
+      }
+
+      restoreTimerRef.current = window.setTimeout(() => {
+        window.scrollTo(0, stored);
+        // restore focus to previously focused element (help prevent jumps)
+        try {
+          prevActiveElementRef.current?.focus?.();
+        } catch (err) {
+          // ignore
+        }
+        prevActiveElementRef.current = null;
+        restoreTimerRef.current = null;
+      }, 40); // 40ms - increase if you still see jumping
+
       modalScrollYRef.current = null;
     }
 
@@ -387,6 +400,11 @@ export default function CaseStudies() {
       document.body.style.width = "";
       document.body.style.overflow = "";
       document.body.style.paddingRight = "";
+      if (restoreTimerRef.current) {
+        window.clearTimeout(restoreTimerRef.current);
+        restoreTimerRef.current = null;
+      }
+      prevActiveElementRef.current = null;
       modalScrollYRef.current = null;
     };
   }, [selectedCase]);
@@ -440,7 +458,7 @@ export default function CaseStudies() {
         <div className="absolute bottom-0 right-1/4 w-48 h-48 sm:w-80 sm:h-80 bg-indigo-500/5 rounded-full blur-3xl" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 relative z-10">
-          <div ref={headerRef} className="text-center mb-10 sm:mb-12 md:mb-16">
+          <div className="text-center mb-10 sm:mb-12 md:mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4">
               Featured{" "}
               <span className="bg-gradient-to-r from-blue-400 via-blue-300 to-indigo-400 bg-clip-text text-transparent">
@@ -457,16 +475,10 @@ export default function CaseStudies() {
               <div
                 key={study.id}
                 className="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-slate-900/80 to-slate-800/60 backdrop-blur-sm border border-slate-700/50 hover:border-blue-500/50 transition-all duration-500 cursor-pointer active:scale-95"
-                onClick={() => setSelectedCase(study)}
+                onClick={() => openModal(study)}
               >
                 <div className="aspect-video overflow-hidden relative">
-                  <Image
-                    src={study.image}
-                    alt={study.title}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
+                  <Image src={study.image} alt={study.title} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover group-hover:scale-110 transition-transform duration-700" />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent pointer-events-none" />
 
                   <div className="absolute inset-0 bg-gradient-to-t from-blue-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
@@ -500,10 +512,7 @@ export default function CaseStudies() {
           </div>
 
           <div ref={ctaRef} className="text-center mt-8 sm:mt-10 md:mt-12">
-            <a
-              href="/case-studies"
-              className="inline-block px-6 py-2.5 sm:px-8 sm:py-3 text-base sm:text-lg font-semibold text-white bg-blue-600 rounded-xl shadow-md hover:bg-blue-700 hover:shadow-lg hover:-translate-y-1 active:translate-y-0 transition-all duration-300"
-            >
+            <a href="/case-studies" className="inline-block px-6 py-2.5 sm:px-8 sm:py-3 text-base sm:text-lg font-semibold text-white bg-blue-600 rounded-xl shadow-md hover:bg-blue-700 hover:shadow-lg hover:-translate-y-1 active:translate-y-0 transition-all duration-300">
               View All Case Studies
             </a>
           </div>
