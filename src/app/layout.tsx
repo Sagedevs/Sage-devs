@@ -73,7 +73,7 @@ const items = [
 const socialLinks = [
   {
     platform: "LinkedIn",
-    href: "https://www.linkedin.com/in/abdul-ahad-7908a82b4/",
+    href: "https://www.linkedin.com/company/sagedevs/",
     iconPath: "/icons/linkedin_icon.svg",
   },
   {
@@ -254,7 +254,7 @@ export default function RootLayout({
               },
               "sameAs": [
                 "https://github.com/abdulahad-2",
-                "https://www.linkedin.com/in/abdul-ahad-7908a82b4/",
+                "https://www.linkedin.com/company/sagedevs/",
                 "https://x.com/Abdul_Ahadt1"
               ]
             })

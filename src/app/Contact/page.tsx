@@ -20,12 +20,7 @@ import Squares from "@/blocks/Backgrounds/Squares/Squares";
 
 const socialLinks = [
   {
-    platform: "GitHub",
-    href: "https://github.com/abdulahad-2",
-    iconPath: "/icons/github_icon.svg",
-  },
-  {
-    href: "https://www.linkedin.com/in/abdul-ahad-7908a82b4/",
+    href: "https://www.linkedin.com/company/sagedevs/",
     iconPath: "/icons/linkedin_icon.svg",
   },
   {

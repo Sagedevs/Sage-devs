@@ -100,15 +100,10 @@ const Footer = () => {
   ], []);
 
   const socialLinks: SocialLink[] = useMemo(() => [
-    {
-      platform: "GitHub",
-      href: "https://github.com/sage-devs",
-      iconPath: "/icons/github_icon.svg",
-      label: "GitHub"
-    },
+    
     {
       platform: "LinkedIn",
-      href: "https://linkedin.com/company/sage-devs",
+      href: "https://www.linkedin.com/company/sagedevs/",
       iconPath: "/icons/linkedin_icon.svg",
       label: "LinkedIn"
     },
