@@ -396,7 +396,7 @@ const AgencyCaseStudyHero = () => {
           
           {/* Professional CTA Section */}
           <div className={`flex flex-col items-center space-y-8 transition-all duration-1000 delay-1000 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-          <Link href="/contact" passHref>
+          <Link href="/Contact" passHref>
     <a className="group relative px-12 py-4 border-2 border-blue-400/40 text-white font-semibold text-lg rounded-xl backdrop-blur-xl transition-all duration-500 hover:border-blue-400/60 hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-indigo-500/10 hover:scale-105 overflow-hidden">
       <span className="relative z-10 flex items-center">
         <svg
