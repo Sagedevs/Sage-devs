@@ -107,7 +107,6 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
   useEffect(() => {
     if (!modalRef.current || !contentRef.current) return;
 
-    // GSAP open animations
     const ctx = gsap.context(() => {
       gsap.fromTo(
         modalRef.current,
@@ -122,18 +121,16 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
       );
     }, modalRef);
 
-    // Focus the scrollable panel so keyboard scroll works
+    // Focus the panel so keyboard scrolling works
     const contentEl = contentRef.current;
     contentEl.setAttribute("tabindex", "-1");
     contentEl.focus();
 
-    // Wheel/trackpad forwarding
+    // Wheel forwarding to keep scroll inside modal and prevent background scroll jitter
     const onWheel = (e: WheelEvent) => {
       if (!contentRef.current) return;
-
       const el = contentRef.current;
       const delta = e.deltaY;
-
       const canScrollUp = el.scrollTop > 0;
       const canScrollDown = el.scrollTop + el.clientHeight < el.scrollHeight;
 
@@ -141,6 +138,7 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
         el.scrollTop += delta;
         e.preventDefault();
       } else {
+        // stop background scroll
         e.preventDefault();
       }
     };
@@ -160,8 +158,7 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
   };
 
   const handleBackdropClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+    // only close if clicked on backdrop itself
     if (e.target === e.currentTarget) {
       onClose();
     }
@@ -184,7 +181,7 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
       <div className="min-h-full flex items-start justify-center px-4">
         <div
           ref={contentRef}
-          className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-sm rounded-2xl w-full max-w-3xl relative shadow-2xl flex flex-col"
+          className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-sm rounded-2xl w-full max-w-3xl relative shadow-2xl flex flex-col outline-none"
           style={{
             maxHeight: "85vh",
             minHeight: "400px",
@@ -196,10 +193,10 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
           onClick={(e) => e.stopPropagation()}
           tabIndex={-1}
         >
-          {/* Close Button - Absolute positioned over image */}
-          <div className="absolute top-4 right-4 z-50">
+          {/* Sticky close button inside the scrollable content so it stays visible */}
+          <div className="sticky top-4 z-50 pointer-events-auto flex justify-end pr-4">
             <button
-              className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-800/90 backdrop-blur-sm text-gray-300 hover:text-white hover:bg-red-600/90 transition-all duration-300 flex items-center justify-center border border-slate-600/50 shadow-lg"
+              className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-800/90 backdrop-blur-sm text-gray-300 hover:text-white hover:bg-red-600/90 transition-all duration-300 flex items-center justify-center border border-slate-600/50 shadow-lg focus:outline-none focus:ring-0"
               onClick={handleCloseClick}
               aria-label="Close modal"
               type="button"
@@ -333,6 +330,9 @@ export default function CaseStudies() {
   const cardsRef = useRef<HTMLDivElement | null>(null);
   const ctaRef = useRef<HTMLDivElement | null>(null);
 
+  // store page Y when modal opens
+  const modalScrollYRef = useRef<number | null>(null);
+
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -340,7 +340,6 @@ export default function CaseStudies() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Body scroll lock when modal opens
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") setSelectedCase(null);
@@ -350,6 +349,7 @@ export default function CaseStudies() {
       document.addEventListener("keydown", handleEscape);
 
       const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+      modalScrollYRef.current = scrollY;
 
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       if (scrollbarWidth && scrollbarWidth > 0) {
@@ -362,32 +362,20 @@ export default function CaseStudies() {
       document.body.style.right = "0";
       document.body.style.width = "100%";
       document.body.style.overflow = "hidden";
-
-      document.body.setAttribute("data-modal-scroll-y", String(scrollY));
     } else {
       document.removeEventListener("keydown", handleEscape);
 
-      const stored = document.body.getAttribute("data-modal-scroll-y");
-      if (stored) {
-        const scrollY = parseInt(stored, 10) || 0;
-        document.body.style.position = "";
-        document.body.style.top = "";
-        document.body.style.left = "";
-        document.body.style.right = "";
-        document.body.style.width = "";
-        document.body.style.overflow = "";
-        document.body.style.paddingRight = "";
-        document.body.removeAttribute("data-modal-scroll-y");
-        window.scrollTo(0, scrollY);
-      } else {
-        document.body.style.position = "";
-        document.body.style.top = "";
-        document.body.style.left = "";
-        document.body.style.right = "";
-        document.body.style.width = "";
-        document.body.style.overflow = "";
-        document.body.style.paddingRight = "";
-      }
+      const stored = modalScrollYRef.current ?? 0;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.width = "";
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+
+      window.scrollTo(0, stored);
+      modalScrollYRef.current = null;
     }
 
     return () => {
@@ -399,11 +387,11 @@ export default function CaseStudies() {
       document.body.style.width = "";
       document.body.style.overflow = "";
       document.body.style.paddingRight = "";
-      document.body.removeAttribute("data-modal-scroll-y");
+      modalScrollYRef.current = null;
     };
   }, [selectedCase]);
 
-  // GSAP scroll animations
+  // GSAP animations for cards + CTA
   useEffect(() => {
     if (!sectionRef.current) return;
 
