@@ -106,20 +106,26 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
   const innerScrollRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!backdropRef.current || !innerScrollRef.current) return;
+    // capture refs into local vars so cleanup can remove listeners from the same nodes
+    const backdropEl = backdropRef.current;
+    const innerEl = innerScrollRef.current;
+
+    if (!backdropEl || !innerEl) return;
 
     const ctx = gsap.context(() => {
-      gsap.fromTo(backdropRef.current, { opacity: 0 }, { opacity: 1, duration: 0.28, ease: "power2.out" });
-      gsap.fromTo(innerScrollRef.current, { y: 18, opacity: 0, scale: 0.98 }, { y: 0, opacity: 1, scale: 1, duration: 0.36, ease: "power2.out", delay: 0.06 });
-    }, backdropRef);
+      gsap.fromTo(backdropEl, { opacity: 0 }, { opacity: 1, duration: 0.28, ease: "power2.out" });
+      gsap.fromTo(innerEl, { y: 18, opacity: 0, scale: 0.98 }, { y: 0, opacity: 1, scale: 1, duration: 0.36, ease: "power2.out", delay: 0.06 });
+    }, backdropEl);
 
-    // focus the inner scroll container for keyboard wheel support
-    innerScrollRef.current.setAttribute("tabindex", "-1");
-    innerScrollRef.current.focus();
+    // focus the inner scroll container so keyboard/wheel works
+    innerEl.setAttribute("tabindex", "-1");
+    innerEl.focus();
 
+    // wheel handling: keep scroll inside modal, prevent page behind from scrolling
     const onWheel = (e: WheelEvent) => {
-      if (!innerScrollRef.current) return;
-      const el = innerScrollRef.current;
+      // innerEl is captured above
+      const el = innerEl;
+      if (!el) return;
       const delta = e.deltaY;
       const canScrollUp = el.scrollTop > 0;
       const canScrollDown = el.scrollTop + el.clientHeight < el.scrollHeight;
@@ -132,15 +138,16 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
       }
     };
 
-    backdropRef.current.addEventListener("wheel", onWheel, { passive: false });
+    backdropEl.addEventListener("wheel", onWheel, { passive: false });
 
     return () => {
       ctx.revert();
-      if (backdropRef.current) backdropRef.current.removeEventListener("wheel", onWheel as any);
+      // remove listener from the same captured element
+      backdropEl.removeEventListener("wheel", onWheel as EventListener);
     };
   }, []);
 
-  // robust outside click close: check if click happened outside wrapper
+  // robust outside click close
   const handleBackdropClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -158,14 +165,12 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
     <div
       ref={backdropRef}
       className="fixed inset-0 z-[99999] bg-black/90 backdrop-blur-md flex items-start justify-center px-4"
-      style={{ paddingTop: 88, paddingBottom: 20, overflow: "hidden", WebkitOverflowScrolling: "auto" }} // 88px top to sit below header; change if your header height differs
+      style={{ paddingTop: 88, paddingBottom: 20, overflow: "hidden", WebkitOverflowScrolling: "auto" }}
       onClick={handleBackdropClick}
       role="dialog"
       aria-modal="true"
     >
-      {/* wrapper: absolute X will not affect inner scroll container layout */}
       <div ref={wrapperRef} className="relative w-full max-w-3xl mb-4">
-        {/* absolute close button; no layout shift */}
         <button
           type="button"
           onClick={(e) => {
@@ -181,7 +186,6 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
           </svg>
         </button>
 
-        {/* inner scrollable modal content */}
         <div
           ref={innerScrollRef}
           className="bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-sm rounded-2xl relative shadow-2xl flex flex-col overflow-auto ring-0 outline-none"
@@ -194,7 +198,7 @@ const Modal = ({ caseStudy, onClose }: { caseStudy: CaseStudy; onClose: () => vo
             border: "none",
             outline: "none",
             boxShadow: "0 6px 30px rgba(2,6,23,0.6)",
-            backgroundClip: "padding-box", // avoid any border bleed
+            backgroundClip: "padding-box",
           }}
           onClick={(e) => e.stopPropagation()}
           tabIndex={-1}
@@ -381,7 +385,7 @@ export default function CaseStudies() {
         // restore focus to previously focused element (help prevent jumps)
         try {
           prevActiveElementRef.current?.focus?.();
-        } catch (err) {
+        } catch {
           // ignore
         }
         prevActiveElementRef.current = null;
