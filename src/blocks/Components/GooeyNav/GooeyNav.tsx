@@ -401,48 +401,28 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
     width: 0,
     height: 0,
   });
-
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const [megaMenuOpen, setMegaMenuOpen] = useState<string | null>(null);
   const router = useRouter();
 
-  // Improved background scroll prevention - preserves scrollbar space
+  // Simplified scroll lock - prevents layout shifts
   useEffect(() => {
     if (megaMenuOpen) {
-      // Store current scroll position and calculate scrollbar width
-      const scrollY = window.scrollY;
-      const scrollX = window.scrollX;
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      
-      // Add styles to prevent background scroll while preserving layout
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.left = `-${scrollX}px`;
-      document.body.style.right = '0';
+      // Simply prevent scrolling without changing layout
       document.body.style.overflow = 'hidden';
-      document.body.style.paddingRight = `${scrollbarWidth}px`; // Preserve scrollbar space
-      
-      return () => {
-        // Restore styles and scroll position
-        const scrollY = parseInt(document.body.style.top || '0', 10) * -1;
-        const scrollX = parseInt(document.body.style.left || '0', 10) * -1;
-        
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.left = '';
-        document.body.style.right = '';
-        document.body.style.overflow = '';
-        document.body.style.paddingRight = '';
-        
-        window.scrollTo(scrollX, scrollY);
-      };
+    } else {
+      document.body.style.overflow = '';
     }
+    
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [megaMenuOpen]);
 
   // Handle wheel events for the mega menu
   useEffect(() => {
+    if (!megaMenuRef.current || !megaMenuOpen) return;
     const megaMenuEl = megaMenuRef.current;
-    if (!megaMenuEl || !megaMenuOpen) return;
 
     const handleWheel = (e: WheelEvent) => {
       const delta = e.deltaY;
@@ -490,7 +470,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
     }
     const timeout = setTimeout(() => {
       setMegaMenuOpen(null);
-    }, 150); // Slightly increased for smoother transition
+    }, 200); // Increased delay for better hover experience
     setMegaMenuTimeout(timeout);
   }, [megaMenuTimeout]);
 
