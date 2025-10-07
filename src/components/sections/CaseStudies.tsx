@@ -345,27 +345,30 @@ export default function CaseStudies() {
     if (selectedCase) {
       document.addEventListener("keydown", handleEscape);
 
+      // Store current scroll position BEFORE locking
       const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
       modalScrollYRef.current = scrollY;
 
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      if (scrollbarWidth && scrollbarWidth > 0) {
-        document.body.style.paddingRight = `${scrollbarWidth}px`;
-      }
-
-      // freeze background
+      
+      // Apply scroll lock styles
       document.body.style.position = "fixed";
       document.body.style.top = `-${scrollY}px`;
       document.body.style.left = "0";
       document.body.style.right = "0";
       document.body.style.width = "100%";
       document.body.style.overflow = "hidden";
+      
+      if (scrollbarWidth && scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
+
     } else {
       document.removeEventListener("keydown", handleEscape);
 
-      const stored = modalScrollYRef.current ?? 0;
+      const storedScrollY = modalScrollYRef.current ?? 0;
 
-      // remove fixed styles first
+      // Remove scroll lock styles FIRST
       document.body.style.position = "";
       document.body.style.top = "";
       document.body.style.left = "";
@@ -374,15 +377,21 @@ export default function CaseStudies() {
       document.body.style.overflow = "";
       document.body.style.paddingRight = "";
 
-      // micro-delay restore to avoid race
+      // Use requestAnimationFrame for more reliable scroll restoration
       if (restoreTimerRef.current) {
         window.clearTimeout(restoreTimerRef.current);
         restoreTimerRef.current = null;
       }
 
       restoreTimerRef.current = window.setTimeout(() => {
-        window.scrollTo(0, stored);
-        // restore focus to previously focused element (help prevent jumps)
+        // Restore scroll position
+        window.scrollTo(0, storedScrollY);
+        
+        // Force a reflow to ensure scroll position is applied
+        document.documentElement.scrollTop = storedScrollY;
+        document.body.scrollTop = storedScrollY;
+        
+        // Restore focus
         try {
           prevActiveElementRef.current?.focus?.();
         } catch {
@@ -390,26 +399,32 @@ export default function CaseStudies() {
         }
         prevActiveElementRef.current = null;
         restoreTimerRef.current = null;
-      }, 40); // 40ms - increase if you still see jumping
-
+      }, 16); // Reduced to 16ms (one frame)
+      
       modalScrollYRef.current = null;
     }
 
     return () => {
       document.removeEventListener("keydown", handleEscape);
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.left = "";
-      document.body.style.right = "";
-      document.body.style.width = "";
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-      if (restoreTimerRef.current) {
-        window.clearTimeout(restoreTimerRef.current);
-        restoreTimerRef.current = null;
+      
+      // Cleanup function to ensure styles are reset
+      if (!selectedCase) {
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.left = "";
+        document.body.style.right = "";
+        document.body.style.width = "";
+        document.body.style.overflow = "";
+        document.body.style.paddingRight = "";
+        
+        if (restoreTimerRef.current) {
+          window.clearTimeout(restoreTimerRef.current);
+          restoreTimerRef.current = null;
+        }
+        
+        prevActiveElementRef.current = null;
+        modalScrollYRef.current = null;
       }
-      prevActiveElementRef.current = null;
-      modalScrollYRef.current = null;
     };
   }, [selectedCase]);
 

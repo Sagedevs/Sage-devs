@@ -510,6 +510,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   const [megaMenuTimeout, setMegaMenuTimeout] = useState<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLUListElement>(null);
+  const megaMenuRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState<number>(initialActiveIndex);
   const [filterPosition, setFilterPosition] = useState({
     left: 0,
@@ -520,8 +521,59 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
 
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const [megaMenuOpen, setMegaMenuOpen] = useState<string | null>(null);
-
   const router = useRouter();
+
+  // Prevent background scroll when mega menu is open
+  useEffect(() => {
+    if (megaMenuOpen) {
+      // Store current scroll position
+      const scrollY = window.scrollY;
+      const scrollX = window.scrollX;
+      
+      // Add styles to prevent background scroll
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = `-${scrollX}px`;
+      document.body.style.right = '0';
+      document.body.style.overflow = 'hidden';
+      
+      return () => {
+        // Restore styles and scroll position
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.overflow = '';
+        window.scrollTo(scrollX, scrollY);
+      };
+    }
+  }, [megaMenuOpen]);
+
+  // Handle wheel events for the mega menu
+  useEffect(() => {
+    const megaMenuEl = megaMenuRef.current;
+    if (!megaMenuEl || !megaMenuOpen) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      const delta = e.deltaY;
+      const canScrollUp = megaMenuEl.scrollTop > 0;
+      const canScrollDown = megaMenuEl.scrollTop + megaMenuEl.clientHeight < megaMenuEl.scrollHeight - 1;
+
+      if ((delta > 0 && canScrollDown) || (delta < 0 && canScrollUp)) {
+        megaMenuEl.scrollTop += delta;
+        e.preventDefault();
+        e.stopPropagation();
+      } else {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+
+    megaMenuEl.addEventListener("wheel", handleWheel, { passive: false });
+    return () => {
+      megaMenuEl.removeEventListener("wheel", handleWheel as EventListener);
+    };
+  }, [megaMenuOpen]);
 
   // Close mega menu function
   const closeMegaMenu = useCallback((e: React.MouseEvent) => {
@@ -977,14 +1029,16 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         pointer-events: none;
         max-height: 60vh;
         overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        overflow-y: auto;
       }
       
       .mega-menu.open {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate(-215px, 10px);
         pointer-events: auto;
         width: 77rem;
-        transform: translate(-215px, 10px);
         border-radius: 20px;
         box-shadow: 2px 2px 10px #fff;
       }
@@ -1428,14 +1482,17 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-      }
-      
       /* Responsive Adjustments */
       @media (max-width: 1024px) {
         .appinventiv-layout,
         .standard-mega-menu-layout {
+          height: auto;
+          min-height: 100%;
           grid-template-columns: 1fr;
           gap: 2rem;
+          overflow-y: scroll;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255, 255, 255, 0.1) rgba(0, 0, 0, 0.1);
         }
         
         .mega-menu-showcase,
@@ -1660,6 +1717,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
       {/* Enhanced Mega Menu Overlay */}
       {megaMenuOpen && megaMenuContent[megaMenuOpen as keyof typeof megaMenuContent] && (
         <div 
+          ref={megaMenuRef}
           className={`mega-menu ${megaMenuOpen ? 'open' : ''} hidden lg:block`}
           onMouseEnter={() => {
             if (megaMenuTimeout) {
@@ -1668,6 +1726,12 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
             }
           }}
           onMouseLeave={closeMegaMenu}
+          style={{
+            WebkitOverflowScrolling: 'touch',
+            overscrollBehavior: 'contain',
+            touchAction: 'pan-y',
+          }}
+          tabIndex={-1}
         >
           {(() => {
             const content = megaMenuContent[megaMenuOpen as keyof typeof megaMenuContent];
@@ -1732,7 +1796,11 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
   }, []);
 
   // Base classes that don't change based on state - CONSISTENT FOR SSR
-  const headerClasses = `fixed top-0 left-0 right-0 z-[9999] transition-all duration-200 bg-transparent`;
+  const headerClasses = `fixed top-0 left-0 right-0 z-[9999] transition-all duration-200 ${
+    scrolled || mobileMenuOpen
+      ? "bg-gradient-to-r from-slate-900/95 via-blue-900/90 to-slate-900/95 backdrop-blur-xl border-b border-white/10"
+      : "bg-transparent"
+  }`;
 
   const activeIndex = useMemo(() => {
     const index = items.findIndex((item) => {
