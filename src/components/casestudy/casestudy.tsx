@@ -618,11 +618,7 @@ export default function CaseStudies() {
             ))}
           </div>
 
-          <div ref={ctaRef} className="text-center mt-8 sm:mt-10 md:mt-12">
-            <a href="/case-studies" className="inline-block px-6 py-2.5 sm:px-8 sm:py-3 text-base sm:text-lg font-semibold text-white bg-blue-600 rounded-xl shadow-md hover:bg-blue-700 hover:shadow-lg hover:-translate-y-1 active:translate-y-0 transition-all duration-300">
-              View All Case Studies
-            </a>
-          </div>
+      
         </div>
       </section>
 
