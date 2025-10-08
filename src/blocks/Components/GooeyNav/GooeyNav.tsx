@@ -1751,14 +1751,14 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
                 )}
               </svg>
             </button>
-          </div>
         </div>
+      </div>
       </div>
 
       {/* Enhanced Mobile Overlay Menu */}
       <div
         ref={mobileMenuRef}
-        className={`lg:hidden fixed inset-0 bg-gradient-to-br from-slate-900/98 via-blue-900/95 to-slate-900/98 backdrop-blur-lg z-[9999] transition-all duration-300 ${
+        className={`lg:hidden fixed inset-0 bg-gradient-to-br from-slate-900/98 via-blue-900/95 to-slate-900/98 backdrop-blur-xl z-[9999] transition-all duration-300 ${
           mobileMenuOpen
             ? "opacity-100 pointer-events-auto translate-x-0"
             : "opacity-0 pointer-events-none translate-x-full"
@@ -1768,7 +1768,7 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
         <button
           onClick={closeMobileMenu}
           className="absolute top-6 right-6 z-[10001] p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-200 shadow-lg"
-          aria-label="Close mobile menu"
+          aria-label="Close menu"
         >
           <svg
             className="h-6 w-6"
@@ -1781,15 +1781,15 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
           </svg>
         </button>
         
-        <div className="h-full overflow-y-auto pt-24 pb-12 px-6">
+        <div className="h-auto pt-28 pb-12 px-6" style={{ paddingTop: '7rem' }}>
           {/* Mobile Menu Content */}
-          <div className="space-y-6 max-w-xl mx-auto">
+          <div className="space-y-2 max-w-xl mx-auto bg-gradient-to-r from-slate-900/95 via-blue-900/90 to-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
             {/* Home Link */}
             <div>
               <Link 
                 href="/" 
                 onClick={closeMobileMenu}
-                className="text-white text-2xl font-semibold hover:text-cyan-300 transition-colors block py-2"
+                className="text-white text-2xl font-semibold hover:text-cyan-300 transition-colors block py-3 px-4 rounded-lg hover:bg-white/5"
               >
                 Home
               </Link>
@@ -1798,9 +1798,10 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
             {/* Dynamic Menu Items */}
             {items.map((item) => {
               if (item.label === "Home") return null;
-
-              const hasChildren = (item.children && item.children.length > 0) || megaMenuContent[item.label as keyof typeof megaMenuContent];
-              const isDropdownOpen = openMobileDropdowns[item.label];
+              
+              const hasChildren = (item.children && item.children.length > 0) || 
+                (megaMenuContent[item.label as keyof typeof megaMenuContent] !== undefined);
+              const isDropdownOpen = openMobileDropdowns[item.label] || false;
 
               // Handle CTA items separately
               if (item.cta || item.label === "Let's Talk AI" || item.label === "Contact") {
@@ -1809,7 +1810,7 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
                     <Link 
                       href={item.href || "#"} 
                       onClick={closeMobileMenu}
-                      className="text-white text-2xl font-semibold hover:text-cyan-300 transition-colors block py-2"
+                      className="text-white text-2xl font-semibold hover:text-cyan-300 transition-colors block py-3 px-4 rounded-lg hover:bg-white/5"
                     >
                       {item.label}
                     </Link>
@@ -1824,7 +1825,7 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
                     <Link 
                       href={item.href || "#"} 
                       onClick={closeMobileMenu}
-                      className="text-white text-2xl font-semibold hover:text-cyan-300 transition-colors block py-2"
+                      className="text-white text-2xl font-semibold hover:text-cyan-300 transition-colors block py-3 px-4 rounded-lg hover:bg-white/5"
                     >
                       Pricing
                     </Link>
@@ -1840,12 +1841,12 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
                       <Link 
                         href={item.href}
                         onClick={() => handleMobileLinkClick(item.href!, Boolean(item.children?.length))}
-                        className="text-white text-2xl font-semibold hover:text-cyan-300 transition-colors flex-1 py-2"
+                        className="text-white text-2xl font-semibold hover:text-cyan-300 transition-colors flex-1 py-3 px-4 rounded-lg hover:bg-white/5"
                       >
                         {item.label}
                       </Link>
                     ) : (
-                      <span className="text-white text-2xl font-semibold flex-1 py-2">{item.label}</span>
+                      <span className="text-white text-2xl font-semibold flex-1 py-3 px-4">{item.label}</span>
                     )}
                     
                     {/* Dropdown toggle button - only show if has children */}
@@ -1938,7 +1939,7 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
             })}
             
             {/* Mobile CTA */}
-            <div className="pt-8 border-t border-gray-700 mt-8">
+            <div className="pt-6 mt-6">
               <Link
                 href="/Contact"
                 onClick={closeMobileMenu}
