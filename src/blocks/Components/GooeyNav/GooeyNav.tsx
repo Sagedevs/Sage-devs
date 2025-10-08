@@ -1598,7 +1598,6 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
 }) => {
   const pathname = usePathname();
   const [openMobileDropdowns, setOpenMobileDropdowns] = useState<{[key: string]: boolean}>({});
-  const handleNavigation = useHashNavigation();
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   // Handle hash on initial load and route changes
