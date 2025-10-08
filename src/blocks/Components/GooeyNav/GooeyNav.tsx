@@ -1,49 +1,8 @@
 "use client";
-
 import React, { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-
-// Utility function to handle hash-based navigation
-const useHashNavigation = () => {
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const handleNavigation = useCallback((href: string) => {
-    if (!href) return;
-    
-    // Extract the base path and hash
-    const [basePath, hash] = href.split('#');
-    const currentPath = pathname || '';
-    
-    // If it's a hash link on the same page
-    if (href.startsWith('#')) {
-      const element = document.getElementById(href.substring(1));
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    } 
-    // If it's a link to another page with a hash
-    else if (hash) {
-      if (basePath === currentPath || (basePath === '' && currentPath === '/')) {
-        // Same page, just scroll to the section
-        const element = document.getElementById(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      } else {
-        // Different page, navigate and then scroll
-        router.push(href);
-      }
-    } else {
-      // Regular navigation
-      router.push(href);
-    }
-  }, [router, pathname]);
-
-  return handleNavigation;
-};
 
 interface GooeyNavChildItem {
   label: string;
@@ -1596,35 +1555,10 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
   toggleMobileMenu,
   children,
 }) => {
-  const pathname = usePathname();
   const [openMobileDropdowns, setOpenMobileDropdowns] = useState<{[key: string]: boolean}>({});
   const mobileMenuRef = useRef<HTMLDivElement>(null);
-
-  // Handle hash on initial load and route changes
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash;
-      if (hash) {
-        const id = hash.substring(1);
-        const element = document.getElementById(id);
-        if (element) {
-          setTimeout(() => {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }, 100);
-        }
-      }
-    };
-
-    // Initial check
-    handleHashChange();
-
-    // Listen for hash changes
-    window.addEventListener('hashchange', handleHashChange);
-    
-    return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-    };
-  }, [pathname]);
+  const pathname = usePathname();
+  const router = useRouter();
 
   // Reset open dropdowns when mobile menu closes
   useEffect(() => {
@@ -1651,7 +1585,7 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
   }, [mobileMenuOpen, toggleMobileMenu]);
 
   const toggleMobileDropdown = useCallback((label: string) => {
-    setOpenMobileDropdowns(prev => ({ 
+    setOpenMobileDropdowns((prev: {[key: string]: boolean}) => ({ 
       ...prev, 
       [label]: !prev[label] 
     }));
@@ -1665,9 +1599,9 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
   const handleMobileLinkClick = useCallback((href: string, hasChildren: boolean = false) => {
     if (!hasChildren) {
       closeMobileMenu();
+      router.push(href);
     }
-    // Let the Link component handle navigation
-  }, [closeMobileMenu]);
+  }, [closeMobileMenu, router]);
 
   // Base classes that don't change based on state - CONSISTENT FOR SSR
   const headerClasses = `fixed top-0 left-0 right-0 z-[9999] transition-all duration-200 ${
@@ -1677,14 +1611,13 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
   }`;
 
   const activeIndex = useMemo(() => {
+    const currentPath = pathname || '';
     const index = items.findIndex((item) => {
       if (item.href) {
-        const currentPath = pathname || '';
         return item.href === "/" ? currentPath === "/" : currentPath.startsWith(item.href);
       }
-      if ((item as any).children) {
-        const currentPath = pathname || '';
-        return (item as any).children.some((c: any) => c.href && currentPath.startsWith(c.href));
+      if (item.children) {
+        return item.children.some((child) => child.href && currentPath.startsWith(child.href));
       }
       return false;
     });
