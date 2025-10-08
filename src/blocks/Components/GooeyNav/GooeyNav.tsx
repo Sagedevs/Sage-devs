@@ -863,6 +863,23 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
         box-shadow: 2px 2px 10px #fff;
       }
       
+      /* Mobile menu scroll improvements */
+      .mobile-menu-scroll {
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        overscroll-behavior: contain;
+      }
+
+      /* Hide scrollbar for mobile but keep functionality */
+      .mobile-menu-scroll::-webkit-scrollbar {
+        display: none;
+      }
+
+      .mobile-menu-scroll {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      
       /* Custom Scrollbar for Mega Menu */
       .mega-menu::-webkit-scrollbar {
         width: 5px;
@@ -1584,6 +1601,46 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
     };
   }, [mobileMenuOpen, toggleMobileMenu]);
 
+  // Prevent body scrolling when mobile menu is open - FIXED VERSION
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      // Store current scroll position
+      const scrollY = window.scrollY;
+      
+      // Apply styles to prevent scrolling
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+    } else {
+      // Restore scrolling
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      
+      // Restore scroll position
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      }
+    }
+    
+    return () => {
+      // Cleanup on unmount
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+    };
+  }, [mobileMenuOpen]);
+
   const toggleMobileDropdown = useCallback((label: string) => {
     setOpenMobileDropdowns((prev: {[key: string]: boolean}) => ({ 
       ...prev, 
@@ -1603,7 +1660,21 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
     }
   }, [closeMobileMenu, router]);
 
-  // Base classes that don't change based on state - CONSISTENT FOR SSR
+  // Get mega menu content for mobile
+  const getMobileMegaMenuContent = useCallback((label: string) => {
+    const content = megaMenuContent[label as keyof typeof megaMenuContent];
+    if (!content) return null;
+
+    return {
+      leftSidebar: content.leftSidebar,
+      categories: content.categories,
+      articles: content.articles,
+      cta: content.cta,
+      showcase: content.showcase
+    };
+  }, []);
+
+  // Base classes that don't change based on state
   const headerClasses = `fixed top-0 left-0 right-0 z-[9999] transition-all duration-200 ${
     scrolled || mobileMenuOpen
       ? "bg-gradient-to-r from-slate-900/95 via-blue-900/90 to-slate-900/95 backdrop-blur-xl border-b border-white/10"
@@ -1626,7 +1697,7 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
 
   return (
     <header className={headerClasses}>
-      {/* Client-side header background overlay with enhanced gradient */}
+      {/* Client-side header background overlay */}
       <div
         className={`absolute inset-0 transition-all duration-200 ${
           scrolled || mobileMenuOpen
@@ -1637,8 +1708,8 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex items-center justify-between h-20 lg:h-24 relative">
-          {/* Logo - moved to left */}
-          <div className="flex-shrink-0 z-[10000] ml-[-1rem] lg:ml-0 lg:-translate-x-10">
+          {/* Logo */}
+          <div className="flex-shrink-0 z-[10000] ml-4 lg:ml-0 lg:-translate-x-10">
             <Link href="/" className="block">
               {children}
             </Link>
@@ -1652,16 +1723,11 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
             />
           </div>
 
-          {/* CTA Button / Mobile Menu Toggle */}
+          {/* Mobile Menu Toggle */}
           <div className="flex items-center gap-3 relative z-[10001]">
-            {/* CTA Button for Desktop */}
-            <div className="hidden lg:block">
-              
-            </div>
-
             {/* Mobile Hamburger */}
             <button
-              className={`lg:hidden fixed top-6 right-4 z-[10002] p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all duration-200 ${
+              className={`lg:hidden absolute top-1/2 right-4 transform -translate-y-1/2 z-[10002] p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all duration-200 ${
                 mobileMenuOpen 
                   ? 'bg-black/30 backdrop-blur-sm border border-white/20 shadow-lg' 
                   : 'bg-transparent'
@@ -1683,164 +1749,117 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
                 )}
               </svg>
             </button>
+          </div>
         </div>
-      </div>
       </div>
 
       {/* Enhanced Mobile Overlay Menu */}
       <div
         ref={mobileMenuRef}
-        className={`lg:hidden fixed inset-0 bg-gradient-to-br from-slate-900/98 via-blue-900/95 to-slate-900/98 backdrop-blur-xl z-[9999] transition-all duration-300 ${
+        className={`lg:hidden fixed inset-0 z-[99999] transition-all duration-300 transform ${
           mobileMenuOpen
             ? "opacity-100 pointer-events-auto translate-x-0"
             : "opacity-0 pointer-events-none translate-x-full"
         }`}
+        style={{
+          width: '100vw',
+          height: '100vh',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+        }}
       >
-        {/* Dedicated close button inside menu */}
-        <button
-          onClick={closeMobileMenu}
-          className="absolute top-6 right-6 z-[10001] p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-200 shadow-lg"
-          aria-label="Close menu"
-        >
-          <svg
-            className="h-6 w-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            strokeWidth={2.5}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+        {/* Background Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/98 via-blue-900/95 to-slate-900/98 backdrop-blur-xl" />
         
-        <div className="h-auto pt-28 pb-12 px-6" style={{ paddingTop: '7rem' }}>
-          {/* Mobile Menu Content */}
-          <div className="space-y-2 max-w-xl mx-auto bg-gradient-to-r from-slate-900/95 via-blue-900/90 to-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
-            {/* Home Link */}
-            <div>
-              <Link 
-                href="/" 
-                onClick={closeMobileMenu}
-                className="text-white text-2xl font-semibold hover:text-cyan-300 transition-colors block py-3 px-4 rounded-lg hover:bg-white/5"
-              >
-                Home
-              </Link>
-            </div>
+        {/* Fixed Header with Logo and Close Button */}
+        <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-slate-900/95 via-blue-900/90 to-slate-900/95 backdrop-blur-xl border-b border-white/10 h-20 flex items-center justify-between px-6">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <Link href="/" onClick={closeMobileMenu} className="block">
+              {children}
+            </Link>
+          </div>
+          
+          {/* Close button - FIXED VISIBILITY */}
+          <button
+            onClick={closeMobileMenu}
+            className="p-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white/30 transition-all duration-200 shadow-lg"
+            aria-label="Close menu"
+          >
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              strokeWidth={3}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
 
-            {/* Dynamic Menu Items */}
-            {items.map((item) => {
-              if (item.label === "Home") return null;
-              
-              const hasChildren = (item.children && item.children.length > 0) || 
-                (megaMenuContent[item.label as keyof typeof megaMenuContent] !== undefined);
-              const isDropdownOpen = openMobileDropdowns[item.label] || false;
+        {/* Scrollable Menu Content */}
+        <div 
+          className="relative h-full w-full overflow-y-auto mobile-menu-scroll pt-20 pb-8"
+          style={{
+            WebkitOverflowScrolling: 'touch',
+            scrollBehavior: 'smooth',
+            overscrollBehavior: 'contain',
+          }}
+        >
+          <div className="max-w-xl mx-auto px-6">
+            {/* Mobile Menu Content */}
+            <div className="space-y-2 bg-gradient-to-r from-slate-900/95 via-blue-900/90 to-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl p-6 mt-4">
+              {/* Render ALL menu items including Home */}
+              {items.map((item) => {
+                const hasChildren = (item.children && item.children.length > 0) || 
+                  (megaMenuContent[item.label as keyof typeof megaMenuContent] !== undefined);
+                const isDropdownOpen = openMobileDropdowns[item.label] || false;
+                const megaContent = getMobileMegaMenuContent(item.label);
 
-              // Handle CTA items separately
-              if (item.cta || item.label === "Let's Talk AI" || item.label === "Contact") {
                 return (
-                  <div key={item.label}>
-                    <Link 
-                      href={item.href || "#"} 
-                      onClick={closeMobileMenu}
-                      className="text-white text-2xl font-semibold hover:text-cyan-300 transition-colors block py-3 px-4 rounded-lg hover:bg-white/5"
-                    >
-                      {item.label}
-                    </Link>
-                  </div>
-                );
-              }
-
-              // Handle Pricing separately
-              if (item.label === "Pricing & Plans") {
-                return (
-                  <div key={item.label}>
-                    <Link 
-                      href={item.href || "#"} 
-                      onClick={closeMobileMenu}
-                      className="text-white text-2xl font-semibold hover:text-cyan-300 transition-colors block py-3 px-4 rounded-lg hover:bg-white/5"
-                    >
-                      Pricing
-                    </Link>
-                  </div>
-                );
-              }
-
-              // Handle items with children
-              return (
-                <div key={item.label} className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    {item.href ? (
-                      <Link 
-                        href={item.href}
-                        onClick={() => handleMobileLinkClick(item.href!, Boolean(item.children?.length))}
-                        className="text-white text-2xl font-semibold hover:text-cyan-300 transition-colors flex-1 py-3 px-4 rounded-lg hover:bg-white/5"
-                      >
-                        {item.label}
-                      </Link>
-                    ) : (
-                      <span className="text-white text-2xl font-semibold flex-1 py-3 px-4">{item.label}</span>
-                    )}
-                    
-                    {/* Dropdown toggle button - only show if has children */}
-                    {hasChildren && (
-                      <button
-                        onClick={() => toggleMobileDropdown(item.label)}
-                        className="p-2 text-white hover:text-cyan-300 transition-colors ml-2"
-                        aria-label={`Toggle ${item.label} dropdown`}
-                      >
-                        <svg
-                          className={`h-5 w-5 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`}
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          strokeWidth={2}
+                  <div key={item.label} className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      {item.href ? (
+                        <Link 
+                          href={item.href}
+                          onClick={() => handleMobileLinkClick(item.href!, hasChildren)}
+                          className="text-white text-xl font-semibold hover:text-cyan-300 transition-colors flex-1 py-3 px-4 rounded-lg hover:bg-white/5"
                         >
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </button>
-                    )}
-                  </div>
-                  
-                  {/* Dropdown Content */}
-                  {isDropdownOpen && hasChildren && (
-                    <div className="space-y-4 mt-2 ml-4 pl-4 border-l border-gray-700">
-                      {/* Render categories for mega menu or regular children */}
-                      {megaMenuContent[item.label as keyof typeof megaMenuContent] ? (
-                        megaMenuContent[item.label as keyof typeof megaMenuContent].categories?.map((category) => (
-                          <div key={category.title} className="space-y-2">
-                            <div className="text-cyan-400 text-sm font-medium pt-2">
-                              {category.title}
-                            </div>
-                            <div className="space-y-1">
-                              {category.items.map((categoryItem) => (
-                                categoryItem.external ? (
-                                  <a
-                                    key={categoryItem.label}
-                                    href={categoryItem.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={closeMobileMenu}
-                                    className="block text-white text-lg hover:text-cyan-300 transition-colors py-1"
-                                  >
-                                    {categoryItem.label} ↗
-                                  </a>
-                                ) : (
-                                  <Link
-                                    key={categoryItem.label}
-                                    href={categoryItem.href}
-                                    onClick={closeMobileMenu}
-                                    className="block text-white text-lg hover:text-cyan-300 transition-colors py-1"
-                                  >
-                                    {categoryItem.label}
-                                  </Link>
-                                )
-                              ))}
-                            </div>
-                          </div>
-                        ))
+                          {item.label}
+                        </Link>
                       ) : (
-                        // Regular children items
-                        item.children?.map((child) => (
+                        <span className="text-white text-xl font-semibold flex-1 py-3 px-4">{item.label}</span>
+                      )}
+                      
+                      {/* Dropdown toggle button - only show if has children */}
+                      {hasChildren && (
+                        <button
+                          onClick={() => toggleMobileDropdown(item.label)}
+                          className="p-2 text-white hover:text-cyan-300 transition-colors ml-2"
+                          aria-label={`Toggle ${item.label} dropdown`}
+                        >
+                          <svg
+                            className={`h-5 w-5 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            strokeWidth={2}
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </button>
+                      )}
+                    </div>
+                    
+                    {/* Dropdown Content - FIXED FOR "Let's Talk AI" */}
+                    {isDropdownOpen && hasChildren && (
+                      <div className="space-y-4 mt-2 ml-4 pl-4 border-l border-gray-700">
+                        {/* For regular children without mega menu */}
+                        {!megaContent && item.children && item.children.map((child) => (
                           child.external ? (
                             <a
                               key={child.label}
@@ -1862,23 +1881,104 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
                               {child.label}
                             </Link>
                           )
-                        ))
-                      )}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-            
-            {/* Mobile CTA */}
-            <div className="pt-6 mt-6">
-              <Link
-                href="/Contact"
-                onClick={closeMobileMenu}
-                className="inline-flex w-full items-center justify-center h-12 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold border border-white/10 hover:border-cyan-300/40 hover:shadow-lg hover:shadow-cyan-500/20 transition-all"
-              >
-                Start Your Project
-              </Link>
+                        ))}
+
+                        {/* For mega menu content like "Let's Talk AI" */}
+                        {megaContent && (
+                          <>
+                            {/* Left Sidebar Items */}
+                            {megaContent.leftSidebar && (
+                              <div className="space-y-2">
+                                <div className="text-cyan-400 text-sm font-medium pt-2">
+                                  {megaContent.leftSidebar.title}
+                                </div>
+                                <div className="space-y-1">
+                                  {megaContent.leftSidebar.items.map((sidebarItem) => (
+                                    <Link
+                                      key={sidebarItem.label}
+                                      href={sidebarItem.href}
+                                      onClick={closeMobileMenu}
+                                      className="block text-white text-lg hover:text-cyan-300 transition-colors py-1"
+                                    >
+                                      {sidebarItem.label}
+                                    </Link>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Categories */}
+                            {megaContent.categories?.map((category) => (
+                              <div key={category.title} className="space-y-2">
+                                <div className="text-cyan-400 text-sm font-medium pt-2">
+                                  {category.title}
+                                </div>
+                                <div className="space-y-1">
+                                  {category.items.map((categoryItem) => (
+                                    categoryItem.external ? (
+                                      <a
+                                        key={categoryItem.label}
+                                        href={categoryItem.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={closeMobileMenu}
+                                        className="block text-white text-lg hover:text-cyan-300 transition-colors py-1"
+                                      >
+                                        {categoryItem.label} ↗
+                                      </a>
+                                    ) : (
+                                      <Link
+                                        key={categoryItem.label}
+                                        href={categoryItem.href}
+                                        onClick={closeMobileMenu}
+                                        className="block text-white text-lg hover:text-cyan-300 transition-colors py-1"
+                                      >
+                                        {categoryItem.label}
+                                      </Link>
+                                    )
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+
+                            {/* Articles */}
+                            {megaContent.articles && (
+                              <div className="space-y-2">
+                                <div className="text-cyan-400 text-sm font-medium pt-2">
+                                  Featured Articles
+                                </div>
+                                <div className="space-y-1">
+                                  {megaContent.articles.map((article) => (
+                                    <Link
+                                      key={article.id}
+                                      href={article.href}
+                                      onClick={closeMobileMenu}
+                                      className="block text-white text-lg hover:text-cyan-300 transition-colors py-1"
+                                    >
+                                      {article.title}
+                                    </Link>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+              
+              {/* Mobile CTA */}
+              <div className="pt-6 mt-6 border-t border-gray-700">
+                <Link
+                  href="/Contact"
+                  onClick={closeMobileMenu}
+                  className="inline-flex w-full items-center justify-center h-12 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold border border-white/10 hover:border-cyan-300/40 hover:shadow-lg hover:shadow-cyan-500/20 transition-all"
+                >
+                  Start Your Project
+                </Link>
+              </div>
             </div>
           </div>
         </div>
