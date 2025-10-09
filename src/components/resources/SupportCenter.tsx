@@ -2,14 +2,13 @@
 import React, { useState } from 'react';
 import { 
   Headset, FileText, Video, MessageSquare, BookOpen, Zap, 
-  Clock, Users, ChevronDown, ChevronRight, Search, Phone,
-  Mail, Star, CheckCircle, ExternalLink
+  Clock, Users, ChevronDown, ChevronRight, Phone,
+  Mail, CheckCircle, ExternalLink
 } from 'lucide-react';
 
 const SupportCenter = () => {
   const [activeTab, setActiveTab] = useState('live-support');
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
 
   // Updated with actual URLs from sagedevs.tech
   const LINKS = {
