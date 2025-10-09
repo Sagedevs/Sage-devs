@@ -31,7 +31,13 @@ const TechnologyStack = () => {
   const ctaRef = useRef<HTMLDivElement>(null);
   const innovationRef = useRef<HTMLDivElement>(null);
   const unifiedRef = useRef<HTMLDivElement>(null);
+  const pulseCircle1Ref = useRef<HTMLDivElement>(null);
+  const pulseCircle2Ref = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  // Replace with your actual links
+  const contactLink = "/contact";
+  const caseStudiesLink = "/case-studies";
 
   // Initialize cards refs properly
   const addToCardsRef = (el: HTMLDivElement | null, index: number) => {
@@ -222,6 +228,27 @@ const TechnologyStack = () => {
       }
     }
 
+    // Fix pulse circle animations
+    if (pulseCircle1Ref.current && pulseCircle2Ref.current) {
+      // Create continuous pulse animation for circles
+      gsap.to(pulseCircle1Ref.current, {
+        scale: 1.5,
+        opacity: 0,
+        duration: 2,
+        repeat: -1,
+        ease: "power2.out"
+      });
+
+      gsap.to(pulseCircle2Ref.current, {
+        scale: 1.8,
+        opacity: 0,
+        duration: 2.5,
+        repeat: -1,
+        ease: "power2.out",
+        delay: 0.5
+      });
+    }
+
     // Hover animations for cards
     cardsRef.current.forEach((card) => {
       if (!card) return;
@@ -366,6 +393,31 @@ const TechnologyStack = () => {
         .tech-card:hover {
           transform: translateY(-5px);
         }
+
+        /* Enhanced pulse animation for circles */
+        @keyframes enhanced-pulse {
+          0% {
+            transform: scale(1);
+            opacity: 1;
+          }
+          50% {
+            transform: scale(1.5);
+            opacity: 0.5;
+          }
+          100% {
+            transform: scale(1.8);
+            opacity: 0;
+          }
+        }
+
+        .enhanced-pulse {
+          animation: enhanced-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .enhanced-pulse-2 {
+          animation: enhanced-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+          animation-delay: 1.5s;
+        }
       `}</style>
       
       <section 
@@ -390,7 +442,7 @@ const TechnologyStack = () => {
         </div>
 
         <div className="relative container mx-auto">
-          {/* Header Section - Always Visible */}
+          {/* Header Section */}
           <div 
             ref={headerRef} 
             className="text-center mb-12 lg:mb-16 fallback-animate"
@@ -461,7 +513,7 @@ const TechnologyStack = () => {
             ))}
           </div>
 
-          {/* CTA Section */}
+          {/* CTA Section with Links */}
           <div 
             ref={ctaRef} 
             className="relative bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl lg:rounded-3xl p-8 lg:p-12 text-center mb-16 lg:mb-20 fallback-animate"
@@ -481,12 +533,18 @@ const TechnologyStack = () => {
                 Let our experts architect the perfect technology stack tailored to your business objectives.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-all duration-300 shadow-lg">
+                <a 
+                  href={contactLink}
+                  className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-all duration-300 shadow-lg text-center"
+                >
                   Start Your Project
-                </button>
-                <button className="px-8 py-4 border-2 border-white text-white font-semibold rounded-xl hover:bg-white hover:text-blue-600 transition-all duration-300">
+                </a>
+                <a 
+                  href={caseStudiesLink}
+                  className="px-8 py-4 border-2 border-white text-white font-semibold rounded-xl hover:bg-white hover:text-blue-600 transition-all duration-300 text-center"
+                >
                   View Case Studies
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -535,33 +593,55 @@ const TechnologyStack = () => {
                   
                   {/* Floating Icons */}
                   <div className="absolute inset-0">
-                    <div className="absolute top-6 right-8 text-blue-400 floating-tech-icon">
+                    <div className="absolute top-6 right-8 text-blue-400 floating-tech-icon animate-float">
                       <Code2 className="w-8 h-8" />
                     </div>
-                    <div className="absolute bottom-12 left-6 text-blue-500 floating-tech-icon">
+                    <div className="absolute bottom-12 left-6 text-blue-500 floating-tech-icon animate-float" style={{ animationDelay: '1s' }}>
                       <Database className="w-6 h-6" />
                     </div>
-                    <div className="absolute top-16 left-12 text-blue-300 floating-tech-icon">
+                    <div className="absolute top-16 left-12 text-blue-300 floating-tech-icon animate-float" style={{ animationDelay: '2s' }}>
                       <Cloud className="w-7 h-7" />
                     </div>
-                    <div className="absolute bottom-6 right-12 text-blue-600 floating-tech-icon">
+                    <div className="absolute bottom-6 right-12 text-blue-600 floating-tech-icon animate-float" style={{ animationDelay: '0.5s' }}>
                       <Brain className="w-6 h-6" />
                     </div>
                   </div>
 
-                  {/* Central Hub */}
+                  {/* Central Hub with Fixed Pulse Animation */}
                   <div className="relative z-10 text-center py-12">
-                    <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl mb-6 shadow-2xl shadow-blue-500/30">
+                    <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl mb-6 shadow-2xl shadow-blue-500/30 relative z-20">
                       <Layers className="w-12 h-12 text-white" />
                     </div>
                     <div className="text-2xl font-bold text-white mb-2">Unified Ecosystem</div>
                     <div className="text-slate-400">Seamlessly Integrated</div>
                     
-                    {/* Pulse Animation */}
+                    {/* Fixed Pulse Animation Circles */}
                     <div className="absolute inset-0 flex items-center justify-center -z-10">
-                      <div className="w-32 h-32 border-2 border-blue-500/30 rounded-full animate-ping" style={{ animationDuration: '3s' }}></div>
+                      <div 
+                        ref={pulseCircle1Ref}
+                        className="absolute w-32 h-32 border-4 border-blue-400 rounded-full enhanced-pulse"
+                      ></div>
+                      <div 
+                        ref={pulseCircle2Ref}
+                        className="absolute w-40 h-40 border-4 border-blue-300 rounded-full enhanced-pulse-2"
+                      ></div>
                     </div>
                   </div>
+                </div>
+
+                {/* Connection Lines */}
+                <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-3xl">
+                  <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="rgb(59, 130, 246)" stopOpacity="0.6" />
+                        <stop offset="100%" stopColor="rgb(59, 130, 246)" stopOpacity="0" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M50,50 Q75,20 95,30" stroke="url(#lineGradient)" strokeWidth="0.5" fill="none" className="animate-pulse" />
+                    <path d="M50,50 Q25,80 5,70" stroke="url(#lineGradient)" strokeWidth="0.5" fill="none" className="animate-pulse" style={{ animationDelay: '1s' }} />
+                    <path d="M50,50 Q20,30 10,15" stroke="url(#lineGradient)" strokeWidth="0.5" fill="none" className="animate-pulse" style={{ animationDelay: '2s' }} />
+                  </svg>
                 </div>
               </div>
             </div>
