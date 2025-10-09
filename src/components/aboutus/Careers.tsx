@@ -67,10 +67,6 @@ const positions = [
 ];
 
 const Careers = () => {
-  const handleApplyClick = () => {
-    window.location.href = '/contact#contact-form';
-  };
-
   return (
     <section className="relative min-h-screen bg-black overflow-hidden">
       {/* Animated Background */}
