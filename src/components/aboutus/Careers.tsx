@@ -284,7 +284,7 @@ const Careers = () => {
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link 
-                      href="/contact/portfolio"
+                      href="/contact"
                       className="px-8 py-3 text-sm bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold rounded-xl hover:from-blue-500 hover:to-cyan-500 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/50 transform hover:scale-105 flex items-center gap-2 justify-center"
                     >
                       Send Your Portfolio
