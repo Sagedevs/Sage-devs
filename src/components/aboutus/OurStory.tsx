@@ -169,7 +169,12 @@ const OurStory = () => {
               </p>
               
               <div className="flex items-center justify-center gap-2 mt-6 lg:mt-8 text-blue-300">
-                <span className="text-sm font-medium">Ready to innovate?</span>
+              <a 
+  href="/contact" 
+  className="text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors"
+>
+  Ready to innovate?
+</a>
                 <ArrowRight className="w-4 h-4 animate-bounce" style={{animationDirection: 'alternate'}} />
               </div>
             </div>
