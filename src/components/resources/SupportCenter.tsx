@@ -372,7 +372,7 @@ const SupportCenter = () => {
           </a>
           <a 
             href={LINKS.contact}
-            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors mt-5"
           >
             <Mail className="w-4 h-4" />
             Email Us
