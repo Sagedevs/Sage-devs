@@ -239,22 +239,22 @@ const megaMenuContent: MegaMenuContentMap = {
           },
           { 
             label: "AI Consultation", 
-            href: "/Letstalkai#ai-consultation",
+            href: "/letstalkai#ai-consultation",
             description: "Expert guidance for your AI journey"
           },
           { 
             label: "Machine Learning", 
-            href: "/Letstalkai#machine-learning",
+            href: "/letstalkai#machine-learning",
             description: "Custom ML models for your business needs"
           },
           { 
             label: "Computer Vision", 
-            href: "/Letstalkai#computer-vision",
+            href: "/letstalkai#computer-vision",
             description: "Image and video analysis solutions"
           },
           { 
             label: "AI Strategy", 
-            href: "/Letstalkai#ai-strategy",
+            href: "/letstalkai#ai-strategy",
             description: "Comprehensive AI roadmap for your business"
           },
         ]
