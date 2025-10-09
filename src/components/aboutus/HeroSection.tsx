@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from 'react';
-import { ShoppingCart, Brain, Code, TrendingUp, Users, Star, Target, RotateCcw, Handshake, CheckCircle, Zap, Globe, ArrowRight, Play, Monitor, FileText } from 'lucide-react';
+import { ShoppingCart, Brain, Code, TrendingUp, Users, Star, Target, RotateCcw, Handshake, CheckCircle, Zap, Globe, ArrowRight, Monitor, FileText } from 'lucide-react';
 
 const HeroSection = () => {
   const [currentService, setCurrentService] = useState(0);
