@@ -109,7 +109,7 @@ const Culture = () => {
             </div>
             <div className="w-px h-8 bg-gradient-to-b from-transparent via-blue-600 to-transparent"></div>
             <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-gray-100">50+</div>
+              <div className="text-2xl md:text-3xl font-bold text-gray-100">500+</div>
               <div className="text-xs text-gray-400">Projects</div>
             </div>
           </div>
