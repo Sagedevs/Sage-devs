@@ -1,8 +1,74 @@
 "use client";
 import React, { useEffect, useRef } from 'react';
+import Link from 'next/link';
 
 const HeroSection = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const badgeRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const descRef = useRef<HTMLDivElement>(null);
+  const buttonsRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Dynamically import GSAP to avoid SSR issues
+    const loadGSAP = async () => {
+      const { gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      
+      gsap.registerPlugin(ScrollTrigger);
+
+      // GSAP Animations
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      tl.fromTo(badgeRef.current, 
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1 }
+      )
+      .fromTo(titleRef.current,
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1 },
+        "-=0.8"
+      )
+      .fromTo(descRef.current,
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1 },
+        "-=0.8"
+      )
+      .fromTo(buttonsRef.current,
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1 },
+        "-=0.8"
+      )
+      .fromTo(statsRef.current,
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1 },
+        "-=0.8"
+      );
+
+      // Hover animations for stat cards
+      const statCards = document.querySelectorAll('.stat-card');
+      statCards.forEach((card) => {
+        card.addEventListener('mouseenter', () => {
+          gsap.to(card, {
+            scale: 1.05,
+            duration: 0.5,
+            ease: "power2.out"
+          });
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, {
+            scale: 1,
+            duration: 0.5,
+            ease: "power2.out"
+          });
+        });
+      });
+    };
+
+    loadGSAP();
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -155,7 +221,7 @@ const HeroSection = () => {
         <div className="max-w-7xl mx-auto">
           
           {/* Hexagonal Badge */}
-          <div className="relative inline-block mb-8 animate-fadeInUp">
+          <div ref={badgeRef} className="relative inline-block mb-8 opacity-0">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur-lg opacity-30 animate-pulse"></div>
               <div className="relative bg-black/40 backdrop-blur-xl border-2 border-blue-500/30 rounded-full px-8 py-3 text-blue-300 font-bold text-sm tracking-wider">
@@ -168,7 +234,7 @@ const HeroSection = () => {
           </div>
           
           {/* Creative Split Typography */}
-          <div className="mb-10 animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
+          <div ref={titleRef} className="mb-10 opacity-0">
             <div className="relative">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-none mb-4">
                 <span className="block">
@@ -187,7 +253,7 @@ const HeroSection = () => {
           </div>
           
           {/* Interactive Description */}
-          <div className="mb-12 animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
+          <div ref={descRef} className="mb-12 opacity-0">
             <p className="text-xl md:text-2xl text-gray-300 max-w-5xl mx-auto leading-relaxed mb-6">
               Dominate your industry with our battle-tested collection of 
               <span className="relative inline-block mx-2 group cursor-pointer">
@@ -199,32 +265,32 @@ const HeroSection = () => {
           </div>
           
           {/* Floating Action Cards */}
-          <div className="flex flex-col lg:flex-row gap-6 justify-center items-center mb-16 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
+          <div ref={buttonsRef} className="flex flex-col lg:flex-row gap-6 justify-center items-center mb-16 opacity-0">
             <div className="group relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
-              <button className="relative bg-black/50 backdrop-blur-xl border border-blue-500/30 px-12 py-5 text-white font-bold rounded-2xl hover:bg-blue-600/20 transition-all duration-300 flex items-center space-x-3">
+              <Link href="/resources" className="relative bg-black/50 backdrop-blur-xl border border-blue-500/30 px-12 py-5 text-white font-bold rounded-2xl hover:bg-blue-600/20 transition-all duration-300 flex items-center space-x-3">
                 <span>Browse Resources</span>
                 <div className="w-5 h-5 border-t-2 border-r-2 border-white rotate-45"></div>
-              </button>
+              </Link>
             </div>
             
             <div className="group relative">
-              <button className="relative bg-transparent border-2 border-blue-400/50 px-12 py-5 text-blue-300 hover:text-white font-bold rounded-2xl hover:border-blue-300 hover:bg-blue-500/10 backdrop-blur-xl transition-all duration-300">
+              <Link href="/Contact" className="relative bg-transparent border-2 border-blue-400/50 px-12 py-5 text-blue-300 hover:text-white font-bold rounded-2xl hover:border-blue-300 hover:bg-blue-500/10 backdrop-blur-xl transition-all duration-300 inline-block">
                 Get Started Free
-              </button>
+              </Link>
             </div>
           </div>
           
           {/* Innovative Stats Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 animate-fadeInUp" style={{ animationDelay: '0.8s' }}>
+          <div ref={statsRef} className="grid grid-cols-2 lg:grid-cols-4 gap-6 opacity-0">
             {[
               { number: "2.5K+", label: "Battle-Tested Tools", color: "from-blue-500 to-cyan-400" },
               { number: "500K+", label: "Elite Members", color: "from-purple-500 to-pink-400" },
               { number: "24/7", label: "Expert Access", color: "from-green-500 to-emerald-400" },
               { number: "99.9%", label: "Success Rate", color: "from-orange-500 to-red-400" }
             ].map((stat, index) => (
-              <div key={index} className="group cursor-pointer">
-                <div className="relative bg-black/30 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 hover:border-blue-500/50 transition-all duration-500 hover:scale-105">
+              <div key={index} className="group cursor-pointer stat-card">
+                <div className="relative bg-black/30 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 hover:border-blue-500/50 transition-all duration-500">
                   <div className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r ${stat.color} rounded-t-2xl`}></div>
                   <div className="text-center">
                     <div className={`text-3xl md:text-4xl font-black bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-2`}>
@@ -249,24 +315,6 @@ const HeroSection = () => {
 
       {/* Bottom Gradient */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-gray-900/50 to-transparent z-20"></div>
-
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(50px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        .animate-fadeInUp {
-          animation: fadeInUp 1s ease-out forwards;
-          opacity: 0;
-        }
-      `}</style>
     </section>
   );
 };
