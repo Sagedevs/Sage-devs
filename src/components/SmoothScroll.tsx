@@ -6,40 +6,51 @@ import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Register GSAP plugin
 gsap.registerPlugin(ScrollTrigger);
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    // Detect if it's a touch device (mobile/tablet)
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    // Comprehensive touch device detection
+    const isTouchDevice = 
+      'ontouchstart' in window || 
+      navigator.maxTouchPoints > 0 ||
+      window.matchMedia('(pointer: coarse)').matches;
 
-    // Skip Lenis initialization on mobile - use native scroll
+    // Skip Lenis on mobile for better native performance
     if (isTouchDevice) {
-      // Just sync native scroll with ScrollTrigger
       ScrollTrigger.refresh();
       return;
     }
 
-    // Initialize Lenis only for desktop
+    // Set GSAP ticker to 60fps for consistent performance
+    gsap.ticker.fps(60);
+
+    // ScrollTrigger defaults for smoother animations
+    gsap.defaults({ ease: "power1.out" })
+
+    // Initialize Lenis with natural feeling settings
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 1.0,
+      easing: (t) => 1 - Math.pow(1 - t, 3), // cubic ease-out for natural inertia
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
-      touchMultiplier: 2,
+      touchMultiplier: 1.5,
       infinite: false,
+      autoResize: true, // Lenis handles resize internally
+      syncTouch: false,
+      syncTouchLerp: 0.1,
     });
 
     lenisRef.current = lenis;
 
-    // Sync Lenis with ScrollTrigger
+    // Sync Lenis scroll with ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
 
+    // Use GSAP ticker for smooth animation loop
     const updateLenis = (time: number) => {
       lenis.raf(time * 1000);
     };
@@ -47,17 +58,40 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     gsap.ticker.add(updateLenis);
     gsap.ticker.lagSmoothing(0);
 
-    // Refresh ScrollTrigger on resize
-    const refresh = () => {
-      requestAnimationFrame(() => ScrollTrigger.refresh());
+    // Initial refresh after mount
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+
+    // Debounced resize handler - only refresh ScrollTrigger
+    // (Lenis autoResize handles its own resize)
+    let resizeTimeout: NodeJS.Timeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 150);
     };
-    window.addEventListener('resize', refresh);
+
+    window.addEventListener('resize', handleResize, { passive: true });
 
     // Cleanup
     return () => {
+      clearTimeout(resizeTimeout);
       lenis.destroy();
       gsap.ticker.remove(updateLenis);
-      window.removeEventListener('resize', refresh);
+      window.removeEventListener('resize', handleResize);
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
+
+  // Expose lenis instance for programmatic scrolling
+  useEffect(() => {
+    if (lenisRef.current) {
+      (window as any).lenis = lenisRef.current;
+    }
+    return () => {
+      delete (window as any).lenis;
     };
   }, []);
 
