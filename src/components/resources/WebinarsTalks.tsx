@@ -1,6 +1,8 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { gsap } from 'gsap';
 
 interface Event {
   id: number;
@@ -24,6 +26,98 @@ interface Event {
 
 const WebinarsTalks = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  const addToCardsRef = (el: HTMLDivElement | null) => {
+    if (el && !cardsRef.current.includes(el)) {
+      cardsRef.current.push(el);
+    }
+  };
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Header animation
+      gsap.fromTo(headerRef.current, 
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: "power3.out" }
+      );
+
+      // Background circles animation
+      gsap.to(".bg-circle-1", {
+        x: 100,
+        y: -50,
+        scale: 1.2,
+        duration: 8,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      gsap.to(".bg-circle-2", {
+        x: -80,
+        y: 80,
+        scale: 1.3,
+        duration: 10,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: 1
+      });
+
+      gsap.to(".bg-circle-3", {
+        x: -60,
+        y: -40,
+        scale: 1.1,
+        duration: 12,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: 2
+      });
+
+      // Cards animation
+      gsap.fromTo(cardsRef.current,
+        { y: 80, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.15,
+          ease: "power3.out",
+          delay: 0.5
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const handleCardHover = (cardId: number | null) => {
+    setHoveredCard(cardId);
+    
+    if (cardId) {
+      const card = cardsRef.current.find((_, index) => index === cardId - 1);
+      if (card) {
+        gsap.to(card, {
+          scale: 1.02,
+          y: -10,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      }
+    } else {
+      cardsRef.current.forEach(card => {
+        gsap.to(card, {
+          scale: 1,
+          y: 0,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+    }
+  };
 
   const events: Event[] = [
     {
@@ -142,8 +236,6 @@ const WebinarsTalks = () => {
     }
   ];
 
-  const filteredEvents = events;
-
   const getLevelColor = (level: 'Beginner' | 'Intermediate' | 'Advanced') => {
     switch (level) {
       case 'Beginner': return 'bg-emerald-500';
@@ -154,14 +246,14 @@ const WebinarsTalks = () => {
   };
 
   return (
-    <section className="relative min-h-screen py-24 overflow-hidden px-[130px]">
+    <section ref={sectionRef} className="relative min-h-screen py-24 overflow-hidden px-[130px]">
       {/* Advanced Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900">
         {/* Animated mesh gradient */}
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
-          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-violet-600 rounded-full mix-blend-multiply filter blur-3xl animate-pulse animation-delay-2s"></div>
-          <div className="absolute bottom-1/4 left-1/2 w-96 h-96 bg-cyan-600 rounded-full mix-blend-multiply filter blur-3xl animate-pulse animation-delay-4s"></div>
+          <div className="bg-circle-1 absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl"></div>
+          <div className="bg-circle-2 absolute top-1/3 right-1/4 w-96 h-96 bg-violet-600 rounded-full mix-blend-multiply filter blur-3xl"></div>
+          <div className="bg-circle-3 absolute bottom-1/4 left-1/2 w-96 h-96 bg-cyan-600 rounded-full mix-blend-multiply filter blur-3xl"></div>
         </div>
         
         {/* Grid pattern overlay */}
@@ -173,7 +265,7 @@ const WebinarsTalks = () => {
 
       <div className="relative container mx-auto px-4 z-10">
         {/* Hero Header */}
-        <div className="text-center mb-20">
+        <div ref={headerRef} className="text-center mb-20">
           <div className="inline-flex items-center gap-2 bg-slate-900/60 backdrop-blur-sm border border-slate-700 rounded-full px-6 py-3 mb-8">
             <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
             <span className="text-slate-300 font-medium">LIVE LEARNING SESSIONS</span>
@@ -182,7 +274,7 @@ const WebinarsTalks = () => {
           <h1 className="text-6xl md:text-7xl font-black text-white mb-8 leading-tight">
             Expert-Led
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-violet-400 to-cyan-400 animate-pulse">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-violet-400 to-cyan-400">
               Webinars
             </span>
           </h1>
@@ -213,15 +305,15 @@ const WebinarsTalks = () => {
           </div>
         </div>
 
-
         {/* Premium Events Grid */}
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 mb-20">
-          {filteredEvents.map((event) => (
+          {events.map((event) => (
             <div
               key={event.id}
-              className="group relative bg-slate-900/40 backdrop-blur-lg rounded-3xl overflow-hidden border border-slate-700/50 hover:border-blue-500/50 transition-all duration-700 hover:transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-600/20"
-              onMouseEnter={() => setHoveredCard(event.id)}
-              onMouseLeave={() => setHoveredCard(null)}
+              ref={addToCardsRef}
+              className="group relative bg-slate-900/40 backdrop-blur-lg rounded-3xl overflow-hidden border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300"
+              onMouseEnter={() => handleCardHover(event.id)}
+              onMouseLeave={() => handleCardHover(null)}
             >
               {/* Dynamic Background Image */}
               <div className="relative h-56 overflow-hidden">
@@ -330,34 +422,36 @@ const WebinarsTalks = () => {
                 </div>
 
                 {/* Enhanced CTA Button */}
-                <button
-                  className={`w-full font-bold py-4 px-6 rounded-2xl transition-all duration-500 relative overflow-hidden group ${
-                    event.status === 'completed' 
-                      ? 'bg-slate-700 hover:bg-slate-600 text-slate-300' 
-                      : 'bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 hover:shadow-xl'
-                  }`}
-                >
-                  <span className="relative z-10 flex items-center justify-center gap-2">
-                    {event.status === 'completed' ? (
-                      <>
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
-                        </svg>
-                        Watch Recording
-                      </>
-                    ) : (
-                      <>
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd"/>
-                        </svg>
-                        {event.price === 'Free' ? 'Join Free' : 'Register Now'}
-                      </>
+                
+                  <button
+                    className={`w-full font-bold py-4 px-6 rounded-2xl transition-all duration-500 relative overflow-hidden group ${
+                      event.status === 'completed' 
+                        ? 'bg-slate-700 hover:bg-slate-600 text-slate-300' 
+                        : 'bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 hover:shadow-xl'
+                    }`}
+                  >
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                      {event.status === 'completed' ? (
+                        <>
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                          </svg>
+                          Watch Recording
+                        </>
+                      ) : (
+                        <>
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd"/>
+                          </svg>
+                          {event.price === 'Free' ? 'Join Free Webinar' : 'Register for Webinar'}
+                        </>
+                      )}
+                    </span>
+                    {event.status !== 'completed' && (
+                      <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                     )}
-                  </span>
-                  {event.status !== 'completed' && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-                  )}
-                </button>
+                  </button>
+                
               </div>
 
               {/* Hover glow effect */}
@@ -382,20 +476,22 @@ const WebinarsTalks = () => {
               We&apos;re always looking for passionate experts to lead sessions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white font-bold py-4 px-8 rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-blue-600/30">
-                Become a Speaker
-              </button>
-              <button className="bg-slate-800/60 hover:bg-slate-700/80 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 border border-slate-600 hover:border-slate-500">
-                View All Sessions
-              </button>
+              <Link href="/contact#contact-form">
+                <button className="bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white font-bold py-4 px-8 rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-blue-600/30">
+                  Become a Speaker
+                </button>
+              </Link>
+              <Link href="/contact#contact-form">
+                <button className="bg-slate-800/60 hover:bg-slate-700/80 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 border border-slate-600 hover:border-slate-500">
+                  Contact for More Info
+                </button>
+              </Link>
             </div>
           </div>
         </div>
       </div>
 
       <style jsx>{`
-        .animation-delay-2s { animation-delay: 2s; }
-        .animation-delay-4s { animation-delay: 4s; }
         .line-clamp-2 { 
           display: -webkit-box;
           -webkit-line-clamp: 2;
