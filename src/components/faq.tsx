@@ -248,23 +248,23 @@ const FAQ = () => {
         {
           question: "What full-stack technologies do you specialize in?",
           answer:
-            "I specialize in the MERN/MEAN stack (MongoDB, Express.js, React/Angular, Node.js) and modern alternatives like Next.js with TypeScript, PostgreSQL, and cloud services. I&apos;m also proficient in Python (Django/Flask), PHP (Laravel), and Java (Spring Boot) for backend development, with expertise in both SQL and NoSQL databases.",
+            "We specialize in the MERN/MEAN stack (MongoDB, Express.js, React/Angular, Node.js) and modern alternatives like Next.js with TypeScript, PostgreSQL, and cloud services. We&apos;re also proficient in Python (Django/Flask), PHP (Laravel), and Java (Spring Boot) for backend development, with expertise in both SQL and NoSQL databases.",
         },
         {
           question: "How do you architect scalable full-stack applications?",
           answer:
-            "I design applications using microservices architecture, implement proper separation of concerns with clean architecture patterns, use containerization with Docker, and leverage cloud-native solutions on AWS, Azure, or GCP. I also implement proper caching strategies, database sharding, and load balancing for optimal scalability.",
+            "We design applications using microservices architecture, implement proper separation of concerns with clean architecture patterns, use containerization with Docker, and leverage cloud-native solutions on AWS, Azure, or GCP. We also implement proper caching strategies, database sharding, and load balancing for optimal scalability.",
         },
         {
           question:
             "Can you handle both frontend and backend development equally well?",
           answer:
-            "Absolutely! I have deep expertise in both domains. On the frontend, I create responsive, interactive UIs with React, Vue, or Angular, implementing state management, routing, and modern UI/UX patterns. On the backend, I build robust APIs, handle authentication, manage databases, and ensure security and performance optimization.",
+            "Absolutely! We have deep expertise in both domains. On the frontend, we create responsive, interactive UIs with React, Vue, or Angular, implementing state management, routing, and modern UI/UX patterns. On the backend, we build robust APIs, handle authentication, manage databases, and ensure security and performance optimization.",
         },
         {
-          question: "What&apos;s your approach to API design and integration?",
+          question: "What's your approach to API design and integration?",
           answer:
-            "I design RESTful and GraphQL APIs following industry standards, implement proper versioning, comprehensive documentation with Swagger/OpenAPI, and ensure backward compatibility. I also handle third-party integrations, webhooks, real-time communications with WebSockets, and implement proper error handling and rate limiting.",
+            "We design RESTful and GraphQL APIs following industry standards, implement proper versioning, comprehensive documentation with Swagger/OpenAPI, and ensure backward compatibility. We also handle third-party integrations, webhooks, real-time communications with WebSockets, and implement proper error handling and rate limiting.",
         },
       ],
     },
@@ -276,17 +276,17 @@ const FAQ = () => {
         {
           question: "What database technologies do you work with?",
           answer:
-            "I work with both SQL databases (PostgreSQL, MySQL, SQLite) and NoSQL solutions (MongoDB, DynamoDB, Redis). I also have experience with specialized databases like Elasticsearch for search functionality, Neo4j for graph data, and time-series databases like InfluxDB for analytics applications.",
+            "We work with both SQL databases (PostgreSQL, MySQL, SQLite) and NoSQL solutions (MongoDB, DynamoDB, Redis). We also have experience with specialized databases like Elasticsearch for search functionality, Neo4j for graph data, and time-series databases like InfluxDB for analytics applications.",
         },
         {
           question: "How do you ensure database performance and scalability?",
           answer:
-            "I implement proper database indexing, query optimization, connection pooling, and caching strategies using Redis or Memcached. For scalability, I design database schemas with normalization principles, implement read replicas, database sharding, and use CDNs for static content delivery.",
+            "We implement proper database indexing, query optimization, connection pooling, and caching strategies using Redis or Memcached. For scalability, we design database schemas with normalization principles, implement read replicas, database sharding, and use CDNs for static content delivery.",
         },
         {
           question: "Do you handle database migrations and data modeling?",
           answer:
-            "Yes, I create comprehensive data models, design efficient database schemas, and implement automated migration scripts. I use tools like Prisma, Sequelize, or Mongoose for ORM/ODM, ensure data integrity with proper constraints, and handle complex relationships and transactions effectively.",
+            "Yes, we create comprehensive data models, design efficient database schemas, and implement automated migration scripts. We use tools like Prisma, Sequelize, or Mongoose for ORM/ODM, ensure data integrity with proper constraints, and handle complex relationships and transactions effectively.",
         },
       ],
     },
@@ -298,17 +298,17 @@ const FAQ = () => {
         {
           question: "What cloud platforms and DevOps tools do you use?",
           answer:
-            "I deploy on AWS, Azure, and Google Cloud Platform using services like EC2, Lambda, RDS, S3, and Kubernetes. For DevOps, I implement CI/CD pipelines with GitHub Actions, GitLab CI, or Jenkins, use Docker for containerization, and Terraform for infrastructure as code.",
+            "We deploy on AWS, Azure, and Google Cloud Platform using services like EC2, Lambda, RDS, S3, and Kubernetes. For DevOps, we implement CI/CD pipelines with GitHub Actions, GitLab CI, or Jenkins, use Docker for containerization, and Terraform for infrastructure as code.",
         },
         {
           question: "How do you handle application deployment and monitoring?",
           answer:
-            "I set up automated deployment pipelines with blue-green or rolling deployments, implement comprehensive monitoring with tools like DataDog, New Relic, or CloudWatch, and establish logging systems with ELK stack. I also configure auto-scaling, load balancers, and disaster recovery procedures.",
+            "We set up automated deployment pipelines with blue-green or rolling deployments, implement comprehensive monitoring with tools like DataDog, New Relic, or CloudWatch, and establish logging systems with ELK stack. We also configure auto-scaling, load balancers, and disaster recovery procedures.",
         },
         {
           question: "Can you implement serverless architectures?",
           answer:
-            "Absolutely! I build serverless applications using AWS Lambda, Azure Functions, or Vercel Functions, implement event-driven architectures, and use serverless databases like DynamoDB or FaunaDB. This approach reduces costs, improves scalability, and simplifies maintenance for many use cases.",
+            "Absolutely! We build serverless applications using AWS Lambda, Azure Functions, or Vercel Functions, implement event-driven architectures, and use serverless databases like DynamoDB or FaunaDB. This approach reduces costs, improves scalability, and simplifies maintenance for many use cases.",
         },
       ],
     },
@@ -320,18 +320,18 @@ const FAQ = () => {
         {
           question: "How do you ensure application security?",
           answer:
-            "I implement comprehensive security measures including JWT authentication, OAuth 2.0, input validation and sanitization, SQL injection prevention, XSS protection, CSRF tokens, and secure headers. I also conduct security audits, implement rate limiting, and follow OWASP security guidelines.",
+            "We implement comprehensive security measures including JWT authentication, OAuth 2.0, input validation and sanitization, SQL injection prevention, XSS protection, CSRF tokens, and secure headers. We also conduct security audits, implement rate limiting, and follow OWASP security guidelines.",
         },
         {
           question:
             "What performance optimization techniques do you implement?",
           answer:
-            "I optimize applications through code splitting, lazy loading, image optimization, CDN implementation, database query optimization, caching strategies, and bundle size reduction. I also implement server-side rendering (SSR) or static site generation (SSG) when appropriate for SEO and performance benefits.",
+            "We optimize applications through code splitting, lazy loading, image optimization, CDN implementation, database query optimization, caching strategies, and bundle size reduction. We also implement server-side rendering (SSR) or static site generation (SSG) when appropriate for SEO and performance benefits.",
         },
         {
           question: "How do you handle application monitoring and debugging?",
           answer:
-            "I implement comprehensive logging with structured logs, error tracking with Sentry or Bugsnag, performance monitoring with APM tools, and real-time analytics. I also set up alerts for critical issues, implement health checks, and use profiling tools to identify bottlenecks.",
+            "We implement comprehensive logging with structured logs, error tracking with Sentry or Bugsnag, performance monitoring with APM tools, and real-time analytics. We also set up alerts for critical issues, implement health checks, and use profiling tools to identify bottlenecks.",
         },
       ],
     },
@@ -343,17 +343,17 @@ const FAQ = () => {
         {
           question: "What development methodologies do you follow?",
           answer:
-            "I follow Agile/Scrum methodologies with sprint planning, daily standups, and retrospectives. I practice Test-Driven Development (TDD), implement comprehensive testing with Jest, Cypress, and Playwright, and maintain high code coverage with automated testing pipelines.",
+            "We follow Agile/Scrum methodologies with sprint planning, daily standups, and retrospectives. We practice Test-Driven Development (TDD), implement comprehensive testing with Jest, Cypress, and Playwright, and maintain high code coverage with automated testing pipelines.",
         },
         {
           question: "How do you ensure code quality and maintainability?",
           answer:
-            "I write clean, documented code following SOLID principles, implement proper Git workflows with feature branches and pull requests, use code linters (ESLint, Prettier), conduct thorough code reviews, and maintain comprehensive documentation for APIs and system architecture.",
+            "We write clean, documented code following SOLID principles, implement proper Git workflows with feature branches and pull requests, use code linters (ESLint, Prettier), conduct thorough code reviews, and maintain comprehensive documentation for APIs and system architecture.",
         },
         {
           question: "Do you work with modern development tools and workflows?",
           answer:
-            "Yes, I use modern IDEs like VS Code with extensions, implement hot reloading for development, use package managers like npm/yarn, work with monorepos using tools like Nx or Lerna, and leverage AI-assisted development tools while maintaining code quality and security standards.",
+            "Yes, we use modern IDEs like VS Code with extensions, implement hot reloading for development, use package managers like npm/yarn, work with monorepos using tools like Nx or Lerna, and leverage AI-assisted development tools while maintaining code quality and security standards.",
         },
       ],
     },
@@ -366,18 +366,18 @@ const FAQ = () => {
           question:
             "How do you manage full-stack projects from start to finish?",
           answer:
-            "I start with requirements gathering and technical architecture planning, create detailed project roadmaps with milestones, provide regular progress updates with demos, and maintain transparent communication throughout development. I use tools like Jira, Linear, or Notion for project management.",
+            "We start with requirements gathering and technical architecture planning, create detailed project roadmaps with milestones, provide regular progress updates with demos, and maintain transparent communication throughout development. We use tools like Jira, Linear, or Notion for project management.",
         },
         {
           question:
-            "What&apos;s your process for handling project requirements and scope changes?",
+            "What's your process for handling project requirements and scope changes?",
           answer:
-            "I begin with thorough requirement analysis and technical specifications, create user stories and acceptance criteria, and implement proper change management processes. I accommodate reasonable scope changes while maintaining timeline transparency and budget considerations through detailed documentation.",
+            "We begin with thorough requirement analysis and technical specifications, create user stories and acceptance criteria, and implement proper change management processes. We accommodate reasonable scope changes while maintaining timeline transparency and budget considerations through detailed documentation.",
         },
         {
           question: "Do you provide post-launch support and maintenance?",
           answer:
-            "Yes, I offer comprehensive post-launch support including bug fixes, security updates, performance monitoring, feature enhancements, server maintenance, and database optimization. I also provide documentation, training, and can establish long-term maintenance contracts based on your needs.",
+            "Yes, we offer comprehensive post-launch support including bug fixes, security updates, performance monitoring, feature enhancements, server maintenance, and database optimization. We also provide documentation, training, and can establish long-term maintenance contracts based on your needs.",
         },
       ],
     },
