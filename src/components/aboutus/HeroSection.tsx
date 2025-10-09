@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from 'react';
-import { ShoppingCart, Brain, Code, TrendingUp, Users, Star, Target, RotateCcw, Handshake, CheckCircle, Zap, Globe, ArrowRight, Play, Monitor } from 'lucide-react';
+import { ShoppingCart, Brain, Code, TrendingUp, Users, Star, Target, RotateCcw, Handshake, CheckCircle, Zap, Globe, ArrowRight, Play, Monitor, FileText } from 'lucide-react';
 
 const HeroSection = () => {
   const [currentService, setCurrentService] = useState(0);
@@ -153,23 +153,28 @@ const HeroSection = () => {
                 </p>
 
                 {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3 lg:gap-4">
-                  <button className="group relative px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl transition-all duration-300 overflow-hidden glow-effect hover:shadow-blue-500/50 text-sm lg:text-base">
-                    <span className="relative z-10 flex items-center justify-center">
-                      Start Your Project
-                      <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                  </button>
-                  
-                  <button className="group px-6 lg:px-8 py-3 lg:py-4 glass-card hover:bg-white/10 border border-white/20 hover:border-blue-500/50 text-white font-semibold rounded-xl transition-all duration-300 text-sm lg:text-base">
-                    <span className="flex items-center justify-center">
-                      <Play className="w-4 h-4 lg:w-5 lg:h-5 mr-2" />
-                      Watch Demo
-                    </span>
-                  </button>
-                </div>
-
+<div className="flex flex-col sm:flex-row gap-3 lg:gap-4">
+  <a 
+    href="/contact"
+    className="group relative px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl transition-all duration-300 overflow-hidden glow-effect hover:shadow-blue-500/50 text-sm lg:text-base"
+  >
+    <span className="relative z-10 flex items-center justify-center">
+      Start Your Project
+      <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+    </span>
+    <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+  </a>
+  
+  <a 
+    href="/case-studies"
+    className="group px-6 lg:px-8 py-3 lg:py-4 glass-card hover:bg-white/10 border border-white/20 hover:border-blue-500/50 text-white font-semibold rounded-xl transition-all duration-300 text-sm lg:text-base"
+  >
+    <span className="flex items-center justify-center">
+      <FileText className="w-4 h-4 lg:w-5 lg:h-5 mr-2" />
+      View Case Studies
+    </span>
+  </a>
+</div>
                 {/* Service Showcase Card */}
                 <div className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-6 space-y-3 lg:space-y-4">
                   <div className="flex items-center justify-between">
