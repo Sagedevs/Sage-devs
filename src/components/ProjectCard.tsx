@@ -11,10 +11,10 @@ interface ProjectCardProps {
     number: string;
     title: string;
     description: string;
-    techstack: string[]; // should be like ['techstack/react.png']
-    imageSrc: string; // e.g. 'projects/pictoncivil.png'
+    techstack: string[]; 
+    imageSrc: string; 
     link: string;
-    categories?: string[]; // Add this line
+    categories?: string[]; 
   };
   index: number;
 }
