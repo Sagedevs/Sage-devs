@@ -291,7 +291,7 @@ export default function TrustedBySection() {
                   </div>
                   <span className="text-white text-lg font-medium">Ready to build something legendary?</span>
                 </div>
-                <Link href="/Contact">
+                <Link href="/contact">
                   <button className="bg-gradient-to-r from-blue-500 to-purple-600 md:hover:from-blue-600 md:hover:to-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 md:hover:scale-105 md:hover:shadow-lg md:hover:shadow-purple-500/25 active:scale-95">
                     Partner With Us
                   </button>

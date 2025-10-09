@@ -346,7 +346,7 @@ const HeroSection = () => {
         <div className={`mb-24 transition-all duration-1500 delay-800 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="flex flex-col sm:flex-row gap-8 items-center">
           <Link 
-  href="/Contact#contact-form" 
+  href="/contact#contact-form" 
   className="group relative overflow-hidden px-12 py-4 bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 rounded-xl font-semibold text-lg text-black transition-all duration-500 hover:scale-105 shadow-2xl shadow-blue-500/25 inline-flex justify-center"
 >
   <span className="relative z-10">Start Your Project</span>

@@ -325,7 +325,7 @@ const WebAppDevelopment = () => {
         {/* CTA Section */}
         <div className="text-center">
           <div className="inline-flex items-center gap-4">
-            <Link href="/Contact" className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-2xl hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 flex items-center gap-3">
+            <Link href="/contact" className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-2xl hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 flex items-center gap-3">
               Discuss Your Project
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>

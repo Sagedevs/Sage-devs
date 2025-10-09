@@ -1972,7 +1972,7 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
               {/* Mobile CTA */}
               <div className="pt-6 mt-6 border-t border-gray-700">
                 <Link
-                  href="/Contact"
+                  href="/contact"
                   onClick={closeMobileMenu}
                   className="inline-flex w-full items-center justify-center h-12 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold border border-white/10 hover:border-cyan-300/40 hover:shadow-lg hover:shadow-cyan-500/20 transition-all"
                 >

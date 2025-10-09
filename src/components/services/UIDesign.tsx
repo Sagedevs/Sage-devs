@@ -326,7 +326,7 @@ const UIDesign = () => {
         {/* CTA Section */}
         <div className="text-center">
           <div className="inline-flex items-center gap-4">
-            <Link href="/Contact" className="group px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300 flex items-center gap-2 text-base">
+            <Link href="/contact" className="group px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300 flex items-center gap-2 text-base">
               Start Your Design Project
               <Figma className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>

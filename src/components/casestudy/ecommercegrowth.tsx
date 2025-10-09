@@ -374,7 +374,7 @@ const EcommerceGrowth = () => {
             <p className="text-lg text-gray-300 mb-8 font-medium">
               Join the revolution. Transform your business into an unstoppable force.
             </p>
-            <Link href="/Contact" className="inline-block">
+            <Link href="/contact" className="inline-block">
               <button className="group relative bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 hover:from-blue-500 hover:via-blue-600 hover:to-blue-700 text-white font-black text-lg py-4 px-10 rounded-xl transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/50 border border-blue-400 border-opacity-20 overflow-hidden">
               <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
               <span className="relative flex items-center">

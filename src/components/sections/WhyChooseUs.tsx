@@ -178,7 +178,7 @@ export default function WhyChooseUs() {
               Join hundreds of satisfied clients who chose Sage Devs for their digital transformation journey.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 w-full sm:w-auto">
-              <Link href="/Contact" passHref>
+              <Link href="/contact" passHref>
                 <button className="w-full sm:w-auto px-6 md:px-8 py-2.5 md:py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold rounded-lg hover:from-blue-500 hover:to-blue-400 transition-all duration-300 shadow-lg hover:shadow-blue-500/25 text-sm md:text-base">
                   Start Your Project
                 </button>

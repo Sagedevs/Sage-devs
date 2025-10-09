@@ -429,7 +429,7 @@ const LetsTalkAIHero = () => {
               }`}
             >
              <Link 
-  href="/Contact#contact-form" 
+  href="/contact#contact-form" 
   className="group relative px-8 lg:px-12 py-4 lg:py-5 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-base lg:text-lg font-bold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 border border-blue-500/20 inline-flex justify-center"
 >
   <span className="relative z-10 tracking-wide">Start Your AI Journey</span>

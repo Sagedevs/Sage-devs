@@ -275,7 +275,7 @@ const HeroSection = () => {
             </div>
             
             <div className="group relative">
-              <Link href="/Contact" className="relative bg-transparent border-2 border-blue-400/50 px-12 py-5 text-blue-300 hover:text-white font-bold rounded-2xl hover:border-blue-300 hover:bg-blue-500/10 backdrop-blur-xl transition-all duration-300 inline-block">
+              <Link href="/contact" className="relative bg-transparent border-2 border-blue-400/50 px-12 py-5 text-blue-300 hover:text-white font-bold rounded-2xl hover:border-blue-300 hover:bg-blue-500/10 backdrop-blur-xl transition-all duration-300 inline-block">
                 Get Started Free
               </Link>
             </div>

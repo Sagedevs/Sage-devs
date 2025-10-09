@@ -174,7 +174,7 @@ export default function HeroSection() {
         {/* Hero CTAs */}
         <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 items-center justify-center mb-16">
           <a 
-            href="#contact" 
+            href="/contact" 
             className="relative group inline-flex items-center justify-center h-14 px-10 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 text-white text-lg font-bold transition-all duration-300 border border-blue-400/30 md:hover:border-cyan-300/50 md:hover:shadow-2xl md:hover:shadow-cyan-500/40 overflow-hidden backdrop-blur-sm w-full sm:w-auto md:hover:scale-105 active:scale-95"
           >
             <span className="relative z-10 flex items-center gap-3">
