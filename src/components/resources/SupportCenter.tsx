@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { 
   Headset, FileText, Video, MessageSquare, BookOpen, Zap, 
   Clock, Users, ChevronDown, ChevronRight, Search, Phone,
-  Mail, Star, CheckCircle
+  Mail, Star, CheckCircle, ExternalLink
 } from 'lucide-react';
 
 const SupportCenter = () => {
@@ -11,9 +11,20 @@ const SupportCenter = () => {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Updated with actual URLs from sagedevs.tech
+  const LINKS = {
+    liveChat: 'https://wa.me/923259684493', // WhatsApp link
+    phone: 'tel:+923259684493',
+    email: 'mailto:contact@sagedevs.tech',
+    enterprise: 'mailto:contact@sagedevs.tech',
+    quickStart: '/resources',
+    contact: '/contact',
+    community: '#', // Placeholder since not specified
+    tutorials: '#', // Placeholder since not specified
+  };
+
   const supportTabs = [
     { id: 'live-support', label: 'Live Support', icon: <Headset className="w-5 h-5" /> },
-    { id: 'documentation', label: 'Documentation', icon: <FileText className="w-5 h-5" /> },
     { id: 'tutorials', label: 'Tutorials', icon: <Video className="w-5 h-5" /> },
     { id: 'community', label: 'Community', icon: <MessageSquare className="w-5 h-5" /> },
     { id: 'faq', label: 'FAQ', icon: <BookOpen className="w-5 h-5" /> }
@@ -26,67 +37,32 @@ const SupportCenter = () => {
         icon: <MessageSquare className="w-6 h-6" />,
         availability: '24/7',
         responseTime: '< 2 minutes',
-        languages: ['English', 'Spanish', 'French'],
-        status: 'online'
+        languages: ['English', 'Urdu'],
+        status: 'online',
+        link: LINKS.liveChat,
+        buttonText: 'Start Chat on WhatsApp'
       },
       {
         type: 'Phone Support',
         icon: <Phone className="w-6 h-6" />,
-        availability: 'Mon-Fri 9AM-6PM EST',
+        availability: 'Mon-Sun 9AM-11PM PKT',
         responseTime: 'Immediate',
-        languages: ['English'],
+        languages: ['English', 'Urdu'],
         status: 'online',
-        number: '+1 (555) 123-4567'
+        number: '+92 325 9684493',
+        link: LINKS.phone,
+        buttonText: 'Call Now'
       },
       {
         type: 'Email Support',
         icon: <Mail className="w-6 h-6" />,
         availability: '24/7',
         responseTime: '< 4 hours',
-        languages: ['English', 'Spanish', 'French', 'German'],
+        languages: ['English', 'Urdu'],
         status: 'online',
-        email: 'support@company.com'
-      }
-    ]
-  };
-
-  const documentation = {
-    sections: [
-      {
-        title: 'Getting Started',
-        items: [
-          'Quick Start Guide',
-          'Installation Instructions',
-          'Basic Configuration',
-          'First API Call'
-        ]
-      },
-      {
-        title: 'API Reference',
-        items: [
-          'Authentication',
-          'Endpoints Overview',
-          'Request/Response Format',
-          'Error Codes'
-        ]
-      },
-      {
-        title: 'Integration Guides',
-        items: [
-          'JavaScript SDK',
-          'Python SDK',
-          'REST API',
-          'Webhooks'
-        ]
-      },
-      {
-        title: 'Best Practices',
-        items: [
-          'Security Guidelines',
-          'Performance Optimization',
-          'Error Handling',
-          'Rate Limiting'
-        ]
+        email: 'contact@sagedevs.tech',
+        link: LINKS.email,
+        buttonText: 'Send Email'
       }
     ]
   };
@@ -96,25 +72,25 @@ const SupportCenter = () => {
       {
         title: 'Beginner',
         videos: [
-          { title: 'Platform Overview', duration: '5:30', views: '12K' },
-          { title: 'Setting Up Your Account', duration: '8:15', views: '8.5K' },
-          { title: 'Making Your First Request', duration: '12:45', views: '15K' }
+          { title: 'Platform Overview', duration: '5:30', views: '12K', link: LINKS.tutorials },
+          { title: 'Setting Up Your Account', duration: '8:15', views: '8.5K', link: LINKS.tutorials },
+          { title: 'Making Your First Request', duration: '12:45', views: '15K', link: LINKS.tutorials }
         ]
       },
       {
         title: 'Intermediate',
         videos: [
-          { title: 'Advanced Configuration', duration: '18:20', views: '5.2K' },
-          { title: 'Error Handling Strategies', duration: '14:10', views: '7.8K' },
-          { title: 'Performance Optimization', duration: '22:35', views: '4.1K' }
+          { title: 'Advanced Configuration', duration: '18:20', views: '5.2K', link: LINKS.tutorials },
+          { title: 'Error Handling Strategies', duration: '14:10', views: '7.8K', link: LINKS.tutorials },
+          { title: 'Performance Optimization', duration: '22:35', views: '4.1K', link: LINKS.tutorials }
         ]
       },
       {
         title: 'Advanced',
         videos: [
-          { title: 'Custom Integrations', duration: '28:45', views: '2.8K' },
-          { title: 'Enterprise Features', duration: '35:12', views: '1.9K' },
-          { title: 'Scaling Best Practices', duration: '31:20', views: '3.4K' }
+          { title: 'Custom Integrations', duration: '28:45', views: '2.8K', link: LINKS.tutorials },
+          { title: 'Enterprise Features', duration: '35:12', views: '1.9K', link: LINKS.tutorials },
+          { title: 'Scaling Best Practices', duration: '31:20', views: '3.4K', link: LINKS.tutorials }
         ]
       }
     ]
@@ -122,43 +98,43 @@ const SupportCenter = () => {
 
   const community = {
     forums: [
-      { name: 'General Discussion', posts: '1,247', members: '8,932' },
-      { name: 'API Help', posts: '892', members: '5,671' },
-      { name: 'Feature Requests', posts: '456', members: '3,298' },
-      { name: 'Bug Reports', posts: '234', members: '2,156' }
+      { name: 'General Discussion', posts: '1,247', members: '8,932', link: LINKS.community },
+      { name: 'API Help', posts: '892', members: '5,671', link: LINKS.community },
+      { name: 'Feature Requests', posts: '456', members: '3,298', link: LINKS.community },
+      { name: 'Bug Reports', posts: '234', members: '2,156', link: LINKS.community }
     ],
     recentTopics: [
-      { title: 'How to handle rate limiting?', replies: 23, solved: true },
-      { title: 'Best practices for authentication', replies: 17, solved: true },
-      { title: 'Integration with React', replies: 8, solved: false },
-      { title: 'Webhook setup issues', replies: 12, solved: true }
+      { title: 'How to handle rate limiting?', replies: 23, solved: true, link: LINKS.community },
+      { title: 'Best practices for authentication', replies: 17, solved: true, link: LINKS.community },
+      { title: 'Integration with React', replies: 8, solved: false, link: LINKS.community },
+      { title: 'Webhook setup issues', replies: 12, solved: true, link: LINKS.community }
     ]
   };
 
   const faqs = [
     {
-      question: 'How do I get started with the API?',
-      answer: 'Getting started is simple! First, sign up for an account and get your API key. Then follow our Quick Start Guide to make your first API call. We provide SDKs for JavaScript, Python, and other popular languages.'
+      question: 'How do I get started with your services?',
+      answer: 'Getting started is simple! Check out our resources page for comprehensive guides and documentation. We provide everything you need to begin your project quickly.'
     },
     {
-      question: 'What are the rate limits?',
-      answer: 'Our rate limits vary by plan: Free tier allows 1,000 requests/hour, Pro allows 10,000 requests/hour, and Enterprise has custom limits. Rate limit headers are included in all responses.'
+      question: 'What are your working hours?',
+      answer: 'We offer 24/7 email support with <4 hour response time. Phone support is available from 9AM to 11PM Pakistan Time, 7 days a week. Live chat via WhatsApp is available 24/7.'
     },
     {
-      question: 'How can I authenticate my requests?',
-      answer: 'We support API key authentication and OAuth 2.0. Include your API key in the Authorization header: "Bearer YOUR_API_KEY". For OAuth, follow our authentication guide.'
+      question: 'How can I contact your team?',
+      answer: 'You can reach us through multiple channels: WhatsApp chat, phone call at +92 325 9684493, or email at contact@sagedevs.tech. We typically respond within minutes during business hours.'
     },
     {
       question: 'What support do you offer?',
-      answer: 'We offer 24/7 live chat support, email support with <4 hour response time, phone support during business hours, comprehensive documentation, video tutorials, and an active community forum.'
+      answer: 'We offer 24/7 WhatsApp support, email support with <4 hour response time, phone support during extended hours, comprehensive resources, and personalized consultation for your projects.'
     },
     {
-      question: 'How do I report a bug?',
-      answer: 'You can report bugs through our support chat, email support@company.com, or post in our Bug Reports forum. Please include steps to reproduce, expected vs actual behavior, and any error messages.'
+      question: 'How do I report a bug or issue?',
+      answer: 'You can report issues through our WhatsApp support, email at contact@sagedevs.tech. Please include detailed steps to reproduce, expected vs actual behavior, and any relevant error messages or screenshots.'
     },
     {
-      question: 'Is there a sandbox environment?',
-      answer: 'Yes! We provide a full sandbox environment that mirrors production. Use sandbox API keys to test your integration without affecting live data or incurring charges.'
+      question: 'Do you offer custom development services?',
+      answer: 'Yes! We specialize in custom software development, web applications, and digital solutions. Contact us at contact@sagedevs.tech to discuss your specific requirements and get a personalized quote.'
     }
   ];
 
@@ -200,88 +176,51 @@ const SupportCenter = () => {
               )}
             </div>
 
-            <button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
-              {channel.type === 'Live Chat' ? 'Start Chat' : 
-               channel.type === 'Phone Support' ? 'Call Now' : 'Send Email'}
-            </button>
+            <a 
+              href={channel.link}
+              className="block w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors text-center"
+              target={channel.link.startsWith('http') ? '_blank' : '_self'}
+              rel={channel.link.startsWith('http') ? 'noopener noreferrer' : ''}
+            >
+              {channel.buttonText}
+            </a>
           </div>
         ))}
       </div>
 
       <div className="bg-gray-900/30 border border-gray-800 rounded-xl p-6">
-        <h3 className="text-xl font-semibold text-white mb-4">Enterprise Support</h3>
+        <h3 className="text-xl font-semibold text-white mb-4">Enterprise & Custom Solutions</h3>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
-            <h4 className="text-white font-medium mb-2">What&apos;s Included:</h4>
+            <h4 className="text-white font-medium mb-2">What We Offer:</h4>
             <ul className="space-y-2 text-sm text-gray-400">
               <li className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-green-400" />
-                Dedicated support manager
+                Custom software development
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-green-400" />
-                99.9% SLA guarantee
+                Dedicated project management
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-green-400" />
-                Priority queue access
+                Priority support access
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-green-400" />
-                Custom integration support
+                Custom integration services
               </li>
             </ul>
           </div>
           <div className="flex items-center">
-            <button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-lg font-medium hover:from-blue-700 hover:to-blue-800 transition-all">
-              Learn More
-            </button>
+            <a 
+              href={LINKS.enterprise}
+              className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-lg font-medium hover:from-blue-700 hover:to-blue-800 transition-all"
+            >
+              Contact for Quote
+            </a>
           </div>
         </div>
-      </div>
-    </div>
-  );
-
-  const renderDocumentation = () => (
-    <div className="space-y-6">
-      <div className="relative mb-6">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-        <input
-          type="text"
-          placeholder="Search documentation..."
-          className="w-full bg-gray-900/50 border border-gray-800 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-6">
-        {documentation.sections.map((section, index) => (
-          <div key={index} className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">{section.title}</h3>
-            <ul className="space-y-2">
-              {section.items.map((item, itemIndex) => (
-                <li key={itemIndex} className="flex items-center gap-2 text-gray-300 hover:text-blue-400 cursor-pointer transition-colors">
-                  <ChevronRight className="w-4 h-4" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-
-      <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-6">
-        <div className="flex items-center gap-3 mb-3">
-          <Star className="w-6 h-6 text-blue-400" />
-          <h3 className="text-xl font-semibold text-white">Quick Start Guide</h3>
-        </div>
-        <p className="text-gray-300 mb-4">
-          Get up and running in under 5 minutes with our comprehensive quick start guide.
-        </p>
-        <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
-          Start Now
-        </button>
       </div>
     </div>
   );
@@ -293,7 +232,11 @@ const SupportCenter = () => {
           <h3 className="text-lg font-semibold text-white mb-4">{category.title}</h3>
           <div className="space-y-3">
             {category.videos.map((video, videoIndex) => (
-              <div key={videoIndex} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-colors cursor-pointer">
+              <a
+                key={videoIndex}
+                href={video.link}
+                className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-colors cursor-pointer"
+              >
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-8 bg-blue-500/20 rounded flex items-center justify-center">
                     <Video className="w-4 h-4 text-blue-400" />
@@ -307,11 +250,24 @@ const SupportCenter = () => {
                   </div>
                 </div>
                 <ChevronRight className="w-5 h-5 text-gray-400" />
-              </div>
+              </a>
             ))}
           </div>
         </div>
       ))}
+
+      <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-xl p-6 text-center">
+        <h3 className="text-xl font-semibold text-white mb-3">More Resources Available</h3>
+        <p className="text-gray-300 mb-4">
+          Explore our complete library of tutorials, guides, and documentation.
+        </p>
+        <a 
+          href={LINKS.quickStart}
+          className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
+        >
+          Visit Resources <ExternalLink className="w-4 h-4" />
+        </a>
+      </div>
     </div>
   );
 
@@ -319,10 +275,14 @@ const SupportCenter = () => {
     <div className="space-y-6">
       <div className="grid md:grid-cols-2 gap-6">
         <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">Forums</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">Discussion Areas</h3>
           <div className="space-y-3">
             {community.forums.map((forum, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-colors cursor-pointer">
+              <a
+                key={index}
+                href={forum.link}
+                className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-colors cursor-pointer"
+              >
                 <div>
                   <h4 className="text-white font-medium">{forum.name}</h4>
                   <div className="text-sm text-gray-400">
@@ -330,16 +290,20 @@ const SupportCenter = () => {
                   </div>
                 </div>
                 <ChevronRight className="w-5 h-5 text-gray-400" />
-              </div>
+              </a>
             ))}
           </div>
         </div>
 
         <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">Recent Topics</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">Recent Discussions</h3>
           <div className="space-y-3">
             {community.recentTopics.map((topic, index) => (
-              <div key={index} className="flex items-start gap-3 p-3 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-colors cursor-pointer">
+              <a
+                key={index}
+                href={topic.link}
+                className="flex items-start gap-3 p-3 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-colors cursor-pointer"
+              >
                 <div className="flex-1">
                   <h4 className="text-white font-medium text-sm">{topic.title}</h4>
                   <div className="flex items-center gap-2 mt-1 text-xs text-gray-400">
@@ -352,20 +316,23 @@ const SupportCenter = () => {
                     )}
                   </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-xl p-6">
-        <h3 className="text-xl font-semibold text-white mb-3">Join Our Community</h3>
+      <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-xl p-6 text-center">
+        <h3 className="text-xl font-semibold text-white mb-3">Get in Touch</h3>
         <p className="text-gray-300 mb-4">
-          Connect with over 50,000 developers, share knowledge, and get help from experts.
+          Have questions? Reach out to our team directly for personalized assistance.
         </p>
-        <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
-          Join Now
-        </button>
+        <a 
+          href={LINKS.contact}
+          className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
+        >
+          Contact Us <ExternalLink className="w-4 h-4" />
+        </a>
       </div>
     </div>
   );
@@ -388,13 +355,37 @@ const SupportCenter = () => {
           )}
         </div>
       ))}
+      
+      <div className="bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-xl p-6 text-center mt-8">
+        <h3 className="text-xl font-semibold text-white mb-3">Still have questions?</h3>
+        <p className="text-gray-300 mb-4">
+          Our team is here to help you get the answers you need.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href={LINKS.liveChat}
+            className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <MessageSquare className="w-4 h-4" />
+            WhatsApp Chat
+          </a>
+          <a 
+            href={LINKS.contact}
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
+          >
+            <Mail className="w-4 h-4" />
+            Email Us
+          </a>
+        </div>
+      </div>
     </div>
   );
 
   const renderContent = () => {
     switch (activeTab) {
       case 'live-support': return renderLiveSupport();
-      case 'documentation': return renderDocumentation();
       case 'tutorials': return renderTutorials();
       case 'community': return renderCommunity();
       case 'faq': return renderFAQ();
@@ -423,7 +414,7 @@ const SupportCenter = () => {
           </h1>
           
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Comprehensive support resources, detailed documentation, live assistance, and community help - all in one place.
+            Comprehensive support resources, direct communication channels, and personalized assistance - all in one place.
           </p>
         </div>
 
@@ -434,21 +425,21 @@ const SupportCenter = () => {
               <Clock className="w-6 h-6 text-blue-400" />
             </div>
             <div className="text-2xl font-bold text-white mb-1">24/7</div>
-            <div className="text-gray-400 text-sm">Support Available</div>
+            <div className="text-gray-400 text-sm">WhatsApp Support</div>
           </div>
           <div className="text-center">
             <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
               <Users className="w-6 h-6 text-blue-400" />
             </div>
-            <div className="text-2xl font-bold text-white mb-1">50K+</div>
-            <div className="text-gray-400 text-sm">Community Members</div>
+            <div className="text-2xl font-bold text-white mb-1">500+</div>
+            <div className="text-gray-400 text-sm">Projects Completed</div>
           </div>
           <div className="text-center">
             <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
               <FileText className="w-6 h-6 text-blue-400" />
             </div>
-            <div className="text-2xl font-bold text-white mb-1">1000+</div>
-            <div className="text-gray-400 text-sm">Documentation Articles</div>
+            <div className="text-2xl font-bold text-white mb-1">100%</div>
+            <div className="text-gray-400 text-sm">Client Satisfaction</div>
           </div>
           <div className="text-center">
             <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
