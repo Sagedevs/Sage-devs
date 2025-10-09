@@ -136,7 +136,7 @@ const WebinarsTalks = () => {
       topics: ['AWS/Azure', 'Kubernetes', 'Microservices', 'DevOps'],
       level: 'Advanced',
       status: 'upcoming',
-      speakerImage: 'https://api.uifaces.co/our-content/donated/BiIqPuGk.jpg',
+      speakerImage: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760017295/download_25_uvdulp.webp',
       backgroundImage: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605020/migrated/photo-1451187580459-43490279c0fa_00863abd.jpg',
       price: '$79'
     }
