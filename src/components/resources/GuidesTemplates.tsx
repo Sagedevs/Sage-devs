@@ -130,7 +130,7 @@ const GuidesTemplates = () => {
       } else {
         setSubmitMessage('Something went wrong. Please try again.');
       }
-    } catch (error) {
+    } catch {
       setSubmitMessage('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
