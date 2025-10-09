@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import { Rocket, Code, Zap, Trophy, ArrowRight, Users, Globe, Award, Target, Heart, TrendingUp } from 'lucide-react';
+import { Code, Zap, ArrowRight, Users, Globe, Target, Heart, TrendingUp } from 'lucide-react';
 
 const positions = [
   {
@@ -108,16 +108,16 @@ const Careers = () => {
               <div className="inline-block">
                 <span className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-blue-300 text-sm font-medium rounded-full border border-blue-500/30 mb-6 animate-fade-in">
                   <Zap className="w-4 h-4" />
-                  We're Hiring
+                  We&apos;re Hiring
                 </span>
               </div>
-              <h1 className="text-5xl sm:text-6xl lg:text-8xl font-bold text-white mb-6 leading-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-4 leading-tight">
                 Build The Future of
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 animate-gradient">
                   Digital Excellence
                 </span>
               </h1>
-              <p className="text-xl sm:text-2xl lg:text-3xl text-gray-300 max-w-5xl mx-auto leading-relaxed font-light">
+              <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 max-w-5xl mx-auto leading-relaxed font-light">
                 Join Sage Devs and work on cutting-edge web applications, AI solutions, and digital platforms 
                 that empower businesses worldwide to achieve their boldest ambitions.
               </p>
@@ -131,10 +131,10 @@ const Careers = () => {
                   { value: '24/7', label: 'Support Available' }
                 ].map((stat, index) => (
                   <div key={index} className="text-center">
-                    <div className="text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-2">
+                    <div className="text-3xl lg:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-1">
                       {stat.value}
                     </div>
-                    <div className="text-gray-400 text-sm uppercase tracking-wider">{stat.label}</div>
+                    <div className="text-gray-400 text-xs uppercase tracking-wider">{stat.label}</div>
                   </div>
                 ))}
               </div>
@@ -142,8 +142,8 @@ const Careers = () => {
 
             {/* Open Positions Header */}
             <div className="mb-12">
-              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">Open Positions</h2>
-              <p className="text-gray-400 text-lg">Join our team and help build digital solutions that make a real impact</p>
+              <h2 className="text-2xl lg:text-3xl font-bold text-white mb-3">Open Positions</h2>
+              <p className="text-gray-400 text-base">Join our team and help build digital solutions that make a real impact</p>
             </div>
 
             {/* Positions Grid */}
@@ -167,11 +167,11 @@ const Careers = () => {
                           </span>
                         </div>
                         
-                        <h3 className="text-2xl lg:text-3xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors">
+                        <h3 className="text-xl lg:text-2xl font-bold text-white mb-2 group-hover:text-blue-300 transition-colors">
                           {position.title}
                         </h3>
                         
-                        <p className="text-gray-300 leading-relaxed mb-6 text-lg">
+                        <p className="text-gray-300 leading-relaxed mb-4 text-base">
                           {position.description}
                         </p>
                         
@@ -183,8 +183,8 @@ const Careers = () => {
                             </h5>
                             <ul className="space-y-2">
                               {position.requirements.map((req, reqIndex) => (
-                                <li key={reqIndex} className="flex items-start gap-2 text-gray-300 text-sm">
-                                  <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mt-2 flex-shrink-0"></div>
+                                <li key={reqIndex} className="flex items-start gap-2 text-gray-300 text-xs">
+                                  <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mt-1.5 flex-shrink-0"></div>
                                   {req}
                                 </li>
                               ))}
@@ -226,10 +226,10 @@ const Careers = () => {
                       <div className="flex flex-col gap-3">
                         <button 
                           onClick={handleApplyClick}
-                          className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50 transform hover:scale-105 flex items-center gap-2 justify-center"
+                          className="px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50 transform hover:scale-105 flex items-center gap-2 justify-center text-sm"
                         >
                           Apply Now
-                          <ArrowRight className="w-4 h-4" />
+                          <ArrowRight className="w-3.5 h-3.5" />
                         </button>
                       </div>
                     </div>
@@ -241,9 +241,9 @@ const Careers = () => {
 
             {/* Company Values */}
             <div className="mb-20 lg:mb-32">
-              <h4 className="text-center text-3xl lg:text-4xl font-bold text-white mb-4">Why Join Sage Devs?</h4>
-              <p className="text-center text-gray-400 text-lg mb-12 max-w-2xl mx-auto">
-                We're building the future of digital experiences with cutting-edge technology and a passionate team
+              <h4 className="text-center text-2xl lg:text-3xl font-bold text-white mb-3">Why Join Sage Devs?</h4>
+              <p className="text-center text-gray-400 text-base mb-8 max-w-2xl mx-auto">
+                We&apos;re building the future of digital experiences with cutting-edge technology and a passionate team
               </p>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
@@ -260,8 +260,8 @@ const Careers = () => {
                           <IconComponent className="w-8 h-8 text-blue-400" />
                         </div>
                       </div>
-                      <h5 className="text-white font-bold mb-3 text-lg">{value.title}</h5>
-                      <p className="text-gray-400 text-sm leading-relaxed">{value.desc}</p>
+                      <h5 className="text-white font-bold mb-2 text-base">{value.title}</h5>
+                      <p className="text-gray-400 text-xs leading-relaxed">{value.desc}</p>
                     </div>
                   );
                 })}
@@ -274,24 +274,24 @@ const Careers = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-cyan-600/5 animate-pulse"></div>
                 <div className="relative z-10">
                   <Target className="w-12 h-12 text-blue-400 mx-auto mb-6" />
-                  <h3 className="text-3xl lg:text-5xl font-bold text-white mb-6">
-                    Don't See Your Perfect Role?
+                  <h3 className="text-2xl lg:text-4xl font-bold text-white mb-4">
+                    Don&apos;t See Your Perfect Role?
                   </h3>
-                  <p className="text-gray-300 mb-10 text-xl leading-relaxed max-w-3xl mx-auto">
-                    We're always looking for talented developers, designers, and innovators who share our passion 
-                    for building exceptional digital experiences. Share your portfolio and let's explore opportunities together.
+                  <p className="text-gray-300 mb-8 text-base leading-relaxed max-w-3xl mx-auto">
+                    We&apos;re always looking for talented developers, designers, and innovators who share our passion 
+                    for building exceptional digital experiences. Share your portfolio and let&apos;s explore opportunities together.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <button 
                       onClick={handleApplyClick}
-                      className="px-12 py-5 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold rounded-xl hover:from-blue-500 hover:to-cyan-500 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/50 transform hover:scale-105 flex items-center gap-2 justify-center"
+                      className="px-8 py-3 text-sm bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold rounded-xl hover:from-blue-500 hover:to-cyan-500 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/50 transform hover:scale-105 flex items-center gap-2 justify-center"
                     >
                       Send Your Portfolio
                       <ArrowRight className="w-5 h-5" />
                     </button>
                     <button 
                       onClick={handleApplyClick}
-                      className="px-12 py-5 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-black transition-all duration-300 flex items-center gap-2 justify-center"
+                      className="px-8 py-3 text-sm border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-black transition-all duration-300 flex items-center gap-2 justify-center"
                     >
                       Get In Touch
                     </button>

@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState, useRef } from 'react';
 import { Award, Code, Briefcase, Target, Users, Zap } from 'lucide-react';
+import Image from 'next/image';
 
 const team = [
   {
@@ -213,10 +214,12 @@ const Team = () => {
                       <div className="relative">
                         {/* Image Section */}
                         <div className="relative h-64 sm:h-72 lg:h-80 overflow-hidden">
-                          <img 
+                          <Image 
                             src={member.image}
                             alt={member.name}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="object-cover transition-transform duration-700 group-hover:scale-110"
                           />
                           {/* Gradient Overlay */}
                           <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
