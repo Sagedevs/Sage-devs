@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import { Code, Zap, ArrowRight, Users, Globe, Target, Heart, TrendingUp } from 'lucide-react';
+import Link from 'next/link';
 
 const positions = [
   {
@@ -111,12 +112,12 @@ const Careers = () => {
                   We&apos;re Hiring
                 </span>
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-4 leading-tight">
+              <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-4 leading-tight">
                 Build The Future of
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 animate-gradient">
                   Digital Excellence
                 </span>
-              </h1>
+              </h2>
               <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 max-w-5xl mx-auto leading-relaxed font-light">
                 Join Sage Devs and work on cutting-edge web applications, AI solutions, and digital platforms 
                 that empower businesses worldwide to achieve their boldest ambitions.
@@ -127,7 +128,7 @@ const Careers = () => {
                 {[
                   { value: '500+', label: 'Projects Delivered' },
                   { value: '20+', label: 'Team Members' },
-                  { value: '10+', label: 'Industries Served' },
+                  { value: '50+', label: 'Industries Served' },
                   { value: '24/7', label: 'Support Available' }
                 ].map((stat, index) => (
                   <div key={index} className="text-center">
@@ -224,13 +225,13 @@ const Careers = () => {
                       </div>
                       
                       <div className="flex flex-col gap-3">
-                        <button 
-                          onClick={handleApplyClick}
+                        <Link 
+                          href="/careers/apply"
                           className="px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50 transform hover:scale-105 flex items-center gap-2 justify-center text-sm"
                         >
                           Apply Now
                           <ArrowRight className="w-3.5 h-3.5" />
-                        </button>
+                        </Link>
                       </div>
                     </div>
 
@@ -282,19 +283,19 @@ const Careers = () => {
                     for building exceptional digital experiences. Share your portfolio and let&apos;s explore opportunities together.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button 
-                      onClick={handleApplyClick}
+                    <Link 
+                      href="/contact/portfolio"
                       className="px-8 py-3 text-sm bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold rounded-xl hover:from-blue-500 hover:to-cyan-500 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/50 transform hover:scale-105 flex items-center gap-2 justify-center"
                     >
                       Send Your Portfolio
                       <ArrowRight className="w-5 h-5" />
-                    </button>
-                    <button 
-                      onClick={handleApplyClick}
+                    </Link>
+                    <Link 
+                      href="/contact"
                       className="px-8 py-3 text-sm border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-black transition-all duration-300 flex items-center gap-2 justify-center"
                     >
                       Get In Touch
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
