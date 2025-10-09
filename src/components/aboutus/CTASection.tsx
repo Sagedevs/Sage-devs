@@ -1,17 +1,18 @@
 "use client";
 import React from 'react';
+import Link from 'next/link';
 import { ArrowRight, Users, Heart, Zap } from 'lucide-react';
 
 const AboutCTASection = () => {
   return (
     <section className="relative py-24 overflow-hidden">
-      {/* Dynamic Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-blue-900 opacity-95"></div>
+      {/* Deep Blue Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-blue-900"></div>
       
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-10 left-10 w-72 h-72 bg-gradient-to-r from-white/5 to-transparent rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-l from-blue-800/10 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-10 left-10 w-72 h-72 bg-gradient-to-r from-blue-400/10 to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-l from-blue-600/10 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         <div className="absolute top-1/2 left-1/3 w-48 h-48 bg-gradient-to-tr from-blue-700/10 to-transparent rounded-full blur-2xl animate-pulse" style={{ animationDelay: '4s' }}></div>
         
         {/* Geometric Shapes */}
@@ -57,10 +58,10 @@ const AboutCTASection = () => {
               <p className="text-blue-100 mb-6 leading-relaxed">
                 Join forces with industry leaders. Let&apos;s collaborate on projects that push boundaries and create lasting impact.
               </p>
-              <button className="inline-flex items-center text-white font-medium group-hover:text-blue-300 transition-colors">
+              <Link href="/contact" className="inline-flex items-center text-white font-medium group-hover:text-blue-300 transition-colors">
                 Start Partnership
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -75,10 +76,10 @@ const AboutCTASection = () => {
               <p className="text-blue-100 mb-6 leading-relaxed">
                 Transform your vision into reality. From strategy to execution, we&apos;re your dedicated creative partners.
               </p>
-              <button className="inline-flex items-center text-white font-medium group-hover:text-blue-300 transition-colors">
+              <Link href="/contact" className="inline-flex items-center text-white font-medium group-hover:text-blue-300 transition-colors">
                 Start Project
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -93,10 +94,10 @@ const AboutCTASection = () => {
               <p className="text-blue-100 mb-6 leading-relaxed">
                 Be part of a culture that values creativity, growth, and making a meaningful difference in the world.
               </p>
-              <button className="inline-flex items-center text-white font-medium group-hover:text-blue-300 transition-colors">
+              <Link href="/about#careers" className="inline-flex items-center text-white font-medium group-hover:text-blue-300 transition-colors">
                 View Careers
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -112,18 +113,18 @@ const AboutCTASection = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <button className="px-10 py-4 bg-white text-blue-900 hover:bg-gray-100 font-bold rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 transform">
+              <Link href="/contact" className="px-10 py-4 bg-white text-blue-900 hover:bg-gray-100 font-bold rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 transform">
                 Get In Touch
-              </button>
-              <button className="px-10 py-4 border-2 border-white text-white hover:bg-white/10 font-medium rounded-xl transition-all duration-300 backdrop-blur-sm">
+              </Link>
+              <Link href="/contact" className="px-10 py-4 border-2 border-white text-white hover:bg-white/10 font-medium rounded-xl transition-all duration-300 backdrop-blur-sm">
                 Schedule a Call
-              </button>
+              </Link>
             </div>
 
             {/* Contact Info */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8 border-t border-white/20">
               <a 
-                href="mailto:hello@agency.com" 
+                href="mailto:contact@sagedevs.tech" 
                 className="flex items-center text-white hover:text-blue-300 transition-colors group"
               >
                 <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3 group-hover:bg-white/30 transition-colors">
@@ -131,13 +132,13 @@ const AboutCTASection = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <span className="font-medium">hello@agency.com</span>
+                <span className="font-medium">contact@sagedevs.tech</span>
               </a>
               
               <div className="hidden sm:block w-1 h-1 bg-white/50 rounded-full"></div>
               
               <a 
-                href="tel:+1234567890" 
+                href="tel:+923259684493" 
                 className="flex items-center text-white hover:text-blue-300 transition-colors group"
               >
                 <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3 group-hover:bg-white/30 transition-colors">
@@ -145,7 +146,7 @@ const AboutCTASection = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </div>
-                <span className="font-medium">+1 (234) 567-890</span>
+                <span className="font-medium">+92 325 9684493</span>
               </a>
             </div>
           </div>
