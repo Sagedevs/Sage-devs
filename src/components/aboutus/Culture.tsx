@@ -60,13 +60,13 @@ const testimonials = [
     quote: "Working here has accelerated my growth as a developer. The projects are challenging, the team is supportive, and there's real opportunity to make an impact.",
     author: "Team Member",
     role: "Full Stack Developer",
-    years: "1 year"
+    years: "3+ year"
   },
   {
     quote: "What I love most is the collaborative environment. Everyone's opinion matters, and we're genuinely working together to build something great.",
     author: "Team Member",
     role: "UI/UX Designer",
-    years: "8 months"
+    years: "5+ years"
   }
 ];
 
