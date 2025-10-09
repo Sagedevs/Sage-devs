@@ -17,7 +17,7 @@ const Analytics = lazy(() => import("@vercel/analytics/next").then(mod => ({ def
 
 const items = [
   { label: "Home", href: "/" },
-  { label: "Let's Talk AI", href: "/Letstalkai" },
+  { label: "Let's Talk AI", href: "/letstalkai" },
   {
     label: "Services",
     href: "/services",
@@ -60,10 +60,10 @@ const items = [
   },
   {
     label: "Contact",
-    href: "/Contact",   
+    href: "/contact",   
     cta: true,
     children: [
-      { label: "Get in Touch (form)", href: "/Contact#contact-form" },
+      { label: "Get in Touch (form)", href: "/contact#contact-form" },
       { label: "FAQs", href: "/faq" },
       { label: "Book a Call", href: "https://calendly.com/sagedevs-network/", external: true },
     ],

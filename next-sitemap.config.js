@@ -12,64 +12,27 @@ module.exports = {
   additionalPaths: async () => {
     const navRoutes = [
       { label: "Home", href: "/" },
-      { label: "Let's Talk AI", href: "/Letstalkai" },
-      {
-        label: "Services",
-        href: "/services",
-        children: [
-          { label: "Web & App Development", href: "/services/web-app-development" },
-          { label: "UI/UX Design", href: "/services/ui-ux-design" },
-          { label: "E-commerce (WordPress & Shopify)", href: "/services/ecommerce" },
-          { label: "SaaS & Product Dev", href: "/services/saas-product" },
-          { label: "Cloud & DevOps", href: "/services/cloud-devops" },
-          { label: "Maintenance & Support", href: "/services/maintenance-support" },
-        ],
-      },
-      {
-        label: "Case Studies",
-        href: "/case-studies",
-        children: [
-          { label: "Web Apps", href: "/case-studies/web-apps" },
-          { label: "SaaS", href: "/case-studies/saas" },
-          { label: "E-commerce", href: "/case-studies/ecommerce" },
-          { label: "Enterprise", href: "/case-studies/enterprise" },
-        ],
-      },
+      { label: "Let's Talk AI", href: "/letstalkai" },
+      { label: "Services", href: "/services" },
+      { label: "Case Studies", href: "/case-studies" },
       { label: "Pricing & Plans", href: "/pricing" },
-      {
-        label: "Resources",
-        href: "/resources",
-        children: [
-          { label: "Blog / Insights", href: "/blog" },
-          { label: "Guides & Templates", href: "/resources#guides-templates" },
-          { label: "Webinars / Talks", href: "/resources#webinars-talks" },
-        ],
-      },
-      {
-        label: "About Us",
-        href: "/about",
-        children: [
-          { label: "Team", href: "/about#team" },
-          { label: "Careers", href: "/about#careers" },
-        ],
-      },
-      {
-        label: "Contact",
-        href: "/contact",
-        children: [
-          { label: "Get in Touch (form)", href: "/contact#contact-form" },
-          { label: "FAQs", href: "/faq" },
-        ],
-      },
+      { label: "Resources", href: "/resources" },
+      { label: "Blog / Insights", href: "/blog" },
+      { label: "About Us", href: "/about" },
+      { label: "Contact", href: "/contact" },
+      { label: "FAQs", href: "/faq" },
+      { label: "Terms", href: "/terms" },
+      { label: "Privacy", href: "/privacy" },
     ];
 
-    const cleanRoutes = [];
+    // Use Set to avoid duplicates
+    const cleanRoutes = new Set();
 
     function extractRoutes(routes) {
       routes.forEach((r) => {
-        // Skip anchors (#) and external links
-        if (r.href && !r.href.startsWith("http") && !r.href.includes("#")) {
-          cleanRoutes.push(r.href);
+        // Only include internal paths starting with / and no #
+        if (r.href && r.href.startsWith("/") && !r.href.includes("#")) {
+          cleanRoutes.add(r.href);
         }
         if (r.children) extractRoutes(r.children);
       });
@@ -77,7 +40,7 @@ module.exports = {
 
     extractRoutes(navRoutes);
 
-    return cleanRoutes.map((page) => ({
+    return Array.from(cleanRoutes).map((page) => ({
       loc: page,
       changefreq: "daily",
       priority: 0.7,

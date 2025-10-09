@@ -62,7 +62,7 @@ const Footer = () => {
     { label: "Home", href: "/" },
     { label: "About Us", href: "/about" },
     { label: "Let's Talk AI", href: "/Letstalkai" },
-    { label: "Contact", href: "/Contact" },
+    { label: "Contact", href: "/contact" },
     { label: "Pricing & Plans", href: "/pricing" },
   ], []);
 

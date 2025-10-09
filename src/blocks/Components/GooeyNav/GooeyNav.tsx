@@ -99,11 +99,11 @@ const megaMenuContent: MegaMenuContentMap = {
     leftSidebar: {
       title: "AI Knowledge Hub",
       items: [
-        { label: "AI Consultation", href: "/Letstalkai#ai-consultation" },
-        { label: "Machine Learning", href: "/Letstalkai#machine-learning" },
-        { label: "Natural Language Processing", href: "/Letstalkai#nlp" },
-        { label: "Computer Vision", href: "/Letstalkai#computer-vision" },
-        { label: "AI Strategy", href: "/Letstalkai#ai-strategy" }
+        { label: "AI Consultation", href: "/letstalkai#ai-consultation" },
+        { label: "Machine Learning", href: "/letstalkai#machine-learning" },
+        { label: "Natural Language Processing", href: "/letstalkai#nlp" },
+        { label: "Computer Vision", href: "/letstalkai#computer-vision" },
+        { label: "AI Strategy", href: "/letstalkai#ai-strategy" }
       ]
     },
     articles: [
@@ -147,14 +147,14 @@ const megaMenuContent: MegaMenuContentMap = {
       title: "See what's possible when AI empowers your enterprise.",
       description: "Transform your business with cutting-edge AI solutions tailored to your needs.",
       buttonText: "Let's Discuss AI",
-      buttonHref: "/Letstalkai#ai-consultation"
+      buttonHref: "/letstalkai#ai-consultation"
     },
     featured: {
       title: "AI Innovation Hub",
       subtitle: "Transform Your Business",
       description: "From machine learning to computer vision, discover how AI can revolutionize your operations and drive unprecedented growth.",
       image: "/images/ai-innovation.jpg",
-      href: "/Letstalkai#ai-transformation-guide"
+      href: "/letstalkai#ai-transformation-guide"
     },
     showcase: {
       title: "AI Resume Analyzer",
