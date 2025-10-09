@@ -7,7 +7,7 @@ const team = [
     name: 'Abdul Ahad',
     role: 'CEO & Founder',
     image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759604989/migrated/photo-1582750433449-648ed127bb54_210acffe.jpg',
-    bio: 'Visionary leader with 12+ years driving digital innovation and transforming businesses across Pakistan.',
+    bio: 'Visionary leader with 4+ years driving digital innovation and transforming businesses across Pakistan.',
     icon: Briefcase
   },
   {
