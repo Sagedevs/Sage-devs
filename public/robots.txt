@@ -2,6 +2,8 @@
 User-agent: *
 Allow: /
 
+# Host
+Host: https://sagedevs.tech
 
 # Sitemaps
 Sitemap: https://sagedevs.tech/sitemap.xml
