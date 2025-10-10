@@ -94,7 +94,7 @@ const AboutCTASection = () => {
               <p className="text-blue-100 mb-6 leading-relaxed">
                 Be part of a culture that values creativity, growth, and making a meaningful difference in the world.
               </p>
-              <Link href="/about#careers" className="inline-flex items-center text-white font-medium group-hover:text-blue-300 transition-colors">
+              <Link href="/careers" className="inline-flex items-center text-white font-medium group-hover:text-blue-300 transition-colors">
                 View Careers
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>

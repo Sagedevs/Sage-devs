@@ -7,7 +7,6 @@ import OurProcess from '@/components/aboutus/OurProcess';
 import Team from '@/components/aboutus/Team';
 import Technologies from '@/components/aboutus/Technologies';
 import Culture from '@/components/aboutus/Culture';
-import Careers from '@/components/aboutus/Careers';
 import CTASection from '@/components/aboutus/CTASection';
 
 // Structured Data Schemas
@@ -330,9 +329,6 @@ export default function AboutPage() {
         </section>
         <section id="culture">
           <Culture />
-        </section>
-        <section id="careers">
-          <Careers />
         </section>
         <CTASection />
       </main>
