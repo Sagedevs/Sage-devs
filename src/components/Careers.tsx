@@ -109,6 +109,20 @@ export default function CareerApplication() {
       techStack: ['Agile/Scrum', 'Product Strategy', 'Jira', 'User Stories', 'Analytics'],
       type: 'Full-time',
       location: 'Lahore / Hybrid'
+    },
+    {
+      title: 'WordPress Developer',
+      description: 'Develop and maintain WordPress websites, customize themes and plugins, optimize site performance, and ensure security best practices.',
+      techStack: ['WordPress', 'PHP', 'HTML', 'CSS', 'JavaScript', 'WooCommerce'],
+      type: 'Full-time',
+      location: 'Remote / Hybrid'
+    },
+    {
+      title: 'Shopify Developer',
+      description: 'Build and customize Shopify stores, implement apps and integrations, optimize UX/UI, and improve e-commerce performance.',
+      techStack: ['Shopify', 'Liquid', 'HTML', 'CSS', 'JavaScript', 'Shopify Apps'],
+      type: 'Full-time',
+      location: 'Remote / Hybrid'
     }
   ];
 
