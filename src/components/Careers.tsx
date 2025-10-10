@@ -186,7 +186,7 @@ export default function CareerApplication() {
     }
 
     try {
-      const response = await fetch('https://formspree.io/f/xzzjgdbq', {
+      const response = await fetch('https://formspree.io/f/mnnggbpp', {
         method: 'POST',
         body: formDataToSend,
         headers: {
