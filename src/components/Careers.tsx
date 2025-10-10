@@ -715,7 +715,7 @@ export default function CareerApplication() {
                     onClick={() => toggleSection('coverLetter')}
                     className="w-full flex items-center justify-between mb-4"
                   >
-                    <h3 className="text-base sm:text-lg font-semibold text-white">Cover Letter & Resume</h3>
+                    <h3 className="text-base sm:text-lg font-semibold text-white">Cover Letter </h3>
                     {expandedSections.coverLetter ? <ChevronUp className="w-5 h-5 text-gray-400" /> : <ChevronDown className="w-5 h-5 text-gray-400" />}
                   </button>
                   {expandedSections.coverLetter && (
@@ -735,45 +735,7 @@ export default function CareerApplication() {
                         />
                       </div>
 
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
-                          Resume/CV (Optional)
-                        </label>
-                        <div className="relative">
-                          {!file ? (
-                            <label className="flex flex-col items-center justify-center w-full px-4 py-8 bg-black/30 border-2 border-dashed border-blue-500/30 rounded-lg cursor-pointer hover:border-blue-500/50 transition-colors">
-                              <Upload className="w-10 h-10 text-blue-400 mb-3" />
-                              <p className="text-sm text-gray-300 text-center">Click to upload or drag and drop</p>
-                              <p className="text-xs text-gray-500 mt-2">PDF, DOC, DOCX (Max 5MB)</p>
-                              <input
-                                type="file"
-                                onChange={handleFileChange}
-                                accept=".pdf,.doc,.docx"
-                                className="hidden"
-                              />
-                            </label>
-                          ) : (
-                            <div className="flex items-center justify-between px-4 py-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-                              <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                                  <Upload className="w-5 h-5 text-blue-400" />
-                                </div>
-                                <div>
-                                  <p className="text-white text-sm font-medium break-all">{file.name}</p>
-                                  <p className="text-gray-400 text-xs">{(file.size / 1024).toFixed(2)} KB</p>
-                                </div>
-                              </div>
-                              <button
-                                type="button"
-                                onClick={removeFile}
-                                className="p-2 hover:bg-red-500/20 rounded-lg transition-colors flex-shrink-0"
-                              >
-                                <X className="w-5 h-5 text-red-400" />
-                              </button>
-                            </div>
-                          )}
-                        </div>
-                      </div>
+                      
                     </div>
                   )}
                 </div>
