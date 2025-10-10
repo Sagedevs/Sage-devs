@@ -68,11 +68,10 @@ export const metadata: Metadata = {
 
   // Verification
   verification: {
-    google: 'your-google-verification-code',
-    yandex: 'your-yandex-verification-code',
+    google: 'googleb45aa620d0bc55ca', // Your actual verification code
   },
 
-  // Alternate Languages (if applicable)
+  // Alternate Languages
   alternates: {
     canonical: 'https://sagedevs.tech/careers',
     languages: {
@@ -93,63 +92,7 @@ export const metadata: Metadata = {
   },
 };
 
-// JSON-LD Structured Data for Job Postings
-const jobPostingsSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'JobPosting',
-  'title': 'Multiple Positions Available',
-  'description': 'Sage Devs is hiring talented developers, designers, and digital marketing specialists to join our elite team building cutting-edge digital solutions.',
-  'identifier': {
-    '@type': 'PropertyValue',
-    'name': 'Sage Devs',
-    'value': 'careers-2025'
-  },
-  'datePosted': '2025-01-01',
-  'validThrough': '2025-12-31',
-  'employmentType': ['FULL_TIME', 'PART_TIME', 'CONTRACTOR'],
-  'hiringOrganization': {
-    '@type': 'Organization',
-    'name': 'Sage Devs',
-    'sameAs': 'https://sagedevs.tech',
-    'logo': 'https://sagedevs.tech/logo.png',
-    'url': 'https://sagedevs.tech'
-  },
-  'jobLocation': {
-    '@type': 'Place',
-    'address': {
-      '@type': 'PostalAddress',
-      'addressLocality': 'Lahore',
-      'addressRegion': 'Punjab',
-      'addressCountry': 'PK'
-    }
-  },
-  'baseSalary': {
-    '@type': 'MonetaryAmount',
-    'currency': 'PKR',
-    'value': {
-      '@type': 'QuantitativeValue',
-      'minValue': 80000,
-      'maxValue': 300000,
-      'unitText': 'MONTH'
-    }
-  },
-  'jobBenefits': [
-    'Health insurance',
-    'Flexible work hours',
-    'Remote work options',
-    'Learning and development budget',
-    'Paid time off',
-    'Latest tech equipment',
-    'Performance bonuses'
-  ],
-  'workHours': 'Flexible',
-  'applicationContact': {
-    '@type': 'ContactPoint',
-    'contactType': 'Recruitment',
-    'email': 'careers@sagedevs.tech'
-  }
-};
-
+// Organization Schema - Single source of truth
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
@@ -161,6 +104,7 @@ const organizationSchema = {
     '@type': 'PostalAddress',
     'addressLocality': 'Lahore',
     'addressRegion': 'Punjab',
+    'postalCode': '54000',
     'addressCountry': 'PK'
   },
   'sameAs': [
@@ -170,12 +114,18 @@ const organizationSchema = {
   ],
   'contactPoint': {
     '@type': 'ContactPoint',
-    'contactType': 'Customer Service',
+    'contactType': 'Recruitment',
     'email': 'careers@sagedevs.tech',
     'availableLanguage': ['English', 'Urdu']
+  },
+  'foundingDate': '2023',
+  'numberOfEmployees': {
+    '@type': 'QuantitativeValue',
+    'value': 11
   }
 };
 
+// Breadcrumb Schema
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -198,19 +148,15 @@ const breadcrumbSchema = {
 export default function CareersPage() {
   return (
     <>
-      {/* JSON-LD Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jobPostingsSchema),
-        }}
-      />
+      {/* Organization Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(organizationSchema),
         }}
       />
+      
+      {/* Breadcrumb Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -218,6 +164,7 @@ export default function CareersPage() {
         }}
       />
 
+      {/* Individual Job Posting schemas are now handled in the component */}
       <main className="min-h-screen">
         <CareerApplication />
       </main>
