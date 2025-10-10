@@ -692,7 +692,7 @@ const HireMePage = () => {
 </Link>
 
 <Link
-  href="/Contact"
+  href="/contact"
   className="px-6 sm:px-8 py-3 sm:py-4 bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-sm rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-white shadow-lg inline-flex items-center justify-center"
 >
   <MessageCircle className="w-5 h-5 mr-2" />
