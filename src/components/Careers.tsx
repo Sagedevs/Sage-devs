@@ -216,7 +216,7 @@ export default function CareerApplication() {
               {submitSuccess && (
                 <div className="mb-6 p-4 bg-green-500/20 border border-green-500/30 rounded-lg flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-green-400" />
-                  <p className="text-green-200">Application submitted successfully! We'll get back to you soon.</p>
+                  <p className="text-green-200">Application submitted successfully! We&apos;ll get back to you soon.</p>
                 </div>
               )}
 
