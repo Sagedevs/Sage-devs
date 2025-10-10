@@ -22,6 +22,7 @@ module.exports = {
       { label: "Contact", href: "/contact" },
       { label: "FAQs", href: "/faq" },
       { label: "Terms", href: "/terms" },
+      { label: "Careers", href: "/careers" },
       { label: "Privacy", href: "/privacy" },
     ];
 
