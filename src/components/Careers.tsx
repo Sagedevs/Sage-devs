@@ -115,7 +115,7 @@ export default function CareerApplication() {
         setFile(null);
         setTimeout(() => setSubmitSuccess(false), 5000);
       }
-    } catch (error) {
+    } catch {
       alert('Error submitting form. Please try again.');
     } finally {
       setIsSubmitting(false);
@@ -499,7 +499,7 @@ export default function CareerApplication() {
                     required
                     rows={6}
                     className="w-full px-4 py-3 bg-black/30 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none"
-                    placeholder="Tell us why you're interested in joining Sage Devs and what makes you a great fit for this role..."
+                    placeholder="Tell us why you&apos;re interested in joining Sage Devs and what makes you a great fit for this role..."
                   />
                 </div>
 
