@@ -281,7 +281,7 @@ const megaMenuContent: MegaMenuContentMap = {
       subtitle: "E-commerce Excellence",
       description: "Custom e-commerce solutions that drive sales and enhance user experience. From Shopify to custom builds.",
       image: "/proj/ecomerce.webp",
-      href: "/services/ecommerce",
+      href: "/services#ecommerce",
       features: [
         "Payment Integration",
         "Inventory Management",
