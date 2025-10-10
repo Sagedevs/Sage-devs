@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { Upload, X, Briefcase, Clock, DollarSign, CheckCircle, ChevronDown, ChevronUp, ArrowLeft, Search, MapPin, Users, Zap, Heart, TrendingUp } from 'lucide-react';
+import { Upload, X, Briefcase, Clock, CheckCircle, ChevronDown, ChevronUp, ArrowLeft, Search, MapPin, Users, Zap, Heart, TrendingUp } from 'lucide-react';
 
 interface JobPosting {
   title: string;
@@ -423,7 +423,7 @@ export default function CareerApplication() {
                     <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-green-200 font-semibold mb-1">Application Submitted Successfully!</p>
-                      <p className="text-green-300 text-sm">Thank you for applying. We'll review your application and reach out within 1-2 weeks if your profile matches our requirements.</p>
+                      <p className="text-green-300 text-sm">Thank you for applying. We&apos;ll review your application and reach out within 1-2 weeks if your profile matches our requirements.</p>
                     </div>
                   </div>
                 </div>
