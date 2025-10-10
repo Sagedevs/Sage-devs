@@ -155,9 +155,9 @@ export default function HeroSection() {
         {/* Hero Headline */}
         <div ref={headlineRef} className="mb-6">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.7)] max-w-4xl leading-tight mb-6">
-            Transform Your Ideas into{' '}
+          Engineering the{' '}
             <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent md:animate-gradient">
-              Digital Masterpieces
+            future of digital excellence
             </span>
           </h1>
         </div>
