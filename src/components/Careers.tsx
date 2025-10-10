@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { Upload, X, Briefcase, Clock, CheckCircle, ChevronDown, ChevronUp, ArrowLeft, Search, MapPin, Users, Zap, Heart, TrendingUp } from 'lucide-react';
+import { Briefcase, Clock, CheckCircle, ChevronDown, ChevronUp, ArrowLeft, Search, MapPin, Users, Zap, Heart, TrendingUp } from 'lucide-react';
 
 interface JobPosting {
   title: string;
@@ -38,7 +38,6 @@ export default function CareerApplication() {
     noticePeriod: '', coverLetter: '', skills: '', education: '', referral: ''
   });
 
-  const [file, setFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -154,21 +153,6 @@ export default function CareerApplication() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (!selectedFile) return;
-
-    if (selectedFile.size <= 5 * 1024 * 1024) {
-      setFile(selectedFile);
-    } else {
-      alert('File size must be less than 5MB');
-    }
-  };
-
-  const removeFile = () => {
-    setFile(null);
-  };
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -180,10 +164,6 @@ export default function CareerApplication() {
         formDataToSend.append(key, formData[key]);
       }
     });
-
-    if (file) {
-      formDataToSend.append('resume', file);
-    }
 
     try {
       const response = await fetch('https://formspree.io/f/mnnggbpp', {
@@ -202,7 +182,6 @@ export default function CareerApplication() {
           linkedin: '', github: '', availability: '', expectedSalary: '',
           noticePeriod: '', coverLetter: '', skills: '', education: '', referral: ''
         });
-        setFile(null);
         setTimeout(() => {
           setSubmitSuccess(false);
           setShowForm(false);
