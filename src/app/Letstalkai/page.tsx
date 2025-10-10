@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AI Solutions & Machine Learning Services | Sage Devs",
     description: "Transform your business with cutting-edge AI solutions including machine learning, NLP, computer vision, and intelligent automation using GPT-4, TensorFlow, and PyTorch.",
-    url: "https://sagedevs.tech/Letstalkai",
+    url: "https://sagedevs.tech/letstalkai",
     siteName: "Sage Devs",
     images: [
       {
@@ -98,12 +98,12 @@ export const metadata: Metadata = {
 const aiServiceSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  "@id": "https://sagedevs.tech/Letstalkai#aiservice",
+  "@id": "https://sagedevs.tech/letstalkai#aiservice",
   name: "Sage Devs - AI Solutions & Machine Learning Services",
   alternateName: "AI Development Agency",
   image: "https://sagedevs.tech/og-banner.webp",
   description: "Leading AI development agency specializing in machine learning, natural language processing, computer vision, AI chatbots, predictive analytics, and intelligent automation solutions using GPT-4, TensorFlow, PyTorch, and LangChain.",
-  url: "https://sagedevs.tech/Letstalkai",
+  url: "https://sagedevs.tech/letstalkai",
   priceRange: "$$$$",
   address: {
     "@type": "PostalAddress",
@@ -132,11 +132,11 @@ const aiServiceSchema = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          "@id": "https://sagedevs.tech/Letstalkai#ai-consultation",
+          "@id": "https://sagedevs.tech/letstalkai#ai-consultation",
           name: "AI Consulting & Strategy",
           description: "Strategic AI consulting to identify opportunities, assess feasibility, and create roadmaps for AI transformation. Expert guidance on AI adoption, implementation strategies, and ROI optimization.",
           provider: {
-            "@id": "https://sagedevs.tech/Letstalkai#aiservice"
+            "@id": "https://sagedevs.tech/letstalkai#aiservice"
           }
         }
       },
@@ -148,7 +148,7 @@ const aiServiceSchema = {
           name: "Machine Learning Development",
           description: "Custom machine learning models for predictive analytics, recommendation systems, anomaly detection, time series forecasting, and classification using TensorFlow, PyTorch, and scikit-learn.",
           provider: {
-            "@id": "https://sagedevs.tech/Letstalkai#aiservice"
+            "@id": "https://sagedevs.tech/letstalkai#aiservice"
           }
         }
       },
@@ -156,11 +156,11 @@ const aiServiceSchema = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          "@id": "https://sagedevs.tech/Letstalkai#nlp",
+          "@id": "https://sagedevs.tech/letstalkai#nlp",
           name: "Natural Language Processing (NLP)",
           description: "Advanced NLP solutions including AI chatbots, sentiment analysis, text classification, named entity recognition, language translation, and content generation using GPT-4, BERT, and LangChain.",
           provider: {
-            "@id": "https://sagedevs.tech/Letstalkai#aiservice"
+            "@id": "https://sagedevs.tech/letstalkai#aiservice"
           }
         }
       },
@@ -168,11 +168,11 @@ const aiServiceSchema = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          "@id": "https://sagedevs.tech/Letstalkai#computer-vision",
+          "@id": "https://sagedevs.tech/letstalkai#computer-vision",
           name: "Computer Vision Solutions",
           description: "Image and video analysis solutions including object detection, facial recognition, OCR, quality inspection, medical imaging, and autonomous systems using OpenCV, YOLO, and custom CNN models.",
           provider: {
-            "@id": "https://sagedevs.tech/Letstalkai#aiservice"
+            "@id": "https://sagedevs.tech/letstalkai#aiservice"
           }
         }
       },
@@ -180,11 +180,11 @@ const aiServiceSchema = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          "@id": "https://sagedevs.tech/Letstalkai#ai-strategy",
+          "@id": "https://sagedevs.tech/letstalkai#ai-strategy",
           name: "AI Implementation & Integration",
           description: "End-to-end AI implementation including model deployment, API integration, monitoring, and optimization. Seamlessly integrate AI capabilities into existing applications and workflows.",
           provider: {
-            "@id": "https://sagedevs.tech/Letstalkai#aiservice"
+            "@id": "https://sagedevs.tech/letstalkai#aiservice"
           }
         }
       }
@@ -202,7 +202,7 @@ const aiServiceSchema = {
 const aiTechnologiesSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "@id": "https://sagedevs.tech/Letstalkai#technologies",
+  "@id": "https://sagedevs.tech/letstalkai#technologies",
   name: "AI Technologies & Frameworks",
   description: "Cutting-edge AI technologies and frameworks we specialize in",
   itemListElement: [
@@ -283,7 +283,7 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       position: 2,
       name: "AI Solutions",
-      item: "https://sagedevs.tech/Letstalkai"
+      item: "https://sagedevs.tech/letstalkai"
     }
   ]
 };
@@ -517,7 +517,7 @@ const howToSchema = {
   ]
 };
 
-const LetsTalkAIPage: React.FC = () => {
+const letsTalkAIPage: React.FC = () => {
   return (
     <>
       <JSONLDSchema schema={aiServiceSchema} />
@@ -554,4 +554,4 @@ const LetsTalkAIPage: React.FC = () => {
   );
 };
 
-export default LetsTalkAIPage;
+export default letsTalkAIPage;
