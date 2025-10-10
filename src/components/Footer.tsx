@@ -91,7 +91,7 @@ const Footer = () => {
 
   const aboutSections: LinkItem[] = useMemo(() => [
     { label: "Team", href: "/about#team" },
-    { label: "Careers", href: "/about#careers" },
+    { label: "Careers", href: "/careers" },
   ], []);
 
   const contactOptions: LinkItem[] = useMemo(() => [
