@@ -413,7 +413,7 @@ const HeroSection = () => {
                 },
                 {
                   title: 'Elite Team',
-                  description: '11 specialized experts dedicated to your project success.',
+                  description: '20 specialized experts dedicated to your project success.',
                   icon: Handshake,
                   highlight: 'Dedicated experts'
                 },
