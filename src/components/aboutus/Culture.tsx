@@ -50,9 +50,9 @@ const perks = [
 
 const achievements = [
   { number: '20+', label: 'Team Members', description: 'Growing team', trend: 'Lahore, Pakistan' },
-  { number: '500+', label: 'Projects Delivered', description: 'Since 2023', trend: 'Enterprise Grade' },
+  { number: '500+', label: 'Projects Delivered', description: 'Since 2021', trend: 'Enterprise Grade' },
   { number: '98%', label: 'Client Satisfaction', description: 'Verified reviews', trend: 'Top Rated' },
-  { number: '4+', label: 'Years Strong', description: 'Founded 2023', trend: 'Growing Fast' }
+  { number: '4+', label: 'Years Strong', description: 'Innovation First', trend: 'Growing Fast' }
 ];
 
 const testimonials = [
