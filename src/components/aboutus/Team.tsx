@@ -42,7 +42,7 @@ const team = [
   {
     name: 'Hassan Ahmed',
     role: 'Solutions Architect',
-    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=500&fit=crop&crop=face',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760165398/download_29_dfk6bb.webp',
     bio: 'Cloud infrastructure specialist driving innovation with cutting-edge technologies.',
     icon: Zap
   }
