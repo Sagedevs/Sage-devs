@@ -40,7 +40,7 @@ const team = [
     icon: Code
   },
   {
-    name: 'Hassan Ahmed',
+    name: 'Huzaifa Nazir',
     role: 'Solutions Architect',
     image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760165398/download_29_dfk6bb.webp',
     bio: 'Cloud infrastructure specialist driving innovation with cutting-edge technologies.',

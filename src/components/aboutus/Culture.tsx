@@ -57,16 +57,20 @@ const achievements = [
 
 const testimonials = [
   {
-    quote: "Working here has accelerated my growth as a developer. The projects are challenging, the team is supportive, and there's real opportunity to make an impact.",
-    author: "Team Member",
-    role: "Full Stack Developer",
-    years: "3+ year"
+    quote:
+      "Working here has accelerated my growth as a developer. The projects are challenging, the team is supportive, and there's real opportunity to make an impact.",
+    name: "Amjad Arfaat",
+    role: "Lead Designer",
+    years: "3+ years",
+    image: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1760164755/download_28_cixjql.webp"
   },
   {
-    quote: "What I love most is the collaborative environment. Everyone's opinion matters, and we're genuinely working together to build something great.",
-    author: "Team Member",
-    role: "UI/UX Designer",
-    years: "5+ years"
+    quote:
+      "What I love most is the collaborative environment. Everyone's opinion matters, and we're genuinely working together to build something great.",
+    name: "Huzaifa Nazir",
+    role: "Solutions Architect",
+    years: "5+ years",
+    image: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1760165398/download_29_dfk6bb.webp"
   }
 ];
 
@@ -262,11 +266,11 @@ const Culture = () => {
                     <div className="flex items-center space-x-3">
                       <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center flex-shrink-0">
                         <span className="text-white font-bold text-sm">
-                          {testimonial.author.charAt(0)}
+                          {testimonial.name.charAt(0)}
                         </span>
                       </div>
                       <div>
-                        <h3 className="text-sm font-semibold text-gray-100">{testimonial.author}</h3>
+                        <h3 className="text-sm font-semibold text-gray-100">{testimonial.name}</h3>
                         <p className="text-gray-400 text-xs">{testimonial.role} • {testimonial.years}</p>
                       </div>
                     </div>
