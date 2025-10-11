@@ -12,9 +12,9 @@ const team = [
     icon: Briefcase
   },
   {
-    name: 'Amjad Hassan',
+    name: 'Amjad Arfaat',
     role: 'Lead Designer',
-    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759604992/migrated/photo-1507003211169-0a1dd7228f2d_fad214d4.jpg',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760164755/download_28_cixjql.webp',
     bio: 'Passionate about creating intuitive and beautiful user experiences for everyone in the region.',
     icon: Target
   },
@@ -149,7 +149,7 @@ const Team = () => {
             </span>
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed px-4">
-            Talented professionals driving innovation and excellence in digital transformation
+          Talented professionals driving innovation and excellence in digital transformation — with many more incredible team members working passionately behind the scenes.
           </p>
         </div>
 
