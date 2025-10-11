@@ -247,12 +247,6 @@ const Culture = () => {
               })}
             </div>
             
-            {/* Note about team photos */}
-            <div className="bg-blue-950/20 border border-blue-500/30 rounded-lg p-4 mb-10 text-center">
-              <p className="text-sm text-blue-300">
-                📸 <span className="font-semibold">Team photos coming soon!</span> We&apos;re scheduling a professional photoshoot to showcase our amazing team.
-              </p>
-            </div>
             
             {/* Employee Testimonials */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -264,10 +258,16 @@ const Culture = () => {
                     </p>
                     
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold text-sm">
-                          {testimonial.name.charAt(0)}
-                        </span>
+                      <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 border-2 border-white/20">
+                        <img 
+                          src={testimonial.image} 
+                          alt={testimonial.name}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&background=1e40af&color=fff`;
+                          }}
+                        />
                       </div>
                       <div>
                         <h3 className="text-sm font-semibold text-gray-100">{testimonial.name}</h3>
