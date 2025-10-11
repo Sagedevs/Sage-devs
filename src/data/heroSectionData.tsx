@@ -101,8 +101,8 @@ export const clientLogos: { src: string; alt: string }[] = [
   // { src: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605043/migrated/unnamed-file_900cf23f.png", alt: "Unnamed" },
 ];
 export const stats: { number: string; label: string; }[] = [
-  { number: "200+", label: "Projects Delivered" },
+  { number: "500+", label: "Projects Delivered" },
   { number: "4.9★", label: "Client Satisfaction" },
-  { number: "50+", label: "Global Clients" },
+  { number: "500+", label: "Global Clients" },
   { number: "24/7", label: "Support" },
 ];
