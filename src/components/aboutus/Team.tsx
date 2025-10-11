@@ -35,7 +35,7 @@ const team = [
   {
     name: 'Ali Raza',
     role: 'Tech Lead',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=500&fit=crop&crop=face',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760165409/download_30_ac25qt.webp',
     bio: 'Full-stack expert specializing in scalable solutions and modern web architectures.',
     icon: Code
   },
