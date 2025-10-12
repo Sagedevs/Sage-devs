@@ -60,7 +60,7 @@ const testimonials = [
     quote:
       "Working here has accelerated my growth as a developer. The projects are challenging, the team is supportive, and there's real opportunity to make an impact.",
     name: "Amjad Arfaat",
-    role: "Lead Designer",
+    role: "UI/UX Designer",
     years: "3+ years",
     image: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1760164755/download_28_cixjql.webp"
   },
@@ -68,7 +68,7 @@ const testimonials = [
     quote:
       "What I love most is the collaborative environment. Everyone's opinion matters, and we're genuinely working together to build something great.",
     name: "Huzaifa Nazir",
-    role: "Solutions Architect",
+    role: "WordPress Developer",
     years: "5+ years",
     image: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1760278905/download_35_vrzimb.jpg"
   }

@@ -4,48 +4,48 @@ import { Award, Code, Briefcase, Target, Users, Zap } from 'lucide-react';
 import Image from 'next/image';
 
 const team = [
-  {
-    name: 'Abdul Ahad',
-    role: 'CEO & Founder',
-    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759604989/migrated/photo-1582750433449-648ed127bb54_210acffe.jpg',
-    bio: 'Leading with vision, building brands that actually mean something.',
-    icon: Briefcase
-  },
-  {
-    name: 'Amjad Arfaat',
-    role: 'Lead Designer',
-    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760164755/download_28_cixjql.webp',
-    bio: 'Passionate about creating intuitive and beautiful user experiences for everyone in the region.',
-    icon: Target
-  },
-  {
-    name: 'Saqib Sarfraz',
-    role: 'Product Manager',
-    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760278532/WhatsApp_Image_2025-10-12_at_07.08.21_f2534704_jeo7d1.jpg',
-    bio: 'Strategic thinker focused on delivering exceptional user experiences across South Asia.',
-    icon: Users
-  },
-  {
-    name: 'Omar Sheikh',
-    role: 'Senior Engineer',
-    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605001/migrated/photo-1519085360753-af0119f7cbe7_7a4bdd20.jpg',
-    bio: 'Backend specialist with a passion for performance optimization and innovation from Islamabad.',
-    icon: Award
-  },
-  {
-    name: 'Ali Raza',
-    role: 'Tech Lead',
-    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760165409/download_30_ac25qt.webp',
-    bio: 'Full-stack expert specializing in scalable solutions and modern web architectures.',
-    icon: Code
-  },
-  {
-    name: 'Huzaifa Nazir',
-    role: 'Solutions Architect',
-    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760278905/download_35_vrzimb.jpg',
-    bio: 'Cloud infrastructure specialist driving innovation with cutting-edge technologies.',
-    icon: Zap
-  }
+{
+  name: 'Abdul Ahad',
+  role: 'CEO & Founder',
+  image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759604989/migrated/photo-1582750433449-648ed127bb54_210acffe.jpg',
+  bio: 'Leading the charge with bold ideas and a mission to redefine digital experiences.',
+  icon: Briefcase
+},
+{
+  name: 'Amjad Arfaat',
+  role: 'UI/UX Designer',
+  image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760164755/download_28_cixjql.webp',
+  bio: 'Designing smooth, beautiful interfaces that make users fall in love instantly.',
+  icon: Target
+},
+{
+  name: 'Saqib Sarfraz',
+  role: 'Product Manager',
+  image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760278532/WhatsApp_Image_2025-10-12_at_07.08.21_f2534704_jeo7d1.jpg',
+  bio: 'Turning chaos into clarity — making sure every product ships with purpose and polish.',
+  icon: Users
+},
+{
+  name: 'Omar Sheikh',
+  role: 'Backend Engineer',
+  image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605001/migrated/photo-1519085360753-af0119f7cbe7_7a4bdd20.jpg',
+  bio: 'Building powerful systems that keep things fast, secure, and running smooth as butter.',
+  icon: Award
+},
+{
+  name: 'Ali Raza',
+  role: 'Full Stack Developer',
+  image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760165409/download_30_ac25qt.webp',
+  bio: 'From backend logic to frontend polish — turning ideas into fully functional products.',
+  icon: Code
+},
+{
+  name: 'Huzaifa Nazir',
+  role: 'WordPress Developer',
+  image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760278905/download_35_vrzimb.jpg',
+  bio: 'Crafting high-performance WordPress sites that look dope and load fast as hell.',
+  icon: Zap
+}
 ];
 
 const Team = () => {
