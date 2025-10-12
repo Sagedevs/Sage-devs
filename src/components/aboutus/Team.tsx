@@ -19,9 +19,9 @@ const team = [
     icon: Target
   },
   {
-    name: 'Muhammad Usman',
+    name: 'Saqib Sarfraz',
     role: 'Product Manager',
-    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759604997/migrated/photo-1507591064344-4c6ce005b128_25a6ba65.jpg',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760278532/WhatsApp_Image_2025-10-12_at_07.08.21_f2534704_jeo7d1.jpg',
     bio: 'Strategic thinker focused on delivering exceptional user experiences across South Asia.',
     icon: Users
   },
@@ -42,7 +42,7 @@ const team = [
   {
     name: 'Huzaifa Nazir',
     role: 'Solutions Architect',
-    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760165398/download_29_dfk6bb.webp',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760278905/download_35_vrzimb.jpg',
     bio: 'Cloud infrastructure specialist driving innovation with cutting-edge technologies.',
     icon: Zap
   }
