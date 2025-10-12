@@ -396,28 +396,29 @@ const AgencyCaseStudyHero = () => {
           
           {/* Professional CTA Section */}
           <div className={`flex flex-col items-center space-y-8 transition-all duration-1000 delay-1000 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-          <Link href="/contact" passHref>
-  <a className="group relative px-12 py-4 border-2 border-blue-400/40 text-white font-semibold text-lg rounded-xl backdrop-blur-xl transition-all duration-500 hover:border-blue-400/60 hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-indigo-500/10 hover:scale-105 overflow-hidden cursor-pointer no-underline inline-flex items-center">
-    <span className="relative z-10 flex items-center">
-      <svg
-        className="w-5 h-5 mr-3 transition-transform group-hover:rotate-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-        />
-      </svg>
-      Contact Now
-    </span>
-    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-  </a>
+         <Link
+  href="/contact"
+  className="group relative px-12 py-4 border-2 border-blue-400/40 text-white font-semibold text-lg rounded-xl backdrop-blur-xl transition-all duration-500 hover:border-blue-400/60 hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-indigo-500/10 hover:scale-105 overflow-hidden cursor-pointer no-underline inline-flex items-center"
+>
+  <span className="relative z-10 flex items-center">
+    <svg
+      className="w-5 h-5 mr-3 transition-transform group-hover:rotate-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
+    Contact Now
+  </span>
+  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
 </Link>
-            
+
             <p style={{color: "#1F2C43"}}>hy</p>
 
           </div>
