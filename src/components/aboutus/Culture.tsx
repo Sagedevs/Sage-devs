@@ -70,7 +70,7 @@ const testimonials = [
     name: "Huzaifa Nazir",
     role: "Solutions Architect",
     years: "5+ years",
-    image: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1760165398/download_29_dfk6bb.webp"
+    image: "https://res.cloudinary.com/dg01hf9pm/image/upload/v1760278905/download_35_vrzimb.jpg"
   }
 ];
 
