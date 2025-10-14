@@ -328,6 +328,7 @@ export default function Home() {
         <TestimonialSlider />
         <Tabs />
         <Extra />
+        
         <FinalCTA />
       </main>
     </>
