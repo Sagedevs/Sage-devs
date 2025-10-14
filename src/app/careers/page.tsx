@@ -102,9 +102,10 @@ const organizationSchema = {
   'description': 'Full Stack Software Agency & UI/UX Studio specializing in AI integration, React, Next.js, and modern web development',
   'address': {
     '@type': 'PostalAddress',
+    'streetAddress': 'Gulberg',
     'addressLocality': 'Lahore',
     'addressRegion': 'Punjab',
-    'postalCode': '54000',
+    'postalCode': '54400',
     'addressCountry': 'PK'
   },
   'sameAs': [
@@ -144,6 +145,12 @@ const breadcrumbSchema = {
     }
   ]
 };
+
+// Note: For individual job posting schemas (handled in your CareerApplication component),
+// make sure to include these missing fields in each job posting:
+// - baseSalary
+// - validThrough
+// - jobLocation.address with all required fields (streetAddress, addressLocality, addressRegion, postalCode, addressCountry)
 
 export default function CareersPage() {
   return (
