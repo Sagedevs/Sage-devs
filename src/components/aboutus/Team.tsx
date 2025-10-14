@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect, useState, useRef } from 'react';
-import { Award, Code, Briefcase, Target, Users, Zap, Server, CheckCircle } from 'lucide-react';
+import { Award, Code, Briefcase, Target, Users, Zap, Server, CheckCircle, Mail, Github, Linkedin } from 'lucide-react';
 import Image from 'next/image';
 
 const team = [
-{
+  {
     name: 'Amjad Arfaat',
     role: 'UI/UX Designer',
     image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760164755/download_28_cixjql.webp',
@@ -161,7 +161,7 @@ const Team = () => {
         </div>
 
         {/* Infinite Slider */}
-        <div className="relative">
+        <div className="relative mb-20 lg:mb-24">
           {/* Navigation Arrows */}
           <button
             onClick={handlePrev}
@@ -227,6 +227,7 @@ const Team = () => {
                             fill
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             className="object-cover transition-transform duration-700 group-hover:scale-110"
+                            style={{ objectFit: 'cover' }}
                           />
                           {/* Gradient Overlay */}
                           <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
@@ -273,6 +274,90 @@ const Team = () => {
           </div>
         </div>
 
+        {/* Founder's Note Section */}
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-gradient-to-br from-blue-900/30 to-blue-800/20 backdrop-blur-xl rounded-2xl lg:rounded-3xl border border-blue-500/30 p-8 lg:p-12 relative overflow-hidden">
+            
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute inset-0 bg-circuit-pattern"></div>
+            </div>
+            
+            {/* Corner Accents */}
+            <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-blue-400/50 rounded-tl-2xl"></div>
+            <div className="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-blue-400/50 rounded-tr-2xl"></div>
+            <div className="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-blue-400/50 rounded-bl-2xl"></div>
+            <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-blue-400/50 rounded-br-2xl"></div>
+
+            <div className="relative text-center">
+              {/* Section Header */}
+              <div className="inline-flex items-center justify-center p-3 bg-blue-500/20 rounded-2xl backdrop-blur-sm border border-blue-500/30 mb-6">
+                <Briefcase className="w-6 h-6 text-blue-400" />
+              </div>
+              
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
+                Founder's Note
+              </h3>
+              
+              <div className="mb-6">
+                <h4 className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-400 mb-2">
+                  Abdul Ahad
+                </h4>
+                <p className="text-lg text-blue-300 font-medium">
+                  Founder & CEO
+                </p>
+              </div>
+
+              {/* Contact Links */}
+              <div className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-8">
+                <a 
+                  href="mailto:abdul.ahadt732@gmail.com"
+                  className="flex items-center gap-2 px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/30 rounded-lg text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20"
+                >
+                  <Mail className="w-4 h-4" />
+                  <span className="text-sm sm:text-base">Email</span>
+                </a>
+                
+                <a 
+                  href="https://www.linkedin.com/in/abdul-ahad-7908a82b4/?originalSubdomain=pk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/30 rounded-lg text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20"
+                >
+                  <Linkedin className="w-4 h-4" />
+                  <span className="text-sm sm:text-base">LinkedIn</span>
+                </a>
+                
+                <a 
+                  href="https://github.com/abdulahad-2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/30 rounded-lg text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20"
+                >
+                  <Github className="w-4 h-4" />
+                  <span className="text-sm sm:text-base">GitHub</span>
+                </a>
+              </div>
+
+              {/* Personal Message */}
+              <div className="bg-blue-900/30 backdrop-blur-sm rounded-xl p-6 border border-blue-500/20">
+                <p className="text-gray-200 text-base sm:text-lg leading-relaxed">
+                  "Building this amazing team has been the most rewarding journey. Every day, I'm inspired by the passion, 
+                  creativity, and dedication each member brings to transform ideas into exceptional digital experiences. 
+                  Together, we're not just building products—we're shaping the future of technology."
+                </p>
+              </div>
+
+              {/* Signature Line */}
+              <div className="mt-6 pt-4 border-t border-blue-500/20">
+                <p className="text-blue-300 text-sm font-medium">
+                  Leading with vision, building with passion
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <style jsx>{`
@@ -311,6 +396,13 @@ const Team = () => {
             linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
             linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
           background-size: 50px 50px;
+        }
+
+        .bg-circuit-pattern {
+          background-image: 
+            radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.1) 2px, transparent 2px),
+            radial-gradient(circle at 75% 75%, rgba(59, 130, 246, 0.1) 2px, transparent 2px);
+          background-size: 30px 30px;
         }
 
         .bg-radial-glow {
