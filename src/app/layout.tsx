@@ -245,6 +245,7 @@ export default function RootLayout({
               "name": "Sage Devs",
               "url": "https://sagedevs.tech",
               "logo": "https://sagedevs.tech/logo/logofixxed.svg",
+              "image": "https://sagedevs.tech/logo/logofixxed.svg",
               "description": "Full Stack Software Agency specializing in web development, UI/UX design, and scalable digital solutions",
               "foundingDate": "2023",
               "contactPoint": {
@@ -257,7 +258,21 @@ export default function RootLayout({
                 "https://www.linkedin.com/company/sagedevs/",
                 "https://x.com/Sage_devs",
                 "https://www.instagram.com/sage_devs/"
-              ]
+              ],
+              "founder": {
+                "@type": "Person",
+                "name": "Abdul Ahad"
+              },
+              "contact": {
+                "@type": "ContactPoint",
+                "email": "contact@sagedevs.tech",
+                "contactType": "Customer Service"
+              },
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "PK"
+              }
+              
             })
           }} 
         />
