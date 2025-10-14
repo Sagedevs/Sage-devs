@@ -156,7 +156,7 @@ const Team = () => {
             </span>
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed px-4">
-          Talented professionals driving innovation and excellence in digital transformation — with many more incredible team members working passionately behind the scenes.
+            Talented professionals driving innovation and excellence in digital transformation — with many more incredible team members working passionately behind the scenes.
           </p>
         </div>
 
@@ -219,15 +219,15 @@ const Team = () => {
 
                       {/* Content Container */}
                       <div className="relative">
-                        {/* Image Section */}
-                        <div className="relative h-64 sm:h-72 lg:h-80 overflow-hidden">
+                        {/* Image Section - Fixed height and object-cover */}
+                        <div className="relative h-81 sm:h-89 lg:h-97 overflow-hidden">
                           <Image 
                             src={member.image}
                             alt={member.name}
                             fill
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             className="object-cover transition-transform duration-700 group-hover:scale-110"
-                            style={{ objectFit: 'cover' }}
+                            priority={index < 4} // Prioritize loading first few images
                           />
                           {/* Gradient Overlay */}
                           <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
@@ -274,7 +274,7 @@ const Team = () => {
           </div>
         </div>
 
-        {/* Founder's Note Section */}
+        {/* Founder&apos;s Note Section */}
         <div className="max-w-4xl mx-auto">
           <div className="bg-gradient-to-br from-blue-900/30 to-blue-800/20 backdrop-blur-xl rounded-2xl lg:rounded-3xl border border-blue-500/30 p-8 lg:p-12 relative overflow-hidden">
             
@@ -296,7 +296,7 @@ const Team = () => {
               </div>
               
               <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
-                Founder's Note
+                Founder&apos;s Note
               </h3>
               
               <div className="mb-6">
@@ -304,7 +304,7 @@ const Team = () => {
                   Abdul Ahad
                 </h4>
                 <p className="text-lg text-blue-300 font-medium">
-                  Founder & CEO
+                  Founder &amp; CEO
                 </p>
               </div>
 
@@ -342,9 +342,9 @@ const Team = () => {
               {/* Personal Message */}
               <div className="bg-blue-900/30 backdrop-blur-sm rounded-xl p-6 border border-blue-500/20">
                 <p className="text-gray-200 text-base sm:text-lg leading-relaxed">
-                  "Building this amazing team has been the most rewarding journey. Every day, I'm inspired by the passion, 
+                  &quot;Building this amazing team has been the most rewarding journey. Every day, I&apos;m inspired by the passion, 
                   creativity, and dedication each member brings to transform ideas into exceptional digital experiences. 
-                  Together, we're not just building products—we're shaping the future of technology."
+                  Together, we&apos;re not just building products—we&apos;re shaping the future of technology.&quot;
                 </p>
               </div>
 
