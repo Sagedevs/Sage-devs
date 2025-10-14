@@ -255,7 +255,8 @@ export default function RootLayout({
               "sameAs": [
                 "https://github.com/abdulahad-2",
                 "https://www.linkedin.com/company/sagedevs/",
-                "https://x.com/Abdul_Ahadt1"
+                "https://x.com/Sage_devs",
+                "https://www.instagram.com/sage_devs/"
               ]
             })
           }} 
