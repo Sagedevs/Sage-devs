@@ -1,51 +1,58 @@
 "use client";
 import React, { useEffect, useState, useRef } from 'react';
-import { Award, Code, Briefcase, Target, Users, Zap } from 'lucide-react';
+import { Award, Code, Briefcase, Target, Users, Zap, Server, CheckCircle } from 'lucide-react';
 import Image from 'next/image';
 
 const team = [
 {
-  name: 'Abdul Ahad',
-  role: 'CEO & Founder',
-  image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759604989/migrated/photo-1582750433449-648ed127bb54_210acffe.jpg',
-  bio: 'Leading the charge with bold ideas and a mission to redefine digital experiences.',
-  icon: Briefcase
-},
-{
-  name: 'Amjad Arfaat',
-  role: 'UI/UX Designer',
-  image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760164755/download_28_cixjql.webp',
-  bio: 'Designing smooth, beautiful interfaces that make users fall in love instantly.',
-  icon: Target
-},
-{
-  name: 'Saqib Sarfraz',
-  role: 'Product Manager',
-  image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760278532/WhatsApp_Image_2025-10-12_at_07.08.21_f2534704_jeo7d1.jpg',
-  bio: 'Turning chaos into clarity — making sure every product ships with purpose and polish.',
-  icon: Users
-},
-{
-  name: 'Omar Sheikh',
-  role: 'Backend Engineer',
-  image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1759605001/migrated/photo-1519085360753-af0119f7cbe7_7a4bdd20.jpg',
-  bio: 'Building powerful systems that keep things fast, secure, and running smooth as butter.',
-  icon: Award
-},
-{
-  name: 'Ali Raza',
-  role: 'Full Stack Developer',
-  image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760165409/download_30_ac25qt.webp',
-  bio: 'From backend logic to frontend polish — turning ideas into fully functional products.',
-  icon: Code
-},
-{
-  name: 'Huzaifa Nazir',
-  role: 'WordPress Developer',
-  image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760278905/download_35_vrzimb.jpg',
-  bio: 'Crafting high-performance WordPress sites that look dope and load fast as hell.',
-  icon: Zap
-}
+    name: 'Amjad Arfaat',
+    role: 'UI/UX Designer',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760164755/download_28_cixjql.webp',
+    bio: 'Designing smooth, beautiful interfaces that make users fall in love instantly.',
+    icon: Target
+  },
+  {
+    name: 'Saqib Sarfraz',
+    role: 'Product Manager',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760278532/WhatsApp_Image_2025-10-12_at_07.08.21_f2534704_jeo7d1.jpg',
+    bio: 'Turning chaos into clarity — making sure every product ships with purpose and polish.',
+    icon: Users
+  },
+  {
+    name: 'Muhammad Saud',
+    role: 'Frontend Developer',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760451605/IMG-20250813-WA0017-removebg-preview-3-e1755104068108_euhlss.png',
+    bio: 'Building powerful systems that keep things fast, secure, and running smooth as butter.',
+    icon: Award
+  },
+  {
+    name: 'Ali Raza',
+    role: 'Full Stack Developer',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760165409/download_30_ac25qt.webp',
+    bio: 'From backend logic to frontend polish — turning ideas into fully functional products.',
+    icon: Code
+  },
+  {
+    name: 'Huzaifa Nazir',
+    role: 'WordPress Developer',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760278905/download_35_vrzimb.jpg',
+    bio: 'Crafting high-performance WordPress sites that look dope and load fast as hell.',
+    icon: Zap
+  },
+  {
+    name: 'Armaan Khan',
+    role: 'Backend Engineer',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760451605/WhatsApp_Image_2025-10-04_at_1.47.56_AM-removebg-preview_tp9w5i.png',
+    bio: 'Architecting rock-solid backends that handle scale, speed, and all the weird bugs you throw at them.',
+    icon: Server
+  },
+  {
+    name: 'Fahad Ahmed',
+    role: 'QA & Automation Engineer',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760451605/IMG_20251006_182301-removebg-preview-1-e1759759414811_zwleup.png',
+    bio: 'Catching bugs before they catch you — automating tests, breaking builds, and keeping code quality tight.',
+    icon: CheckCircle
+  }
 ];
 
 const Team = () => {
