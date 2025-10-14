@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://sagedevs.tech"),
   alternates: {
-    canonical: "https://sagedevs.tech/Letstalkai",
+    canonical: "https://sagedevs.tech/letstalkai",
   },
   openGraph: {
     title: "AI Solutions & Machine Learning Services | Sage Devs",
