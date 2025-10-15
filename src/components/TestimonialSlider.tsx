@@ -289,7 +289,7 @@ export default function EnhancedTestimonialSlider() {
                     ))}
                   </div>
                 </div>
-                <p className="text-gray-300 text-xs md:text-sm">Based on 500+ reviews</p>
+                <p className="text-gray-300 text-xs md:text-sm">Based on 100+ reviews</p>
               </div>
             </div>
           </div>
