@@ -60,8 +60,8 @@ export function VideoStructuredData() {
     name: 'Sage Devs - Our Development Process',
     description: 'Learn about our software development process and how we deliver high-quality solutions.',
     thumbnailUrl: [
-      'https://sagedevs.tech/images/video-thumbnail.jpg',
-      'https://sagedevs.tech/images/video-thumbnail-large.jpg'
+      'https://sagedevs.tech/logo.png',
+      'https://sagedevs.tech/logo.png'
     ],
     uploadDate: '2024-01-15T08:00:00+08:00', // Replace with actual upload date
     contentUrl: 'https://www.youtube.com/watch?v=YOUR_VIDEO_ID', // Replace with actual video URL
