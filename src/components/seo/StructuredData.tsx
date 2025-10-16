@@ -25,13 +25,80 @@ type OrganizationSchema = {
   };
 };
 
+type VideoObjectSchema = {
+  '@context': string;
+  '@type': string;
+  name: string;
+  description: string;
+  thumbnailUrl: string | string[];
+  uploadDate: string;
+  contentUrl: string;
+  embedUrl: string;
+  duration?: string;
+  interactionStatistic?: {
+    '@type': string;
+    interactionType: string;
+    userInteractionCount: number;
+  };
+  publisher?: {
+    '@type': string;
+    name: string;
+    logo: {
+      '@type': string;
+      url: string;
+      width: string;
+      height: string;
+    };
+  };
+};
+
+export function VideoStructuredData() {
+  // Replace these values with your actual video details
+  const videoSchema: VideoObjectSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: 'Sage Devs - Our Development Process',
+    description: 'Learn about our software development process and how we deliver high-quality solutions.',
+    thumbnailUrl: [
+      'https://sagedevs.tech/images/video-thumbnail.jpg',
+      'https://sagedevs.tech/images/video-thumbnail-large.jpg'
+    ],
+    uploadDate: '2024-01-15T08:00:00+08:00', // Replace with actual upload date
+    contentUrl: 'https://www.youtube.com/watch?v=YOUR_VIDEO_ID', // Replace with actual video URL
+    embedUrl: 'https://www.youtube.com/embed/YOUR_VIDEO_ID', // Replace with actual embed URL
+    duration: 'PT3M45S', // ISO 8601 duration format (3 minutes 45 seconds)
+    interactionStatistic: {
+      '@type': 'InteractionCounter',
+      interactionType: 'https://schema.org/WatchAction',
+      userInteractionCount: 1234 // Replace with actual view count
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Sage Devs',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://sagedevs.tech/logo.png',
+        width: '600',
+        height: '60'
+      }
+    }
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }}
+    />
+  );
+}
+
 export function OrganizationStructuredData() {
   const organizationSchema: OrganizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Sage Devs',
     url: 'https://sagedevs.tech',
-    logo: 'https://sagedevs.tech/logofixxed.png',
+    logo: 'https://sagedevs.tech/logo.png',
     description: 'Full Stack Software Agency & UI/UX Studio specializing in modern web development and design.',
     contactPoint: {
       '@type': 'ContactPoint',

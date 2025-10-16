@@ -14,6 +14,7 @@ const CustomCursor = lazy(() => import("@/components/customcursor"));
 const DisableDevTools = lazy(() => import("@/components/shortcuts"));
 const Footer = lazy(() => import("@/components/Footer"));
 const Analytics = lazy(() => import("@vercel/analytics/next").then(mod => ({ default: mod.Analytics })));
+const VideoStructuredData = lazy(() => import("@/components/seo/StructuredData").then(mod => ({ default: mod.VideoStructuredData })));
 
 const items = [
   { label: "Home", href: "/" },
@@ -236,46 +237,48 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
         {/* Structured Data - Optimized */}
-        <script 
-          type="application/ld+json" 
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "Sage Devs",
-              "url": "https://sagedevs.tech",
-              "logo": "https://sagedevs.tech/logo/logofixxed.svg",
-              "image": "https://sagedevs.tech/logo/logofixxed.svg",
-              "description": "Full Stack Software Agency specializing in web development, UI/UX design, and scalable digital solutions",
-              "foundingDate": "2023",
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "email": "contact@sagedevs.tech",
-                "contactType": "Customer Service"
-              },
-              "sameAs": [
-                "https://github.com/abdulahad-2",
-                "https://www.linkedin.com/company/sagedevs/",
-                "https://x.com/Sage_devs",
-                "https://www.instagram.com/sage_devs/"
-              ],
-              "founder": {
-                "@type": "Person",
-                "name": "Abdul Ahad"
-              },
-              "contact": {
-                "@type": "ContactPoint",
-                "email": "contact@sagedevs.tech",
-                "contactType": "Customer Service"
-              },
-              "address": {
-                "@type": "PostalAddress",
-                "addressCountry": "PK"
-              }
-              
-            })
-          }} 
-        />
+        <Suspense fallback={null}>
+          <VideoStructuredData />
+          <script 
+            type="application/ld+json" 
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Sage Devs",
+                "url": "https://sagedevs.tech",
+                "logo": "https://sagedevs.tech/logo/logofixxed.svg",
+                "image": "https://sagedevs.tech/logo/logofixxed.svg",
+                "description": "Full Stack Software Agency specializing in web development, UI/UX design, and scalable digital solutions",
+                "foundingDate": "2023",
+                "contactPoint": {
+                  "@type": "ContactPoint",
+                  "email": "contact@sagedevs.tech",
+                  "contactType": "Customer Service"
+                },
+                "sameAs": [
+                  "https://github.com/abdulahad-2",
+                  "https://www.linkedin.com/company/sagedevs/",
+                  "https://x.com/Sage_devs",
+                  "https://www.instagram.com/sage_devs/"
+                ],
+                "founder": {
+                  "@type": "Person",
+                  "name": "Abdul Ahad"
+                },
+                "contact": {
+                  "@type": "ContactPoint",
+                  "email": "contact@sagedevs.tech",
+                  "contactType": "Customer Service"
+                },
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressCountry": "PK"
+                }
+              })
+            }}
+          />
+        </Suspense>
         
         {/* Icons - Fixed paths for public folder */}
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
