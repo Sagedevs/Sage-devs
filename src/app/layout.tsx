@@ -399,7 +399,7 @@ export default function RootLayout({
           <Footer />
         </Suspense>
 
-        {/* Only load analytics in production */}
+        
         {process.env.NODE_ENV === 'production' && (
           <Suspense fallback={null}>
             <Analytics />
