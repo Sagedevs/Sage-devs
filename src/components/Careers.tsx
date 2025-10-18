@@ -54,6 +54,14 @@ export default function CareerApplication() {
 
   const jobPostings: JobPosting[] = [
     {
+  title: 'Sales Consultant',
+  description: 'Find and connect with potential clients, pitch Sage Devs’ web and digital solutions, and help close deals. You’ll identify leads, build relationships, and coordinate with the tech team once clients are ready to start projects. Commission-based with potential for fixed + commission after proven success.',
+  techStack: ['Client Communication', 'Sales Pitching', 'Lead Generation', 'Negotiation', 'CRM Tools'],
+  type: 'Full-time',
+  location: 'Lahore / Remote'
+},
+
+    {
       title: 'Creative Director',
       description: 'Lead creative vision and strategy for client projects. Manage design team, establish brand guidelines, and deliver innovative visual solutions.',
       techStack: ['Adobe Creative Suite', 'Figma', 'Brand Strategy', 'Team Leadership'],
