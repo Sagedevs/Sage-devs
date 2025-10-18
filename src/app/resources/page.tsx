@@ -12,7 +12,7 @@ const ProjectCalculator = dynamic(
 const HeroSection = dynamic(() => import("@/components/resources/HeroSection"));
 const GuidesTemplates = dynamic(() => import("@/components/resources/GuidesTemplates"));
 const TechnologyStack = dynamic(() => import("@/components/resources/TechnologyStack"));
-const WebinarsTalks = dynamic(() => import("@/components/resources/WebinarsTalks"));
+;
 const SupportCenter = dynamic(() => import("@/components/resources/SupportCenter"));
 
 // Structured Data Schemas
@@ -380,9 +380,7 @@ export default function ResourcesIndexPage() {
           <GuidesTemplates />
         </section>
         <TechnologyStack />
-        <section id="webinars-talks">
-          <WebinarsTalks />
-        </section>
+        
         <ProjectCalculator />
         <SupportCenter />
       </main>

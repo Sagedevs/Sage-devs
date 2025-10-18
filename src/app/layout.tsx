@@ -48,7 +48,6 @@ const items = [
     children: [
       { label: "Blog / Insights", href: "/blog" },
       { label: "Guides & Templates", href: "/resources#guides-templates" },
-      { label: "Webinars / Talks", href: "/resources#webinars-talks" },
     ],
   },
   {
