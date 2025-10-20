@@ -61,27 +61,9 @@ export default function CareerApplication() {
   location: 'Lahore / Remote'
 },
 
-    {
-      title: 'Creative Director',
-      description: 'Lead creative vision and strategy for client projects. Manage design team, establish brand guidelines, and deliver innovative visual solutions.',
-      techStack: ['Adobe Creative Suite', 'Figma', 'Brand Strategy', 'Team Leadership'],
-      type: 'Full-time',
-      location: 'Lahore / Remote'
-    },
-    {
-      title: 'Brand Strategist',
-      description: 'Develop comprehensive brand strategies, conduct market research, and create positioning frameworks that drive business growth.',
-      techStack: ['Market Research', 'Brand Positioning', 'Content Strategy', 'Analytics'],
-      type: 'Full-time',
-      location: 'Lahore / Hybrid'
-    },
-    {
-      title: 'UX/UI Designer',
-      description: 'Design mobile and web interfaces with focus on user experience. Create wireframes, prototypes, and conduct user testing.',
-      techStack: ['Figma', 'Adobe XD', 'Prototyping', 'User Research', 'Responsive Design'],
-      type: 'Full-time',
-      location: 'Remote'
-    },
+  
+   
+   
     {
       title: 'Digital Marketing Specialist',
       description: 'Execute digital campaigns across multiple channels. Manage SEO/SEM, social media marketing, and analyze campaign performance.',
@@ -96,13 +78,7 @@ export default function CareerApplication() {
       type: 'Full-time',
       location: 'Remote'
     },
-    {
-      title: 'Frontend Developer',
-      description: 'Create responsive, performant user interfaces. Collaborate with designers to implement pixel-perfect designs with modern frameworks.',
-      techStack: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Redux'],
-      type: 'Full-time',
-      location: 'Remote'
-    },
+   
     {
       title: 'Backend Developer',
       description: 'Design and implement robust APIs and server-side logic. Optimize database performance and ensure application scalability.',
@@ -110,27 +86,15 @@ export default function CareerApplication() {
       type: 'Full-time',
       location: 'Remote'
     },
-    {
-      title: 'Product Manager',
-      description: 'Define product roadmap, gather requirements, and coordinate with cross-functional teams to deliver exceptional products.',
-      techStack: ['Agile/Scrum', 'Product Strategy', 'Jira', 'User Stories', 'Analytics'],
-      type: 'Full-time',
-      location: 'Lahore / Hybrid'
-    },
+  
     {
       title: 'WordPress Developer',
       description: 'Develop and maintain WordPress websites, customize themes and plugins, optimize site performance, and ensure security best practices.',
       techStack: ['WordPress', 'PHP', 'HTML', 'CSS', 'JavaScript', 'WooCommerce'],
       type: 'Full-time',
       location: 'Remote / Hybrid'
-    },
-    {
-      title: 'Shopify Developer',
-      description: 'Build and customize Shopify stores, implement apps and integrations, optimize UX/UI, and improve e-commerce performance.',
-      techStack: ['Shopify', 'Liquid', 'HTML', 'CSS', 'JavaScript', 'Shopify Apps'],
-      type: 'Full-time',
-      location: 'Remote / Hybrid'
     }
+  
   ];
 
   const filteredJobs = jobPostings.filter(job =>
