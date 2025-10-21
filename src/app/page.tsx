@@ -327,7 +327,7 @@ export default function Home() {
         <WhyChooseUs />
         <TestimonialSlider />
         <Tabs />
-        
+        <Extra />
         <FinalCTA />
       </main>
     </>
