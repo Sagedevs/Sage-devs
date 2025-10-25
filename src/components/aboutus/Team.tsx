@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState, useRef } from 'react';
-import { Award, Code, Briefcase, Target, Users, Zap, Server, CheckCircle, Mail, Github, Linkedin } from 'lucide-react';
+import { Award, Code, Briefcase, Target, Users, Zap, Server, Mail, Github, Linkedin } from 'lucide-react';
 import Image from 'next/image';
 
 const team = [
@@ -47,13 +47,6 @@ const team = [
     bio: 'Architecting rock-solid backends that handle scale, speed, and all the weird bugs you throw at them.',
     icon: Server
   },
-  {
-    name: 'Fahad Ahmed',
-    role: 'QA & Automation Engineer',
-    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760451605/IMG_20251006_182301-removebg-preview-1-e1759759414811_zwleup.png',
-    bio: 'Catching bugs before they catch you - automating tests, breaking builds, and keeping code quality tight.',
-    icon: CheckCircle
-  }
 ];
 
 const Team = () => {
