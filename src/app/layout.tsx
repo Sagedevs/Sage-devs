@@ -289,7 +289,7 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         
         {/* SEO Meta Tags */}
-        <title>Sage Devs — Full Stack Software Agency & UI/UX Design Studio</title>
+        <title>Sage Devs - Full Stack Software Agency & UI/UX Design Studio</title>
         <meta
           name="description"
           content="Sage Devs is a global software agency specializing in full stack web development, UI/UX design, and scalable digital solutions using Next.js, React, and modern technologies."
@@ -302,7 +302,7 @@ export default function RootLayout({
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Sage Devs — Full Stack Software Agency & UI/UX Studio" />
+        <meta property="og:title" content="Sage Devs - Full Stack Software Agency & UI/UX Studio" />
         <meta property="og:description" content="Global software agency delivering scalable web apps and exceptional UI/UX design with Next.js, React, and Tailwind CSS." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://sagedevs.tech" />
@@ -312,7 +312,7 @@ export default function RootLayout({
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Sage Devs — Full Stack Software Agency" />
+        <meta name="twitter:title" content="Sage Devs - Full Stack Software Agency" />
         <meta name="twitter:description" content="Modern, reliable, and scalable digital solutions with focus on web development and UI/UX design." />
         <meta name="twitter:image" content="https://sagedevs.tech/logo/logofixxed.svg" />
         <meta name="twitter:site" content="@SageDevs" />

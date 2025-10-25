@@ -165,7 +165,7 @@ export default function HeroSection() {
         {/* Hero Subheadline */}
         <div ref={subheadlineRef} className="mb-8">
           <p className="text-center text-gray-300 max-w-3xl text-base sm:text-lg md:text-xl leading-relaxed font-medium">
-            We&apos;re Sage Devs—a premium full-stack development agency that partners with ambitious businesses to create
+            We&apos;re Sage Devs-a premium full-stack development agency that partners with ambitious businesses to create
             <span className="text-cyan-300"> scalable web applications</span> and
             <span className="text-blue-300"> award-winning user experiences</span> that drive measurable growth.
           </p>

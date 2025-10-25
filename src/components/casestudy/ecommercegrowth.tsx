@@ -357,7 +357,7 @@ const EcommerceGrowth = () => {
                     We&apos;ve never seen results this extraordinary.&quot;
                   </p>
                   <p className="text-blue-200 font-bold text-sm">
-                    — Sarah Mitchell, CEO
+                    - Sarah Mitchell, CEO
                   </p>
                 </div>
               </div>

@@ -11,7 +11,7 @@ import Extra from "@/components/sections/extra";
 import FinalCTA from "@/components/sections/FinalCTA";
 
 export const metadata: Metadata = {
-  title: "Sage Devs — Full Stack Software Agency & UI/UX Studio | Custom Web & AI Development",
+  title: "Sage Devs - Full Stack Software Agency & UI/UX Studio | Custom Web & AI Development",
   description: "Leading full-stack development agency specializing in scalable web applications, AI-powered automation, SaaS platforms, and mobile apps. 100+ projects delivered, 150+ satisfied clients worldwide. Expert React, Next.js, Node.js, and AI solutions.",
   keywords: [
     "full stack development agency",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sage Devs — Full Stack Software Agency & UI/UX Studio",
+    title: "Sage Devs - Full Stack Software Agency & UI/UX Studio",
     description: "Transform ideas into digital excellence. 100+ projects delivered with cutting-edge tech. Expert React, Next.js, AI & SaaS development.",
     images: ["https://sagedevs.tech/og-banner.webp"],
   },

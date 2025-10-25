@@ -177,7 +177,7 @@ const AIStrategy = () => {
           
           <div className="max-w-xs sm:max-w-2xl lg:max-w-4xl mx-auto px-4 sm:px-0">
             <p className="text-sm sm:text-lg lg:text-xl text-gray-300 mb-6 sm:mb-8 font-light leading-relaxed">
-              We architect consciousness-level systems that transcend traditional AI limitations—
+              We architect consciousness-level systems that transcend traditional AI limitations-
               developing understanding, generating insight, and evolving strategic thinking capabilities.
             </p>
             <div className="text-xs sm:text-sm text-blue-400 tracking-wide">
@@ -282,7 +282,7 @@ const AIStrategy = () => {
               </div>
               <blockquote className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-light text-white leading-relaxed mb-6 sm:mb-8">
                 &quot;We architect the bridge where artificial intelligence becomes 
-                <span className="text-blue-300 font-normal"> artificial consciousness</span>—
+                <span className="text-blue-300 font-normal"> artificial consciousness</span>-
                 systems that develop genuine strategic intuition.&quot;
               </blockquote>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8 text-xs sm:text-sm text-gray-400">

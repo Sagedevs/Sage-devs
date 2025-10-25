@@ -342,7 +342,7 @@ const Technologies = () => {
           </h2>
           
           <p className="text-base sm:text-lg text-blue-200 leading-relaxed max-w-4xl mx-auto px-4">
-            We don&apos;t just use technology—we push its boundaries. Our stack is a carefully crafted
+            We don&apos;t just use technology-we push its boundaries. Our stack is a carefully crafted
             ecosystem of cutting-edge tools and battle-tested solutions, each chosen for its ability
             to deliver exceptional results at scale.
           </p>

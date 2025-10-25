@@ -41,7 +41,7 @@ const processSteps = [
     step: '03',
     title: 'Design & Experience',
     subtitle: 'Crafting Digital Art',
-    description: 'Our design team creates stunning interfaces that don\'t just look beautiful—they create emotional connections and drive meaningful user engagement.',
+    description: 'Our design team creates stunning interfaces that don\'t just look beautiful-they create emotional connections and drive meaningful user engagement.',
     icon: Palette,
     details: [
       'Design system & component library creation',

@@ -118,7 +118,7 @@ export default function WhyChooseUs() {
             </span>
           </h2>
           <p className="text-gray-300 text-base md:text-lg max-w-2xl mx-auto px-4">
-            We&apos;re not just developers—we&apos;re your strategic technology partners committed to your success
+            We&apos;re not just developers-we&apos;re your strategic technology partners committed to your success
           </p>
         </div>
 

@@ -680,7 +680,7 @@ PWAs represent the future of web development, offering app-like experiences with
     readTime: "8 min read",
     content: `# Web Performance Optimization: From 3s to 300ms Load Times
 
-In today's fast-paced digital world, website performance is not just a technical metric—it directly impacts user experience, conversion rates, and search engine rankings. This guide will help you optimize your website's performance to achieve lightning-fast load times.
+In today's fast-paced digital world, website performance is not just a technical metric-it directly impacts user experience, conversion rates, and search engine rankings. This guide will help you optimize your website's performance to achieve lightning-fast load times.
 
 ## Why Performance Matters
 

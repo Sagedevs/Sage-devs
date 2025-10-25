@@ -1582,7 +1582,7 @@ const HireMePage = () => {
                         >
                           Schedule a Free 15-minute Consultation
                         </button>
-                        —we&apos;ll recommend your perfect fit.
+                        -we&apos;ll recommend your perfect fit.
                       </li>
                     </ul>
                   </span>

@@ -8,7 +8,7 @@ const team = [
   name: 'Amjad Arfaat',
   role: 'COO (Chief Operating Officer)',
   image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760164755/download_28_cixjql.webp',
-  bio: 'Driving operations, strategy, and growth — making sure every idea turns into smooth execution.',
+  bio: 'Driving operations, strategy, and growth , making sure every idea turns into smooth execution.',
   icon: Target
 }
 ,
@@ -16,7 +16,7 @@ const team = [
     name: 'Saqib Sarfraz',
     role: 'Product Manager',
     image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760278532/WhatsApp_Image_2025-10-12_at_07.08.21_f2534704_jeo7d1.jpg',
-    bio: 'Turning chaos into clarity — making sure every product ships with purpose and polish.',
+    bio: 'Turning chaos into clarity - making sure every product ships with purpose and polish.',
     icon: Users
   },
   {
@@ -30,7 +30,7 @@ const team = [
     name: 'Ali Raza',
     role: 'Full Stack Developer',
     image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760165409/download_30_ac25qt.webp',
-    bio: 'From backend logic to frontend polish — turning ideas into fully functional products.',
+    bio: 'From backend logic to frontend polish - turning ideas into fully functional products.',
     icon: Code
   },
   {
@@ -51,7 +51,7 @@ const team = [
     name: 'Fahad Ahmed',
     role: 'QA & Automation Engineer',
     image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760451605/IMG_20251006_182301-removebg-preview-1-e1759759414811_zwleup.png',
-    bio: 'Catching bugs before they catch you — automating tests, breaking builds, and keeping code quality tight.',
+    bio: 'Catching bugs before they catch you - automating tests, breaking builds, and keeping code quality tight.',
     icon: CheckCircle
   }
 ];
@@ -157,7 +157,7 @@ const Team = () => {
             </span>
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed px-4">
-            Talented professionals driving innovation and excellence in digital transformation — with many more incredible team members working passionately behind the scenes.
+            Talented professionals driving innovation and excellence in digital transformation - with many more incredible team members working passionately behind the scenes.
           </p>
         </div>
 
@@ -345,7 +345,7 @@ const Team = () => {
                 <p className="text-gray-200 text-base sm:text-lg leading-relaxed">
                   &quot;Building this amazing team has been the most rewarding journey. Every day, I&apos;m inspired by the passion, 
                   creativity, and dedication each member brings to transform ideas into exceptional digital experiences. 
-                  Together, we&apos;re not just building products—we&apos;re shaping the future of technology.&quot;
+                  Together, we&apos;re not just building products-we&apos;re shaping the future of technology.&quot;
                 </p>
               </div>
 
