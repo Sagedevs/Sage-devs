@@ -5,12 +5,13 @@ import Image from 'next/image';
 
 const team = [
   {
-    name: 'Amjad Arfaat',
-    role: 'UI/UX Designer',
-    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760164755/download_28_cixjql.webp',
-    bio: 'Designing smooth, beautiful interfaces that make users fall in love instantly.',
-    icon: Target
-  },
+  name: 'Amjad Arfaat',
+  role: 'COO (Chief Operating Officer)',
+  image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760164755/download_28_cixjql.webp',
+  bio: 'Driving operations, strategy, and growth — making sure every idea turns into smooth execution.',
+  icon: Target
+}
+,
   {
     name: 'Saqib Sarfraz',
     role: 'Product Manager',
