@@ -76,16 +76,20 @@ export default function HeroSection() {
         );
       }
 
-      // Parallax effect on scroll
-      gsap.to(sectionRef.current, {
-        yPercent: 15,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1,
-        }
+      // Parallax effect on scroll (desktop only)
+      const mm = gsap.matchMedia();
+      
+      mm.add("(min-width: 768px)", () => {
+        gsap.to(sectionRef.current, {
+          yPercent: 15,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          }
+        });
       });
 
     }, sectionRef);
