@@ -128,7 +128,7 @@ const Footer = () => {
     },
     {
       label: "Location",
-      value: "Gulberg, Lahore",
+      value: "Wapda town, Lahore",
       href: "#",
     },
   ], []);

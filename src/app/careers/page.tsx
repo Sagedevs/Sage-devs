@@ -102,7 +102,7 @@ const organizationSchema = {
   'description': 'Full Stack Software Agency & UI/UX Studio specializing in AI integration, React, Next.js, and modern web development',
   'address': {
     '@type': 'PostalAddress',
-    'streetAddress': 'Gulberg',
+    'streetAddress': 'Wapda town',
     'addressLocality': 'Lahore',
     'addressRegion': 'Punjab',
     'postalCode': '54400',
