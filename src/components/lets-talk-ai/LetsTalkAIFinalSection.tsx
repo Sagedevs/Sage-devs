@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+
 interface FormData {
   name: string;
   email: string;
@@ -69,10 +70,10 @@ const LetsTalkAISection = () => {
   // Generate floating particles
   useEffect(() => {
     const generateParticles = () => {
-        const newParticles: Particle[] = [];
-      const particleCount = window.innerWidth < 768 ? 15 : 30; // Fewer particles on mobile
+      const newParticles: Particle[] = [];
+      const particleCount = window.innerWidth < 768 ? 15 : 30;
       for (let i = 0; i < particleCount; i++) {
-          newParticles.push({
+        newParticles.push({
           x: Math.random() * window.innerWidth,
           y: Math.random() * window.innerHeight,
           vx: (Math.random() - 0.5) * 0.5,
@@ -184,9 +185,9 @@ const LetsTalkAISection = () => {
       ))}
 
       {/* Mouse follower effect - hidden on mobile */}
-        <div
+      <div
         className="fixed w-80 h-80 pointer-events-none hidden md:block"
-          style={{
+        style={{
           left: mousePos.x - 160,
           top: mousePos.y - 160,
           background: 'radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 70%)',
@@ -195,7 +196,7 @@ const LetsTalkAISection = () => {
       />
 
       <div className="relative z-10 min-h-screen flex items-center" style={{ paddingTop: '50px' }}>
-        <div className="px-14 sm:px-15 md:px-20 lg:px-24 xl:px-34 py-8 sm:py-12 lg:py-16 w-full">
+        <div className="px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 py-8 sm:py-12 lg:py-16 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center w-full">
             
             {/* Left Content */}
@@ -203,7 +204,9 @@ const LetsTalkAISection = () => {
               <div className="space-y-4 lg:space-y-6">
                 <div className="flex items-center space-x-3 sm:space-x-4">
                   <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/30">
-                    <div className="text-white font-black text-lg sm:text-xl">AI</div>
+                    <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
                   </div>
                   <div>
                     <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">
@@ -218,29 +221,45 @@ const LetsTalkAISection = () => {
                 <p className="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-lg">
                   Ready to transform your business with AI? Let&apos;s discuss your vision and explore how cutting-edge artificial intelligence can drive your success.
                 </p>
-      </div>
+              </div>
 
               {/* Features grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
                 {[
-                  { icon: "🧠", title: "Smart Solutions", desc: "Custom AI tailored to your needs" },
-                  { icon: "⚡", title: "Rapid Deployment", desc: "Fast implementation & results" },
-                  { icon: "📊", title: "Data-Driven", desc: "Insights that drive decisions" },
-                  { icon: "🔮", title: "Future-Ready", desc: "Scalable AI architecture" }
+                  { 
+                    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>,
+                    title: "Smart Solutions", 
+                    desc: "Custom AI tailored to your needs" 
+                  },
+                  { 
+                    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
+                    title: "Rapid Deployment", 
+                    desc: "Fast implementation & results" 
+                  },
+                  { 
+                    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>,
+                    title: "Data-Driven", 
+                    desc: "Insights that drive decisions" 
+                  },
+                  { 
+                    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" /></svg>,
+                    title: "Future-Ready", 
+                    desc: "Scalable AI architecture" 
+                  }
                 ].map((feature, i) => (
                   <div key={i} className="group">
                     <div className="flex items-start space-x-3 sm:space-x-4 p-3 sm:p-4 rounded-2xl hover:bg-slate-800/30 transition-all duration-300 cursor-pointer">
-                      <div className="text-xl sm:text-2xl group-hover:scale-110 transition-transform duration-300">
+                      <div className="text-blue-400 group-hover:text-cyan-400 group-hover:scale-110 transition-all duration-300">
                         {feature.icon}
-            </div>
-            <div>
+                      </div>
+                      <div>
                         <h3 className="text-white font-bold text-base sm:text-lg mb-1">{feature.title}</h3>
                         <p className="text-slate-400 text-sm">{feature.desc}</p>
-            </div>
-          </div>
-        </div>
+                      </div>
+                    </div>
+                  </div>
                 ))}
-      </div>
+              </div>
 
               {/* Stats */}
               <div className="flex flex-wrap justify-center sm:justify-start gap-6 sm:gap-8 pt-6 lg:pt-8 border-t border-slate-700/50">
@@ -248,11 +267,11 @@ const LetsTalkAISection = () => {
                   { value: "50+", label: "AI Projects" },
                   { value: "24hr", label: "Response Time" },
                   { value: "98%", label: "Success Rate" }
-          ].map((stat, i) => (
+                ].map((stat, i) => (
                   <div key={i} className="text-center">
                     <div className="text-2xl sm:text-3xl font-black text-white mb-1">{stat.value}</div>
                     <div className="text-xs text-slate-400 uppercase tracking-wider">{stat.label}</div>
-                </div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -276,12 +295,12 @@ const LetsTalkAISection = () => {
                     <div className="w-full bg-slate-800 rounded-full h-1.5">
                       <div 
                         className="bg-gradient-to-r from-blue-500 to-cyan-500 h-1.5 rounded-full transition-all duration-500"
-                style={{ width: `${completionPercentage}%` }}
-              ></div>
-            </div>
+                        style={{ width: `${completionPercentage}%` }}
+                      ></div>
+                    </div>
                     <div className="text-xs text-slate-500 mt-2">{completionPercentage}% Complete</div>
                   </div>
-          </div>
+                </div>
 
                 <form onSubmit={handleSubmit} ref={formRef} className="space-y-6 sm:space-y-8">
                   {/* Basic info row */}
@@ -375,12 +394,14 @@ const LetsTalkAISection = () => {
                     {isSubmitting ? (
                       <>
                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Sending Message...
+                        <span>Sending Message...</span>
                       </>
                     ) : (
                       <>
                         <span>Let&apos;s Discuss AI Solutions</span>
-                        <span className="text-lg sm:text-xl">🚀</span>
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
                       </>
                     )}
                   </button>
@@ -412,15 +433,24 @@ const LetsTalkAISection = () => {
                 {/* Trust indicators */}
                 <div className="flex flex-wrap justify-center gap-4 sm:gap-6 mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-slate-700/30">
                   {[
-                    { icon: "🔒", label: "Secure" },
-                    { icon: "⚡", label: "24h Response" },
-                    { icon: "🎯", label: "Tailored Solutions" }
-            ].map((indicator, i) => (
-              <div key={i} className="flex items-center space-x-2 text-xs text-slate-400">
-                      <span>{indicator.icon}</span>
-                <span>{indicator.label}</span>
-              </div>
-            ))}
+                    { 
+                      icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>,
+                      label: "Secure" 
+                    },
+                    { 
+                      icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
+                      label: "24h Response" 
+                    },
+                    { 
+                      icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+                      label: "Tailored Solutions" 
+                    }
+                  ].map((indicator, i) => (
+                    <div key={i} className="flex items-center space-x-2 text-xs text-slate-400">
+                      <span className="text-blue-400">{indicator.icon}</span>
+                      <span>{indicator.label}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
