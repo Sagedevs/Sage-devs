@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const team = [
   {
-  name: 'Amjad Arfaat',
+  name: 'Muhammad Amjad',
   role: 'COO (Chief Operating Officer)',
   image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760164755/download_28_cixjql.webp',
   bio: 'Driving operations, strategy, and growth , making sure every idea turns into smooth execution.',
