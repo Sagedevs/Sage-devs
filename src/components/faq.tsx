@@ -523,7 +523,7 @@ const FAQ = () => {
               </a>
 
               <a
-                href="src/portfolios"
+                href="/case-studies"
                 className="group w-full sm:w-auto min-w-[200px] lg:min-w-[220px] px-8 sm:px-10 py-3 sm:py-4 bg-white/10 backdrop-blur-sm text-white text-sm sm:text-base font-bold rounded-xl border border-white/30 hover:bg-white/20 hover:border-white/50 hover:scale-105 hover:shadow-xl hover:shadow-white/20 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 transform cursor-pointer relative overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
