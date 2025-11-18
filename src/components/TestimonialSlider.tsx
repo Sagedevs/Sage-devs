@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Play, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -7,7 +7,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const TestimonialsSection = () => {
-  const carouselRef = useRef<HTMLDivElement>(null);
   const testimonialsRef = useRef<HTMLDivElement>(null);
   const videoPopupRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
@@ -184,7 +183,7 @@ const TestimonialsSection = () => {
             {/* Heading on top */}
             <div ref={headingRef} className="text-center max-w-5xl mx-auto mb-8 md:mb-10">
               <h3 className="font-sans text-3xl md:text-5xl lg:text-[60px] font-600 leading-tight text-white">
-                We're proudly rated 5 stars by
+                We&apos;re proudly rated 5 stars by
                 <br className="hidden md:block" />
                 <span className="font-600">100+ happy clients on </span>
                 <span className="inline-block font-600">
@@ -304,7 +303,7 @@ const TestimonialsSection = () => {
 
                         {/* Testimonial Text - Larger font */}
                         <blockquote className="font-sans text-base md:text-lg text-gray-200 leading-relaxed mb-4 flex-grow italic">
-                          "{testimonial.text}"
+                          &ldquo;{testimonial.text}&rdquo;
                         </blockquote>
 
                         {/* Author - Larger and more refined */}
