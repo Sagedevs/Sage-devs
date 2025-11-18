@@ -13,44 +13,110 @@ const TestimonialsSection = () => {
   const animationRef = useRef<gsap.core.Tween | null>(null);
 
   const testimonials = [
-    {
+  {
       stars: 5,
-      text: "A pleasure working with Videuvlad and the team, founded a high school with the website branding and SEO delivery. Our ratings have improved steadily, and we are seeing great traction.",
-      author: "Traditions",
-      company: "North Korea/Indonesia"
+      text: "Videuvlad transformed our online presence completely. The SEO strategy they implemented has driven consistent organic traffic growth, and our website conversions have doubled in just four months.",
+      author: "Igor Vainshtein",
+      company: "Tech Innovation Consulting"
     },
     {
       stars: 5,
-      text: "Have worked with Videuvlad for some time now and can't fault them. The team were extremely helpful collaborating on our website project, went out of the way to improve the proposal and delivered a great project to a tight deadline.",
-      author: "Mothers Forum",
-      company: "Korea"
+      text: "Working with Videuvlad was seamless from start to finish. They delivered exactly what we needed with incredible attention to detail.",
+      author: "Jake",
+      company: "Weather Forecasting Services",
+      video: "https://youtube.com/shorts/4gFSVqLk_j0"
     },
     {
       stars: 5,
-      text: "We've had a brilliant experience working with Videuvlad for both our website and delivering great success at our SEO services. They've delivered outstanding work which has resulted in increased search visibility, enquiries and user experience.",
-      author: "Short times ago",
-      company: "The World Wide"
+      text: "The team at Videuvlad exceeded our expectations with their web design expertise. Our e-commerce platform is now fast, beautiful, and optimized for sales. Highly recommended!",
+      author: "Bavalle Team",
+      company: "Premium Fashion Boutique"
     },
     {
       stars: 5,
-      text: "Amazing customer service! I feel very reassured and relaxed.",
-      author: "Ladies Media Player",
-      company: "Take me thanks",
-      video: "https://websitevideosyb.s3.eu-west-2.amazonaws.com/Ballet+with+Isabella+tile.mp4"
+      text: "We partnered with Videuvlad for a complete rebrand and website overhaul. The professionalism and creativity they brought to our project was outstanding.",
+      author: "Kelvin Melgar",
+      company: "Creative Design Studio"
     },
     {
       stars: 5,
-      text: "We were impressed and are delighted with the outcome!",
-      author: "Half Minutes",
-      company: "30th Edition",
-      video: "https://websitevideosyb.s3.eu-west-2.amazonaws.com/Holly+Sherwood+%E2%80%93+15+second+trim+compressed.mp4"
+      text: "Incredible results! The SEO work has put us on the first page for our key search terms. Our business has grown significantly since working with Videuvlad.",
+      author: "Ana Kurkina",
+      company: "Marketing Solutions",
+      video: "https://youtu.be/u5LDjn6NdHM"
     },
     {
       stars: 5,
-      text: "Delighted to recommend Videuvlad. They listened to us, made sure they understood what was needed and delivered. Our SEO strategy is paying dividends already.",
-      author: "Get thousands",
-      company: "Anything"
+      text: "Videuvlad delivered a stunning website for our insurance brokerage. The user experience is intuitive, and we've seen a marked increase in quote requests through the site.",
+      author: "Priority Team",
+      company: "Insurance Solutions Group"
+    },
+    {
+      stars: 5,
+      text: "From concept to launch, Videuvlad handled everything professionally. Our new site perfectly represents our brand and has improved engagement across all metrics.",
+      author: "AIDN Leadership",
+      company: "Digital Innovation Network"
+    },
+    {
+      stars: 5,
+      text: "The custom development work was flawless. Videuvlad understood our technical requirements and delivered a robust, scalable solution.",
+      author: "Emily",
+      company: "Software Development",
+      video: "https://youtu.be/NzExt1Bzdfw"
+    },
+    {
+      stars: 5,
+      text: "Outstanding service throughout our entire project. The team was responsive, creative, and committed to delivering excellence. Our online visibility has skyrocketed!",
+      author: "VrdeOS Founders",
+      company: "Enterprise Software Platform"
+    },
+    {
+      stars: 5,
+      text: "Videuvlad redesigned our restaurant's website and implemented local SEO strategies that have driven real foot traffic. We're now ranking at the top for searches in our area.",
+      author: "Mehfil Management",
+      company: "Indian Cuisine Restaurant"
+    },
+    {
+      stars: 5,
+      text: "The e-commerce solution they built for us is phenomenal. Sales have increased by 180% since launch, and customers love the smooth checkout experience.",
+      author: "Jason",
+      company: "Online Retail Business",
+      video: "https://youtu.be/Lr0AhNhmya4"
+    },
+    {
+      stars: 5,
+      text: "Working with Videuvlad was one of the best business decisions we made. They took time to understand our vision and delivered a website that truly represents our craftsmanship.",
+      author: "Eli Burch",
+      company: "Artisan Jewelry Design"
+    },
+    {
+      stars: 5,
+      text: "The branding and web design work exceeded all expectations. Videuvlad captured our essence perfectly and created a digital presence that resonates with our clients.",
+      author: "KhanJee Leadership",
+      company: "Immigration Consulting Services"
+    },
+    {
+      stars: 5,
+      text: "Professional, reliable, and extremely talented. Videuvlad helped us establish a strong digital foundation that continues to generate leads and build our reputation.",
+      author: "Andrew",
+      company: "Financial Advisory",
+      video: "https://youtu.be/S4a8buevs3I"
+    },
+    {
+      stars: 4,
+      text: "From the initial consultation to the final launch, Videuvlad demonstrated expertise at every stage. Our portfolio website now showcases our work beautifully.",
+      author: "Jake Matluck",
+      company: "Photography & Visual Arts"
+    },
+    {
+      stars: 5,
+      text: "The ROI from working with Videuvlad has been exceptional. Their comprehensive approach to web development and SEO has transformed our digital marketing results.",
+      author: "Randy",
+      company: "Business Consulting",
+      video: "https://youtu.be/1JaRQCaH6nA"
     }
+
+
   ];
 
   // Duplicate testimonials for seamless loop
