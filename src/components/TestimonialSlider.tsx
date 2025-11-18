@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Play, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -11,55 +11,59 @@ const TestimonialsSection = () => {
   const videoPopupRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<gsap.core.Tween | null>(null);
+  const [currentPosition, setCurrentPosition] = useState(0);
+  const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
+  const [popupSrc, setPopupSrc] = useState<string | null>(null);
+  const [popupType, setPopupType] = useState<'youtube' | 'video' | null>(null);
 
   const testimonials = [
-  {
+    {
       stars: 5,
-      text: "Videuvlad transformed our online presence completely. The SEO strategy they implemented has driven consistent organic traffic growth, and our website conversions have doubled in just four months.",
+      text: "Sage Devs transformed our online presence completely. The SEO strategy they implemented has driven consistent organic traffic growth, and our website conversions have doubled in just four months.",
       author: "Igor Vainshtein",
       company: "Tech Innovation Consulting"
     },
     {
       stars: 5,
-      text: "Working with Videuvlad was seamless from start to finish. They delivered exactly what we needed with incredible attention to detail.",
+      text: "Working with Sage Devs was seamless from start to finish. They delivered exactly what we needed with incredible attention to detail.",
       author: "Jake",
       company: "Weather Forecasting Services",
       video: "https://youtube.com/shorts/4gFSVqLk_j0"
     },
     {
       stars: 5,
-      text: "The team at Videuvlad exceeded our expectations with their web design expertise. Our e-commerce platform is now fast, beautiful, and optimized for sales. Highly recommended!",
+      text: "The team at Sage Devs exceeded our expectations with their web design expertise. Our e-commerce platform is now fast, beautiful, and optimized for sales. Highly recommended!",
       author: "Bavalle Team",
       company: "Premium Fashion Boutique"
     },
     {
       stars: 5,
-      text: "We partnered with Videuvlad for a complete rebrand and website overhaul. The professionalism and creativity they brought to our project was outstanding.",
+      text: "We partnered with Sage Devs for a complete rebrand and website overhaul. The professionalism and creativity they brought to our project was outstanding.",
       author: "Kelvin Melgar",
       company: "Creative Design Studio"
     },
     {
       stars: 5,
-      text: "Incredible results! The SEO work has put us on the first page for our key search terms. Our business has grown significantly since working with Videuvlad.",
+      text: "Incredible results! The SEO work has put us on the first page for our key search terms. Our business has grown significantly since working with Sage Devs.",
       author: "Ana Kurkina",
       company: "Marketing Solutions",
       video: "https://youtu.be/u5LDjn6NdHM"
     },
     {
       stars: 5,
-      text: "Videuvlad delivered a stunning website for our insurance brokerage. The user experience is intuitive, and we've seen a marked increase in quote requests through the site.",
+      text: "Sage Devs delivered a stunning website for our insurance brokerage. The user experience is intuitive, and we've seen a marked increase in quote requests through the site.",
       author: "Priority Team",
       company: "Insurance Solutions Group"
     },
     {
       stars: 5,
-      text: "From concept to launch, Videuvlad handled everything professionally. Our new site perfectly represents our brand and has improved engagement across all metrics.",
+      text: "From concept to launch, Sage Devs handled everything professionally. Our new site perfectly represents our brand and has improved engagement across all metrics.",
       author: "AIDN Leadership",
       company: "Digital Innovation Network"
     },
     {
       stars: 5,
-      text: "The custom development work was flawless. Videuvlad understood our technical requirements and delivered a robust, scalable solution.",
+      text: "The custom development work was flawless. Sage Devs understood our technical requirements and delivered a robust, scalable solution.",
       author: "Emily",
       company: "Software Development",
       video: "https://youtu.be/NzExt1Bzdfw"
@@ -72,7 +76,7 @@ const TestimonialsSection = () => {
     },
     {
       stars: 5,
-      text: "Videuvlad redesigned our restaurant's website and implemented local SEO strategies that have driven real foot traffic. We're now ranking at the top for searches in our area.",
+      text: "Sage Devs redesigned our restaurant's website and implemented local SEO strategies that have driven real foot traffic. We're now ranking at the top for searches in our area.",
       author: "Mehfil Management",
       company: "Indian Cuisine Restaurant"
     },
@@ -85,42 +89,76 @@ const TestimonialsSection = () => {
     },
     {
       stars: 5,
-      text: "Working with Videuvlad was one of the best business decisions we made. They took time to understand our vision and delivered a website that truly represents our craftsmanship.",
+      text: "Working with Sage Devs was one of the best business decisions we made. They took time to understand our vision and delivered a website that truly represents our craftsmanship.",
       author: "Eli Burch",
       company: "Artisan Jewelry Design"
     },
     {
       stars: 5,
-      text: "The branding and web design work exceeded all expectations. Videuvlad captured our essence perfectly and created a digital presence that resonates with our clients.",
+      text: "The branding and web design work exceeded all expectations. Sage Devs captured our essence perfectly and created a digital presence that resonates with our clients.",
       author: "KhanJee Leadership",
       company: "Immigration Consulting Services"
     },
     {
       stars: 5,
-      text: "Professional, reliable, and extremely talented. Videuvlad helped us establish a strong digital foundation that continues to generate leads and build our reputation.",
+      text: "Professional, reliable, and extremely talented. Sage Devs helped us establish a strong digital foundation that continues to generate leads and build our reputation.",
       author: "Andrew",
       company: "Financial Advisory",
       video: "https://youtu.be/S4a8buevs3I"
     },
     {
       stars: 4,
-      text: "From the initial consultation to the final launch, Videuvlad demonstrated expertise at every stage. Our portfolio website now showcases our work beautifully.",
+      text: "From the initial consultation to the final launch, Sage Devs demonstrated expertise at every stage. Our portfolio website now showcases our work beautifully.",
       author: "Jake Matluck",
       company: "Photography & Visual Arts"
     },
     {
       stars: 5,
-      text: "The ROI from working with Videuvlad has been exceptional. Their comprehensive approach to web development and SEO has transformed our digital marketing results.",
+      text: "The ROI from working with Sage Devs has been exceptional. Their comprehensive approach to web development and SEO has transformed our digital marketing results.",
       author: "Randy",
       company: "Business Consulting",
       video: "https://youtu.be/1JaRQCaH6nA"
     }
-
-
   ];
 
   // Duplicate testimonials for seamless loop
   const allTestimonials = [...testimonials, ...testimonials, ...testimonials];
+
+  const stopAutoScroll = () => {
+    if (animationRef.current && autoScrollEnabled) {
+      animationRef.current.kill();
+      setAutoScrollEnabled(false);
+      
+      // Remove event listeners
+      if (testimonialsRef.current) {
+        testimonialsRef.current.removeEventListener('mouseenter', pauseAnimation);
+        testimonialsRef.current.removeEventListener('mouseleave', resumeAnimation);
+      }
+    }
+  };
+
+  const pauseAnimation = () => animationRef.current?.pause();
+  const resumeAnimation = () => animationRef.current?.resume();
+
+  // Helpers for YouTube handling
+  const isYouTubeUrl = (url?: string) => !!url && /(youtube\.com|youtu\.be)/i.test(url);
+  const getYouTubeId = (url?: string) => {
+    if (!url) return null;
+    try {
+      const u = new URL(url);
+      if (u.hostname.includes('youtu.be')) return u.pathname.replace('/', '');
+      if (u.searchParams.get('v')) return u.searchParams.get('v');
+      // shorts path
+      if (u.pathname.startsWith('/shorts/')) return u.pathname.split('/')[2] || null;
+      return null;
+    } catch {
+      return null;
+    }
+  };
+  const getYouTubeThumb = (url?: string) => {
+    const id = getYouTubeId(url);
+    return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : '';
+  };
 
   useEffect(() => {
     // Heading animation
@@ -146,8 +184,8 @@ const TestimonialsSection = () => {
       );
     }
 
-    // Auto-scroll animation
-    if (testimonialsRef.current) {
+    // Auto-scroll animation - only if autoScrollEnabled is true
+    if (testimonialsRef.current && autoScrollEnabled) {
       const testimonialsElement = testimonialsRef.current;
       const totalWidth = testimonialsElement.scrollWidth / 3;
 
@@ -161,49 +199,68 @@ const TestimonialsSection = () => {
         }
       });
 
-      const pauseAnimation = () => animationRef.current?.pause();
-      const resumeAnimation = () => animationRef.current?.resume();
-
       testimonialsElement.addEventListener('mouseenter', pauseAnimation);
       testimonialsElement.addEventListener('mouseleave', resumeAnimation);
 
       return () => {
-        animationRef.current?.kill();
-        testimonialsElement.removeEventListener('mouseenter', pauseAnimation);
-        testimonialsElement.removeEventListener('mouseleave', resumeAnimation);
+        if (autoScrollEnabled) {
+          animationRef.current?.kill();
+          testimonialsElement.removeEventListener('mouseenter', pauseAnimation);
+          testimonialsElement.removeEventListener('mouseleave', resumeAnimation);
+        }
       };
     }
-  }, []);
+  }, [autoScrollEnabled]);
 
   const navigate = (direction: 'prev' | 'next') => {
+    // Stop auto-scroll on first user interaction
+    stopAutoScroll();
+    
     if (!testimonialsRef.current) return;
     
     const testimonialsElement = testimonialsRef.current;
     const cardWidth = 320; // w-80
     const gap = 24; // gap-6
-    const scrollAmount = (cardWidth + gap); // Scroll only 1 card at a time
+    const scrollAmount = (cardWidth + gap);
     
+    // Get current transform position
+    const currentX = gsap.getProperty(testimonialsElement, "x") as number;
+    let newPosition = currentPosition;
+
     if (direction === 'next') {
-      gsap.to(testimonialsElement, {
-        x: `-=${scrollAmount}`,
-        duration: 0.6,
-        ease: "power2.inOut"
-      });
+      newPosition = currentPosition - scrollAmount;
+      // Reset to beginning if we've scrolled past the first duplicate set
+      if (Math.abs(newPosition) >= (testimonials.length * scrollAmount)) {
+        newPosition = 0;
+      }
     } else {
-      gsap.to(testimonialsElement, {
-        x: `+=${scrollAmount}`,
-        duration: 0.6,
-        ease: "power2.inOut"
-      });
+      newPosition = currentPosition + scrollAmount;
+      // Reset to end if we're at the beginning
+      if (newPosition > 0) {
+        newPosition = -((testimonials.length - 1) * scrollAmount);
+      }
     }
+
+    setCurrentPosition(newPosition);
+
+    gsap.to(testimonialsElement, {
+      x: newPosition,
+      duration: 0.6,
+      ease: "power2.inOut"
+    });
   };
 
   const openVideoPopup = (videoUrl: string) => {
+    // Stop auto scroll when user opens popup
+    stopAutoScroll();
+    if (isYouTubeUrl(videoUrl)) {
+      setPopupType('youtube');
+      setPopupSrc(videoUrl);
+    } else {
+      setPopupType('video');
+      setPopupSrc(videoUrl);
+    }
     if (videoPopupRef.current) {
-      const video = videoPopupRef.current.querySelector('video') as HTMLVideoElement;
-      if (video) {
-        video.src = videoUrl;
-      }
       videoPopupRef.current.style.display = 'flex';
       document.body.style.overflow = 'hidden';
     }
@@ -219,6 +276,8 @@ const TestimonialsSection = () => {
       videoPopupRef.current.style.display = 'none';
       document.body.style.overflow = 'auto';
     }
+    setPopupSrc(null);
+    setPopupType(null);
   };
 
   const GoogleLogo = ({ className }: { className?: string }) => (
@@ -328,7 +387,7 @@ const TestimonialsSection = () => {
                       key={index}
                       className="flex-shrink-0 w-80 bg-black/30 backdrop-blur-xl border border-blue-500/30 rounded-2xl p-6 hover:shadow-lg transition-all duration-500 hover:border-blue-400/50 hover:bg-blue-900/20 group"
                     >
-                      <div className="flex flex-col h-full">
+                      <div className="flex flex-col h-auto">
                         {/* Stars and Google Logo */}
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex gap-1">
@@ -346,33 +405,43 @@ const TestimonialsSection = () => {
                           <GoogleLogo className="w-5 h-5 opacity-60" />
                         </div>
 
-                        {/* Video Thumbnail */}
+                        {/* Video Thumbnail / Image Preview */}
                         {testimonial.video && (
                           <div 
                             className="relative mb-4 rounded-xl overflow-hidden aspect-video bg-gray-900 cursor-pointer group/video"
                             onClick={() => openVideoPopup(testimonial.video!)}
                           >
-                            <video
-                              src={testimonial.video}
-                              autoPlay
-                              loop
-                              muted
-                              playsInline
-                              className="w-full h-full object-cover group-hover/video:scale-105 transition-transform duration-500"
-                            />
-                            <div className="absolute inset-0 bg-black/40 group-hover/video:bg-black/20 transition-colors"></div>
+                            {isYouTubeUrl(testimonial.video) ? (
+                              // YouTube thumbnail image
+                              <img
+                                src={getYouTubeThumb(testimonial.video)}
+                                alt="YouTube thumbnail"
+                                className="w-full h-full object-cover group-hover/video:scale-105 transition-transform duration-500"
+                                loading="lazy"
+                              />
+                            ) : (
+                              // Fallback: show first frame of mp4 (no autoplay)
+                              <video
+                                src={testimonial.video}
+                                muted
+                                preload="metadata"
+                                playsInline
+                                className="w-full h-full object-cover"
+                              />
+                            )}
+                            <div className="absolute inset-0 bg-black/30 group-hover/video:bg-black/20 transition-colors"></div>
                             <div className="absolute bottom-3 left-3 w-10 h-10 bg-blue-400 rounded-lg flex items-center justify-center group-hover/video:scale-110 transition-transform duration-300">
                               <Play className="w-4 h-4 text-gray-900 ml-0.5" fill="currentColor" />
                             </div>
                           </div>
                         )}
 
-                        {/* Testimonial Text - Larger font */}
-                        <blockquote className="font-sans text-base md:text-lg text-gray-200 leading-relaxed mb-4 flex-grow italic">
+                        {/* Testimonial Text - Variable height based on content */}
+                        <blockquote className="font-sans text-base md:text-lg text-gray-200 leading-relaxed mb-4 italic min-h-[60px]">
                           &ldquo;{testimonial.text}&rdquo;
                         </blockquote>
 
-                        {/* Author - Larger and more refined */}
+                        {/* Author */}
                         <div className="text-sm font-sans text-gray-400 flex items-center gap-1.5 flex-wrap pt-3 border-t border-gray-700">
                           <span className="font-semibold text-white">{testimonial.author}</span>
                           <span className="text-gray-600">•</span>
@@ -384,8 +453,6 @@ const TestimonialsSection = () => {
                 </div>
               </div>
             </div>
-
-            {/* Removed dot navigation as requested */}
           </div>
         </div>
       </div>
@@ -406,47 +473,19 @@ const TestimonialsSection = () => {
           className="relative w-full max-w-4xl aspect-video bg-black rounded-xl overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >
-          <video
-            className="w-full h-full"
-            controls
-            autoPlay
-          >
-            Your browser does not support the video tag.
-          </video>
+          {popupType === 'youtube' && popupSrc ? (
+            <iframe
+              className="w-full h-full"
+              src={`https://www.youtube.com/embed/${getYouTubeId(popupSrc)}?autoplay=1&rel=0`}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          ) : popupType === 'video' && popupSrc ? (
+            <video className="w-full h-full" controls autoPlay src={popupSrc} />
+          ) : null}
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-in {
-          animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        /* Smooth scrolling for the carousel */
-        .smooth-scroll {
-          scroll-behavior: smooth;
-        }
-
-        /* Hide scrollbar but maintain functionality */
-        .hide-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </section>
   );
 };
