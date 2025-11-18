@@ -215,22 +215,18 @@ const TestimonialsSection = () => {
   const navigate = (direction: 'prev' | 'next') => {
     // Stop auto-scroll on first user interaction
     stopAutoScroll();
-    
     if (!testimonialsRef.current) return;
-    
+
     const testimonialsElement = testimonialsRef.current;
     const cardWidth = 320; // w-80
     const gap = 24; // gap-6
-    const scrollAmount = (cardWidth + gap);
-    
-    // Get current transform position
-    const currentX = gsap.getProperty(testimonialsElement, "x") as number;
-    let newPosition = currentPosition;
+    const scrollAmount = cardWidth + gap;
 
+    let newPosition = currentPosition;
     if (direction === 'next') {
       newPosition = currentPosition - scrollAmount;
       // Reset to beginning if we've scrolled past the first duplicate set
-      if (Math.abs(newPosition) >= (testimonials.length * scrollAmount)) {
+      if (Math.abs(newPosition) >= testimonials.length * scrollAmount) {
         newPosition = 0;
       }
     } else {
@@ -242,11 +238,10 @@ const TestimonialsSection = () => {
     }
 
     setCurrentPosition(newPosition);
-
     gsap.to(testimonialsElement, {
       x: newPosition,
       duration: 0.6,
-      ease: "power2.inOut"
+      ease: 'power2.inOut',
     });
   };
 
