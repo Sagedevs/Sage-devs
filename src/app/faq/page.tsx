@@ -158,7 +158,7 @@ const faqPageSchema = {
       name: "How do I get started with Sage Devs?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Getting started is easy: 1) Contact us via email at contact@sagedevs.tech or call +923259684493, 2) Schedule a free consultation to discuss your project, 3) Receive a detailed proposal with timeline and cost estimate, 4) Sign agreement and begin discovery phase, 5) Start development with regular updates and demos. We typically respond within 24 hours."
+        text: "Getting started is easy: 1) Contact us via email at info@sagedevs.tech or call +923259684493, 2) Schedule a free consultation to discuss your project, 3) Receive a detailed proposal with timeline and cost estimate, 4) Sign agreement and begin discovery phase, 5) Start development with regular updates and demos. We typically respond within 24 hours."
       }
     },
     {
@@ -241,7 +241,7 @@ const organizationSchema = {
     {
       "@type": "ContactPoint",
       contactType: "Customer Support",
-      email: "contact@sagedevs.tech",
+      email: "info@sagedevs.tech",
       telephone: "+923259684493",
       availableLanguage: ["English"],
       areaServed: "Worldwide"

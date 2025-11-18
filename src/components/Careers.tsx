@@ -736,8 +736,8 @@ export default function CareerApplication() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-gray-400 text-sm">
             Questions about the application process? Contact us at{' '}
-            <a href="mailto:contact@sagedevs.tech" className="text-blue-400 hover:text-blue-300 transition-colors">
-              contact@sagedevs.tech
+            <a href="mailto:info@sagedevs.tech" className="text-blue-400 hover:text-blue-300 transition-colors">
+              info@sagedevs.tech
             </a>
           </p>
         </div>

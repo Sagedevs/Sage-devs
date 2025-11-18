@@ -104,7 +104,7 @@ export function OrganizationStructuredData() {
       '@type': 'ContactPoint',
       telephone: '+1-555-0199', // Replace with actual phone number
       contactType: 'customer service',
-      email: 'contact@sagedevs.tech',
+      email: 'info@sagedevs.tech',
       contactOption: 'TollFree',
       areaServed: 'US',
       availableLanguage: 'English'

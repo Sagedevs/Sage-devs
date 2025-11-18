@@ -65,7 +65,7 @@ export default function TermsOfService() {
       ],
       "contactPoint": {
         "@type": "ContactPoint",
-        "email": "contact@sagedevs.tech",
+        "email": "info@sagedevs.tech",
         "contactType": "Customer Service"
       }
     }
@@ -433,8 +433,8 @@ export default function TermsOfService() {
                       <div className="bg-black/40 border border-blue-900/30 rounded-xl p-6 space-y-3">
                         <div className="flex items-center gap-3">
                           <span className="text-blue-400 font-semibold min-w-[80px]">Email:</span>
-                          <a href="mailto:contact@sagedevs.tech" className="text-gray-300 hover:text-blue-400 transition-colors">
-                            contact@sagedevs.tech
+                          <a href="mailto:info@sagedevs.tech" className="text-gray-300 hover:text-blue-400 transition-colors">
+                            info@sagedevs.tech
                           </a>
                         </div>
                         <div className="flex items-center gap-3">

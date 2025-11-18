@@ -124,7 +124,7 @@ const AboutCTASection = () => {
             {/* Contact Info */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8 border-t border-white/20">
               <a 
-                href="mailto:contact@sagedevs.tech" 
+                href="mailto:info@sagedevs.tech" 
                 className="flex items-center text-white hover:text-blue-300 transition-colors group"
               >
                 <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3 group-hover:bg-white/30 transition-colors">
@@ -132,7 +132,7 @@ const AboutCTASection = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <span className="font-medium">contact@sagedevs.tech</span>
+                <span className="font-medium">info@sagedevs.tech</span>
               </a>
               
               <div className="hidden sm:block w-1 h-1 bg-white/50 rounded-full"></div>

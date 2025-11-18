@@ -101,7 +101,7 @@ const organizationSchema = {
   description: "Premium full-stack development agency creating scalable web applications, AI solutions, and award-winning user experiences that drive measurable growth.",
   foundingDate: "2023",
   slogan: "Transform Ideas Into Digital Excellence",
-  email: "contact@sagedevs.tech",
+  email: "info@sagedevs.tech",
   telephone: "+923259684493",
   sameAs: [
     "https://www.linkedin.com/in/sage-devs-9a1855384/",
@@ -114,7 +114,7 @@ const organizationSchema = {
     {
       "@type": "ContactPoint",
       contactType: "Sales",
-      email: "contact@sagedevs.tech",
+      email: "info@sagedevs.tech",
       telephone: "+923259684493",
       availableLanguage: ["English"],
       areaServed: "Worldwide"
@@ -122,7 +122,7 @@ const organizationSchema = {
     {
       "@type": "ContactPoint",
       contactType: "Technical Support",
-      email: "contact@sagedevs.tech",
+      email: "info@sagedevs.tech",
       telephone: "+923259684493",
       availableLanguage: ["English"],
       areaServed: "Worldwide",
@@ -151,7 +151,7 @@ const professionalServiceSchema = {
   description: "Full-stack software development agency specializing in web applications, mobile apps, AI solutions, SaaS platforms, and digital transformation services.",
   priceRange: "$$$$",
   url: "https://sagedevs.tech",
-  email: "contact@sagedevs.tech",
+  email: "info@sagedevs.tech",
   telephone: "+923259684493",
   address: {
     "@type": "PostalAddress",

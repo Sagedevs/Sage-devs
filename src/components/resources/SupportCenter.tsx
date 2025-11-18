@@ -14,8 +14,8 @@ const SupportCenter = () => {
   const LINKS = {
     liveChat: 'https://wa.me/923259684493', // WhatsApp link
     phone: 'tel:+923259684493',
-    email: 'mailto:contact@sagedevs.tech',
-    enterprise: 'mailto:contact@sagedevs.tech',
+    email: 'mailto:info@sagedevs.tech',
+    enterprise: 'mailto:info@sagedevs.tech',
     quickStart: '/resources',
     contact: '/contact',
     community: '#', // Placeholder since not specified
@@ -59,7 +59,7 @@ const SupportCenter = () => {
         responseTime: '< 4 hours',
         languages: ['English', 'Urdu'],
         status: 'online',
-        email: 'contact@sagedevs.tech',
+        email: 'info@sagedevs.tech',
         link: LINKS.email,
         buttonText: 'Send Email'
       }
@@ -121,7 +121,7 @@ const SupportCenter = () => {
     },
     {
       question: 'How can I contact your team?',
-      answer: 'You can reach us through multiple channels: WhatsApp chat, phone call at +92 325 9684493, or email at contact@sagedevs.tech. We typically respond within minutes during business hours.'
+      answer: 'You can reach us through multiple channels: WhatsApp chat, phone call at +92 325 9684493, or email at info@sagedevs.tech. We typically respond within minutes during business hours.'
     },
     {
       question: 'What support do you offer?',
@@ -129,11 +129,11 @@ const SupportCenter = () => {
     },
     {
       question: 'How do I report a bug or issue?',
-      answer: 'You can report issues through our WhatsApp support, email at contact@sagedevs.tech. Please include detailed steps to reproduce, expected vs actual behavior, and any relevant error messages or screenshots.'
+      answer: 'You can report issues through our WhatsApp support, email at info@sagedevs.tech. Please include detailed steps to reproduce, expected vs actual behavior, and any relevant error messages or screenshots.'
     },
     {
       question: 'Do you offer custom development services?',
-      answer: 'Yes! We specialize in custom software development, web applications, and digital solutions. Contact us at contact@sagedevs.tech to discuss your specific requirements and get a personalized quote.'
+      answer: 'Yes! We specialize in custom software development, web applications, and digital solutions. Contact us at info@sagedevs.tech to discuss your specific requirements and get a personalized quote.'
     }
   ];
 

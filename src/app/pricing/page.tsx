@@ -452,18 +452,18 @@ const HireMePage = () => {
       const body = encodeURIComponent(
         "Hi! I would like to book a consultation for my project."
       );
-      const mailtoLink = `mailto:contact@sagedevs.tech?subject=${subject}&body=${body}`;
+      const mailtoLink = `mailto:info@sagedevs.tech?subject=${subject}&body=${body}`;
 
       const emailWindow = window.open(mailtoLink, "_blank");
 
       if (!emailWindow || emailWindow.closed || typeof emailWindow.closed == "undefined") {
-        alert("Your browser might be blocking pop-ups. Please allow pop-ups for this site or email me directly at: contact@sagedevs.tech");
+        alert("Your browser might be blocking pop-ups. Please allow pop-ups for this site or email me directly at: info@sagedevs.tech");
       } else {
         console.log("Email client opened successfully");
       }
     } catch (error) {
       console.error("Error opening email:", error);
-      alert("Please email me directly at: contact@sagedevs.tech");
+      alert("Please email me directly at: info@sagedevs.tech");
     }
   };
 

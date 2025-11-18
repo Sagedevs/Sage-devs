@@ -27,7 +27,7 @@ const aboutPageSchema = {
     description: "Premium full-stack development agency creating scalable web applications, AI solutions, and award-winning user experiences that drive measurable growth.",
     foundingDate: "2023",
     slogan: "Transform Ideas Into Digital Excellence",
-    email: "contact@sagedevs.tech",
+    email: "info@sagedevs.tech",
     telephone: "+923259684493",
     address: {
       "@type": "PostalAddress",
@@ -78,7 +78,7 @@ const organizationSchema = {
     "@type": "Person",
     name: "Sage Devs Team"
   },
-  email: "contact@sagedevs.tech",
+  email: "info@sagedevs.tech",
   telephone: "+923259684493",
   address: {
     "@type": "PostalAddress",
@@ -90,7 +90,7 @@ const organizationSchema = {
     {
       "@type": "ContactPoint",
       contactType: "Sales",
-      email: "contact@sagedevs.tech",
+      email: "info@sagedevs.tech",
       telephone: "+923259684493",
       availableLanguage: ["English"],
       areaServed: "Worldwide"
@@ -98,7 +98,7 @@ const organizationSchema = {
     {
       "@type": "ContactPoint",
       contactType: "Technical Support",
-      email: "contact@sagedevs.tech",
+      email: "info@sagedevs.tech",
       telephone: "+923259684493",
       availableLanguage: ["English"],
       areaServed: "Worldwide",
@@ -107,7 +107,7 @@ const organizationSchema = {
     {
       "@type": "ContactPoint",
       contactType: "Customer Service",
-      email: "contact@sagedevs.tech",
+      email: "info@sagedevs.tech",
       availableLanguage: ["English"],
       areaServed: "Worldwide"
     }
@@ -155,7 +155,7 @@ const corporateContactSchema = {
   "@type": "Organization",
   name: "Sage Devs",
   url: "https://sagedevs.tech",
-  email: "contact@sagedevs.tech",
+  email: "info@sagedevs.tech",
   telephone: "+923259684493",
   address: {
     "@type": "PostalAddress",
@@ -230,7 +230,7 @@ const faqSchema = {
       name: "Is Sage Devs hiring?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes, we're always looking for talented developers, designers, and other professionals to join our growing team. Check our Careers section for current openings or send your resume to contact@sagedevs.tech. We value skills, passion for technology, problem-solving abilities, and cultural fit. We offer competitive compensation, growth opportunities, and a collaborative work environment."
+        text: "Yes, we're always looking for talented developers, designers, and other professionals to join our growing team. Check our Careers section for current openings or send your resume to info@sagedevs.tech. We value skills, passion for technology, problem-solving abilities, and cultural fit. We offer competitive compensation, growth opportunities, and a collaborative work environment."
       }
     },
     {
@@ -246,7 +246,7 @@ const faqSchema = {
       name: "How can I contact Sage Devs?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "You can contact us via email at contact@sagedevs.tech or call us at +923259684493. We typically respond within 24 hours. You can also connect with us on LinkedIn, GitHub, Instagram, Facebook, or TikTok. For project inquiries, we offer free consultations to discuss your requirements and provide detailed proposals."
+        text: "You can contact us via email at info@sagedevs.tech or call us at +923259684493. We typically respond within 24 hours. You can also connect with us on LinkedIn, GitHub, Instagram, Facebook, or TikTok. For project inquiries, we offer free consultations to discuss your requirements and provide detailed proposals."
       }
     }
   ]

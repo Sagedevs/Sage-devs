@@ -78,7 +78,7 @@ const socialLinks = [
   },
   {
     platform: "Gmail",
-    href: "mailto:contact@sagedevs.tech",
+    href: "mailto:info@sagedevs.tech",
     iconPath: "/icons/gmail_icon.svg",
   },
 ];
@@ -252,7 +252,7 @@ export default function RootLayout({
                 "foundingDate": "2023",
                 "contactPoint": {
                   "@type": "ContactPoint",
-                  "email": "contact@sagedevs.tech",
+                  "email": "info@sagedevs.tech",
                   "contactType": "Customer Service"
                 },
                 "sameAs": [
@@ -267,7 +267,7 @@ export default function RootLayout({
                 },
                 "contact": {
                   "@type": "ContactPoint",
-                  "email": "contact@sagedevs.tech",
+                  "email": "info@sagedevs.tech",
                   "contactType": "Customer Service"
                 },
                 "address": {

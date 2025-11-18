@@ -109,7 +109,7 @@ const Footer = () => {
     },
     {
       platform: "Email",
-      href: "mailto:contact@sagedevs.tech",
+      href: "mailto:info@sagedevs.tech",
       iconPath: "/icons/gmail_icon.svg",
       label: "Email"
     }
@@ -118,8 +118,8 @@ const Footer = () => {
   const contactInfo: ContactInfo[] = useMemo(() => [
     {
       label: "Email",
-      value: "contact@sagedevs.tech",
-      href: "mailto:contact@sagedevs.tech",
+      value: "info@sagedevs.tech",
+      href: "mailto:info@sagedevs.tech",
     },
     {
       label: "Phone",

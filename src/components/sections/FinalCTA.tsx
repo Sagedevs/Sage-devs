@@ -136,7 +136,7 @@ export default function AgencyCTA() {
             {/* Quick Contact */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <a 
-                href="mailto:contact@sagedevs.tech
+                href="mailto:info@sagedevs.tech
 "
                 className="flex items-center gap-3 text-blue-400 hover:text-blue-300 transition-colors duration-300 group"
               >
@@ -145,7 +145,7 @@ export default function AgencyCTA() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <span className="font-medium">contact@sagedevs.tech
+                <span className="font-medium">info@sagedevs.tech
 </span>
               </a>
               

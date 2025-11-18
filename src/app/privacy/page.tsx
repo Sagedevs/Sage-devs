@@ -154,7 +154,7 @@ export default function PrivacyPolicy() {
       url: 'https://sagedevs.tech',
       contactPoint: {
         '@type': 'ContactPoint',
-        email: 'contact@sagedevs.tech',
+        email: 'info@sagedevs.tech',
         contactType: 'Customer Service',
       },
     },
@@ -514,8 +514,8 @@ export default function PrivacyPolicy() {
                       </div>
                       <div className="flex items-center">
                         <span className="font-semibold text-blue-300 w-32">Email:</span>
-                        <a href="mailto:contact@sagedevs.tech" className="text-blue-400 hover:text-blue-300 transition-colors">
-                          contact@sagedevs.tech
+                        <a href="mailto:info@sagedevs.tech" className="text-blue-400 hover:text-blue-300 transition-colors">
+                          info@sagedevs.tech
                         </a>
                       </div>
                       <div className="flex items-center">
