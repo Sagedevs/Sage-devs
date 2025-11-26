@@ -324,24 +324,28 @@ const megaMenuContent: MegaMenuContentMap = {
       href: "/case-studies#case-studies-grid"
     },
     showcase: {
-      title: "VerdeOS",
-      subtitle: "Sustainable Technology & IoT Solutions",
-      description: "Professional SaaS platform for building management and sustainable technology solutions.",
-      image: "/proj/verdos.webp",
-      href: "https://verdeos.com/",
-      results: [
-        { metric: "Brand Visibility", value: "Enhanced" },
-        { metric: "Lead Generation", value: "Increased" },
-        { metric: "Solution Showcase", value: "Comprehensive" },
-        { metric: "Service Presentation", value: "Professional" }
-      ],
-      features: [
-        "IoT Integration",
-        "Cloud Technologies",
-        "Building Optimization",
-        "SaaS Applications"
-      ]
-    }
+  title: "14islands Creative Agency",
+  subtitle: "Design & Technology Agency for Digital Products & Experiences",
+  description: "Creative agency that designs and builds lovable digital products, brands, and experiences from vision to launch.",
+  image: "/proj/14island.webp",
+  href: "https://14islands.com/",
+  results: [
+    { metric: "Client Sectors", value: "Luxury, Web3, Gaming, AI" },
+    { metric: "Project Approach", value: "Vision to Launch" },
+    { metric: "Client Portfolio", value: "25+ Leading Brands" },
+    { metric: "Service Quality", value: "Outstanding Experiences" }
+  ],
+  features: [
+    "Digital Product Design",
+    "Brand Development",
+    "Web3 & Blockchain",
+    "AR/VR/XR Technologies",
+    "AI Integration",
+    "E-commerce Solutions",
+    "Gaming Platforms",
+    "No-Code Products"
+  ]
+}
   }
 };
 
