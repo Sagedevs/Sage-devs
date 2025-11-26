@@ -28,7 +28,7 @@ const caseStudies: CaseStudy[] = [
     title: "14islands Creative Agency",
     subtitle: "Award-Winning Digital Products & Brand Experiences",
     category: "Creative Technology Agency",
-    image: "/proj/14islands.webp",
+    image: "/proj/14island.webp",
     link: "https://14islands.com",
     outcome: "300% increase in qualified client inquiries",
     challenge: "Creating a sophisticated portfolio platform showcasing work with high-profile clients including Cartier, Google, United Nations, and Web3/AI companies while reflecting their culture of craft, collaboration, and creativity across diverse industries.",
