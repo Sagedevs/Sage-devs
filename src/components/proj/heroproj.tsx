@@ -13,7 +13,7 @@ const HeroProj: React.FC = () => {
     if (!ctx) return;
 
     let animationFrameId: number;
-    let particles: Orb[] = [];
+    const particles: Orb[] = [];
 
     const resizeCanvas = () => {
       if (canvas) {
