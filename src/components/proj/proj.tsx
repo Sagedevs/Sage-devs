@@ -179,14 +179,14 @@ const ProjectsSection = () => {
         url: 'reech.agency', 
         desc: 'Reech Agency delivers comprehensive branding and marketing solutions through innovative digital strategies and creative execution. The website showcases their portfolio across various industries with detailed case studies highlighting measurable results. Interactive service calculators help potential clients estimate project scope while the blog provides valuable marketing insights and industry trends. Client portal facilitates seamless communication and project management throughout engagement periods.', 
         tech: ['React', 'Next.js', 'Tailwind', 'TypeScript'],
-        image: '/proj/reech.webp'
+        image: '/proj1/reech-agency-removebg-preview (1).webp'
       },
       { 
         name: '14 Islands', 
         url: '14islands.com', 
         desc: '14 Islands represents award-winning creative design and technology agency pushing boundaries in digital experiences. The platform demonstrates their technical prowess through interactive web animations and immersive storytelling. Project showcases highlight collaborations with global brands and innovative startups alike. Team expertise section introduces their multidisciplinary approach while the blog shares insights on emerging web technologies and design methodologies.', 
         tech: ['React', 'Three.js', 'WebGL', 'GSAP'],
-        image: '/proj/14island.webp'
+        image: '/proj1/wix-Studio-removebg-preview.webp'
       },
       { 
         name: 'Barrel Marketing', 
@@ -291,7 +291,7 @@ const ProjectsSection = () => {
         url: '14islands.com', 
         desc: '14 Islands demonstrates technology-driven creative agency capabilities pushing boundaries in web development and interactive experiences. Their technical expertise spans progressive web applications, real-time data visualization, and immersive 3D environments. The platform showcases experimental projects exploring new web technologies while maintaining robust, scalable architecture for enterprise clients. Development blog shares technical insights and open-source contributions to the web development community.', 
         tech: ['React', 'Three.js', 'WebGL', 'Node.js'],
-        image: '/proj/14island.webp'
+        image: '/proj/wix-Studio-removebg-preview.webp'
       },
       { 
         name: 'KLMNKO', 
