@@ -62,28 +62,28 @@ const ProjectsSection = () => {
         url: 'chipcitycookies.com', 
         desc: 'Chip City Cookies delivers America\'s favorite gourmet cookies through a modern e-commerce platform. The website features their daily rotating menu of innovative cookie flavors with mouth-watering photography. Integrated inventory management ensures real-time availability updates across multiple locations. Customer loyalty programs and seasonal promotions drive engagement while the seamless checkout process maximizes conversion rates for cookie lovers nationwide.', 
         tech: ['Shopify', 'JavaScript', 'Liquid', 'HTML5'],
-        image: '/proj/Chip-City-Cookies__1_-removebg-preview.webp'
+        image: '/proj1/Chip-City-Cookies__1_-removebg-preview.webp'
       },
       { 
         name: 'Intense Meals', 
         url: 'intensemeals.com', 
         desc: 'Intense Meals provides performance-focused meal preparation services designed specifically for athletes and fitness enthusiasts. The platform offers customized nutrition plans based on individual fitness goals and dietary requirements. Weekly menu rotations feature macro-balanced meals prepared by professional chefs using premium ingredients. Subscription management allows flexible delivery schedules while the user dashboard tracks nutritional intake and progress toward fitness objectives.', 
         tech: ['WordPress', 'WooCommerce', 'Elementor', 'MySQL'],
-        image: '/proj/Intense-Meals-removebg-preview-1.webp'
+        image: '/proj1/Intense-Meals-removebg-preview-1.webp'
       },
       { 
         name: 'Marchand Biere', 
         url: 'marchand-biere.bzh', 
         desc: 'Marchand Biere celebrates the art of craft brewing through their curated beer cave and specialty bottle shop. The website showcases their extensive collection of local and international craft beers with detailed tasting notes and brewery stories. Interactive beer pairing guides help customers discover perfect matches for their meals. Online reservation system for beer tasting events and workshop registrations enhances community engagement around craft beer culture.', 
         tech: ['WordPress', 'Elementor', 'WooCommerce', 'PHP'],
-        image: '/proj/14island.webp'
+        image: '/proj1/Gemini_Generated_Image_enj6pfenj6pfenj6-removebg-preview.webp'
       },
       { 
         name: 'Alaro Brewing', 
         url: 'alarobrewing.com', 
         desc: 'Alaro Brewing combines craft brewery excellence with full-service restaurant and creative cocktail bar experiences. The digital platform highlights their brewing process, seasonal releases, and chef-curated food pairings. Event calendar manages brewery tours, live music nights, and special tasting events. Online merchandise store features branded apparel and limited edition glassware, while the reservation system streamlines table bookings for dining experiences.', 
         tech: ['WordPress', 'JavaScript', 'CSS3', 'PHP'],
-        image: '/proj/14island.webp'
+        image: '/proj/alaro.webp'
       }
     ],
     home: [
@@ -92,21 +92,21 @@ const ProjectsSection = () => {
         url: 'benjaminfranklinplumbing.com', 
         desc: 'Benjamin Franklin Plumbing delivers trusted national plumbing services with professional residential and commercial solutions. The website features emergency service request systems with real-time technician dispatch tracking. Comprehensive service catalog covers everything from minor repairs to major installations with transparent pricing. Customer portal manages service history, scheduled maintenance, and warranty information while educational resources help homeowners prevent common plumbing issues.', 
         tech: ['WordPress', 'Elementor', 'JavaScript', 'CSS3'],
-        image: '/proj/14island.webp'
+        image: '/proj1/benjaminfranklinplumbing-removebg-preview.webp'
       },
       { 
         name: 'Horizon HVAC Inc', 
         url: 'horizonhvacinc.com', 
         desc: 'Horizon HVAC Inc provides professional heating, ventilation, and air conditioning services with focus on energy efficiency and indoor air quality. The platform offers smart home integration compatibility assessments and seasonal maintenance scheduling. Detailed service descriptions help customers understand complex HVAC systems while the cost calculator provides accurate project estimates. Emergency repair services feature same-day response guarantees for urgent climate control needs.', 
         tech: ['WordPress', 'Elementor', 'Contact Form 7'],
-        image: '/proj/14island.webp'
+        image: '/proj1/horizonhvacinc-removebg-preview.webp'
       },
       { 
         name: 'The Irish Plumber', 
         url: 'theirishplumber.com', 
         desc: 'The Irish Plumber brings reliable local plumbing services with emergency response capabilities and quality repair workmanship. The website emphasizes their community-focused approach with neighborhood service areas clearly mapped. Customer testimonials highlight quick response times and fair pricing structures. Online booking system allows scheduling flexibility while the blog provides DIY maintenance tips and water conservation advice for homeowners.', 
         tech: ['WordPress', 'Elementor', 'Google Maps API'],
-        image: '/proj/14island.webp'
+        image: '/proj1/theirishplumber-removebg-preview.webp'
       },
       { 
         name: 'Absolute Plumbing', 
