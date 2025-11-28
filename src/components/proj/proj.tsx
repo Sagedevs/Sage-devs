@@ -6,7 +6,7 @@ type Project = {
   url: string;
   desc: string;
   tech: string[];
-  image: string; // Added image field
+  image: string;
 };
 
 type Projects = {
@@ -48,28 +48,28 @@ const ProjectsSection = () => {
         url: 'khanjeecanada.com', 
         desc: 'Khanjee Canada brings authentic Pakistani cuisine to the heart of Toronto with an elegant dining experience. Our website showcases their extensive menu featuring traditional dishes crafted with generations-old recipes. The platform highlights their catering services for weddings, corporate events, and family gatherings. Online ordering system ensures fresh meals delivered across the GTA with real-time tracking and secure payment processing.', 
         tech: ['WordPress', 'WooCommerce', 'Elementor', 'PHP', 'MySQL'],
-        image: '/proj/14island.webp'
+        image: '/proj/khanjee.webp'
       },
       { 
         name: 'The Mehfil', 
         url: 'themehfil.ca', 
         desc: 'The Mehfil represents premium Indian and Pakistani fine dining with a sophisticated event hall perfect for celebrations. Our digital presence captures the luxurious ambiance through high-quality visuals and virtual tours. The website features an interactive event booking system, detailed menu exploration, and gallery of past successful events. Customer testimonials and chef profiles build trust and showcase their culinary expertise in authentic South Asian cuisine.', 
         tech: ['WordPress', 'Elementor', 'JavaScript', 'CSS3'],
-        image: '/proj/14island.webp'
+        image: '/proj/mehfil.webp'
       },
       { 
         name: 'Chip City Cookies', 
         url: 'chipcitycookies.com', 
         desc: 'Chip City Cookies delivers America\'s favorite gourmet cookies through a modern e-commerce platform. The website features their daily rotating menu of innovative cookie flavors with mouth-watering photography. Integrated inventory management ensures real-time availability updates across multiple locations. Customer loyalty programs and seasonal promotions drive engagement while the seamless checkout process maximizes conversion rates for cookie lovers nationwide.', 
         tech: ['Shopify', 'JavaScript', 'Liquid', 'HTML5'],
-        image: '/proj/14island.webp'
+        image: '/proj/Chip-City-Cookies__1_-removebg-preview.webp'
       },
       { 
         name: 'Intense Meals', 
         url: 'intensemeals.com', 
         desc: 'Intense Meals provides performance-focused meal preparation services designed specifically for athletes and fitness enthusiasts. The platform offers customized nutrition plans based on individual fitness goals and dietary requirements. Weekly menu rotations feature macro-balanced meals prepared by professional chefs using premium ingredients. Subscription management allows flexible delivery schedules while the user dashboard tracks nutritional intake and progress toward fitness objectives.', 
         tech: ['WordPress', 'WooCommerce', 'Elementor', 'MySQL'],
-        image: '/proj/14island.webp' 
+        image: '/proj/Intense-Meals-removebg-preview-1.webp'
       },
       { 
         name: 'Marchand Biere', 
@@ -282,7 +282,7 @@ const ProjectsSection = () => {
         url: 'intensemeals.com', 
         desc: 'Intense Meals provides nutritional meal preparation services supporting health and fitness goals through scientifically formulated meals. The platform offers personalized nutrition plans developed by registered dietitians based on individual health objectives. Meal customization options accommodate dietary restrictions and preferences while delivery scheduling ensures fresh meals arrive according to consumption patterns. Progress tracking tools monitor health metrics and adjust meal plans accordingly.', 
         tech: ['WordPress', 'WooCommerce', 'Nutrition Database'],
-        image: '/proj/intense-meals.webp' // Example of custom image
+        image: '/proj/Intense-Meals-removebg-preview-1.webp'
       },
       { 
         name: 'Caxlbogg', 
@@ -490,13 +490,13 @@ const ProjectsSection = () => {
               key={`${project.url}-${index}`}
               className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 group`}
             >
-              {/* Project Image */}
+              {/* Project Image with Fixed Height */}
               <div className="w-full lg:w-1/2">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/30 group-hover:shadow-blue-600/40 transition-all duration-500">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/30 group-hover:shadow-blue-600/40 transition-all duration-500 h-80 md:h-96">
                   <img 
                     src={project.image} 
                     alt={project.name}
-                    className="w-full h-auto transform group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-blue-950/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
