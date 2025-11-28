@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 
 const ProjectCTA: React.FC = () => {
   return (
@@ -83,14 +84,17 @@ const ProjectCTA: React.FC = () => {
                 </div>
               </div>
 
-              <button className="group w-full px-8 py-4 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold rounded-xl transition-all duration-300 hover:from-sky-600 hover:to-blue-700 hover:shadow-2xl hover:shadow-sky-500/30">
+              <a 
+                href="mailto:info@sagedevs.tech"
+                className="group w-full px-8 py-4 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold rounded-xl transition-all duration-300 hover:from-sky-600 hover:to-blue-700 hover:shadow-2xl hover:shadow-sky-500/30 block text-center"
+              >
                 <span className="flex items-center justify-center gap-2">
                   Discuss Your Project
                   <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </span>
-              </button>
+              </a>
             </div>
           </div>
 
@@ -135,14 +139,17 @@ const ProjectCTA: React.FC = () => {
                 </div>
               </div>
 
-              <button className="group w-full px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl transition-all duration-300 hover:from-indigo-600 hover:to-purple-700 hover:shadow-2xl hover:shadow-indigo-500/30">
+              <a 
+                href="tel:+923259684493"
+                className="group w-full px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl transition-all duration-300 hover:from-indigo-600 hover:to-purple-700 hover:shadow-2xl hover:shadow-indigo-500/30 block text-center"
+              >
                 <span className="flex items-center justify-center gap-2">
                   Explore Quick Start
                   <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
                 </span>
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -153,33 +160,39 @@ const ProjectCTA: React.FC = () => {
             <div className="text-left flex-1">
               <h4 className="text-2xl font-bold text-white mb-2">Still Exploring Options?</h4>
               <p className="text-slate-400">
-                Download our project planning guide or schedule a 15-minute discovery call
+                Explore our services or schedule a 15-minute discovery call
               </p>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="group px-6 py-3 border-2 border-sky-400/40 text-sky-400 font-semibold rounded-xl backdrop-blur-sm transition-all duration-300 hover:bg-sky-400/10 hover:border-sky-400 hover:scale-105">
+              <Link 
+                href="/services"
+                className="group px-6 py-3 border-2 border-sky-400/40 text-sky-400 font-semibold rounded-xl backdrop-blur-sm transition-all duration-300 hover:bg-sky-400/10 hover:border-sky-400 hover:scale-105 text-center"
+              >
                 <span className="flex items-center justify-center gap-2">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
-                  Download Guide
+                  Our Services
                 </span>
-              </button>
+              </Link>
               
-              <button className="group px-6 py-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold rounded-xl transition-all duration-300 hover:from-sky-600 hover:to-blue-700 hover:shadow-lg hover:shadow-sky-500/30">
+              <a 
+                href="https://calendly.com/sagedevs-info/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group px-6 py-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold rounded-xl transition-all duration-300 hover:from-sky-600 hover:to-blue-700 hover:shadow-lg hover:shadow-sky-500/30 text-center"
+              >
                 <span className="flex items-center justify-center gap-2">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                   Schedule Call
                 </span>
-              </button>
+              </a>
             </div>
           </div>
         </div>
-
-       
       </div>
 
       <style jsx>{`
