@@ -22,13 +22,12 @@ type Projects = {
   hospitality: Project[];
 };
 
-type CategoryId = keyof Projects | 'all';
+type CategoryId = keyof Projects;
 
 const ProjectsSection = () => {
   const [activeCategory, setActiveCategory] = useState<CategoryId>('food');
 
   const categories: { id: CategoryId; name: string }[] = [
-    { id: 'all', name: 'All Projects' },
     { id: 'food', name: 'Food & Beverage' },
     { id: 'home', name: 'Home & Building Services' },
     { id: 'ecommerce', name: 'E-Commerce & Retail' },
@@ -113,7 +112,7 @@ const ProjectsSection = () => {
         url: 'absoluteplumbing.com', 
         desc: 'Absolute Plumbing delivers comprehensive plumbing solutions from routine maintenance to complex commercial installations. The digital platform features video diagnostics where customers can upload issues for preliminary assessment. Interactive pricing guides help budget planning while the project portfolio showcases completed commercial and residential work. 24/7 customer support chat handles emergency inquiries and schedules immediate service dispatch when required.', 
         tech: ['WordPress', 'JavaScript', 'CSS3', 'PHP'],
-        image: '/proj/14island.webp'
+        image: '/proj1/Absolute-Plumbing-removebg-preview.webp'
       },
       { 
         name: 'Picton Civil', 
@@ -129,7 +128,7 @@ const ProjectsSection = () => {
         url: 'robertocoin.com', 
         desc: 'Roberto Coin presents luxury Italian jewelry collections known for exquisite craftsmanship and timeless elegance. The e-commerce platform features high-resolution product imagery with 360-degree views and zoom capabilities. Virtual try-on technology allows customers to preview jewelry pieces while the gemstone education section provides valuable purchasing guidance. Secure international shipping and lifetime warranty information build consumer confidence in their luxury investment pieces.', 
         tech: ['Shopify', 'JavaScript', 'CSS', 'Liquid'],
-        image: '/proj/14island.webp'
+        image: '/proj1/Roberto-Coin-removebg-preview.webp'
       },
       { 
         name: 'Stained Concept', 
@@ -143,7 +142,7 @@ const ProjectsSection = () => {
         url: 'terzettostone.co.uk', 
         desc: 'Terzetto Stone offers premium natural stone and porcelain tiles for luxury residential and commercial projects across the United Kingdom. The website features extensive product catalogs with high-resolution imagery and detailed technical specifications. Sample ordering system allows designers and homeowners to evaluate materials firsthand while the project visualizer tool helps envision finished spaces. Trade professional program provides exclusive pricing and dedicated support for contractors.', 
         tech: ['WordPress', 'WooCommerce', 'Elementor'],
-        image: '/proj/14island.webp'
+        image: '/proj1/Terzetto-removebg-preview.webp'
       },
       { 
         name: 'Eli Burch Jewelry', 
@@ -171,7 +170,7 @@ const ProjectsSection = () => {
         url: 'eaglelightsautomotive.com', 
         desc: 'Eagle Lights Automotive specializes in high-performance lighting solutions and accessories for motorcycles and specialty vehicles. The e-commerce platform features vehicle-specific fitment guides and installation video tutorials. Product comparison tools help customers select optimal lighting configurations while the technical support section addresses common installation challenges. Wholesale program services commercial clients and automotive repair shops nationwide.', 
         tech: ['Shopify', 'JavaScript', 'Video Integration'],
-        image: '/proj/14island.webp'
+        image: '/proj1/Eagle-Lights-2-removebg-preview-1.webp'
       }
     ],
     creative: [
@@ -180,7 +179,7 @@ const ProjectsSection = () => {
         url: 'reech.agency', 
         desc: 'Reech Agency delivers comprehensive branding and marketing solutions through innovative digital strategies and creative execution. The website showcases their portfolio across various industries with detailed case studies highlighting measurable results. Interactive service calculators help potential clients estimate project scope while the blog provides valuable marketing insights and industry trends. Client portal facilitates seamless communication and project management throughout engagement periods.', 
         tech: ['React', 'Next.js', 'Tailwind', 'TypeScript'],
-        image: '/proj/14island.webp'
+        image: '/proj/reech.webp'
       },
       { 
         name: '14 Islands', 
@@ -194,42 +193,42 @@ const ProjectsSection = () => {
         url: 'barrelmarketing.com', 
         desc: 'Barrel Marketing specializes in professional video production and strategic brand storytelling that resonates with target audiences. The website features their production capabilities through showreels and behind-the-scenes content. Client success stories demonstrate campaign effectiveness across various platforms and media channels. Service breakdowns explain their creative process from concept development to final delivery and performance analytics.', 
         tech: ['WordPress', 'JavaScript', 'Video Hosting'],
-        image: '/proj/14island.webp'
+        image: '/proj/barrelmarketing-removebg-preview.webp'
       },
       { 
         name: 'Kelvin Melgar', 
         url: 'kelvinmelgar.com', 
         desc: 'Kelvin Melgar showcases professional photography services capturing life\'s most precious moments through artistic vision and technical excellence. The online portfolio organizes work by photography genres including weddings, portraits, and commercial projects. Booking system manages session scheduling and client consultations while the blog shares photography tips and equipment reviews. Client gallery portal provides secure access to purchased images and print ordering options.', 
         tech: ['WordPress', 'Elementor', 'Gallery Plugins'],
-        image: '/proj/14island.webp'
+        image: '/proj/kelvin.webp'
       },
       { 
         name: 'KLMNKO', 
         url: 'klmnko.de', 
         desc: 'KLMNKO represents innovative web design and digital marketing services creating modern online experiences for European clients. The website features minimalist design principles with focus on usability and conversion optimization. Project case studies detail their design thinking process and problem-solving approaches. Service packages cater to businesses of different sizes while the resources section provides valuable digital marketing guides and tools.', 
         tech: ['HTML', 'CSS', 'JavaScript', 'PHP'],
-        image: '/proj/14island.webp'
+        image: '/proj/klmnko-removebg-preview.webp'
       },
       { 
         name: 'Abhishek Jha', 
         url: 'abhishekjha.me', 
         desc: 'Abhishek Jha presents freelance design and development services building elegant websites and digital products for global clients. The portfolio showcases diverse projects across e-commerce, SaaS platforms, and creative agencies. Technical blog shares coding tutorials and design insights while the client testimonials build credibility. Project inquiry form collects detailed requirements to provide accurate proposals and timeline estimates for potential engagements.', 
         tech: ['React', 'Next.js', 'Tailwind', 'Node.js'],
-        image: '/proj/14island.webp'
+        image: '/proj/abhishek.webp'
       },
       { 
         name: 'Olha Lazarieva', 
         url: 'olhalazarieva.com', 
         desc: 'Olha Lazarieva displays creative design expertise through an innovative portfolio showcasing experimental projects and commercial work. The website features interactive elements that demonstrate her technical skills and artistic sensibilities. Project breakdowns explain design decisions and creative processes behind each piece. Contact system facilitates collaboration inquiries while the blog documents her creative journey and design philosophy evolution.', 
         tech: ['React', 'JavaScript', 'CSS3', 'Framer Motion'],
-        image: '/proj/14island.webp'
+        image: '/proj1/olhalazarieva-removebg-preview.webp'
       },
       { 
         name: 'Good Looking Design', 
         url: 'goodlookingdesign.co.uk', 
         desc: 'Good Looking Design Agency specializes in comprehensive brand identity development and digital marketing solutions for UK businesses. The platform showcases their design system approach through consistent visual language across all projects. Client transformation stories highlight brand evolution and business growth outcomes. Service packages range from basic website design to complete digital marketing campaigns with performance tracking and optimization.', 
         tech: ['WordPress', 'Elementor', 'SEO Plugins'],
-        image: '/proj/14island.webp'
+        image: '/proj/goodlookingdesign-removebg-preview.webp'
       }
     ],
     professional: [
@@ -238,28 +237,28 @@ const ProjectsSection = () => {
         url: 'igorvainshtein.com', 
         desc: 'Igor Vainshtein offers expert leadership coaching and keynote speaking services driving business transformation and executive development. The website features his methodology through interactive content and client success stories. Booking system manages speaking engagement requests and corporate workshop scheduling while the resources section provides leadership development materials. Video library showcases past keynote presentations and training session excerpts across various industries.', 
         tech: ['WordPress', 'Elementor', 'Booking Systems'],
-        image: '/proj/14island.webp'
+        image: '/proj/igor.webp'
       },
       { 
         name: 'Priority IB', 
         url: 'priorityib.com.au', 
         desc: 'Priority IB delivers trusted business insurance brokerage services providing comprehensive coverage solutions for Australian companies. The platform features insurance product comparisons and risk assessment tools helping businesses make informed decisions. Client portal manages policy documents, claims history, and renewal reminders. Educational resources explain complex insurance concepts while the broker matching system connects clients with specialized expertise.', 
         tech: ['WordPress', 'JavaScript', 'Client Portal'],
-        image: '/proj/14island.webp'
+        image: '/proj/priotize.webp'
       },
       { 
         name: 'AIDN', 
         url: 'aidn.org.au', 
         desc: 'AIDN serves as the Industry and Defence Network association fostering collaboration and growth within Australian defence sectors. The website manages member directories, event registrations, and industry news dissemination. Resource library provides research papers and policy documents while the collaboration platform facilitates networking among members. Government liaison section keeps members informed about defence procurement opportunities and regulatory changes.', 
         tech: ['WordPress', 'Elementor', 'Membership System'],
-        image: '/proj/14island.webp'
+        image: '/proj/australia.webp'
       },
       { 
         name: 'Verdeos', 
         url: 'verdeos.com', 
         desc: 'Verdeos develops innovative real estate operations software streamlining property management and investment portfolio optimization. The platform features automated workflow systems reducing administrative overhead for property managers. Financial reporting tools provide comprehensive performance analytics while tenant portals facilitate communication and maintenance requests. Integration capabilities connect with existing accounting software and listing platforms for seamless data synchronization.', 
         tech: ['React', 'Node.js', 'MongoDB', 'AWS'],
-        image: '/proj/14island.webp'
+        image: '/proj/verdos.webp'
       }
     ],
     healthcare: [
@@ -268,14 +267,14 @@ const ProjectsSection = () => {
         url: 'adivo.vet', 
         desc: 'Adivo Vet pioneers advanced veterinary therapeutic antibodies revolutionizing animal healthcare through biotechnology innovation. The website details their research pipeline and scientific publications validating treatment efficacy. Veterinary professional portal provides clinical trial data and prescribing information while investor relations section communicates company milestones. Educational resources help pet owners understand innovative treatment options for companion animals.', 
         tech: ['WordPress', 'Elementor', 'Scientific Data'],
-        image: '/proj/14island.webp'
+        image: '/proj/Adivo-removebg-preview.webp'
       },
       { 
         name: 'Jules Pharma', 
         url: 'julespharma.com', 
         desc: 'Jules Pharma focuses on pharmaceutical development dedicated to creating quality healthcare solutions addressing unmet medical needs. The platform showcases their drug development pipeline and regulatory approval progress. Healthcare professional section provides clinical study results and prescribing guidelines while patient resources offer disease education and treatment information. Research collaboration portal facilitates partnerships with medical institutions and research organizations.', 
         tech: ['WordPress', 'JavaScript', 'Regulatory Compliance'],
-        image: '/proj/14island.webp'
+        image: '/proj1/Julus-Pharma-removebg-preview.webp'
       },
       { 
         name: 'Intense Meals', 
@@ -298,7 +297,7 @@ const ProjectsSection = () => {
         url: 'verdeos.com', 
         desc: 'Verdeos builds cutting-edge real estate operations software featuring automated workflows and predictive analytics for property investment optimization. The platform utilizes machine learning algorithms to identify market trends and investment opportunities while portfolio management tools track performance across multiple properties. API integrations connect with financial institutions and property listing services, providing comprehensive data aggregation for informed decision-making in real estate investments.', 
         tech: ['React', 'Node.js', 'MongoDB', 'Machine Learning'],
-        image: '/proj/14island.webp'
+        image: '/proj/verdos.webp'
       },
       { 
         name: '14 Islands', 
@@ -312,14 +311,14 @@ const ProjectsSection = () => {
         url: 'klmnko.de', 
         desc: 'KLMNKO leverages latest web technologies to create sophisticated digital solutions for clients across various industries. The website demonstrates responsive design principles and performance optimization techniques ensuring fast loading times across all devices. Technical portfolio highlights complex backend systems and database architectures while frontend implementations showcase modern JavaScript frameworks and CSS innovations. Code quality and maintainability remain central to their development philosophy.', 
         tech: ['HTML', 'CSS', 'JavaScript', 'Modern Frameworks'],
-        image: '/proj/14island.webp'
+        image: '/proj1/klmnko-removebg-preview.webp'
       },
       { 
         name: 'Abhishek Jha', 
         url: 'abhishekjha.me', 
         desc: 'Abhishek Jha develops modern web applications and digital solutions using full-stack JavaScript technologies and cloud infrastructure. The platform showcases projects ranging from single-page applications to complex enterprise systems with scalable architecture. Technical writing section shares coding best practices and architecture patterns while open-source contributions demonstrate commitment to developer community. Client work emphasizes clean code, testing methodologies, and deployment automation.', 
         tech: ['React', 'Next.js', 'Tailwind', 'Cloud Services'],
-        image: '/proj/14island.webp'
+        image: '/proj1/abhishekjha-removebg-preview.webp'
       }
     ],
     local: [
@@ -328,42 +327,42 @@ const ProjectsSection = () => {
         url: 'khanjeecanada.com', 
         desc: 'Khanjee Canada serves as a local favorite restaurant bringing authentic Pakistani cuisine to Toronto communities with warm hospitality. The website highlights their neighborhood presence through location-specific content and community event participation. Local delivery radius checker ensures accurate service areas while the catering section serves local businesses and community celebrations. Customer loyalty program rewards regular patrons with exclusive offers and early access to new menu items.', 
         tech: ['WordPress', 'WooCommerce', 'Elementor', 'Local SEO'],
-        image: '/proj/14island.webp'
+        image: '/proj/khanjee.webp'
       },
       { 
         name: 'The Mehfil', 
         url: 'themehfil.ca', 
         desc: 'The Mehfil operates as a community restaurant and event venue hosting special occasions for local families and organizations. The website features neighborhood testimonials and local partnership highlights strengthening community ties. Event planning resources help local residents organize celebrations while the venue tour provides virtual previews of event spaces. Community bulletin section shares local news and supports neighborhood initiatives through sponsorship and participation.', 
         tech: ['WordPress', 'Elementor', 'Community Features'],
-        image: '/proj/14island.webp'
+        image: '/proj/mehfil.webp'
       },
       { 
         name: 'Benjamin Franklin Plumbing', 
         url: 'benjaminfranklinplumbing.com', 
         desc: 'Benjamin Franklin Plumbing provides trusted local plumbing services through franchise locations serving residential and commercial clients in their communities. The website features localized content for each service area with team introductions and neighborhood-specific promotions. Emergency service maps show coverage boundaries while local licensing and insurance information builds trust within communities. Community involvement section highlights participation in local events and charitable initiatives.', 
         tech: ['WordPress', 'Elementor', 'Local Services'],
-        image: '/proj/14island.webp'
+        image: '/proj1/benjaminfranklinplumbing-removebg-preview.webp'
       },
       { 
         name: 'The Irish Plumber', 
         url: 'theirishplumber.com', 
         desc: 'The Irish Plumber delivers reliable local plumbing services with emergency response capabilities serving neighborhood households and businesses. The website emphasizes their community roots through local team profiles and neighborhood service history. Same-day service guarantees address urgent plumbing needs while the preventive maintenance programs help local homeowners avoid emergency situations. Community recommendations and local business partnerships strengthen their neighborhood presence.', 
         tech: ['WordPress', 'Elementor', 'Local Directories'],
-        image: '/proj/14island.webp'
+        image: '/proj1/theirishplumber-removebg-preview.webp'
       },
       { 
         name: 'Jayee Cars', 
         url: 'jayeecars.co.uk', 
         desc: 'Jayee Cars operates as a local car dealership providing quality vehicles and automotive services to community members across the UK. The website features their local inventory with detailed vehicle histories and inspection reports. Financing calculators help local buyers understand payment options while the service department manages maintenance schedules for community customers. Local customer testimonials and vehicle sourcing requests cater to specific community automotive needs.', 
         tech: ['WordPress', 'JavaScript', 'Inventory Management'],
-        image: '/proj/14island.webp'
+        image: '/proj1/Jayecars.webp'
       },
       { 
         name: 'Kelvin Melgar', 
         url: 'kelvinmelgar.com', 
         desc: 'Kelvin Melgar offers local professional photography services capturing life\'s special moments for families and businesses within his community. The website showcases local landmarks and familiar settings in portfolio work creating relatable content for area residents. Session booking system accommodates local weather conditions and seasonal opportunities while community event coverage documents neighborhood celebrations. Local business collaboration highlights partnerships with area venues and vendors.', 
         tech: ['WordPress', 'Elementor', 'Local Portfolio'],
-        image: '/proj/14island.webp'
+        image: '/proj/kelvin.webp'
       }
     ],
     education: [
@@ -372,7 +371,7 @@ const ProjectsSection = () => {
         url: 'igorvainshtein.com', 
         desc: 'Igor Vainshtein provides entrepreneurship training and business leadership development programs through workshops, courses, and corporate training sessions. The platform features learning management systems delivering course content and tracking participant progress. Interactive exercises and case studies reinforce learning objectives while certification programs validate skill acquisition. Corporate training portal manages enterprise client engagements with customized curriculum development and performance metrics.', 
         tech: ['WordPress', 'Elementor', 'LMS Integration'],
-        image: '/proj/14island.webp'
+        image: '/proj/igor.webp'
       },
       { 
         name: 'Caxlbogg', 
@@ -386,14 +385,14 @@ const ProjectsSection = () => {
         url: 'bizworld.org', 
         desc: 'BizWorld delivers business education programs teaching entrepreneurship fundamentals to young learners through experiential activities and project-based learning. The platform provides educator resources including lesson plans, activity materials, and assessment tools. Student project galleries showcase young entrepreneur accomplishments while the program registration system manages school participation and teacher training workshops. Donor and volunteer portals support program expansion and community engagement.', 
         tech: ['WordPress', 'JavaScript', 'Educational Technology'],
-        image: '/proj/14island.webp'
+        image: '/proj1/bizzworld-removebg-preview.webp'
       },
       { 
         name: 'AIDN', 
         url: 'aidn.org.au', 
         desc: 'AIDN offers industry network training and professional development programs supporting career advancement within defence and technology sectors. The website manages course catalogs and workshop registrations with certification tracking systems. Learning pathways guide professional development while industry expert webinars provide continuing education opportunities. Skills assessment tools help members identify development areas and track progress toward career objectives.', 
         tech: ['WordPress', 'Elementor', 'Professional Development'],
-        image: '/proj/14island.webp'
+        image: '/proj/australia.webp'
       }
     ],
     hospitality: [
@@ -402,47 +401,42 @@ const ProjectsSection = () => {
         url: 'alarobrewing.com', 
         desc: 'Alaro Brewing creates memorable hospitality experiences combining craft brewery operations with full-service restaurant and creative cocktail bar environments. The website features their tasting room atmosphere through virtual tours and ambiance videos. Event calendar manages live music performances, brewery tours, and special tasting events while the reservation system streamlines table bookings. Loyalty program rewards repeat visitors with exclusive beer releases and member-only events.', 
         tech: ['WordPress', 'JavaScript', 'Reservation Systems'],
-        image: '/proj/14island.webp'
+        image: '/proj/alaro.webp'
       },
       { 
         name: 'Khanjee Canada', 
         url: 'khanjeecanada.com', 
         desc: 'Khanjee Canada delivers warm hospitality through authentic Pakistani cuisine and attentive service creating memorable dining experiences for guests. The website captures their restaurant ambiance through professional photography and customer experience stories. Online reservation system manages table bookings while the catering portal handles event planning inquiries. Seasonal menu updates and chef specials keep the dining experience fresh and encourage repeat visits from loyal customers.', 
         tech: ['WordPress', 'WooCommerce', 'Elementor', 'Hospitality'],
-        image: '/proj/14island.webp'
+        image: '/proj/khanjee.webp'
       },
       { 
         name: 'The Mehfil', 
         url: 'themehfil.ca', 
         desc: 'The Mehfil provides exceptional hospitality through restaurant dining and event hall services perfect for celebrations, gatherings, and special occasions. The website showcases their event capabilities through gallery showcases and client testimonials. Integrated event planning tools help organize celebrations while the menu customization portal accommodates diverse dietary needs and preferences. Venue booking system manages availability and provides virtual tours of event spaces.', 
         tech: ['WordPress', 'Elementor', 'Event Management'],
-        image: '/proj/14island.webp'
+        image: '/proj/mehfil.webp'
       },
       { 
         name: 'Marchand Biere', 
         url: 'marchand-biere.bzh', 
         desc: 'Marchand Biere offers specialty beer shop hospitality with curated selections and expert guidance creating educational tasting experiences for customers. The website features their beer cave atmosphere and knowledgeable staff introductions. Tasting event registrations manage limited seating while the beer club membership program provides exclusive access to rare releases. Educational content helps customers explore beer styles and brewing techniques enhancing their appreciation journey.', 
         tech: ['WordPress', 'Elementor', 'Tasting Events'],
-        image: '/proj/14island.webp'
+        image: '/proj1/Gemini_Generated_Image_enj6pfenj6pfenj6-removebg-preview.webp'
       },
       { 
         name: 'Chip City Cookies', 
         url: 'chipcitycookies.com', 
         desc: 'Chip City Cookies brings fresh-baked goodness and warm hospitality to communities through their cookie bakery chain locations. The website creates anticipation for daily cookie flavors with countdown timers and sold-out notifications. Location finder helps customers discover nearest bakeries while the catering portal manages large orders for office events and parties. Birthday club and cookie subscription services create recurring hospitality experiences for cookie enthusiasts.', 
         tech: ['Shopify', 'JavaScript', 'Bakery Tech'],
-        image: '/proj/14island.webp'
+        image: '/proj1/Chip-City-Cookies__1_-removebg-preview.webp'
       }
     ]
   };
 
-  const getAllProjects = () => {
-    return Object.values(projects).flat();
-  };
-
   const getDisplayProjects = () => {
-    if (activeCategory === 'all') {
-      return getAllProjects();
-    }
+    console.log('Active category:', activeCategory);
+    console.log('Projects for category:', projects[activeCategory]);
     return projects[activeCategory] || [];
   };
 
