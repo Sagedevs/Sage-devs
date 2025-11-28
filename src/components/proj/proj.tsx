@@ -189,6 +189,13 @@ const ProjectsSection = () => {
         image: '/proj1/14islands-removebg-preview (1).webp'
       },
       { 
+        name: 'Wix Studio', 
+        url: 'https://www.wix.com/studio', 
+        desc: 'Wix Studio showcases polished and trendy agency sites with user-friendly layouts. The examples are modern, clean, and designed for fast launch. Great if you want quick inspiration for functional portfolio design.', 
+        tech: ['WordPress', 'Elementer', 'Javascript'],
+        image: '/proj1/wix-Studio-removebg-preview.webp'
+      },
+      { 
         name: 'Barrel Marketing', 
         url: 'barrelmarketing.com', 
         desc: 'Barrel Marketing specializes in professional video production and strategic brand storytelling that resonates with target audiences. The website features their production capabilities through showreels and behind-the-scenes content. Client success stories demonstrate campaign effectiveness across various platforms and media channels. Service breakdowns explain their creative process from concept development to final delivery and performance analytics.', 
