@@ -651,6 +651,8 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
               href={content.showcase.href}
               onClick={closeMegaMenu}
               className="showcase-button"
+              target="_blank"
+  rel="noopener noreferrer"
             >
               View Details →
             </Link>
