@@ -55,7 +55,8 @@ const items = [
     href: "/about",
     children: [
       { label: "Team", href: "/about#team" },  
-      { label: "Careers", href: "/careers" },  
+      { label: "Careers", href: "/careers" }, 
+         { label: "Projects", href: "/projects" },  
     ],
   },
   {
