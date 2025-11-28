@@ -135,7 +135,7 @@ const ProjectsSection = () => {
         url: 'stainedconcept.com', 
         desc: 'Stained Concept embodies urban streetwear culture with bold designs and contemporary fashion apparel for the modern generation. The online store features limited edition drops and collaborative collections with emerging artists. Size guides and fabric technology information help customers make informed purchases while the lookbook provides styling inspiration. Social media integration showcases user-generated content and builds community around the brand identity.', 
         tech: ['Shopify', 'JavaScript', 'HTML5'],
-        image: '/proj/14island.webp'
+        image: '/proj1/Stained-Concept-removebg-preview (1).webp'
       },
       { 
         name: 'Terzetto Stone', 
@@ -186,7 +186,7 @@ const ProjectsSection = () => {
         url: '14islands.com', 
         desc: '14 Islands represents award-winning creative design and technology agency pushing boundaries in digital experiences. The platform demonstrates their technical prowess through interactive web animations and immersive storytelling. Project showcases highlight collaborations with global brands and innovative startups alike. Team expertise section introduces their multidisciplinary approach while the blog shares insights on emerging web technologies and design methodologies.', 
         tech: ['React', 'Three.js', 'WebGL', 'GSAP'],
-        image: '/proj1/wix-Studio-removebg-preview.webp'
+        image: '/proj1/14islands-removebg-preview (1).webp'
       },
       { 
         name: 'Barrel Marketing', 
@@ -291,7 +291,7 @@ const ProjectsSection = () => {
         url: '14islands.com', 
         desc: '14 Islands demonstrates technology-driven creative agency capabilities pushing boundaries in web development and interactive experiences. Their technical expertise spans progressive web applications, real-time data visualization, and immersive 3D environments. The platform showcases experimental projects exploring new web technologies while maintaining robust, scalable architecture for enterprise clients. Development blog shares technical insights and open-source contributions to the web development community.', 
         tech: ['React', 'Three.js', 'WebGL', 'Node.js'],
-        image: '/proj/wix-Studio-removebg-preview.webp'
+        image: '/proj1/14islands-removebg-preview (1).webp'
       },
       { 
         name: 'KLMNKO', 
