@@ -193,7 +193,7 @@ const ProjectsSection = () => {
         url: 'barrelmarketing.com', 
         desc: 'Barrel Marketing specializes in professional video production and strategic brand storytelling that resonates with target audiences. The website features their production capabilities through showreels and behind-the-scenes content. Client success stories demonstrate campaign effectiveness across various platforms and media channels. Service breakdowns explain their creative process from concept development to final delivery and performance analytics.', 
         tech: ['WordPress', 'JavaScript', 'Video Hosting'],
-        image: '/proj/barrelmarketing-removebg-preview.webp'
+        image: '/proj1/barrelmarketing-removebg-preview.webp'
       },
       { 
         name: 'Kelvin Melgar', 
@@ -207,14 +207,14 @@ const ProjectsSection = () => {
         url: 'klmnko.de', 
         desc: 'KLMNKO represents innovative web design and digital marketing services creating modern online experiences for European clients. The website features minimalist design principles with focus on usability and conversion optimization. Project case studies detail their design thinking process and problem-solving approaches. Service packages cater to businesses of different sizes while the resources section provides valuable digital marketing guides and tools.', 
         tech: ['HTML', 'CSS', 'JavaScript', 'PHP'],
-        image: '/proj/klmnko-removebg-preview.webp'
+        image: '/proj1/klmnko-removebg-preview.webp'
       },
       { 
         name: 'Abhishek Jha', 
         url: 'abhishekjha.me', 
         desc: 'Abhishek Jha presents freelance design and development services building elegant websites and digital products for global clients. The portfolio showcases diverse projects across e-commerce, SaaS platforms, and creative agencies. Technical blog shares coding tutorials and design insights while the client testimonials build credibility. Project inquiry form collects detailed requirements to provide accurate proposals and timeline estimates for potential engagements.', 
         tech: ['React', 'Next.js', 'Tailwind', 'Node.js'],
-        image: '/proj/abhishek.webp'
+        image: '/proj1/abhishekjha-removebg-preview.webp'
       },
       { 
         name: 'Olha Lazarieva', 
@@ -228,7 +228,7 @@ const ProjectsSection = () => {
         url: 'goodlookingdesign.co.uk', 
         desc: 'Good Looking Design Agency specializes in comprehensive brand identity development and digital marketing solutions for UK businesses. The platform showcases their design system approach through consistent visual language across all projects. Client transformation stories highlight brand evolution and business growth outcomes. Service packages range from basic website design to complete digital marketing campaigns with performance tracking and optimization.', 
         tech: ['WordPress', 'Elementor', 'SEO Plugins'],
-        image: '/proj/goodlookingdesign-removebg-preview.webp'
+        image: '/proj1/goodlookingdesign-removebg-preview.webp'
       }
     ],
     professional: [
@@ -253,13 +253,6 @@ const ProjectsSection = () => {
         tech: ['WordPress', 'Elementor', 'Membership System'],
         image: '/proj/australia.webp'
       },
-      { 
-        name: 'Verdeos', 
-        url: 'verdeos.com', 
-        desc: 'Verdeos develops innovative real estate operations software streamlining property management and investment portfolio optimization. The platform features automated workflow systems reducing administrative overhead for property managers. Financial reporting tools provide comprehensive performance analytics while tenant portals facilitate communication and maintenance requests. Integration capabilities connect with existing accounting software and listing platforms for seamless data synchronization.', 
-        tech: ['React', 'Node.js', 'MongoDB', 'AWS'],
-        image: '/proj/verdos.webp'
-      }
     ],
     healthcare: [
       { 
@@ -267,7 +260,7 @@ const ProjectsSection = () => {
         url: 'adivo.vet', 
         desc: 'Adivo Vet pioneers advanced veterinary therapeutic antibodies revolutionizing animal healthcare through biotechnology innovation. The website details their research pipeline and scientific publications validating treatment efficacy. Veterinary professional portal provides clinical trial data and prescribing information while investor relations section communicates company milestones. Educational resources help pet owners understand innovative treatment options for companion animals.', 
         tech: ['WordPress', 'Elementor', 'Scientific Data'],
-        image: '/proj/Adivo-removebg-preview.webp'
+        image: '/proj1/Adivo-removebg-preview.webp'
       },
       { 
         name: 'Jules Pharma', 
@@ -281,7 +274,7 @@ const ProjectsSection = () => {
         url: 'intensemeals.com', 
         desc: 'Intense Meals provides nutritional meal preparation services supporting health and fitness goals through scientifically formulated meals. The platform offers personalized nutrition plans developed by registered dietitians based on individual health objectives. Meal customization options accommodate dietary restrictions and preferences while delivery scheduling ensures fresh meals arrive according to consumption patterns. Progress tracking tools monitor health metrics and adjust meal plans accordingly.', 
         tech: ['WordPress', 'WooCommerce', 'Nutrition Database'],
-        image: '/proj/Intense-Meals-removebg-preview-1.webp'
+        image: '/proj1/Intense-Meals-removebg-preview-1.webp'
       },
       { 
         name: 'Caxlbogg', 
@@ -292,13 +285,7 @@ const ProjectsSection = () => {
       }
     ],
     technology: [
-      { 
-        name: 'Verdeos', 
-        url: 'verdeos.com', 
-        desc: 'Verdeos builds cutting-edge real estate operations software featuring automated workflows and predictive analytics for property investment optimization. The platform utilizes machine learning algorithms to identify market trends and investment opportunities while portfolio management tools track performance across multiple properties. API integrations connect with financial institutions and property listing services, providing comprehensive data aggregation for informed decision-making in real estate investments.', 
-        tech: ['React', 'Node.js', 'MongoDB', 'Machine Learning'],
-        image: '/proj/verdos.webp'
-      },
+      
       { 
         name: '14 Islands', 
         url: '14islands.com', 
