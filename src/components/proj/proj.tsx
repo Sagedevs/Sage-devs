@@ -190,7 +190,7 @@ const ProjectsSection = () => {
       },
       { 
         name: 'Wix Studio', 
-        url: 'https://wix.com/studio', 
+        url: 'wix.com/studio', 
         desc: 'Wix Studio showcases polished and trendy agency sites with user-friendly layouts. The examples are modern, clean, and designed for fast launch. Great if you want quick inspiration for functional portfolio design.', 
         tech: ['WordPress', 'Elementer', 'Javascript'],
         image: '/proj1/wix-Studio-removebg-preview.webp'
