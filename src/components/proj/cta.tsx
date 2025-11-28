@@ -28,14 +28,14 @@ const ProjectCTA: React.FC = () => {
           </div>
 
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-            Let's Create Something
+            Let&apos;s Create Something
             <span className="block bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-600 bg-clip-text text-transparent mt-2">
               Amazing Together
             </span>
           </h2>
 
           <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Your vision deserves exceptional execution. Let's transform your ideas into 
+            Your vision deserves exceptional execution. Let&apos;s transform your ideas into 
             a digital experience that captivates your audience and drives results.
           </p>
         </div>
@@ -58,7 +58,7 @@ const ProjectCTA: React.FC = () => {
               </div>
               
               <p className="text-slate-300 mb-6 leading-relaxed">
-                Ready to bring your vision to life? Let's discuss your project requirements, 
+                Ready to bring your vision to life? Let&apos;s discuss your project requirements, 
                 timeline, and goals to create a solution that exceeds your expectations.
               </p>
 
