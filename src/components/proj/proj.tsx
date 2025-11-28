@@ -54,7 +54,7 @@ const ProjectsSection = () => {
         url: 'themehfil.ca', 
         desc: 'The Mehfil represents premium Indian and Pakistani fine dining with a sophisticated event hall perfect for celebrations. Our digital presence captures the luxurious ambiance through high-quality visuals and virtual tours. The website features an interactive event booking system, detailed menu exploration, and gallery of past successful events. Customer testimonials and chef profiles build trust and showcase their culinary expertise in authentic South Asian cuisine.', 
         tech: ['WordPress', 'Elementor', 'JavaScript', 'CSS3'],
-        image: '/proj/mehfil.webp'
+        image: '/proj1/mehfil-removebg-preview.webp'
       },
       { 
         name: 'Chip City Cookies', 
@@ -82,7 +82,7 @@ const ProjectsSection = () => {
         url: 'alarobrewing.com', 
         desc: 'Alaro Brewing combines craft brewery excellence with full-service restaurant and creative cocktail bar experiences. The digital platform highlights their brewing process, seasonal releases, and chef-curated food pairings. Event calendar manages brewery tours, live music nights, and special tasting events. Online merchandise store features branded apparel and limited edition glassware, while the reservation system streamlines table bookings for dining experiences.', 
         tech: ['WordPress', 'JavaScript', 'CSS3', 'PHP'],
-        image: '/proj/alaro.webp'
+        image: '/proj1/alaro-removebg-preview.webp'
       }
     ],
     home: [
@@ -119,7 +119,7 @@ const ProjectsSection = () => {
         url: 'pictoncivil.com.au', 
         desc: 'Picton Civil specializes in sophisticated civil construction projects including earthworks, infrastructure development, and land management solutions. The website showcases their heavy equipment fleet and technical capabilities through detailed project case studies. Client portal provides real-time project progress updates and documentation access. Safety compliance information and environmental management policies demonstrate their commitment to sustainable construction practices.', 
         tech: ['WordPress', 'Elementor', 'Project Management'],
-        image: '/proj/14island.webp'
+        image: '/proj1/pictoncavil-removebg-preview.webp'
       }
     ],
     ecommerce: [
@@ -149,21 +149,21 @@ const ProjectsSection = () => {
         url: 'eliburchjewelry.com', 
         desc: 'Eli Burch Jewelry showcases artisan-crafted jewelry pieces with unique designs and meticulous attention to detail. The online platform tells the story behind each collection and the inspiration driving their creative process. Custom design consultation requests allow personalized jewelry creation while the ring sizing guide ensures perfect fits. Ethical sourcing information and craftsmanship details highlight their commitment to quality and sustainable practices.', 
         tech: ['Shopify', 'JavaScript', 'CSS3'],
-        image: '/proj/14island.webp'
+        image: '/proj1/eliburchjewelry-removebg-preview.webp'
       },
       { 
         name: 'Jake Matluck', 
         url: 'jakematluck.com', 
         desc: 'Jake Matluck features curated lifestyle products and trending goods through a seamless e-commerce experience. The website employs sophisticated product recommendation algorithms based on browsing behavior and purchase history. Seasonal collections and limited inventory alerts create urgency while customer reviews and unboxing videos build social proof. Multi-channel integration synchronizes inventory across online and pop-up retail locations.', 
         tech: ['Shopify', 'JavaScript', 'Analytics'],
-        image: '/proj/14island.webp'
+        image: '/proj1/jakematluck.com-removebg-preview.webp'
       },
       { 
         name: 'Bavalle', 
         url: 'bavalle.myshopify.com', 
         desc: 'Bavalle delivers modern Shopify store experiences with premium products and intuitive shopping journeys. The platform features advanced filtering options and intelligent search functionality for product discovery. Abandoned cart recovery systems and personalized email marketing campaigns increase conversion rates. Mobile-optimized design ensures seamless shopping across all devices while integrated analytics provide valuable customer behavior insights.', 
         tech: ['Shopify', 'Liquid', 'JavaScript'],
-        image: '/proj/14island.webp'
+        image: '/proj1/bavalle.myshopify.com-removebg-preview.webp'
       },
       { 
         name: 'Eagle Lights Automotive', 
@@ -237,21 +237,21 @@ const ProjectsSection = () => {
         url: 'igorvainshtein.com', 
         desc: 'Igor Vainshtein offers expert leadership coaching and keynote speaking services driving business transformation and executive development. The website features his methodology through interactive content and client success stories. Booking system manages speaking engagement requests and corporate workshop scheduling while the resources section provides leadership development materials. Video library showcases past keynote presentations and training session excerpts across various industries.', 
         tech: ['WordPress', 'Elementor', 'Booking Systems'],
-        image: '/proj/igor.webp'
+        image: '/proj1/igor-removebg-preview (1).webp'
       },
       { 
         name: 'Priority IB', 
         url: 'priorityib.com.au', 
         desc: 'Priority IB delivers trusted business insurance brokerage services providing comprehensive coverage solutions for Australian companies. The platform features insurance product comparisons and risk assessment tools helping businesses make informed decisions. Client portal manages policy documents, claims history, and renewal reminders. Educational resources explain complex insurance concepts while the broker matching system connects clients with specialized expertise.', 
         tech: ['WordPress', 'JavaScript', 'Client Portal'],
-        image: '/proj/priotize.webp'
+        image: '/proj1/priority-removebg-preview.webp'
       },
       { 
         name: 'AIDN', 
         url: 'aidn.org.au', 
         desc: 'AIDN serves as the Industry and Defence Network association fostering collaboration and growth within Australian defence sectors. The website manages member directories, event registrations, and industry news dissemination. Resource library provides research papers and policy documents while the collaboration platform facilitates networking among members. Government liaison section keeps members informed about defence procurement opportunities and regulatory changes.', 
         tech: ['WordPress', 'Elementor', 'Membership System'],
-        image: '/proj/australia.webp'
+        image: '/proj1/adin-removebg-preview.webp'
       },
     ],
     healthcare: [
@@ -321,7 +321,7 @@ const ProjectsSection = () => {
         url: 'themehfil.ca', 
         desc: 'The Mehfil operates as a community restaurant and event venue hosting special occasions for local families and organizations. The website features neighborhood testimonials and local partnership highlights strengthening community ties. Event planning resources help local residents organize celebrations while the venue tour provides virtual previews of event spaces. Community bulletin section shares local news and supports neighborhood initiatives through sponsorship and participation.', 
         tech: ['WordPress', 'Elementor', 'Community Features'],
-        image: '/proj/mehfil.webp'
+        image: '/proj1/mehfil-removebg-preview.webp'
       },
       { 
         name: 'Benjamin Franklin Plumbing', 
@@ -358,7 +358,7 @@ const ProjectsSection = () => {
         url: 'igorvainshtein.com', 
         desc: 'Igor Vainshtein provides entrepreneurship training and business leadership development programs through workshops, courses, and corporate training sessions. The platform features learning management systems delivering course content and tracking participant progress. Interactive exercises and case studies reinforce learning objectives while certification programs validate skill acquisition. Corporate training portal manages enterprise client engagements with customized curriculum development and performance metrics.', 
         tech: ['WordPress', 'Elementor', 'LMS Integration'],
-        image: '/proj/igor.webp'
+        image: '/proj1/igor-removebg-preview (1).webp'
       },
       { 
         name: 'Caxlbogg', 
@@ -379,7 +379,7 @@ const ProjectsSection = () => {
         url: 'aidn.org.au', 
         desc: 'AIDN offers industry network training and professional development programs supporting career advancement within defence and technology sectors. The website manages course catalogs and workshop registrations with certification tracking systems. Learning pathways guide professional development while industry expert webinars provide continuing education opportunities. Skills assessment tools help members identify development areas and track progress toward career objectives.', 
         tech: ['WordPress', 'Elementor', 'Professional Development'],
-        image: '/proj/australia.webp'
+        image: '/proj1/adin-removebg-preview.webp'
       }
     ],
     hospitality: [
@@ -388,7 +388,7 @@ const ProjectsSection = () => {
         url: 'alarobrewing.com', 
         desc: 'Alaro Brewing creates memorable hospitality experiences combining craft brewery operations with full-service restaurant and creative cocktail bar environments. The website features their tasting room atmosphere through virtual tours and ambiance videos. Event calendar manages live music performances, brewery tours, and special tasting events while the reservation system streamlines table bookings. Loyalty program rewards repeat visitors with exclusive beer releases and member-only events.', 
         tech: ['WordPress', 'JavaScript', 'Reservation Systems'],
-        image: '/proj/alaro.webp'
+        image: '/proj1/alaro-removebg-preview.webp'
       },
       { 
         name: 'Khanjee Canada', 
@@ -402,7 +402,7 @@ const ProjectsSection = () => {
         url: 'themehfil.ca', 
         desc: 'The Mehfil provides exceptional hospitality through restaurant dining and event hall services perfect for celebrations, gatherings, and special occasions. The website showcases their event capabilities through gallery showcases and client testimonials. Integrated event planning tools help organize celebrations while the menu customization portal accommodates diverse dietary needs and preferences. Venue booking system manages availability and provides virtual tours of event spaces.', 
         tech: ['WordPress', 'Elementor', 'Event Management'],
-        image: '/proj/mehfil.webp'
+        image: '/proj1/mehfil-removebg-preview.webp'
       },
       { 
         name: 'Marchand Biere', 
