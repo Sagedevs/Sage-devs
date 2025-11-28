@@ -77,8 +77,8 @@ const HeroProj: React.FC = () => {
         this.y = Math.random() * (canvas?.height || 0);
         this.vx = (Math.random() - 0.5) * 0.3;
         this.vy = (Math.random() - 0.5) * 0.3;
-        this.radius = Math.random() * 150 + 80;
-        this.opacity = Math.random() * 0.15 + 0.05;
+        this.radius = Math.random() * 120 + 60;
+        this.opacity = Math.random() * 0.1 + 0.03;
       }
 
       update() {
@@ -94,7 +94,7 @@ const HeroProj: React.FC = () => {
         if (!ctx) return;
         const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
         gradient.addColorStop(0, `rgba(14, 165, 233, ${this.opacity})`);
-        gradient.addColorStop(0.5, `rgba(37, 99, 235, ${this.opacity * 0.5})`);
+        gradient.addColorStop(0.5, `rgba(37, 99, 235, ${this.opacity * 0.4})`);
         gradient.addColorStop(1, 'rgba(30, 58, 138, 0)');
         
         ctx.beginPath();
@@ -105,12 +105,12 @@ const HeroProj: React.FC = () => {
     }
 
     const waves = [
-      new Wave((canvas?.height || 0) * 0.6, 0.02, 30, 0.005, 'rgba(14, 165, 233, 0.03)'),
-      new Wave((canvas?.height || 0) * 0.65, 0.015, 40, 0.004, 'rgba(37, 99, 235, 0.04)'),
-      new Wave((canvas?.height || 0) * 0.7, 0.01, 50, 0.003, 'rgba(30, 58, 138, 0.05)')
+      new Wave((canvas?.height || 0) * 0.7, 0.02, 25, 0.004, 'rgba(14, 165, 233, 0.02)'),
+      new Wave((canvas?.height || 0) * 0.75, 0.015, 35, 0.003, 'rgba(37, 99, 235, 0.03)'),
+      new Wave((canvas?.height || 0) * 0.8, 0.01, 45, 0.002, 'rgba(30, 58, 138, 0.04)')
     ];
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
       particles.push(new Orb());
     }
 
@@ -118,7 +118,8 @@ const HeroProj: React.FC = () => {
       if (!canvas || !ctx) return;
       const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
       gradient.addColorStop(0, '#020617');
-      gradient.addColorStop(1, '#0c1739');
+      gradient.addColorStop(0.7, '#0c1739');
+      gradient.addColorStop(1, '#1e293b');
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -144,43 +145,49 @@ const HeroProj: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#020617]">
+    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-[#020617]">
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full"
-        style={{ background: "linear-gradient(135deg, #020617 0%, #0c1739 100%)" }}
       />
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-32 md:py-40">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left Content */}
-          <div className="space-y-8">
-            <div className="inline-flex items-center gap-3 rounded-full border border-sky-400/30 bg-sky-400/5 px-5 py-2.5 backdrop-blur-sm">
-              <div className="relative">
+      {/* Enhanced Background Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950/80 via-blue-950/60 to-slate-900/80" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-sky-400/10 via-transparent to-transparent" />
+
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Enhanced Left Content */}
+          <div className="space-y-8 text-center lg:text-left">
+            <div className="inline-flex items-center gap-3 rounded-full border border-sky-400/30 bg-sky-400/10 px-6 py-3 backdrop-blur-xl shadow-lg shadow-sky-500/10 hover:shadow-sky-500/20 transition-all duration-300 hover:scale-105">
+              <div className="relative flex items-center gap-2">
                 <div className="h-2 w-2 rounded-full bg-sky-400 animate-pulse" />
                 <div className="absolute inset-0 h-2 w-2 rounded-full bg-sky-400 animate-ping" />
+                <span className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-400">
+                  Featured Projects
+                </span>
               </div>
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-400">
-                Featured Projects
-              </span>
             </div>
 
             <div className="space-y-6">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight">
-                Building the
-                <span className="block bg-gradient-to-r from-sky-400 via-blue-500 to-blue-600 bg-clip-text text-transparent mt-2">
-                  Future of Web
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight">
+                Crafting Digital
+                <span className="block bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-600 bg-clip-text text-transparent mt-2 animate-gradient">
+                  Excellence
                 </span>
               </h1>
 
-              <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-xl">
-                Transforming ideas into powerful digital solutions. Explore our collection 
-                of innovative projects that push the boundaries of modern web development.
+              <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                Where innovation meets execution. Discover our portfolio of cutting-edge 
+                web solutions that transform businesses and elevate user experiences to new heights.
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button className="group relative px-8 py-4 bg-sky-500 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:bg-sky-600 hover:shadow-2xl hover:shadow-sky-500/30 hover:scale-105">
+            
+
+            <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start">
+              <button className="group relative px-8 py-4 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:from-sky-600 hover:to-blue-700 hover:shadow-2xl hover:shadow-sky-500/30 hover:scale-105">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
                 <span className="relative z-10 flex items-center justify-center gap-2">
                   Explore Projects
                   <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -189,61 +196,78 @@ const HeroProj: React.FC = () => {
                 </span>
               </button>
 
-              <button className="px-8 py-4 border-2 border-sky-400/40 text-sky-400 font-semibold rounded-xl backdrop-blur-sm transition-all duration-300 hover:bg-sky-400/10 hover:border-sky-400 hover:scale-105">
-                Contact Us
+              <button className="group px-8 py-4 border-2 border-sky-400/40 text-sky-400 font-semibold rounded-xl backdrop-blur-sm transition-all duration-300 hover:bg-sky-400/10 hover:border-sky-400 hover:scale-105 hover:shadow-lg hover:shadow-sky-500/20">
+                <span className="flex items-center justify-center gap-2">
+                  View Case Studies
+                  <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </span>
               </button>
             </div>
           </div>
 
-          {/* Right Content - Feature Cards */}
-          <div className="space-y-4">
-            <div className="group relative rounded-2xl border border-sky-400/20 bg-slate-900/40 backdrop-blur-sm p-6 hover:bg-slate-900/60 transition-all duration-500 hover:border-sky-400/40 hover:scale-105">
+          {/* Enhanced Right Content - Feature Cards */}
+          <div className="space-y-4 lg:space-y-6">
+            <div className="group relative rounded-2xl border border-sky-400/20 bg-slate-900/40 backdrop-blur-xl p-6 transition-all duration-500 hover:bg-slate-900/60 hover:border-sky-400/40 hover:scale-105 hover:shadow-2xl hover:shadow-sky-500/10">
               <div className="absolute inset-0 bg-gradient-to-br from-sky-500/10 to-blue-600/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="p-3 rounded-xl bg-sky-500/20 border border-sky-400/30">
+              <div className="absolute -inset-1 bg-gradient-to-r from-sky-600 to-blue-600 rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
+              <div className="relative space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 rounded-xl bg-sky-500/20 border border-sky-400/30 group-hover:bg-sky-500/30 transition-colors duration-300">
                     <svg className="w-6 h-6 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-white">Lightning Fast</h3>
+                  <div>
+                    <h3 className="text-xl font-bold text-white">Lightning Fast</h3>
+                    <div className="w-16 h-1 bg-gradient-to-r from-sky-400 to-blue-500 rounded-full mt-2"></div>
+                  </div>
                 </div>
-                <p className="text-slate-400 leading-relaxed">
-                  Optimized performance with cutting-edge technologies for blazing fast load times
+                <p className="text-slate-400 leading-relaxed text-sm">
+                  Optimized performance with cutting-edge technologies for blazing fast load times and seamless user interactions across all platforms.
                 </p>
               </div>
             </div>
 
-            <div className="group relative rounded-2xl border border-sky-400/20 bg-slate-900/40 backdrop-blur-sm p-6 hover:bg-slate-900/60 transition-all duration-500 hover:border-sky-400/40 hover:scale-105">
+            <div className="group relative rounded-2xl border border-sky-400/20 bg-slate-900/40 backdrop-blur-xl p-6 transition-all duration-500 hover:bg-slate-900/60 hover:border-sky-400/40 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10">
               <div className="absolute inset-0 bg-gradient-to-br from-sky-500/10 to-blue-600/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="p-3 rounded-xl bg-sky-500/20 border border-sky-400/30">
+              <div className="absolute -inset-1 bg-gradient-to-r from-sky-600 to-blue-600 rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
+              <div className="relative space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 rounded-xl bg-sky-500/20 border border-sky-400/30 group-hover:bg-sky-500/30 transition-colors duration-300">
                     <svg className="w-6 h-6 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-white">Pixel Perfect</h3>
+                  <div>
+                    <h3 className="text-xl font-bold text-white">Pixel Perfect</h3>
+                    <div className="w-16 h-1 bg-gradient-to-r from-sky-400 to-blue-500 rounded-full mt-2"></div>
+                  </div>
                 </div>
-                <p className="text-slate-400 leading-relaxed">
-                  Meticulous attention to design details ensuring stunning visual experiences
+                <p className="text-slate-400 leading-relaxed text-sm">
+                  Meticulous attention to design details ensuring stunning visual experiences that captivate users and reflect brand excellence.
                 </p>
               </div>
             </div>
 
-            <div className="group relative rounded-2xl border border-sky-400/20 bg-slate-900/40 backdrop-blur-sm p-6 hover:bg-slate-900/60 transition-all duration-500 hover:border-sky-400/40 hover:scale-105">
+            <div className="group relative rounded-2xl border border-sky-400/20 bg-slate-900/40 backdrop-blur-xl p-6 transition-all duration-500 hover:bg-slate-900/60 hover:border-sky-400/40 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/10">
               <div className="absolute inset-0 bg-gradient-to-br from-sky-500/10 to-blue-600/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="p-3 rounded-xl bg-sky-500/20 border border-sky-400/30">
+              <div className="absolute -inset-1 bg-gradient-to-r from-sky-600 to-blue-600 rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
+              <div className="relative space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 rounded-xl bg-sky-500/20 border border-sky-400/30 group-hover:bg-sky-500/30 transition-colors duration-300">
                     <svg className="w-6 h-6 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-white">Fully Responsive</h3>
+                  <div>
+                    <h3 className="text-xl font-bold text-white">Fully Responsive</h3>
+                    <div className="w-16 h-1 bg-gradient-to-r from-sky-400 to-blue-500 rounded-full mt-2"></div>
+                  </div>
                 </div>
-                <p className="text-slate-400 leading-relaxed">
-                  Seamless experience across all devices from mobile to desktop
+                <p className="text-slate-400 leading-relaxed text-sm">
+                  Seamless experience across all devices from mobile to desktop with adaptive layouts and intuitive interactions for every screen size.
                 </p>
               </div>
             </div>
@@ -251,21 +275,37 @@ const HeroProj: React.FC = () => {
         </div>
       </div>
 
+      {/* Enhanced Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <svg
-          className="w-6 h-6 text-sky-400 opacity-60"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 14l-7 7m0 0l-7-7m7 7V3"
-          />
-        </svg>
+        <div className="flex flex-col items-center gap-2">
+          <span className="text-xs text-sky-400/60 font-medium tracking-wider">EXPLORE</span>
+          <svg
+            className="w-5 h-5 text-sky-400/60"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 14l-7 7m0 0l-7-7m7 7V3"
+            />
+          </svg>
+        </div>
       </div>
+
+      <style jsx>{`
+        @keyframes gradient {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-gradient {
+          background-size: 200% 200%;
+          animation: gradient 6s ease infinite;
+        }
+      `}</style>
     </section>
   );
 };
