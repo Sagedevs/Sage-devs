@@ -25,13 +25,13 @@ type Projects = {
 type CategoryId = keyof Projects;
 
 const ProjectsSection = () => {
-  const [activeCategory, setActiveCategory] = useState<CategoryId>('food');
+  const [activeCategory, setActiveCategory] = useState<CategoryId>('creative');
 
   const categories: { id: CategoryId; name: string }[] = [
+    { id: 'creative', name: 'Creative Services & Design' },
     { id: 'food', name: 'Food & Beverage' },
     { id: 'home', name: 'Home & Building Services' },
     { id: 'ecommerce', name: 'E-Commerce & Retail' },
-    { id: 'creative', name: 'Creative Services & Design' },
     { id: 'professional', name: 'Professional Services' },
     { id: 'healthcare', name: 'Healthcare & Wellness' },
     { id: 'technology', name: 'Technology & Digital' },
@@ -276,13 +276,6 @@ const ProjectsSection = () => {
         tech: ['WordPress', 'WooCommerce', 'Nutrition Database'],
         image: '/proj1/Intense-Meals-removebg-preview-1.webp'
       },
-      { 
-        name: 'Caxlbogg', 
-        url: 'caxlbogg.elementor.cloud', 
-        desc: 'Caxlbogg operates as a nurturing early childhood education center focused on developmental learning and holistic child development. The website features their educational philosophy and curriculum overview through engaging visuals and parent testimonials. Enrollment process guides parents through application and assessment stages while the parent portal communicates daily activities and developmental progress. Event calendar manages parent-teacher meetings and community engagement activities.', 
-        tech: ['WordPress', 'Elementor', 'Parent Portal'],
-        image: '/proj/14island.webp'
-      }
     ],
     technology: [
       
@@ -359,13 +352,6 @@ const ProjectsSection = () => {
         desc: 'Igor Vainshtein provides entrepreneurship training and business leadership development programs through workshops, courses, and corporate training sessions. The platform features learning management systems delivering course content and tracking participant progress. Interactive exercises and case studies reinforce learning objectives while certification programs validate skill acquisition. Corporate training portal manages enterprise client engagements with customized curriculum development and performance metrics.', 
         tech: ['WordPress', 'Elementor', 'LMS Integration'],
         image: '/proj1/igor-removebg-preview (1).webp'
-      },
-      { 
-        name: 'Caxlbogg', 
-        url: 'caxlbogg.elementor.cloud', 
-        desc: 'Caxlbogg focuses on early childhood education with comprehensive learning programs supporting developmental milestones and school readiness. The website details their educational approach through curriculum overviews and learning methodology explanations. Parent communication systems share daily activities and developmental progress while enrollment management handles applications and waitlist processing. Resource library provides parenting guidance and educational activities for home reinforcement.', 
-        tech: ['WordPress', 'Elementor', 'Educational Content'],
-        image: '/proj/14island.webp'
       },
       { 
         name: 'BizWorld', 
