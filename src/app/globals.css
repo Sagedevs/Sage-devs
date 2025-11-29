@@ -217,3 +217,8 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}

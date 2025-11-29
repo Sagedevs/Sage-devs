@@ -208,13 +208,11 @@ export default function RootLayout({
     setMobileMenuOpen(false);
   }, [pathname]);
 
-  useEffect(() => {
-    if (!isClient) return;
-    document.body.style.overflow = mobileMenuOpen ? "hidden" : "unset";
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [mobileMenuOpen, isClient]);
+ useEffect(() => {
+  if (!isClient) return;
+  document.documentElement.classList.toggle("no-scroll", mobileMenuOpen);
+}, [mobileMenuOpen, isClient]);
+
 
   const toggleMobileMenu = useCallback(() => {
     setMobileMenuOpen((prev) => !prev);
@@ -327,7 +325,7 @@ export default function RootLayout({
       </head>
       
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased font-gilroy relative`} suppressHydrationWarning>
-      <SmoothScroll>
+      
        
             <DisableDevTools />
          
@@ -363,10 +361,10 @@ export default function RootLayout({
             />
           </GooeyNavWithHeader>
         </Suspense>
-
+<SmoothScroll>
         {/* Main Content */}
         <main className="pt-20 lg:pt-24 relative z-[1]">{children}</main>
-
+</SmoothScroll>
         {/* Social Icons - Optimized with will-change hint */}
         <aside className="fixed bottom-4 right-4 lg:bottom-8 lg:right-8 z-50" aria-label="Social Media Links">
           <div className="bg-black/70 border border-white/20 border-dashed rounded-full p-3 lg:p-4 backdrop-blur-sm">
@@ -407,7 +405,7 @@ export default function RootLayout({
         )}
 
         <div id="modal-root" />
-        </SmoothScroll>
+        
       </body>
     </html>
   );
