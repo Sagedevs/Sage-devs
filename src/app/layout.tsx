@@ -8,10 +8,12 @@ import "./globals.css";
 import Image from "next/image";
 import SmoothScroll from "@/components/SmoothScroll";
 
-// Lazy load heavy components
-const GooeyNavWithHeader = lazy(() => import("@/blocks/Components/GooeyNav/GooeyNav"));
+// Import critical components directly (NO lazy loading for above-the-fold)
+import GooeyNavWithHeader from "@/blocks/Components/GooeyNav/GooeyNav";
+import DisableDevTools from "@/components/shortcuts";
+
+// Lazy load ONLY below-the-fold components
 const CustomCursor = lazy(() => import("@/components/customcursor"));
-const DisableDevTools = lazy(() => import("@/components/shortcuts"));
 const Footer = lazy(() => import("@/components/Footer"));
 const Analytics = lazy(() => import("@vercel/analytics/next").then(mod => ({ default: mod.Analytics })));
 const VideoStructuredData = lazy(() => import("@/components/seo/StructuredData").then(mod => ({ default: mod.VideoStructuredData })));
@@ -56,7 +58,7 @@ const items = [
     children: [
       { label: "Team", href: "/about#team" },  
       { label: "Careers", href: "/careers" }, 
-         { label: "Projects", href: "/projects" },  
+      { label: "Projects", href: "/projects" },  
     ],
   },
   {
@@ -84,51 +86,29 @@ const socialLinks = [
   },
 ];
 
-// Optimized font loading - optional display for better mobile performance
+// Optimized font loading
 const geistSans = Geist({ 
   variable: "--font-geist-sans", 
   subsets: ["latin"],
-  display: "optional", // Changed from "swap" for better mobile performance
+  display: "swap", // Changed back to swap for better mobile performance
   preload: true
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-  display: "optional", // Changed from "swap" for better mobile performance
+  display: "swap",
   preload: true
 });
 
-// Responsive background - animated on desktop, simple on mobile
-const StaticBackground = () => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    // Check if window is defined (client-side)
-    if (typeof window !== 'undefined') {
-      const checkIfMobile = () => {
-        setIsMobile(window.innerWidth < 1024); // Match your lg breakpoint
-      };
-      
-      // Initial check
-      checkIfMobile();
-      
-      // Add resize listener
-      window.addEventListener('resize', checkIfMobile);
-      return () => window.removeEventListener('resize', checkIfMobile);
-    }
-  }, []);
-
-  // Simple gradient for mobile
-  if (isMobile) {
-    return (
-      <div className="fixed inset-0 z-[-1] bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950" />
-    );
-  }
-
-  // Full animation for desktop
-  return (
-    <div className="fixed inset-0 z-[-1] pointer-events-none">
+// ✅ FIXED: Pure CSS background - NO JS state, NO hydration issues
+const StaticBackground = () => (
+  <>
+    {/* Mobile: Simple gradient (always rendered, hidden on desktop) */}
+    <div className="lg:hidden fixed inset-0 z-[-1] bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950" />
+    
+    {/* Desktop: Animated SVG (always rendered, hidden on mobile) */}
+    <div className="hidden lg:block fixed inset-0 z-[-1] pointer-events-none">
       <svg
         width="100%"
         height="100%"
@@ -156,8 +136,8 @@ const StaticBackground = () => {
         <line x1="75%" y1="0" x2="75%" y2="100%" stroke="rgba(168, 85, 247, 0.05)" strokeWidth="0.5" />
       </svg>
     </div>
-  );
-};
+  </>
+);
 
 export default function RootLayout({
   children,
@@ -166,53 +146,37 @@ export default function RootLayout({
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isClient, setIsClient] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  // More aggressive debouncing for mobile (100ms instead of 10ms)
+  // ✅ FIXED: Simplified scroll handler - no isClient check needed
   const handleScroll = useCallback(() => {
-    const scrollY = window.scrollY;
-    setScrolled(scrollY > 20);
+    setScrolled(window.scrollY > 20);
   }, []);
 
   useEffect(() => {
-    if (!isClient) return;
-    
     let timeoutId: NodeJS.Timeout;
-    let rafId: number;
     
     const debouncedScroll = () => {
-      // Use RAF for smoother performance
-      if (rafId) cancelAnimationFrame(rafId);
       clearTimeout(timeoutId);
-      
-      rafId = requestAnimationFrame(() => {
-        timeoutId = setTimeout(handleScroll, 100); // Increased from 10ms to 100ms
-      });
+      timeoutId = setTimeout(handleScroll, 100);
     };
     
     window.addEventListener("scroll", debouncedScroll, { passive: true });
     
     return () => {
       window.removeEventListener("scroll", debouncedScroll);
-      if (rafId) cancelAnimationFrame(rafId);
       clearTimeout(timeoutId);
     };
-  }, [handleScroll, isClient]);
+  }, [handleScroll]);
 
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
 
- useEffect(() => {
-  if (!isClient) return;
-  document.documentElement.classList.toggle("no-scroll", mobileMenuOpen);
-}, [mobileMenuOpen, isClient]);
-
+  // ✅ FIXED: No isClient check - cleaner
+  useEffect(() => {
+    document.documentElement.classList.toggle("no-scroll", mobileMenuOpen);
+  }, [mobileMenuOpen]);
 
   const toggleMobileMenu = useCallback(() => {
     setMobileMenuOpen((prev) => !prev);
@@ -233,50 +197,6 @@ export default function RootLayout({
         {/* Preconnect to external domains */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
-        {/* Structured Data - Optimized */}
-        <Suspense fallback={null}>
-          <VideoStructuredData />
-          <script 
-            type="application/ld+json" 
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "Organization",
-                "name": "Sage Devs",
-                "url": "https://sagedevs.tech",
-                "logo": "https://sagedevs.tech/logo/logofixxed.svg",
-                "image": "https://sagedevs.tech/logo/logofixxed.svg",
-                "description": "Full Stack Software Agency specializing in web development, UI/UX design, and scalable digital solutions",
-                "foundingDate": "2023",
-                "contactPoint": {
-                  "@type": "ContactPoint",
-                  "email": "info@sagedevs.tech",
-                  "contactType": "Customer Service"
-                },
-                "sameAs": [
-                  "https://github.com/abdulahad-2",
-                  "https://www.linkedin.com/company/sagedevs/",
-                  "https://x.com/Sage_devs",
-                  "https://www.instagram.com/sage_devs/"
-                ],
-                "founder": {
-                  "@type": "Person",
-                  "name": "Abdul Ahad"
-                },
-                "contact": {
-                  "@type": "ContactPoint",
-                  "email": "info@sagedevs.tech",
-                  "contactType": "Customer Service"
-                },
-                "address": {
-                  "@type": "PostalAddress",
-                  "addressCountry": "PK"
-                }
-              })
-            }}
-          />
-        </Suspense>
         
         {/* Icons - Fixed paths for public folder */}
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
@@ -325,47 +245,44 @@ export default function RootLayout({
       </head>
       
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased font-gilroy relative`} suppressHydrationWarning>
-      
-       
-            <DisableDevTools />
-         
-
-        {/* Disable custom cursor on mobile for better performance */}
-        {isClient && typeof window !== 'undefined' && window.innerWidth > 1024 && (
+        
+        <DisableDevTools />
+        
+        {/* ✅ FIXED: Custom cursor - hide via CSS, no JS check */}
+        <div className="hidden lg:block">
           <Suspense fallback={null}>
             <CustomCursor />
           </Suspense>
-        )}
+        </div>
 
-        {/* Lightweight static background */}
+        {/* ✅ FIXED: Pure CSS background - no state, no hydration issues */}
         <StaticBackground />
 
-        {/* Navigation - Critical, but lazy load to reduce initial bundle */}
-        <Suspense fallback={
-          <header className="fixed top-0 left-0 right-0 z-50 h-20 bg-black/50 backdrop-blur-sm" />
-        }>
-          <GooeyNavWithHeader
-            items={items}
-            scrolled={scrolled}
-            mobileMenuOpen={mobileMenuOpen}
-            toggleMobileMenu={toggleMobileMenu}
-          >
-            <Image
-              src="/logo/logofixxed.svg"
-              alt="Sage Devs Logo"
-              width={128}
-              height={128}
-              priority
-              fetchPriority="high"
-              className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32"
-            />
-          </GooeyNavWithHeader>
-        </Suspense>
-<SmoothScroll>
-        {/* Main Content */}
-        <main className="pt-20 lg:pt-24 relative z-[1]">{children}</main>
-</SmoothScroll>
-        {/* Social Icons - Optimized with will-change hint */}
+        {/* ✅ FIXED: Navigation not lazy loaded - critical component */}
+        <GooeyNavWithHeader
+          items={items}
+          scrolled={scrolled}
+          mobileMenuOpen={mobileMenuOpen}
+          toggleMobileMenu={toggleMobileMenu}
+        >
+          <Image
+            src="/logo/logofixxed.svg"
+            alt="Sage Devs Logo"
+            width={128}
+            height={128}
+            priority
+            fetchPriority="high"
+            className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32"
+          />
+        </GooeyNavWithHeader>
+
+        <SmoothScroll>
+          <main className="pt-20 lg:pt-24 relative z-[1]">
+            {children}
+          </main>
+        </SmoothScroll>
+
+        {/* Social Icons */}
         <aside className="fixed bottom-4 right-4 lg:bottom-8 lg:right-8 z-50" aria-label="Social Media Links">
           <div className="bg-black/70 border border-white/20 border-dashed rounded-full p-3 lg:p-4 backdrop-blur-sm">
             <nav className="flex flex-col items-center space-y-4 lg:space-y-5">
@@ -377,7 +294,6 @@ export default function RootLayout({
                   rel="noopener noreferrer"
                   aria-label={`Visit our ${link.platform}`}
                   className="block transition-transform duration-200 hover:scale-105 hover:rotate-6"
-                  style={{ willChange: 'transform' }}
                 >
                   <Image
                     src={link.iconPath}
@@ -397,7 +313,11 @@ export default function RootLayout({
           <Footer />
         </Suspense>
 
-        
+        {/* Structured Data - moved to body */}
+        <Suspense fallback={null}>
+          <VideoStructuredData />
+        </Suspense>
+
         {process.env.NODE_ENV === 'production' && (
           <Suspense fallback={null}>
             <Analytics />
@@ -405,6 +325,42 @@ export default function RootLayout({
         )}
 
         <div id="modal-root" />
+        
+        {/* Structured data script */}
+        <script 
+          type="application/ld+json" 
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Sage Devs",
+              "url": "https://sagedevs.tech",
+              "logo": "https://sagedevs.tech/logo/logofixxed.svg",
+              "image": "https://sagedevs.tech/logo/logofixxed.svg",
+              "description": "Full Stack Software Agency specializing in web development, UI/UX design, and scalable digital solutions",
+              "foundingDate": "2023",
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "email": "info@sagedevs.tech",
+                "contactType": "Customer Service"
+              },
+              "sameAs": [
+                "https://github.com/abdulahad-2",
+                "https://www.linkedin.com/company/sagedevs/",
+                "https://x.com/Sage_devs",
+                "https://www.instagram.com/sage_devs/"
+              ],
+              "founder": {
+                "@type": "Person",
+                "name": "Abdul Ahad"
+              },
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "PK"
+              }
+            })
+          }}
+        />
         
       </body>
     </html>

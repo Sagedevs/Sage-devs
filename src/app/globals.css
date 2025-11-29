@@ -222,3 +222,59 @@ body {
   overflow: hidden;
   height: 100vh;
 }
+
+/* Disable hardware acceleration on mobile to prevent crashes/glitches */
+@media (max-width: 1023px) {
+  * {
+    will-change: auto !important;
+  }
+  
+  /* Only allow transforms on explicit interactions */
+  *:hover, *:active, *:focus {
+    will-change: transform;
+  }
+  
+  /* Prevent transform-related glitches */
+  .transition-transform {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+}
+
+/* Fix for mobile Safari rendering bugs */
+@supports (-webkit-touch-callout: none) {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Prevent iOS Safari scroll bounce issues */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Fix fixed positioning bugs on iOS */
+  .fixed {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}
+
+/* Prevent layout shift during lazy load */
+img {
+  content-visibility: auto;
+}
+
+/* Reduce animations on mobile for better performance */
+@media (max-width: 1023px) {
+  * {
+    animation-duration: 0.2s !important;
+    transition-duration: 0.2s !important;
+  }
+}
+
+/* Existing .no-scroll class stays the same */
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
