@@ -273,8 +273,3 @@ img {
   }
 }
 
-/* Existing .no-scroll class stays the same */
-.no-scroll {
-  overflow: hidden;
-  height: 100vh;
-}
