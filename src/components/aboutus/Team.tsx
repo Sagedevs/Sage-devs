@@ -19,13 +19,7 @@ const team = [
     bio: 'Turning chaos into clarity - making sure every product ships with purpose and polish.',
     icon: Users
   },
-  {
-    name: 'Muhammad Saud',
-    role: 'Frontend Developer',
-    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760451605/IMG-20250813-WA0017-removebg-preview-3-e1755104068108_euhlss.png',
-    bio: 'Building powerful systems that keep things fast, secure, and running smooth as butter.',
-    icon: Award
-  },
+
   {
     name: 'Ali Raza',
     role: 'Full Stack Developer',
@@ -39,6 +33,13 @@ const team = [
     image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760278905/download_35_vrzimb.jpg',
     bio: 'Crafting high-performance WordPress sites that look dope and load fast as hell.',
     icon: Zap
+  },
+    {
+    name: 'Muhammad Saud',
+    role: 'Frontend Developer',
+    image: 'https://res.cloudinary.com/dg01hf9pm/image/upload/v1760451605/IMG-20250813-WA0017-removebg-preview-3-e1755104068108_euhlss.png',
+    bio: 'Building powerful systems that keep things fast, secure, and running smooth as butter.',
+    icon: Award
   },
   {
     name: 'Armaan Khan',
