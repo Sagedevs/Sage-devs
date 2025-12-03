@@ -1,6 +1,47 @@
 "use client";
 import React, { useState } from 'react';
 import { Home, Users, Briefcase, MessageSquare, HelpCircle, Shield, DollarSign, Folder, Wrench, BookOpen, FileCheck, Mail, Sparkles, Globe, ArrowRight } from 'lucide-react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Sitemap - SageDevs | Complete Site Navigation',
+  description: 'Explore the complete sitemap of SageDevs website. Navigate through our services, company information, resources, and legal pages with ease.',
+  keywords: ['sitemap', 'navigation', 'SageDevs', 'web development', 'AI solutions', 'company', 'services', 'resources'],
+  openGraph: {
+    title: 'Sitemap - SageDevs',
+    description: 'Complete navigation guide for SageDevs website - Find all pages and sections easily',
+    type: 'website',
+    url: 'https://sagedevs.com/sitemap',
+    images: [
+      {
+        url: 'https://sagedevs.com/og-banner.webp',
+        width: 1200,
+        height: 630,
+        alt: 'SageDevs Sitemap',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sitemap - SageDevs',
+    description: 'Complete navigation guide for SageDevs website',
+    images: ['https://sagedevs.com/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: 'https://sagedevs.com/sitemap',
+  },
+};
 
 export default function SitemapPage() {
   const [hoveredIndex, setHoveredIndex] = useState<string | null>(null);
@@ -182,7 +223,7 @@ export default function SitemapPage() {
           <div className="inline-flex flex-col items-center gap-4 p-8 bg-gradient-to-br from-blue-600/20 to-cyan-600/10 backdrop-blur-xl rounded-3xl border border-blue-500/30">
             <Globe className="w-12 h-12 text-blue-400 animate-pulse-slow" />
             <p className="text-blue-200 text-lg">
-              Can't find what you're looking for?
+              Can&apos;t find what you&apos;re looking for?
             </p>
             <a
               href="/contact"
