@@ -395,7 +395,7 @@ export default function TermsOfService() {
                       <h2 className="text-2xl font-bold text-white mb-4">Privacy and Data Protection</h2>
                       <p className="text-gray-300 leading-relaxed mb-4">
                         For information on how we collect, use, and protect your personal data, please see our{' '}
-                        <a href="/privacy-policy" className="text-blue-400 hover:text-blue-300 underline transition-colors">
+                        <a href="/privacy" className="text-blue-400 hover:text-blue-300 underline transition-colors">
                           Privacy Policy
                         </a>
                         . By using our services, you also agree to the terms outlined in our Privacy Policy.
