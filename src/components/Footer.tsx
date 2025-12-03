@@ -627,7 +627,7 @@ const Footer = () => {
                 Terms of Service
               </LinkComponent>
               <LinkComponent
-                href="/sitemap-0.xml"
+                href="/sitemap"
                 className="text-gray-400 hover:text-blue-300 transition-colors duration-300"
               >
                 Sitemap
