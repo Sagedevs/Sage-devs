@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 
@@ -205,9 +205,51 @@ const tabsData: TabData[] = [
 
 const TechCapabilitiesTabs: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('aid');
+  const leftScrollRef = useRef<HTMLUListElement>(null);
+  const rightScrollRef = useRef<HTMLDivElement>(null);
 
   // Get the currently active tab data
   const currentTabData = tabsData.find(tab => tab.id === activeTab) || tabsData[0];
+
+  // Handle wheel events on left container
+  const handleLeftWheel = (e: React.WheelEvent) => {
+    if (leftScrollRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = leftScrollRef.current;
+      const isAtTop = scrollTop === 0;
+      const isAtBottom = Math.abs(scrollHeight - clientHeight - scrollTop) < 1;
+      
+      // If we're at the top and trying to scroll up, or at bottom and trying to scroll down,
+      // let the event bubble to the page
+      if ((e.deltaY < 0 && isAtTop) || (e.deltaY > 0 && isAtBottom)) {
+        return; // Let the page scroll
+      }
+      
+      // Otherwise, scroll the container and prevent page scroll
+      e.preventDefault();
+      e.stopPropagation();
+      leftScrollRef.current.scrollTop += e.deltaY;
+    }
+  };
+
+  // Handle wheel events on right container
+  const handleRightWheel = (e: React.WheelEvent) => {
+    if (rightScrollRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = rightScrollRef.current;
+      const isAtTop = scrollTop === 0;
+      const isAtBottom = Math.abs(scrollHeight - clientHeight - scrollTop) < 1;
+      
+      // If we're at the top and trying to scroll up, or at bottom and trying to scroll down,
+      // let the event bubble to the page
+      if ((e.deltaY < 0 && isAtTop) || (e.deltaY > 0 && isAtBottom)) {
+        return; // Let the page scroll
+      }
+      
+      // Otherwise, scroll the container and prevent page scroll
+      e.preventDefault();
+      e.stopPropagation();
+      rightScrollRef.current.scrollTop += e.deltaY;
+    }
+  };
 
   return (
     <div className="min-h-screen w-full bg-[#0b1020] text-gray-100 relative overflow-hidden z-0">
@@ -229,7 +271,11 @@ const TechCapabilitiesTabs: React.FC = () => {
           <div className="flex flex-col xl:flex-row gap-8 w-full items-stretch h-[70vh]">
             {/* Left side - Tabs navigation */}
             <div className="xl:w-1/2 w-full min-h-0">
-              <ul className="space-y-0 bg-transparent rounded-lg border border-white/10 shadow-sm backdrop-blur-sm h-full overflow-y-auto custom-scroll pr-1">
+              <ul 
+                ref={leftScrollRef}
+                onWheel={handleLeftWheel}
+                className="space-y-0 bg-transparent rounded-lg border border-white/10 shadow-sm backdrop-blur-sm h-full overflow-y-auto custom-scroll pr-1"
+              >
                 {tabsData.map((tab) => (
                   <li key={tab.id} className="w-full">
                     <button
@@ -253,8 +299,8 @@ const TechCapabilitiesTabs: React.FC = () => {
                               onError={(e) => {
                                 e.currentTarget.style.display = 'none';
                               }}
-                              width={24} // Specify appropriate width
-                              height={24} // Specify appropriate height
+                              width={24}
+                              height={24}
                             />
                           </div>
                           <span className={`text-lg font-semibold transition-colors duration-300 ${
@@ -275,49 +321,57 @@ const TechCapabilitiesTabs: React.FC = () => {
 
             {/* Right side - Content cards */}
             <div className="xl:w-1/2 w-full min-h-0">
-              <div className="h-full overflow-y-auto custom-scroll pr-1">
+              <div 
+                ref={rightScrollRef}
+                onWheel={handleRightWheel}
+                className="h-full overflow-y-auto custom-scroll pr-1"
+              >
                 <div 
                   key={activeTab}
                   className="animate-fadeIn"
                 >
-                {/* Category header */}
-                {/* Category title hidden as requested */}
-
-                {/* Content sections */}
-                {currentTabData.sections ? (
-                  // AI tab with sections – keep item boxes white (not whole section)
-                  <div className="space-y-8">
-                    {currentTabData.sections.map((section) => (
-                      <div key={section.title} className="bg-transparent">
-                        <div className="mb-4">
-                          <h4 className="text-lg font-semibold text-white/90 mb-1">{section.title}</h4>
-                          <p className="text-gray-300 text-sm">Leading technologies and platforms</p>
-                        </div>
-                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-                          {section.items.map((item, index) => (
-                            <a
-                              key={item.id}
-                              href={item.website}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="group p-4 rounded-xl bg-white border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg hover:shadow-blue-100 hover:scale-105 transform"
-                              style={{ animationDelay: `${index * 50}ms` }}
-                            >
-                              <div className="flex flex-col items-center text-center space-y-3">
-                                <div className="w-12 h-12 flex items-center justify-center">
-                                  <Image src={item.logo} alt={item.name} className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300" onError={(e) => { e.currentTarget.style.display = 'none'; }} width={48} height={48} />
+                  {/* Content sections */}
+                  {currentTabData.sections ? (
+                    // AI tab with sections
+                    <div className="space-y-8">
+                      {currentTabData.sections.map((section) => (
+                        <div key={section.title} className="bg-transparent">
+                          <div className="mb-4">
+                            <h4 className="text-lg font-semibold text-white/90 mb-1">{section.title}</h4>
+                            <p className="text-gray-300 text-sm">Leading technologies and platforms</p>
+                          </div>
+                          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                            {section.items.map((item, index) => (
+                              <a
+                                key={item.id}
+                                href={item.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group p-4 rounded-xl bg-white border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg hover:shadow-blue-100 hover:scale-105 transform"
+                                style={{ animationDelay: `${index * 50}ms` }}
+                              >
+                                <div className="flex flex-col items-center text-center space-y-3">
+                                  <div className="w-12 h-12 flex items-center justify-center">
+                                    <Image 
+                                      src={item.logo} 
+                                      alt={item.name} 
+                                      className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300" 
+                                      onError={(e) => { e.currentTarget.style.display = 'none'; }} 
+                                      width={48} 
+                                      height={48} 
+                                    />
+                                  </div>
+                                  <span className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-300">{item.name}</span>
                                 </div>
-                                <span className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-300">{item.name}</span>
-                              </div>
-                            </a>
-                          ))}
+                              </a>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  // Regular tabs with single grid
-                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                      ))}
+                    </div>
+                  ) : (
+                    // Regular tabs with single grid
+                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
                       {currentTabData.items.map((item, index) => (
                         <a
                           key={item.id}
@@ -338,8 +392,8 @@ const TechCapabilitiesTabs: React.FC = () => {
                                 onError={(e) => {
                                   e.currentTarget.style.display = 'none';
                                 }}
-                                width={64} // Specify appropriate width
-                                height={64} // Specify appropriate height
+                                width={64}
+                                height={64}
                               />
                             </div>
                             <span className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
@@ -349,7 +403,7 @@ const TechCapabilitiesTabs: React.FC = () => {
                         </a>
                       ))}
                     </div>
-                )}
+                  )}
                 </div>
               </div>
             </div>
@@ -387,6 +441,13 @@ const TechCapabilitiesTabs: React.FC = () => {
         }
         .custom-scroll::-webkit-scrollbar-thumb:hover {
           background: rgba(59, 130, 246, 0.6);
+        }
+
+        /* Ensure scroll containers are focusable for better accessibility */
+        .custom-scroll {
+          scroll-behavior: smooth;
+          -webkit-overflow-scrolling: touch;
+          overscroll-behavior: contain;
         }
       `}</style>
     </div>
