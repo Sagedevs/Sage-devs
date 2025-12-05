@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
-import { Send, X, Minimize2, Maximize2, Bot, User, Sparkles, MessageCircle, DollarSign, Briefcase, Star, Mail, ExternalLink } from 'lucide-react'
+import { Send, X, Minimize2, Maximize2, Bot, User, Sparkles, MessageCircle, DollarSign, Mail, ExternalLink } from 'lucide-react'
 
 interface Message {
   id: string
@@ -272,7 +272,7 @@ Now respond naturally to: "${userMessage}"`
                 </button>
               </div>
               <p className="text-xs text-blue-100 mt-1">
-                I can provide guidance on our services and pricing. Let's chat!
+                I can provide guidance on our services and pricing. Let&apos;s chat!
               </p>
               <button
                 onClick={handleNotificationClick}
