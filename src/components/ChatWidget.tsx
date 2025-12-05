@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
-import { Send, X, Minimize2, Maximize2, Bot, User, Sparkles, MessageCircle } from 'lucide-react'
+import { Send, X, Minimize2, Maximize2, User, MessageCircle } from 'lucide-react'
 import Image from 'next/image'
 
 interface Message {
@@ -229,7 +229,7 @@ Now respond to the user naturally: ${userMessage}`
                 </button>
               </div>
               <p className="text-xs text-blue-100 mt-1">
-                How can we help you today? I'm here to answer your questions about SageDevs!
+                How can we help you today? I&apos;m here to answer your questions about SageDevs!
               </p>
               <button
                 onClick={handleNotificationClick}
