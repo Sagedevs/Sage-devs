@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
-import { Send, X, Minimize2, Maximize2, Bot, User, Sparkles, MessageCircle, DollarSign, Mail, ExternalLink } from 'lucide-react'
+import { Send, X, Minimize2, Maximize2, Bot, User, Sparkles, MessageCircle, DollarSign, Briefcase, Star, Mail, ExternalLink } from 'lucide-react'
 
 interface Message {
   id: string
@@ -16,7 +16,7 @@ const ChatWidget: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "👋 Hi! I'm Alex from SageDevs. I can help you with pricing, our projects, services, or anything else about our premium development agency. How can I assist you today?",
+      text: "Hi! I'm Alex from SageDevs. I can help you with pricing, our projects, services, or anything else about our premium development agency. How can I assist you today?",
       sender: 'bot',
       timestamp: new Date()
     }
@@ -35,12 +35,15 @@ const ChatWidget: React.FC = () => {
   useEffect(() => {
     if (isOpen && !isMinimized) {
       document.body.style.overflow = 'hidden'
+      document.body.style.paddingRight = '0px'
     } else {
       document.body.style.overflow = 'unset'
+      document.body.style.paddingRight = '0px'
     }
     
     return () => {
       document.body.style.overflow = 'unset'
+      document.body.style.paddingRight = '0px'
     }
   }, [isOpen, isMinimized])
 
@@ -111,49 +114,60 @@ const ChatWidget: React.FC = () => {
   const generateBotResponse = async (userMessage: string): Promise<string> => {
     const apiKey = 'AIzaSyAk33S_ycidIlEAFmSyBnpfj_9_5Nzgjeo'
     
+    // Cache to prevent duplicate responses
+    const cacheKey = userMessage.toLowerCase().trim()
+    const cachedResponses = [
+      "I understand you're interested in our services. At SageDevs, we offer custom development solutions tailored to your business needs. Could you share more details about what you're looking to build?",
+      "That's a great question. Our pricing varies based on project scope and requirements. We have different engagement models to suit various needs. Would you like me to explain our pricing approach?",
+      "Thanks for reaching out. We specialize in web and mobile application development. To give you accurate information, could you tell me more about your project goals?",
+      "I'd be happy to help with that. Our team at SageDevs has experience with various types of projects. For specific pricing, we typically need to understand your requirements better. What's your timeline looking like?",
+      "We offer comprehensive development services from planning to deployment. The investment depends on several factors including complexity and features. Are you looking for a web application, mobile app, or something else?"
+    ]
+
+    // Return cached response for simple queries to avoid API calls
+    if (cacheKey.length < 3 || 
+        ['hi', 'hello', 'hey', 'test', 'cgt', 'gt', 'ok', 'yes', 'no'].includes(cacheKey)) {
+      const randomResponse = cachedResponses[Math.floor(Math.random() * cachedResponses.length)]
+      return randomResponse
+    }
+
     const systemPrompt = `You are Alex, the AI assistant for SageDevs - a premium full-stack development agency. Be conversational, helpful, and professional.
 
 ABOUT SAGEDEVS:
-• Premium full-stack development agency
-• Specializes in: Custom web apps, mobile apps, AI/ML solutions, e-commerce, cloud solutions
-• Tech stack: React, Next.js, Node.js, Python, React Native, AWS, Azure
-• Approach: We partner with ambitious businesses to create scalable applications
-• Response time: Within 24 hours, free 30-minute strategy call available
-• Email: info@sagedevs.tech
+- Premium full-stack development agency
+- Specializes in: Custom web apps, mobile apps, AI/ML solutions, e-commerce, cloud solutions
+- Tech stack: React, Next.js, Node.js, Python, React Native, AWS, Azure
+- We partner with ambitious businesses to create scalable applications
+- Response time: Within 24 hours, free 30-minute strategy call available
+- Email: info@sagedevs.tech
+- Website: https://sagedevs.tech
+- Pricing page: https://sagedevs.tech/pricing
 
-PRICING GUIDELINES (be vague but helpful):
-• Fixed Price: For well-defined projects
-• Time & Material: Flexible for evolving projects  
-• Dedicated Team: For long-term partnerships
-• We provide detailed proposals after understanding requirements
-• Pricing depends on: scope, complexity, timeline, team size
-• Always encourage email contact for accurate quotes
-
-PROJECT EXAMPLES:
-• E-commerce platforms with payment integration
-• Healthcare management systems (HIPAA compliant)
-• AI-powered analytics dashboards
-• Mobile banking apps with biometric auth
-• Custom web applications
+PRICING MODELS:
+1. Fixed Price: For projects with clear requirements and scope
+2. Time & Material: Flexible engagement for evolving projects
+3. Dedicated Team: Full-time developers for long-term partnerships
 
 IMPORTANT RULES:
-1. NEVER give exact pricing numbers - be vague but helpful
-2. ALWAYS mention our email: info@sagedevs.tech for detailed quotes
-3. Encourage booking a strategy call
-4. Be enthusiastic about helping but professional
-5. Keep responses concise (2-4 sentences maximum)
-6. Ask follow-up questions to understand needs better
-7. Never say "I don't know" - redirect to email
-8. Use natural language, not robotic templates
-9. Add personality with occasional emojis 😊
-10. Focus on value we provide, not just costs
+1. DO NOT use any emojis at all
+2. DO NOT give exact pricing numbers - be helpful but vague
+3. ALWAYS mention our email: info@sagedevs.tech for detailed quotes
+4. Encourage booking a strategy call or visiting our pricing page
+5. Keep responses natural and conversational
+6. Ask relevant follow-up questions
+7. Never say "I don't know" or give generic responses
+8. Tailor responses to the specific query
+9. If asked about website development, mention our expertise in React and Next.js
+10. If asked about pricing, explain our models without giving exact numbers
+11. If asked about timeline, mention it depends on project complexity
+12. Always end with a question or suggestion for next steps
 
-RESPONSE STYLE:
-"Great question! Based on similar projects, [vague pricing context]. Would you like to share more about your project so I can give better guidance?"
-"That's one of our specialties! We've built several [project type]. The investment varies based on requirements. Want to schedule a quick chat?"
-"I'd love to help with that! For accurate pricing, email us at info@sagedevs.tech with your requirements. In the meantime, can you tell me more about [aspect]?"
+RESPONSE EXAMPLES:
+For pricing questions: "Our pricing depends on several factors including scope, complexity, and timeline. We offer fixed price, time & material, and dedicated team models. For a detailed quote, email us at info@sagedevs.tech with your requirements. What type of project are you considering?"
+For website development: "We specialize in custom website development using modern technologies like React and Next.js. The investment varies based on features and complexity. Could you share more about what you need?"
+For general inquiries: "I'd be happy to help. SageDevs offers full-stack development services for web and mobile applications. To give you more specific information, could you tell me about your project goals?"
 
-Now respond naturally to: "${userMessage}"`
+Now respond naturally to this query: "${userMessage}"`
 
     try {
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, {
@@ -168,8 +182,8 @@ Now respond naturally to: "${userMessage}"`
             }]
           }],
           generationConfig: {
-            maxOutputTokens: 200,
-            temperature: 0.8,
+            maxOutputTokens: 150,
+            temperature: 0.9,
             topP: 0.95,
             topK: 40,
           }
@@ -177,24 +191,38 @@ Now respond naturally to: "${userMessage}"`
       })
 
       if (!response.ok) {
-        throw new Error('API request failed')
+        const errorData = await response.text()
+        console.error('API response error:', response.status, errorData)
+        throw new Error(`API request failed with status ${response.status}`)
       }
 
       const data = await response.json()
       let responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || 
-        "I'd be happy to help! For accurate information tailored to your needs, please email us at info@sagedevs.tech. What specifically are you looking to build?"
+        "I'd be happy to help with that. For accurate information tailored to your needs, please email us at info@sagedevs.tech. What specifically are you looking to build?"
 
-      // Ensure email is mentioned in responses
-      if (!responseText.includes('info@sagedevs.tech') && 
-          !responseText.includes('info@') &&
-          !responseText.includes('sagedevs.tech')) {
-        responseText += "\n\nFor a detailed quote, email us at info@sagedevs.tech!"
+      // Remove any emojis from response
+      responseText = responseText.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '')
+
+      // Ensure email is mentioned in responses about pricing or contact
+      if ((userMessage.toLowerCase().includes('price') || 
+           userMessage.toLowerCase().includes('cost') || 
+           userMessage.toLowerCase().includes('contact') ||
+           userMessage.toLowerCase().includes('email')) && 
+          !responseText.includes('info@sagedevs.tech')) {
+        responseText += " For a detailed quote, please email us at info@sagedevs.tech."
       }
 
       return responseText
     } catch (error) {
       console.error('Gemini API error:', error)
-      return "Thanks for your question! For the most accurate information and pricing, please email our team at info@sagedevs.tech with your project details. What type of project are you considering?"
+      // Return different cached responses on error
+      const errorResponses = [
+        "I'd be happy to help with that. For specific pricing and project details, please email us at info@sagedevs.tech with your requirements. What type of project are you considering?",
+        "Thanks for your question. Our team at SageDevs can provide detailed information about our services. Could you share more about what you're looking to build?",
+        "That's a great question. Our services and pricing vary based on project requirements. To get accurate information, please contact us at info@sagedevs.tech. What's your project timeline?",
+        "I understand you're interested in our development services. We offer custom solutions tailored to business needs. For detailed pricing, email us at info@sagedevs.tech. What specifically are you looking to develop?"
+      ]
+      return errorResponses[Math.floor(Math.random() * errorResponses.length)]
     }
   }
 
@@ -225,6 +253,14 @@ Now respond naturally to: "${userMessage}"`
       setMessages(prev => [...prev, botMessage])
     } catch (error) {
       console.error('Error generating response:', error)
+      // Add a fallback message if everything fails
+      const fallbackMessage: Message = {
+        id: (Date.now() + 2).toString(),
+        text: "Thanks for your message. For detailed information about our services and pricing, please email us at info@sagedevs.tech. Could you tell me more about what you're looking to build?",
+        sender: 'bot',
+        timestamp: new Date()
+      }
+      setMessages(prev => [...prev, fallbackMessage])
     } finally {
       setIsTyping(false)
     }
@@ -243,11 +279,11 @@ Now respond naturally to: "${userMessage}"`
 
   // Quick questions for user
   const quickQuestions = [
-    "What's your pricing like?",
-    "Show me your work",
+    "What's your pricing model?",
     "Tell me about your services",
+    "Show me your portfolio",
     "How do I get started?",
-    "Contact information"
+    "Contact your team"
   ]
 
   // Notification Component
@@ -263,7 +299,7 @@ Now respond naturally to: "${userMessage}"`
             </div>
             <div className="flex-1">
               <div className="flex justify-between items-start">
-                <h4 className="font-bold text-sm">Need help with pricing? 💰</h4>
+                <h4 className="font-bold text-sm">Need help with pricing?</h4>
                 <button
                   onClick={handleCloseNotification}
                   className="text-blue-200 hover:text-white text-xs"
@@ -272,7 +308,7 @@ Now respond naturally to: "${userMessage}"`
                 </button>
               </div>
               <p className="text-xs text-blue-100 mt-1">
-                I can provide guidance on our services and pricing. Let&apos;s chat!
+                I can provide guidance on our services and pricing. Let's chat!
               </p>
               <button
                 onClick={handleNotificationClick}
@@ -584,14 +620,6 @@ Now respond naturally to: "${userMessage}"`
           ::-webkit-scrollbar {
             width: 4px;
           }
-        }
-        
-        /* Prevent background scroll when chat is open */
-        body.chat-open {
-          overflow: hidden !important;
-          position: fixed;
-          width: 100%;
-          height: 100%;
         }
       `}</style>
     </div>
