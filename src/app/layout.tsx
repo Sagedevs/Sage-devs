@@ -7,6 +7,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Image from "next/image";
 import SmoothScroll from "@/components/SmoothScroll";
+import ChatWidget from "@/components/ChatWidget";
 
 // Import critical components directly (NO lazy loading for above-the-fold)
 import GooeyNavWithHeader from "@/blocks/Components/GooeyNav/GooeyNav";
@@ -73,18 +74,18 @@ const items = [
   }
 ];
 
-const socialLinks = [
-  {
-    platform: "LinkedIn",
-    href: "https://www.linkedin.com/company/sagedevs/",
-    iconPath: "/icons/linkedin_icon.svg",
-  },
-  {
-    platform: "Gmail",
-    href: "mailto:info@sagedevs.tech",
-    iconPath: "/icons/gmail_icon.svg",
-  },
-];
+// const socialLinks = [
+//   {
+//     platform: "LinkedIn",
+//     href: "https://www.linkedin.com/company/sagedevs/",
+//     iconPath: "/icons/linkedin_icon.svg",
+//   },
+//   {
+//     platform: "Gmail",
+//     href: "mailto:info@sagedevs.tech",
+//     iconPath: "/icons/gmail_icon.svg",
+//   },
+// ];
 
 // Optimized font loading
 const geistSans = Geist({ 
@@ -282,7 +283,7 @@ export default function RootLayout({
           </main>
         </SmoothScroll>
 
-        {/* Social Icons */}
+        {/* Social Icons
         <aside className="fixed bottom-4 right-4 lg:bottom-8 lg:right-8 z-50" aria-label="Social Media Links">
           <div className="bg-black/70 border border-white/20 border-dashed rounded-full p-3 lg:p-4 backdrop-blur-sm">
             <nav className="flex flex-col items-center space-y-4 lg:space-y-5">
@@ -307,7 +308,9 @@ export default function RootLayout({
               ))}
             </nav>
           </div>
-        </aside>
+        </aside> */}
+
+        <ChatWidget />
 
         <Suspense fallback={null}>
           <Footer />
