@@ -1,8 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
-import { Send, X, Minimize2, Maximize2, User, MessageCircle } from 'lucide-react'
-import Image from 'next/image'
+import { Send, X, Minimize2, Maximize2, Bot, User, Sparkles, MessageCircle, DollarSign, Briefcase, Star, Mail, ExternalLink } from 'lucide-react'
 
 interface Message {
   id: string
@@ -17,7 +16,7 @@ const ChatWidget: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "👋 Hello there! I'm Alex, your SageDevs assistant. I'm here to help you discover how our tech solutions can transform your business. What would you like to explore today?",
+      text: "👋 Hi! I'm Alex from SageDevs. I can help you with pricing, our projects, services, or anything else about our premium development agency. How can I assist you today?",
       sender: 'bot',
       timestamp: new Date()
     }
@@ -28,8 +27,38 @@ const ChatWidget: React.FC = () => {
   const [hasSeenNotification, setHasSeenNotification] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const chatContainerRef = useRef<HTMLDivElement>(null)
   const notificationTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const autoCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Prevent background scroll when chat is open
+  useEffect(() => {
+    if (isOpen && !isMinimized) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isOpen, isMinimized])
+
+  // Handle wheel event on chat container
+  useEffect(() => {
+    const chatContainer = chatContainerRef.current
+    if (!chatContainer) return
+
+    const handleWheel = (e: WheelEvent) => {
+      e.stopPropagation()
+    }
+
+    chatContainer.addEventListener('wheel', handleWheel, { passive: false })
+    
+    return () => {
+      chatContainer.removeEventListener('wheel', handleWheel)
+    }
+  }, [])
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -45,12 +74,11 @@ const ChatWidget: React.FC = () => {
       notificationTimeoutRef.current = setTimeout(() => {
         setShowNotification(true)
         
-        // Auto-close notification after 8 seconds
         autoCloseTimeoutRef.current = setTimeout(() => {
           setShowNotification(false)
           setHasSeenNotification(true)
         }, 8000)
-      }, 4000 + Math.random() * 1000) // Random between 4-5 seconds
+      }, 4000 + Math.random() * 1000)
     }
 
     return () => {
@@ -63,7 +91,6 @@ const ChatWidget: React.FC = () => {
     }
   }, [isOpen, hasSeenNotification])
 
-  // Handle notification click
   const handleNotificationClick = () => {
     setIsOpen(true)
     setShowNotification(false)
@@ -73,7 +100,6 @@ const ChatWidget: React.FC = () => {
     }
   }
 
-  // Close notification
   const handleCloseNotification = () => {
     setShowNotification(false)
     setHasSeenNotification(true)
@@ -85,42 +111,49 @@ const ChatWidget: React.FC = () => {
   const generateBotResponse = async (userMessage: string): Promise<string> => {
     const apiKey = 'AIzaSyAk33S_ycidIlEAFmSyBnpfj_9_5Nzgjeo'
     
-    const systemPrompt = `You are Alex, the human-like assistant for SageDevs tech agency. You have a friendly, conversational tone but maintain professional expertise.
+    const systemPrompt = `You are Alex, the AI assistant for SageDevs - a premium full-stack development agency. Be conversational, helpful, and professional.
 
-PERSONALITY TRAITS:
-- Warm and approachable, but highly knowledgeable
-- Use natural language with occasional emojis for warmth 😊
-- Show genuine enthusiasm for helping clients
-- Ask thoughtful follow-up questions
-- Share brief, relevant success stories when appropriate
-- Be concise but not robotic
+ABOUT SAGEDEVS:
+• Premium full-stack development agency
+• Specializes in: Custom web apps, mobile apps, AI/ML solutions, e-commerce, cloud solutions
+• Tech stack: React, Next.js, Node.js, Python, React Native, AWS, Azure
+• Approach: We partner with ambitious businesses to create scalable applications
+• Response time: Within 24 hours, free 30-minute strategy call available
+• Email: info@sagedevs.tech
 
-SAGEDEVS CORE INFORMATION:
-🎯 Premium Tech Agency with 8+ years experience
-🌟 Specialties: Web Apps, Mobile Apps, AI/ML, Cloud Solutions, E-commerce
-💡 USP: We don't just code - we provide strategic tech partnerships
-🏆 97% client retention rate
-🚀 Average project delivery: 30% faster than industry standard
-💰 Transparent pricing with value-based ROI
-🌐 Full-cycle development from ideation to deployment
-🔧 Tech Stack: React, Next.js, Node.js, Python, React Native, AWS, Azure
+PRICING GUIDELINES (be vague but helpful):
+• Fixed Price: For well-defined projects
+• Time & Material: Flexible for evolving projects  
+• Dedicated Team: For long-term partnerships
+• We provide detailed proposals after understanding requirements
+• Pricing depends on: scope, complexity, timeline, team size
+• Always encourage email contact for accurate quotes
 
-RESPONSE GUIDELINES:
-1. Always acknowledge the user's question first
-2. Provide clear, specific information
-3. Include one relevant benefit or result
-4. End with an open-ended question to continue conversation
-5. Use occasional line breaks for readability
-6. Add personality without being unprofessional
+PROJECT EXAMPLES:
+• E-commerce platforms with payment integration
+• Healthcare management systems (HIPAA compliant)
+• AI-powered analytics dashboards
+• Mobile banking apps with biometric auth
+• Custom web applications
 
-NEVER: Sound like a generic chatbot, use jargon without explanation, or make unrealistic promises.
+IMPORTANT RULES:
+1. NEVER give exact pricing numbers - be vague but helpful
+2. ALWAYS mention our email: info@sagedevs.tech for detailed quotes
+3. Encourage booking a strategy call
+4. Be enthusiastic about helping but professional
+5. Keep responses concise (2-4 sentences maximum)
+6. Ask follow-up questions to understand needs better
+7. Never say "I don't know" - redirect to email
+8. Use natural language, not robotic templates
+9. Add personality with occasional emojis 😊
+10. Focus on value we provide, not just costs
 
-Example responses:
-"Great question! At SageDevs, we approach web development by..."
-"That's actually one of our specialties! We recently helped a client..."
-"I'd love to share more about that! Our typical process involves..."
+RESPONSE STYLE:
+"Great question! Based on similar projects, [vague pricing context]. Would you like to share more about your project so I can give better guidance?"
+"That's one of our specialties! We've built several [project type]. The investment varies based on requirements. Want to schedule a quick chat?"
+"I'd love to help with that! For accurate pricing, email us at info@sagedevs.tech with your requirements. In the meantime, can you tell me more about [aspect]?"
 
-Now respond to the user naturally: ${userMessage}`
+Now respond naturally to: "${userMessage}"`
 
     try {
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, {
@@ -135,9 +168,9 @@ Now respond to the user naturally: ${userMessage}`
             }]
           }],
           generationConfig: {
-            maxOutputTokens: 250,
-            temperature: 0.85,
-            topP: 0.9,
+            maxOutputTokens: 200,
+            temperature: 0.8,
+            topP: 0.95,
             topK: 40,
           }
         })
@@ -148,10 +181,20 @@ Now respond to the user naturally: ${userMessage}`
       }
 
       const data = await response.json()
-      return data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm excited to tell you more about how SageDevs can help your business! What specific area interests you most?"
+      let responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || 
+        "I'd be happy to help! For accurate information tailored to your needs, please email us at info@sagedevs.tech. What specifically are you looking to build?"
+
+      // Ensure email is mentioned in responses
+      if (!responseText.includes('info@sagedevs.tech') && 
+          !responseText.includes('info@') &&
+          !responseText.includes('sagedevs.tech')) {
+        responseText += "\n\nFor a detailed quote, email us at info@sagedevs.tech!"
+      }
+
+      return responseText
     } catch (error) {
       console.error('Gemini API error:', error)
-      return "Thanks for your question! I'd love to tell you about how SageDevs delivers exceptional results through our tailored tech solutions. Could you tell me more about what you're looking for?"
+      return "Thanks for your question! For the most accurate information and pricing, please email our team at info@sagedevs.tech with your project details. What type of project are you considering?"
     }
   }
 
@@ -200,11 +243,11 @@ Now respond to the user naturally: ${userMessage}`
 
   // Quick questions for user
   const quickQuestions = [
-    "What services do you offer?",
-    "Can you show me examples?",
-    "How do you ensure quality?",
-    "What's your pricing?",
-    "How long does a project take?"
+    "What's your pricing like?",
+    "Show me your work",
+    "Tell me about your services",
+    "How do I get started?",
+    "Contact information"
   ]
 
   // Notification Component
@@ -212,7 +255,7 @@ Now respond to the user naturally: ${userMessage}`
     if (!showNotification || isOpen) return null
 
     return (
-      <div className="fixed bottom-36 right-4 lg:bottom-40 lg:right-8 w-64 animate-slideInLeft z-40">
+      <div className="fixed bottom-36 right-4 lg:bottom-40 lg:right-8 w-72 animate-slideInLeft z-[9998]">
         <div className="bg-gradient-to-r from-blue-900 to-blue-800 text-white rounded-2xl p-4 shadow-2xl border border-blue-700/50 backdrop-blur-sm">
           <div className="flex items-start gap-3">
             <div className="bg-blue-600 p-2 rounded-full">
@@ -220,7 +263,7 @@ Now respond to the user naturally: ${userMessage}`
             </div>
             <div className="flex-1">
               <div className="flex justify-between items-start">
-                <h4 className="font-bold text-sm">Hey there! 👋</h4>
+                <h4 className="font-bold text-sm">Need help with pricing? 💰</h4>
                 <button
                   onClick={handleCloseNotification}
                   className="text-blue-200 hover:text-white text-xs"
@@ -229,13 +272,13 @@ Now respond to the user naturally: ${userMessage}`
                 </button>
               </div>
               <p className="text-xs text-blue-100 mt-1">
-                How can we help you today? I&apos;m here to answer your questions about SageDevs!
+                I can provide guidance on our services and pricing. Let's chat!
               </p>
               <button
                 onClick={handleNotificationClick}
                 className="mt-2 bg-white text-blue-700 hover:bg-blue-50 text-xs font-semibold py-1.5 px-3 rounded-full transition-all w-full"
               >
-                Chat with me
+                Start Conversation
               </button>
             </div>
           </div>
@@ -252,7 +295,7 @@ Now respond to the user naturally: ${userMessage}`
         <NotificationBubble />
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-4 sm:right-6 md:right-8 bg-gradient-to-br from-blue-800 to-blue-900 hover:from-blue-700 hover:to-blue-800 text-white rounded-full p-4 shadow-2xl transition-all duration-300 hover:scale-110 z-50 flex items-center justify-center group animate-float"
+          className="fixed bottom-6 right-4 sm:right-6 md:right-8 bg-gradient-to-br from-blue-800 to-blue-900 hover:from-blue-700 hover:to-blue-800 text-white rounded-full p-4 shadow-2xl transition-all duration-300 hover:scale-110 z-[9999] flex items-center justify-center group animate-float"
           style={{
             animation: 'float 3s ease-in-out infinite',
             boxShadow: '0 10px 40px rgba(30, 64, 175, 0.5)'
@@ -261,15 +304,7 @@ Now respond to the user naturally: ${userMessage}`
           <div className="relative">
             <div className="absolute -inset-2 bg-blue-400/20 rounded-full blur-lg group-hover:bg-blue-400/30 transition-all"></div>
             <div className="relative bg-gradient-to-br from-blue-500 to-blue-700 p-3 rounded-full">
-              <div className="w-6 h-6 relative">
-                <Image
-                  src="/Sage-ai.svg"
-                  alt="SageDevs AI Assistant"
-                  width={24}
-                  height={24}
-                  className="w-6 h-6 object-contain"
-                />
-              </div>
+              <Sparkles className="w-6 h-6" />
             </div>
           </div>
           <div className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 rounded-full animate-pulse border-2 border-white"></div>
@@ -279,14 +314,17 @@ Now respond to the user naturally: ${userMessage}`
   }
 
   return (
-    <div className={`fixed bottom-6 right-4 sm:right-6 md:right-8 bg-gradient-to-b from-gray-900 via-blue-950 to-gray-900 rounded-2xl shadow-2xl z-50 transition-all duration-300 overflow-hidden border border-blue-800/30 ${
-      isMinimized 
-        ? 'w-64 h-14 sm:w-72 md:w-80' 
-        : 'w-full max-w-xs sm:max-w-sm md:max-w-md h-[500px] sm:h-[550px] md:h-[600px]'
-    }`}
+    <div 
+      ref={chatContainerRef}
+      className={`fixed bottom-6 right-4 sm:right-6 md:right-8 bg-gradient-to-b from-gray-900 via-blue-950 to-gray-900 rounded-2xl shadow-2xl z-[9999] transition-all duration-300 overflow-hidden border border-blue-800/30 ${
+        isMinimized 
+          ? 'w-64 h-14 sm:w-72 md:w-80' 
+          : 'w-full max-w-xs sm:max-w-sm md:max-w-md h-[550px] sm:h-[600px] md:h-[650px]'
+      }`}
       style={{
         boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4)'
       }}
+      onWheel={(e) => e.stopPropagation()}
     >
       {/* Header with gradient */}
       <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white p-4 rounded-t-2xl flex items-center justify-between border-b border-blue-700/50">
@@ -294,22 +332,14 @@ Now respond to the user naturally: ${userMessage}`
           <div className="relative">
             <div className="absolute inset-0 bg-blue-400/20 blur-md rounded-full"></div>
             <div className="relative bg-gradient-to-br from-blue-500 to-blue-700 p-2 rounded-full">
-              <div className="w-5 h-5 relative">
-                <Image
-                  src="/Sage-ai.svg"
-                  alt="SageDevs AI Assistant"
-                  width={20}
-                  height={20}
-                  className="w-5 h-5 object-contain"
-                />
-              </div>
+              <Bot className="w-5 h-5" />
             </div>
           </div>
           <div className="min-w-0">
             <h3 className="font-bold text-sm sm:text-lg truncate">Alex @ SageDevs</h3>
             <p className="text-blue-200 text-xs flex items-center gap-1">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse flex-shrink-0"></span>
-              <span className="truncate">Online • Ready to help</span>
+              <span className="truncate">Online • AI Assistant</span>
             </p>
           </div>
         </div>
@@ -334,7 +364,10 @@ Now respond to the user naturally: ${userMessage}`
       {!isMinimized && (
         <>
           {/* Messages Container */}
-          <div className="h-[300px] sm:h-[350px] md:h-[400px] overflow-y-auto p-3 sm:p-4 bg-gradient-to-b from-gray-900/95 to-blue-950/95">
+          <div 
+            className="h-[350px] sm:h-[400px] md:h-[450px] overflow-y-auto p-3 sm:p-4 bg-gradient-to-b from-gray-900/95 to-blue-950/95"
+            style={{ overscrollBehavior: 'contain' }}
+          >
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -344,15 +377,7 @@ Now respond to the user naturally: ${userMessage}`
                   {message.sender === 'bot' && (
                     <div className="flex-shrink-0">
                       <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-lg">
-                        <div className="w-3 h-3 sm:w-4 sm:h-4 relative">
-                          <Image
-                            src="/Sage-ai.svg"
-                            alt="Bot"
-                            width={16}
-                            height={16}
-                            className="w-3 h-3 sm:w-4 sm:h-4 object-contain"
-                          />
-                        </div>
+                        <Bot className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                       </div>
                     </div>
                   )}
@@ -389,15 +414,7 @@ Now respond to the user naturally: ${userMessage}`
               <div className="flex items-start gap-2 sm:gap-3 animate-fadeIn">
                 <div className="flex-shrink-0">
                   <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-lg">
-                    <div className="w-3 h-3 sm:w-4 sm:h-4 relative">
-                      <Image
-                        src="/Sage-ai.svg"
-                        alt="Typing"
-                        width={16}
-                        height={16}
-                        className="w-3 h-3 sm:w-4 sm:h-4 object-contain"
-                      />
-                    </div>
+                    <Bot className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                   </div>
                 </div>
                 <div className="bg-gray-800/70 text-gray-100 border border-blue-900/30 rounded-2xl rounded-bl-none px-3 py-2 sm:px-4 sm:py-3 shadow-lg backdrop-blur-sm">
@@ -428,6 +445,27 @@ Now respond to the user naturally: ${userMessage}`
                     </button>
                   ))}
                 </div>
+                
+                {/* Quick Links */}
+                <div className="mt-4 grid grid-cols-2 gap-2">
+                  <a
+                    href="https://sagedevs.tech/pricing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs bg-blue-900/30 hover:bg-blue-800/40 border border-blue-700/50 text-blue-200 px-3 py-2 rounded-lg transition-all hover:scale-[1.02] flex items-center justify-center gap-1"
+                  >
+                    <DollarSign className="w-3 h-3" />
+                    Pricing Page
+                    <ExternalLink className="w-3 h-3 ml-1" />
+                  </a>
+                  <a
+                    href="mailto:info@sagedevs.tech"
+                    className="text-xs bg-green-900/20 hover:bg-green-800/30 border border-green-700/50 text-green-200 px-3 py-2 rounded-lg transition-all hover:scale-[1.02] flex items-center justify-center gap-1"
+                  >
+                    <Mail className="w-3 h-3" />
+                    Email Us
+                  </a>
+                </div>
               </div>
             )}
             
@@ -443,7 +481,7 @@ Now respond to the user naturally: ${userMessage}`
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Type your message here..."
+                placeholder="Ask about pricing, projects, or services..."
                 className="w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-gray-800/70 border border-blue-900/50 rounded-xl text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent pr-12 backdrop-blur-sm text-sm sm:text-base"
               />
               <button
@@ -455,8 +493,9 @@ Now respond to the user naturally: ${userMessage}`
                 <Send className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </div>
-            <p className="text-xs text-gray-400 mt-2 text-center">
-              Ask me anything about SageDevs services
+            <p className="text-xs text-gray-400 mt-2 text-center flex items-center justify-center gap-1">
+              <Mail className="w-3 h-3" />
+              For specific quotes: <a href="mailto:info@sagedevs.tech" className="text-blue-400 hover:text-blue-300 ml-1">info@sagedevs.tech</a>
             </p>
           </div>
         </>
@@ -496,15 +535,6 @@ Now respond to the user naturally: ${userMessage}`
           to { opacity: 1; }
         }
         
-        @keyframes pulse-glow {
-          0%, 100% { 
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-          }
-          50% { 
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
-          }
-        }
-        
         .animate-float {
           animation: float 3s ease-in-out infinite;
         }
@@ -524,10 +554,6 @@ Now respond to the user naturally: ${userMessage}`
         
         .animate-fadeIn {
           animation: fadeIn 0.3s ease-out;
-        }
-        
-        .animate-pulse-glow {
-          animation: pulse-glow 2s ease-in-out infinite;
         }
         
         /* Custom scrollbar */
@@ -558,6 +584,14 @@ Now respond to the user naturally: ${userMessage}`
           ::-webkit-scrollbar {
             width: 4px;
           }
+        }
+        
+        /* Prevent background scroll when chat is open */
+        body.chat-open {
+          overflow: hidden !important;
+          position: fixed;
+          width: 100%;
+          height: 100%;
         }
       `}</style>
     </div>
