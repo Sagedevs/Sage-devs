@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
-import { Send, X, Minimize2, Maximize2, Bot, User, Sparkles, MessageCircle, DollarSign, Briefcase, Mail, ExternalLink, Calendar, Phone, ClipboardCheck, Award, CheckCircle, ArrowRight, FileText } from 'lucide-react'
+import { Send, X, Minimize2, Maximize2, User, Sparkles, MessageCircle, DollarSign, Briefcase, Mail, ExternalLink, Calendar, Phone, ClipboardCheck, Award, CheckCircle, ArrowRight, FileText } from 'lucide-react'
 
 interface Message {
   id: string
@@ -28,7 +28,7 @@ const ChatWidget: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "Hi, I'm Alex from SageDevs. I'm here to help you understand how our premium development services can transform your business. Are you looking to build a new application, improve an existing one, or explore strategic tech solutions?",
+      text: "Hi, I'm Sage AI Assistant from SageDevs. I'm here to help you understand how our premium development services can transform your business. Are you looking to build a new application, improve an existing one, or explore strategic tech solutions?",
       sender: 'bot',
       timestamp: new Date()
     }
@@ -287,7 +287,12 @@ Ready to submit and get your custom quote?`
   }
 
   const generateBotResponse = async (userMessage: string): Promise<string> => {
-    const apiKey = 'AIzaSyAk33S_ycidIlEAFmSyBnpfj_9_5Nzgjeo'
+    const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY
+    
+    if (!apiKey) {
+      console.error('Gemini API key is not configured')
+      return "Thanks for your interest. To get accurate pricing and project details, please share your contact information or email us directly at info@sagedevs.tech. Would you like me to help you schedule a strategy call?"
+    }
     
     // Only use cache for very simple greetings
     const simpleGreetings = ['hi', 'hello', 'hey', 'hii', 'hello there', 'hey there']
@@ -296,14 +301,14 @@ Ready to submit and get your custom quote?`
     // Return cached response only for very simple greetings
     if (simpleGreetings.includes(userMessageLower)) {
       const cachedResponses = [
-        "Hello! I'm Alex from SageDevs. How can I help you with your project today?",
+        "Hello! I'm Sage AI Assistant from SageDevs. How can I help you with your project today?",
         "Hi there! I'm here to help you with SageDevs development services. What are you looking to build?",
-        "Welcome! I'm Alex, your SageDevs consultant. Tell me about your project needs."
+        "Welcome! I'm Sage, your SageDevs AI consultant. Tell me about your project needs."
       ]
       return cachedResponses[Math.floor(Math.random() * cachedResponses.length)]
     }
 
-    const systemPrompt = `You are Alex, the sales-focused AI assistant for SageDevs - a premium full-stack development agency. Your primary goals are:
+    const systemPrompt = `You are Sage, the sales-focused AI assistant for SageDevs - a premium full-stack development agency. Your primary goals are:
 1. Qualify leads and collect contact information
 2. Understand project requirements
 3. Guide towards booking a strategy call
@@ -571,7 +576,11 @@ Now respond to: "${userMessage}"`
           <div className="relative">
             <div className="absolute -inset-2 bg-blue-400/20 rounded-full blur-lg group-hover:bg-blue-400/30 transition-all"></div>
             <div className="relative bg-gradient-to-br from-blue-500 to-blue-700 p-3 rounded-full">
-              <Sparkles className="w-6 h-6" />
+              <img 
+                src="/Sage-ai.svg" 
+                alt="Sage AI Assistant" 
+                className="w-6 h-6 filter brightness-0 invert"
+              />
             </div>
           </div>
           <div className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 rounded-full animate-pulse border-2 border-white"></div>
@@ -600,14 +609,18 @@ Now respond to: "${userMessage}"`
           <div className="relative">
             <div className="absolute inset-0 bg-blue-400/20 blur-md rounded-full"></div>
             <div className="relative bg-gradient-to-br from-blue-500 to-blue-700 p-2 rounded-full">
-              <Bot className="w-5 h-5" />
+              <img 
+                src="/Sage-ai.svg" 
+                alt="Sage AI Assistant" 
+                className="w-4 h-4 filter brightness-0 invert"
+              />
             </div>
           </div>
           <div className="min-w-0">
-            <h3 className="font-bold text-sm sm:text-base truncate">Alex @ SageDevs</h3>
+            <h3 className="font-bold text-sm sm:text-base truncate">Sage AI Assistant</h3>
             <p className="text-blue-200 text-xs flex items-center gap-1 truncate">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse flex-shrink-0"></span>
-              <span className="truncate">Sales Consultant • Online</span>
+              <span className="truncate">SageDevs Consultant • Online</span>
             </p>
           </div>
         </div>
@@ -645,7 +658,11 @@ Now respond to: "${userMessage}"`
                   {message.sender === 'bot' && (
                     <div className="flex-shrink-0">
                       <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-lg">
-                        <Bot className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                        <img 
+                          src="/Sage-ai.svg" 
+                          alt="Sage AI Assistant" 
+                          className="w-3 h-3 sm:w-4 sm:h-4 filter brightness-0 invert"
+                        />
                       </div>
                     </div>
                   )}
@@ -761,7 +778,11 @@ Now respond to: "${userMessage}"`
               <div className="flex items-start gap-2 sm:gap-3 animate-fadeIn">
                 <div className="flex-shrink-0">
                   <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-lg">
-                    <Bot className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                    <img 
+                      src="/Sage-ai.svg" 
+                      alt="Sage AI Assistant" 
+                      className="w-3 h-3 sm:w-4 sm:h-4 filter brightness-0 invert animate-pulse"
+                    />
                   </div>
                 </div>
                 <div className="bg-gray-800/70 text-gray-100 border border-blue-900/30 rounded-2xl rounded-bl-none px-3 py-2 sm:px-4 sm:py-3 shadow-lg backdrop-blur-sm">
