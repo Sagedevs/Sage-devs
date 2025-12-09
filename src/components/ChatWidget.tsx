@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
-import { Send, X, Minimize2, Maximize2, User, MessageCircle, DollarSign, Briefcase, Mail, Calendar, ClipboardCheck, Award, CheckCircle, ArrowRight, FileText } from 'lucide-react'
+import { Send, X, Minimize2, Maximize2, User, MessageCircle, DollarSign, Briefcase, Mail, Calendar, ClipboardCheck, CheckCircle, ArrowRight, FileText } from 'lucide-react'
 
 interface Message {
   id: string
