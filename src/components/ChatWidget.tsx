@@ -14,12 +14,6 @@ interface Message {
 interface LeadData {
   name: string
   email: string
-  phone?: string
-  company?: string
-  projectType?: string
-  budget?: string
-  timeline?: string
-  requirements?: string
 }
 
 const ChatWidget: React.FC = () => {
@@ -40,15 +34,8 @@ const ChatWidget: React.FC = () => {
   const [isCollectingLead, setIsCollectingLead] = useState(false)
   const [leadData, setLeadData] = useState<LeadData>({
     name: '',
-    email: '',
-    phone: '',
-    company: '',
-    projectType: '',
-    budget: '',
-    timeline: '',
-    requirements: ''
+    email: ''
   })
-  const [currentLeadStep, setCurrentLeadStep] = useState(0)
   const [showLeadForm, setShowLeadForm] = useState(false)
 
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -144,15 +131,9 @@ const ChatWidget: React.FC = () => {
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          _subject: `New Lead from SageDevs Chatbot: ${data.name} - ${data.projectType || 'General Inquiry'}`,
+          _subject: `New Lead from SageDevs Chatbot: ${data.name}`,
           name: data.name,
           email: data.email,
-          phone: data.phone || 'Not provided',
-          company: data.company || 'Not provided',
-          project_type: data.projectType || 'Not specified',
-          budget: data.budget || 'Not specified',
-          timeline: data.timeline || 'Not specified',
-          requirements: data.requirements || 'Not provided',
           source: 'SageDevs Website Chatbot',
           timestamp: new Date().toISOString(),
           page_url: window.location.href
@@ -160,7 +141,7 @@ const ChatWidget: React.FC = () => {
       })
 
       if (response.ok) {
-        return { success: true, message: 'Thank you! Your information has been submitted. Our team will contact you within 24 hours.' }
+        return { success: true, message: 'Thank you! Your information has been submitted. Our team will contact you within 24 hours with your custom quote.' }
       } else {
         throw new Error('Form submission failed')
       }
@@ -176,7 +157,7 @@ const ChatWidget: React.FC = () => {
   // Handle lead form submission
   const handleLeadSubmit = async () => {
     if (!leadData.name || !leadData.email) {
-      addBotMessage('Please provide at least your name and email to continue.')
+      addBotMessage('Please provide both your name and email to get your custom quote.')
       return
     }
 
@@ -190,7 +171,7 @@ const ChatWidget: React.FC = () => {
       // Add confirmation message with next steps
       const confirmationMessage: Message = {
         id: Date.now().toString(),
-        text: `**Lead Submitted Successfully!**\n\n**Details:**\n• Name: ${leadData.name}\n• Email: ${leadData.email}${leadData.phone ? `\n• Phone: ${leadData.phone}` : ''}\n• Project: ${leadData.projectType || 'Not specified'}\n• Budget: ${leadData.budget || 'Not specified'}\n\n**Next Steps:**\n1. We'll email you within 24 hours\n2. Schedule your free strategy call\n3. Receive custom proposal\n4. Start your project!`,
+        text: `**Custom Quote Request Submitted!**\n\n**Details:**\n• Name: ${leadData.name}\n• Email: ${leadData.email}\n\n**Next Steps:**\n1. Our team will analyze your requirements\n2. You'll receive a detailed custom quote within 24 hours\n3. We'll include project timeline and pricing options\n4. Optional: Schedule a free consultation call`,
         sender: 'bot',
         timestamp: new Date(),
         type: 'confirmation'
@@ -220,10 +201,8 @@ const ChatWidget: React.FC = () => {
   const startLeadCollection = () => {
     setIsCollectingLead(true)
     setShowLeadForm(true)
-    setCurrentLeadStep(0)
     
-    addBotMessage("Great! Let's get you a custom quote. I'll need a few details to understand your project better.")
-    addBotMessage("First, what's your name?")
+    addBotMessage("Great! I'll help you get a custom quote. Please provide your name and email, and our team will prepare a detailed proposal for you.")
   }
 
   // Handle lead form input changes
@@ -231,65 +210,12 @@ const ChatWidget: React.FC = () => {
     setLeadData(prev => ({ ...prev, [field]: value }))
   }
 
-  // Handle next step in lead collection
-  const handleNextLeadStep = () => {
-    if (currentLeadStep === 0 && !leadData.name.trim()) {
-      addBotMessage("Please provide your name to continue.")
-      return
-    }
-    
-    if (currentLeadStep === 1 && !leadData.email.trim()) {
-      addBotMessage("Please provide your email to continue.")
-      return
-    }
-
-    const steps = [
-      { field: 'name', question: "What's your email address?" },
-      { field: 'email', question: "What's your phone number? (optional)" },
-      { field: 'phone', question: "Company name? (optional)" },
-      { field: 'company', question: "What type of project are you considering?" },
-      { field: 'projectType', question: "What's your estimated budget range?" },
-      { field: 'budget', question: "What's your timeline for this project?" },
-      { field: 'timeline', question: "Any specific requirements or features you'd like to mention?" }
-    ]
-
-    if (currentLeadStep < steps.length - 1) {
-      setCurrentLeadStep(prev => prev + 1)
-      addBotMessage(steps[currentLeadStep + 1].question)
-    } else {
-      // All steps completed, show summary
-      addBotMessage("Thanks for providing all the details! Here's a summary:")
-      
-      const summary = `
-• Name: ${leadData.name}
-• Email: ${leadData.email}
-${leadData.phone ? `• Phone: ${leadData.phone}` : ''}
-${leadData.company ? `• Company: ${leadData.company}` : ''}
-• Project Type: ${leadData.projectType || 'Not specified'}
-• Budget: ${leadData.budget || 'Not specified'}
-• Timeline: ${leadData.timeline || 'Not specified'}
-${leadData.requirements ? `• Requirements: ${leadData.requirements}` : ''}
-
-Ready to submit and get your custom quote?`
-      
-      const summaryMessage: Message = {
-        id: Date.now().toString(),
-        text: summary,
-        sender: 'bot',
-        timestamp: new Date(),
-        type: 'lead_form'
-      }
-      
-      setMessages(prev => [...prev, summaryMessage])
-    }
-  }
-
   const generateBotResponse = async (userMessage: string): Promise<string> => {
-    const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY
+    const apiKey = process.env.NEXT_PUBLIC_OPENROUTER_API_KEY
     
     if (!apiKey) {
-      console.error('Gemini API key is not configured')
-      return "Thanks for your interest. To get accurate pricing and project details, please share your contact information or email us directly at info@sagedevs.tech. Would you like me to help you schedule a strategy call?"
+      console.error('OpenRouter API key is not configured')
+      return "Thanks for your interest! Our AI assistant can help answer your questions. To get a custom quote, please share your name and email at info@sagedevs.tech and we'll prepare a detailed proposal for you."
     }
     
     // Only use cache for very simple greetings
@@ -299,87 +225,76 @@ Ready to submit and get your custom quote?`
     // Return cached response only for very simple greetings
     if (simpleGreetings.includes(userMessageLower)) {
       const cachedResponses = [
-        "Hello! I'm Sage AI Assistant from SageDevs. How can I help you with your project today?",
-        "Hi there! I'm here to help you with SageDevs development services. What are you looking to build?",
-        "Welcome! I'm Sage, your SageDevs AI consultant. Tell me about your project needs."
+        "Hello! I'm Sage AI Assistant from SageDevs. I can help you with project planning, technical guidance, and getting custom quotes. What would you like to discuss today?",
+        "Hi there! I'm here to help you with SageDevs development services. I can assist with project scoping, technology selection, and connecting you with our team for custom quotes.",
+        "Welcome! I'm Sage, your AI consultant from SageDevs. I can provide technical insights, project estimates, and help you get started with our development services."
       ]
       return cachedResponses[Math.floor(Math.random() * cachedResponses.length)]
     }
 
-    const systemPrompt = `You are Sage, the sales-focused AI assistant for SageDevs - a premium full-stack development agency. Your primary goals are:
-1. Qualify leads and collect contact information
-2. Understand project requirements
-3. Guide towards booking a strategy call
-4. Close sales by demonstrating value
+    const systemPrompt = `You are Sage, the AI assistant for SageDevs - a premium full-stack development agency. Your primary goals are:
+1. Provide helpful technical guidance and insights
+2. Understand project requirements to offer accurate information
+3. Guide users toward getting custom quotes
+4. Demonstrate the value of working with SageDevs
 
 ABOUT SAGEDEVS:
 • Premium full-stack development agency with 8+ years experience
 • Specializes in: Custom web apps, mobile apps, AI/ML solutions, e-commerce, cloud solutions
 • Tech stack: React, Next.js, Node.js, Python, React Native, AWS, Azure
 • 97% client retention rate, 30% faster delivery than industry average
-• Free 30-minute strategy call available
+• Free initial consultation available
 • Email: info@sagedevs.tech
 • Website: https://sagedevs.tech
-• Pricing: https://sagedevs.tech/pricing
+• Portfolio: https://sagedevs.tech/projects
+• Pricing: Custom quotes based on project requirements
 
-SALES PROCESS:
-1. Qualify interest level and project scope
-2. Collect contact information (name, email, phone)
-3. Understand budget and timeline
-4. Schedule strategy call
-5. Provide custom proposal
-
-PRICING APPROACH:
-• Fixed Price: $5,000 - $50,000+ (well-defined projects)
-• Time & Material: $50 - $150/hour (evolving projects)
-• Dedicated Team: $4,000 - $12,000/month (long-term)
-• Always mention these are estimates, custom quotes available
-
-KEY SALES TACTICS:
-• Ask qualifying questions
-• Emphasize ROI and business value
-• Share success stories and testimonials
-• Create urgency (limited availability)
-• Offer free strategy call
-• Always aim to collect contact info
+APPROACH:
+• Always provide helpful, accurate technical information
+• When discussing projects, mention that custom quotes are available
+• Guide users to share contact info for detailed proposals
+• Use AI to analyze requirements and suggest solutions
 
 RESPONSE RULES:
-1. NO EMOJIS - professional tone only
-2. Always ask for contact information when discussing projects
-3. Guide towards booking strategy call
+1. Always be helpful and informative
+2. Provide AI-powered insights when relevant
+3. Mention custom quote availability for project discussions
 4. Be specific about next steps
-5. Create clear CTAs
-6. Mention free consultation
-7. Use persuasive language
-8. Handle objections professionally
-9. Focus on solutions, not just features
-10. Always include email: info@sagedevs.tech
+5. Focus on solutions and value
+6. Use professional but friendly tone
+7. Include email: info@sagedevs.tech in relevant responses
 
 EXAMPLE RESPONSES:
-"I understand you're looking to build a website. Based on similar projects, investments typically range from $8,000 to $25,000 depending on features. Could you share your email so I can send you a detailed breakdown?"
-"That's an interesting project. We've helped several clients with similar solutions. To give you an accurate quote, may I have your name and email? I'll also schedule a free strategy call to discuss details."
-"Great question about pricing. Our projects start at $5,000 for basic websites and can go up to $50,000+ for complex applications. Would you like me to prepare a custom quote? I'll need your contact information."
+"Based on your description, I'd recommend a React/Node.js stack for that type of application. Our team can provide a custom quote - would you like to share your email so we can send detailed pricing?"
+"That's an interesting use case for AI. We've implemented similar solutions before. I can help you think through the technical requirements, and our team can provide a custom quote for development."
+"For a project like that, typical timelines are 3-6 months depending on complexity. Our AI analysis suggests some optimization opportunities. Would you like me to help you get a custom quote?"
 
-Now respond to: "${userMessage}"`
+Now respond to this user message with helpful, AI-powered insights: "${userMessage}"`
 
     try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, {
+      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+          'HTTP-Referer': 'https://sagedevs.tech',
+          'X-Title': 'SageDevs AI Assistant'
         },
         body: JSON.stringify({
-          contents: [{
-            parts: [{
-              text: systemPrompt
-            }]
-          }],
-          generationConfig: {
-            maxOutputTokens: 200,
-            temperature: 0.8,
-            topP: 0.95,
-            topK: 40,
-          }
+          model: 'openai/gpt-3.5-turbo',
+          messages: [
+            {
+              role: 'system',
+              content: systemPrompt
+            },
+            {
+              role: 'user',
+              content: userMessage
+            }
+          ],
+          max_tokens: 300,
+          temperature: 0.7,
+          top_p: 0.9
         })
       })
 
@@ -389,25 +304,25 @@ Now respond to: "${userMessage}"`
 
       const data = await response.json()
       
-      if (!data.candidates?.[0]?.content?.parts?.[0]?.text) {
+      if (!data.choices?.[0]?.message?.content) {
         throw new Error('Invalid API response structure')
       }
       
-      let responseText = data.candidates[0].content.parts[0].text || 
-        "I'd be happy to help with that. To provide you with accurate information and a custom quote, could you share your email address? Our team will contact you within 24 hours with detailed information."
+      let responseText = data.choices[0].message.content || 
+        "I'd be happy to help with that using my AI analysis. For a detailed custom quote based on your specific requirements, our team can prepare one for you. Would you like to share your email address?"
 
       // Remove any emojis
       responseText = responseText.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '')
       
       // Ensure professional closing
-      if (!responseText.includes('info@sagedevs.tech')) {
-        responseText += "\n\nFor immediate assistance, email us at info@sagedevs.tech"
+      if (!responseText.includes('info@sagedevs.tech') && !responseText.includes('custom quote')) {
+        responseText += "\n\nFor a detailed custom quote or technical consultation, email us at info@sagedevs.tech"
       }
 
       return responseText
     } catch (error) {
-      console.error('Gemini API error:', error)
-      return "Thanks for your interest. To get accurate pricing and project details, please share your contact information or email us directly at info@sagedevs.tech. Would you like me to help you schedule a strategy call?"
+      console.error('OpenRouter API error:', error)
+      return "Thanks for your message! Our AI assistant can help analyze your requirements. For a custom quote or to discuss your project with our team, please email info@sagedevs.tech"
     }
   }
 
@@ -423,17 +338,6 @@ Now respond to: "${userMessage}"`
 
     setMessages(prev => [...prev, userMessage])
     setInputText('')
-    
-    // Check for lead collection mode
-    if (isCollectingLead && showLeadForm) {
-      // Handle lead form input
-      const steps = ['name', 'email', 'phone', 'company', 'projectType', 'budget', 'timeline', 'requirements']
-      if (currentLeadStep < steps.length) {
-        handleLeadInputChange(steps[currentLeadStep] as keyof LeadData, inputText)
-        handleNextLeadStep()
-      }
-      return
-    }
 
     setIsTyping(true)
 
@@ -451,15 +355,13 @@ Now respond to: "${userMessage}"`
       
       // Check if response suggests getting contact info
       const lowerResponse = botResponse.toLowerCase()
-      if ((lowerResponse.includes('email') || 
-           lowerResponse.includes('contact') || 
-           lowerResponse.includes('quote')) && 
-          !isCollectingLead) {
+      if ((lowerResponse.includes('quote') || lowerResponse.includes('email')) && 
+          !isCollectingLead && !showLeadForm) {
         // Add CTA after a delay
         setTimeout(() => {
           const ctaMessage: Message = {
             id: (Date.now() + 2).toString(),
-            text: "Would you like me to prepare a custom quote for you? I can collect a few details and have our team contact you within 24 hours.",
+            text: "Would you like me to help you get a custom quote? I can collect your details and our team will prepare a personalized proposal for you.",
             sender: 'bot',
             timestamp: new Date(),
             type: 'cta'
@@ -469,7 +371,7 @@ Now respond to: "${userMessage}"`
       }
     } catch (error) {
       console.error('Error generating response:', error)
-      addBotMessage("I apologize for the technical issue. Please email us directly at info@sagedevs.tech for immediate assistance, or would you like to schedule a call with our team?")
+      addBotMessage("I can help analyze your requirements with AI insights. For a custom quote or to discuss your project, please email info@sagedevs.tech")
     } finally {
       setIsTyping(false)
     }
@@ -488,12 +390,11 @@ Now respond to: "${userMessage}"`
 
   // CTA button actions
   const handleScheduleCall = () => {
-    // You can replace this with your actual Calendly link
-    window.open('https://calendly.com/sagedevs', '_blank')
+    window.location.href = 'mailto:info@sagedevs.tech?subject=Schedule%20a%20Meeting%20with%20SageDevs&body=Hello%20SageDevs%20team,%0A%0AI%20would%20like%20to%20schedule%20a%20meeting%20to%20discuss%20my%20project.'
   }
 
   const handleViewPortfolio = () => {
-    window.open('https://sagedevs.tech', '_blank')
+    window.open('https://sagedevs.tech/projects', '_blank')
   }
 
   const handleEmailUs = () => {
@@ -503,7 +404,7 @@ Now respond to: "${userMessage}"`
   // Quick CTAs for sales
   const quickCTAs = [
     { text: "Get Custom Quote", action: startLeadCollection, icon: <DollarSign className="w-3 h-3" /> },
-    { text: "Schedule Call", action: handleScheduleCall, icon: <Calendar className="w-3 h-3" /> },
+    { text: "Schedule Meeting", action: handleScheduleCall, icon: <Calendar className="w-3 h-3" /> },
     { text: "View Portfolio", action: handleViewPortfolio, icon: <Briefcase className="w-3 h-3" /> },
     { text: "Email Us", action: handleEmailUs, icon: <Mail className="w-3 h-3" /> }
   ]
@@ -521,7 +422,7 @@ Now respond to: "${userMessage}"`
             </div>
             <div className="flex-1">
               <div className="flex justify-between items-start">
-                <h4 className="font-bold text-sm">Get a Custom Quote</h4>
+                <h4 className="font-bold text-sm">AI-Powered Assistance</h4>
                 <button
                   onClick={handleCloseNotification}
                   className="text-blue-200 hover:text-white text-xs"
@@ -530,13 +431,13 @@ Now respond to: "${userMessage}"`
                 </button>
               </div>
               <p className="text-xs text-blue-100 mt-1">
-                Share your project details and get a personalized quote within 24 hours.
+                Get instant AI insights about your project and receive custom quotes.
               </p>
               <button
                 onClick={handleNotificationClick}
                 className="mt-2 bg-white text-blue-700 hover:bg-blue-50 text-xs font-semibold py-1.5 px-3 rounded-full transition-all w-full"
               >
-                Start Conversation
+                Chat with Sage AI
               </button>
             </div>
           </div>
@@ -549,13 +450,7 @@ Now respond to: "${userMessage}"`
   // Lead form steps
   const leadSteps = [
     { field: 'name', label: 'Full Name', placeholder: 'Enter your full name', required: true },
-    { field: 'email', label: 'Email Address', placeholder: 'your@email.com', required: true },
-    { field: 'phone', label: 'Phone Number', placeholder: '(123) 456-7890', required: false },
-    { field: 'company', label: 'Company', placeholder: 'Your company name', required: false },
-    { field: 'projectType', label: 'Project Type', placeholder: 'e.g., Website, Mobile App, SaaS', required: true },
-    { field: 'budget', label: 'Estimated Budget', placeholder: 'e.g., $5k-$10k, $10k-$25k, $25k+', required: true },
-    { field: 'timeline', label: 'Timeline', placeholder: 'e.g., 1-3 months, 3-6 months', required: true },
-    { field: 'requirements', label: 'Requirements', placeholder: 'Brief description of your project', required: false }
+    { field: 'email', label: 'Email Address', placeholder: 'your@email.com', required: true }
   ]
 
   // Floating Chat Button
@@ -618,7 +513,7 @@ Now respond to: "${userMessage}"`
             <h3 className="font-bold text-sm sm:text-base truncate">Sage AI Assistant</h3>
             <p className="text-blue-200 text-xs flex items-center gap-1 truncate">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse flex-shrink-0"></span>
-              <span className="truncate">SageDevs Consultant • Online</span>
+              <span className="truncate">Powered by AI • Online</span>
             </p>
           </div>
         </div>
@@ -689,14 +584,14 @@ Now respond to: "${userMessage}"`
                               className="bg-blue-600 hover:bg-blue-700 text-white text-xs py-1.5 px-3 rounded-lg transition-all flex items-center justify-center gap-1"
                             >
                               <Calendar className="w-3 h-3" />
-                              Schedule Call
+                              Schedule Meeting
                             </button>
                             <button
-                              onClick={handleEmailUs}
+                              onClick={handleViewPortfolio}
                               className="bg-gray-700 hover:bg-gray-600 text-white text-xs py-1.5 px-3 rounded-lg transition-all flex items-center justify-center gap-1"
                             >
-                              <Mail className="w-3 h-3" />
-                              Email Us
+                              <Briefcase className="w-3 h-3" />
+                              View Portfolio
                             </button>
                           </div>
                         </div>
@@ -731,19 +626,18 @@ Now respond to: "${userMessage}"`
                 </div>
                 
                 <div className="space-y-3">
-                  {leadSteps.slice(0, currentLeadStep + 1).map((step, index) => (
+                  {leadSteps.map((step) => (
                     <div key={step.field} className="space-y-1">
                       <label className="text-xs text-gray-300 font-medium">
                         {step.label} {step.required && <span className="text-red-400">*</span>}
                       </label>
                       <input
-                        type={step.field === 'email' ? 'email' : step.field === 'phone' ? 'tel' : 'text'}
+                        type={step.field === 'email' ? 'email' : 'text'}
                         value={leadData[step.field as keyof LeadData] || ''}
                         onChange={(e) => handleLeadInputChange(step.field as keyof LeadData, e.target.value)}
                         placeholder={step.placeholder}
                         className="w-full px-3 py-2 bg-gray-900/70 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50"
                         required={step.required}
-                        disabled={index < currentLeadStep}
                       />
                     </div>
                   ))}
@@ -761,13 +655,16 @@ Now respond to: "${userMessage}"`
                     onClick={() => {
                       setShowLeadForm(false)
                       setIsCollectingLead(false)
-                      addBotMessage("No problem. Feel free to ask any other questions about our services.")
+                      addBotMessage("No problem. Feel free to ask any other questions or use our AI insights!")
                     }}
                     className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white text-sm rounded-lg transition-all"
                   >
                     Cancel
                   </button>
                 </div>
+                <p className="text-xs text-gray-400 mt-3 text-center">
+                  Our team will prepare a detailed custom quote and email it to you within 24 hours.
+                </p>
               </div>
             )}
             
@@ -789,6 +686,7 @@ Now respond to: "${userMessage}"`
                     <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
                   </div>
+                  <p className="text-xs text-gray-400 mt-2">Sage AI is analyzing your request...</p>
                 </div>
               </div>
             )}
@@ -810,13 +708,17 @@ Now respond to: "${userMessage}"`
                   ))}
                 </div>
                 
-                {/* Success Rate Banner */}
-                <div className="mt-4 p-3 bg-gradient-to-r from-green-900/20 to-green-800/20 border border-green-800/30 rounded-lg">
+                {/* AI Assistant Banner */}
+                <div className="mt-4 p-3 bg-gradient-to-r from-blue-900/20 to-purple-800/20 border border-blue-800/30 rounded-lg">
                   <div className="flex items-center gap-2">
-                    <Award className="w-4 h-4 text-green-400" />
+                    <img 
+                      src="/Sage-ai.svg" 
+                      alt="AI" 
+                      className="w-4 h-4 filter brightness-0 invert"
+                    />
                     <div className="flex-1">
-                      <p className="text-xs text-green-300 font-semibold">97% Client Satisfaction</p>
-                      <p className="text-xs text-green-400/80">Average project delivery: 30% faster</p>
+                      <p className="text-xs text-blue-300 font-semibold">AI-Powered Insights</p>
+                      <p className="text-xs text-blue-400/80">Get instant analysis and recommendations</p>
                     </div>
                   </div>
                 </div>
@@ -835,7 +737,7 @@ Now respond to: "${userMessage}"`
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder={isCollectingLead ? "Type your response..." : "Ask about pricing, projects, or get a quote..."}
+                placeholder={isCollectingLead ? "Type your response..." : "Ask anything about your project or get AI insights..."}
                 className="w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-gray-800/70 border border-blue-900/50 rounded-xl text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent pr-12 backdrop-blur-sm text-sm sm:text-base"
               />
               <button
@@ -848,8 +750,12 @@ Now respond to: "${userMessage}"`
               </button>
             </div>
             <p className="text-xs text-gray-400 mt-2 text-center flex items-center justify-center gap-1 flex-wrap">
-              <Mail className="w-3 h-3 flex-shrink-0" />
-              <span className="whitespace-nowrap">For immediate quotes:</span>
+              <img 
+                src="/Sage-ai.svg" 
+                alt="AI" 
+                className="w-3 h-3 flex-shrink-0 filter brightness-0 invert"
+              />
+              <span className="whitespace-nowrap">Powered by AI • For quotes:</span>
               <a href="mailto:info@sagedevs.tech" className="text-blue-400 hover:text-blue-300 ml-1 whitespace-nowrap">info@sagedevs.tech</a>
             </p>
           </div>
