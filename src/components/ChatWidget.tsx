@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
-import { Send, X, Minimize2, Maximize2, User, Sparkles, MessageCircle, DollarSign, Briefcase, Mail, ExternalLink, Calendar, Phone, ClipboardCheck, Award, CheckCircle, ArrowRight, FileText } from 'lucide-react'
+import { Send, X, Minimize2, Maximize2, User, MessageCircle, DollarSign, Briefcase, Mail, Calendar, ClipboardCheck, Award, CheckCircle, ArrowRight, FileText } from 'lucide-react'
 
 interface Message {
   id: string
@@ -50,7 +50,6 @@ const ChatWidget: React.FC = () => {
   })
   const [currentLeadStep, setCurrentLeadStep] = useState(0)
   const [showLeadForm, setShowLeadForm] = useState(false)
-  const [formSubmitted, setFormSubmitted] = useState(false)
 
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -186,7 +185,6 @@ const ChatWidget: React.FC = () => {
     
     setIsTyping(false)
     if (result.success) {
-      setFormSubmitted(true)
       addBotMessage(result.message)
       
       // Add confirmation message with next steps
