@@ -219,7 +219,13 @@ export default function RootLayout({
         />
         <meta name="author" content="Sage Devs" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-        
+       <script
+  dangerouslySetInnerHTML={{
+    __html: <script>function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");
+o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,
+o.onload=function(){window.trackingFunctions.onLoad({appId:"6967e45bbf45d20011afda11"})},
+document.head.appendChild(o)}initApollo();</script>  }}
+/>
         {/* Open Graph */}
         <meta property="og:title" content="Sage Devs - Full Stack Software Agency & UI/UX Studio" />
         <meta property="og:description" content="Global software agency delivering scalable web apps and exceptional UI/UX design with Next.js, React, and Tailwind CSS." />
