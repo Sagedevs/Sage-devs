@@ -1,0 +1,1035 @@
+{
+  "originalCommit": "1735ce807f88abd946adc5c2954f7321734e88be",
+  "routes": [
+    {
+      "route": "/about",
+      "file": "src/app/about/page.tsx",
+      "originalImports": [
+        "src/components/aboutus/HeroSection.tsx",
+        "src/components/aboutus/OurStory.tsx",
+        "src/components/aboutus/OurProcess.tsx",
+        "src/components/aboutus/Team.tsx",
+        "src/components/aboutus/Technologies.tsx",
+        "src/components/aboutus/Culture.tsx",
+        "src/components/aboutus/CTASection.tsx"
+      ],
+      "currentImports": [
+        "src/lib/seo.ts",
+        "src/components/site/Editorial.tsx",
+        "src/data/team.ts"
+      ]
+    },
+    {
+      "route": "/blog",
+      "file": "src/app/blog/page.tsx",
+      "originalImports": [],
+      "currentImports": [
+        "src/components/site/ArticleList.tsx",
+        "src/components/site/Editorial.tsx"
+      ]
+    },
+    {
+      "route": "/careers",
+      "file": "src/app/careers/page.tsx",
+      "originalImports": [
+        "src/components/Careers.tsx"
+      ],
+      "currentImports": [
+        "src/components/Careers.tsx"
+      ]
+    },
+    {
+      "route": "/case-studies",
+      "file": "src/app/case-studies/page.tsx",
+      "originalImports": [
+        "src/components/casestudy/hero.tsx",
+        "src/components/casestudy/casestudy.tsx",
+        "src/components/casestudy/ecommercegrowth.tsx",
+        "src/components/casestudy/cta.tsx"
+      ],
+      "currentImports": [
+        "src/data/projects.tsx",
+        "src/lib/seo.ts",
+        "src/components/site/Editorial.tsx"
+      ]
+    },
+    {
+      "route": "/contact",
+      "file": "src/app/contact/page.tsx",
+      "originalImports": [
+        "src/blocks/Backgrounds/Squares/Squares.tsx"
+      ],
+      "currentImports": [
+        "src/components/site/Editorial.tsx",
+        "src/components/site/ContactForm.tsx",
+        "src/lib/seo.ts"
+      ]
+    },
+    {
+      "route": "/faq",
+      "file": "src/app/faq/page.tsx",
+      "originalImports": [
+        "src/components/faq.tsx"
+      ],
+      "currentImports": [
+        "src/components/site/Editorial.tsx",
+        "src/data/faq.ts",
+        "src/lib/seo.ts"
+      ]
+    },
+    {
+      "route": "/letstalkai",
+      "file": "src/app/letstalkai/page.tsx",
+      "originalImports": [
+        "src/components/lets-talk-ai/LetsTalkAIHero.tsx",
+        "src/components/lets-talk-ai/LetsTalkAISecondSection.tsx",
+        "src/components/lets-talk-ai/AIConsultation.tsx",
+        "src/components/lets-talk-ai/MachineLearning.tsx",
+        "src/components/lets-talk-ai/NaturalLanguageProcessing.tsx",
+        "src/components/lets-talk-ai/ComputerVision.tsx",
+        "src/components/lets-talk-ai/AIStrategy.tsx",
+        "src/components/lets-talk-ai/LetsTalkAIFinalSection.tsx",
+        "src/components/lets-talk-ai/AITransformationGuide.tsx"
+      ],
+      "currentImports": [
+        "src/components/site/Editorial.tsx",
+        "src/components/site/ContactForm.tsx",
+        "src/lib/seo.ts"
+      ]
+    },
+    {
+      "route": "/",
+      "file": "src/app/page.tsx",
+      "originalImports": [
+        "src/components/sections/HeroSection.tsx",
+        "src/components/sections/TrustedBySection.tsx",
+        "src/components/sections/Services.tsx",
+        "src/components/sections/CaseStudies.tsx",
+        "src/components/sections/WhyChooseUs.tsx",
+        "src/components/TestimonialSlider.tsx",
+        "src/components/sections/tabs.tsx",
+        "src/components/sections/extra.tsx",
+        "src/components/sections/FinalCTA.tsx"
+      ],
+      "currentImports": [
+        "src/lib/seo.ts",
+        "src/components/site/WorkShowcase.tsx",
+        "src/components/site/EngineeringProcess.tsx",
+        "src/components/site/Editorial.tsx"
+      ]
+    },
+    {
+      "route": "/pricing",
+      "file": "src/app/pricing/page.tsx",
+      "originalImports": [],
+      "currentImports": [
+        "src/components/site/Pricing.tsx",
+        "src/components/site/Editorial.tsx"
+      ]
+    },
+    {
+      "route": "/privacy",
+      "file": "src/app/privacy/page.tsx",
+      "originalImports": [],
+      "currentImports": []
+    },
+    {
+      "route": "/projects",
+      "file": "src/app/projects/page.tsx",
+      "originalImports": [
+        "src/components/proj/heroproj.tsx",
+        "src/components/proj/proj.tsx",
+        "src/components/proj/cta.tsx",
+        "src/app/projects/projects.seo.ts"
+      ],
+      "currentImports": [
+        "src/lib/seo.ts",
+        "src/components/site/Editorial.tsx",
+        "src/components/site/Portfolio.tsx"
+      ]
+    },
+    {
+      "route": "/resources",
+      "file": "src/app/resources/page.tsx",
+      "originalImports": [
+        "src/components/resources/ProjectCalculator.tsx",
+        "src/components/resources/HeroSection.tsx",
+        "src/components/resources/GuidesTemplates.tsx",
+        "src/components/resources/TechnologyStack.tsx",
+        "src/components/resources/SupportCenter.tsx"
+      ],
+      "currentImports": [
+        "src/components/site/Editorial.tsx",
+        "src/components/resources/ProjectCalculator.tsx",
+        "src/components/site/Newsletter.tsx",
+        "src/data/downloads.ts",
+        "src/lib/seo.ts"
+      ]
+    },
+    {
+      "route": "/services",
+      "file": "src/app/services/page.tsx",
+      "originalImports": [
+        "src/app/services/ServicesIndexPage.tsx"
+      ],
+      "currentImports": [
+        "src/lib/seo.ts",
+        "src/data/capabilities.ts",
+        "src/components/site/Editorial.tsx"
+      ]
+    },
+    {
+      "route": "/sitemap",
+      "file": "src/app/sitemap/page.tsx",
+      "originalImports": [],
+      "currentImports": [
+        "src/components/site/Editorial.tsx",
+        "src/lib/seo.ts"
+      ]
+    },
+    {
+      "route": "/terms",
+      "file": "src/app/terms/page.tsx",
+      "originalImports": [],
+      "currentImports": []
+    }
+  ],
+  "components": [
+    {
+      "file": "src/blocks/Backgrounds/Squares/Squares.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "requestAnimationFrame"
+      ],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/blocks/Backgrounds/Threads/Threads.tsx",
+      "originalReachable": false,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/blocks/Components/GooeyNav/GooeyNav.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "motion"
+      ],
+      "events": [
+        "onClick",
+        "onMouseEnter",
+        "onMouseLeave",
+        "onKeyDown"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/blocks/TextAnimations/BlurText/BlurText.tsx",
+      "originalReachable": false,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "motion",
+        "IntersectionObserver"
+      ],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/blocks/TextAnimations/FallingText/FallingText.tsx",
+      "originalReachable": false,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "IntersectionObserver",
+        "requestAnimationFrame"
+      ],
+      "events": [
+        "onClick"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/blocks/TextAnimations/TrueFocus/TrueFocus.tsx",
+      "originalReachable": false,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "setInterval"
+      ],
+      "events": [
+        "onMouseEnter",
+        "onMouseLeave"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/AnimatedCounter.tsx",
+      "originalReachable": false,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "motion",
+        "requestAnimationFrame"
+      ],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/Careers.tsx",
+      "originalReachable": true,
+      "currentReachable": true,
+      "sourceUnchanged": false,
+      "motion": [],
+      "events": [
+        "onClick",
+        "onChange",
+        "onSubmit"
+      ],
+      "forms": 1
+    },
+    {
+      "file": "src/components/ChatWidget.tsx",
+      "originalReachable": true,
+      "currentReachable": true,
+      "sourceUnchanged": false,
+      "motion": [],
+      "events": [
+        "onClick",
+        "onWheel",
+        "onChange"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/Footer.tsx",
+      "originalReachable": true,
+      "currentReachable": true,
+      "sourceUnchanged": false,
+      "motion": [
+        "motion",
+        "requestAnimationFrame"
+      ],
+      "events": [
+        "onSubmit",
+        "onChange"
+      ],
+      "forms": 1
+    },
+    {
+      "file": "src/components/ProjectCard.tsx",
+      "originalReachable": false,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "motion"
+      ],
+      "events": [
+        "onClick"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/SkillTag.tsx",
+      "originalReachable": false,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "motion"
+      ],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/SmoothScroll.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "gsap",
+        "ScrollTrigger",
+        "requestAnimationFrame"
+      ],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/TestimonialSlider.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "gsap",
+        "ScrollTrigger"
+      ],
+      "events": [
+        "onClick"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/aboutus/CTASection.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/aboutus/Culture.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/aboutus/HeroSection.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "setInterval"
+      ],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/aboutus/OurProcess.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "IntersectionObserver"
+      ],
+      "events": [
+        "onMouseEnter",
+        "onMouseLeave",
+        "onClick"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/aboutus/OurStory.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/aboutus/Team.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "requestAnimationFrame"
+      ],
+      "events": [
+        "onClick",
+        "onMouseEnter",
+        "onMouseLeave"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/aboutus/Technologies.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onMouseEnter",
+        "onMouseLeave"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/casestudy/casestudy.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "gsap",
+        "ScrollTrigger",
+        "requestAnimationFrame"
+      ],
+      "events": [
+        "onClick"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/casestudy/cta.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onSubmit",
+        "onChange"
+      ],
+      "forms": 1
+    },
+    {
+      "file": "src/components/casestudy/ecommercegrowth.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/casestudy/hero.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "requestAnimationFrame"
+      ],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/customcursor.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/faq.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onClick"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/lets-talk-ai/AIConsultation.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onClick",
+        "onMouseEnter"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/lets-talk-ai/AIStrategy.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "setInterval"
+      ],
+      "events": [
+        "onMouseEnter",
+        "onClick"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/lets-talk-ai/AITransformationGuide.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onMouseEnter",
+        "onMouseLeave"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/lets-talk-ai/ComputerVision.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "setInterval"
+      ],
+      "events": [
+        "onClick",
+        "onMouseEnter",
+        "onMouseLeave"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/lets-talk-ai/LetsTalkAIFinalSection.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "setInterval"
+      ],
+      "events": [
+        "onSubmit",
+        "onChange"
+      ],
+      "forms": 1
+    },
+    {
+      "file": "src/components/lets-talk-ai/LetsTalkAIHero.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/lets-talk-ai/LetsTalkAISecondSection.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "setInterval"
+      ],
+      "events": [
+        "onClick"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/lets-talk-ai/MachineLearning.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "IntersectionObserver",
+        "setInterval"
+      ],
+      "events": [
+        "onClick"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/lets-talk-ai/NaturalLanguageProcessing.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "setInterval"
+      ],
+      "events": [
+        "onClick"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/proj/cta.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/proj/heroproj.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "requestAnimationFrame"
+      ],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/proj/proj.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onClick"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/resources/CaseStudies.tsx",
+      "originalReachable": false,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/resources/GuidesTemplates.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onMouseEnter",
+        "onMouseLeave",
+        "onChange",
+        "onClick"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/resources/HeroSection.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "gsap",
+        "ScrollTrigger",
+        "requestAnimationFrame"
+      ],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/resources/ProjectCalculator.tsx",
+      "originalReachable": true,
+      "currentReachable": true,
+      "sourceUnchanged": false,
+      "motion": [],
+      "events": [
+        "onClick",
+        "onChange"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/resources/SupportCenter.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onClick"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/resources/TechnologyStack.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "gsap",
+        "ScrollTrigger"
+      ],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/resources/WebinarsTalks.tsx",
+      "originalReachable": false,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "gsap"
+      ],
+      "events": [
+        "onMouseEnter",
+        "onMouseLeave"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/sections/CaseStudies.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "gsap",
+        "ScrollTrigger",
+        "requestAnimationFrame"
+      ],
+      "events": [
+        "onClick"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/sections/FinalCTA.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onSubmit",
+        "onChange"
+      ],
+      "forms": 1
+    },
+    {
+      "file": "src/components/sections/HeroSection.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "gsap",
+        "ScrollTrigger",
+        "motion"
+      ],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/sections/Services.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "gsap",
+        "ScrollTrigger"
+      ],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/sections/TrustedBySection.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "gsap",
+        "ScrollTrigger"
+      ],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/sections/WhyChooseUs.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "gsap",
+        "ScrollTrigger"
+      ],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/sections/extra.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "setInterval"
+      ],
+      "events": [
+        "onClick"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/sections/tabs.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onWheel",
+        "onClick"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/seo/StructuredData.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/services/AISolutions.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onMouseEnter",
+        "onMouseLeave"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/services/BrandIdentity.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onMouseEnter",
+        "onMouseLeave"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/services/CloudDevOps.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onMouseEnter",
+        "onMouseLeave"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/services/DigitalStrategy.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onMouseEnter",
+        "onMouseLeave"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/services/EcommerceSolutions.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onMouseEnter",
+        "onMouseLeave"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/services/MaintenanceSupport.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onMouseEnter",
+        "onMouseLeave"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/services/SaaSProductDev.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onMouseEnter",
+        "onMouseLeave"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/services/UIDesign.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onMouseEnter",
+        "onMouseLeave"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/services/WebAppDevelopment.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onMouseEnter",
+        "onMouseLeave"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/services/WordPressServices.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onMouseEnter",
+        "onMouseLeave"
+      ],
+      "forms": 0
+    },
+    {
+      "file": "src/components/services/finalsection.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [],
+      "events": [
+        "onMouseEnter",
+        "onMouseLeave",
+        "onSubmit",
+        "onChange"
+      ],
+      "forms": 1
+    },
+    {
+      "file": "src/components/services/herosection.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "requestAnimationFrame"
+      ],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/shortcuts.tsx",
+      "originalReachable": true,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "setInterval"
+      ],
+      "events": [],
+      "forms": 0
+    },
+    {
+      "file": "src/components/ui/progressive-blur.tsx",
+      "originalReachable": false,
+      "currentReachable": false,
+      "sourceUnchanged": true,
+      "motion": [
+        "motion"
+      ],
+      "events": [],
+      "forms": 0
+    }
+  ]
+}

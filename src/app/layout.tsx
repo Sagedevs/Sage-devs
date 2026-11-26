@@ -1,46 +1,43 @@
-"use client";
-
-import React, { useEffect, useState, useCallback, lazy, Suspense } from "react";
-import { usePathname } from "next/navigation";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Image from "next/image";
-import SmoothScroll from "@/components/SmoothScroll";
-import ChatWidget from "@/components/ChatWidget";
-
-// Import critical components directly (NO lazy loading for above-the-fold)
-import GooeyNavWithHeader from "@/blocks/Components/GooeyNav/GooeyNav";
-import DisableDevTools from "@/components/shortcuts";
-
-// Lazy load ONLY below-the-fold components
-const CustomCursor = lazy(() => import("@/components/customcursor"));
-const Footer = lazy(() => import("@/components/Footer"));
-const Analytics = lazy(() => import("@vercel/analytics/next").then(mod => ({ default: mod.Analytics })));
-const VideoStructuredData = lazy(() => import("@/components/seo/StructuredData").then(mod => ({ default: mod.VideoStructuredData })));
-
+import { organizationSchema } from '@/lib/organization';
+import { JsonLd } from '@/components/seo/StructuredData';
+import { business } from '@/lib/business';
+import type { Metadata, Viewport } from 'next';
+import localFont from 'next/font/local';
+import { brand } from '@/lib/brand';
+const displayFont = localFont({src:'../../public/fonts/space-grotesk-latin-wght-normal.woff2',variable:'--font-display',display:'swap'});
+const bodyFont = localFont({src:'../../public/fonts/manrope-latin-wght-normal.woff2',variable:'--font-body',display:'swap'});
+import { Analytics } from '@vercel/analytics/next';
+import './globals.css';
+import './tokens.css';
+import './premium.css';
+import './routes.css';
+import './support.css';
+import GooeyNavWithHeader from '@/blocks/Components/GooeyNav/GooeyNav';
+import Image from 'next/image';
+import Footer from '@/components/Footer';
+import Assistant from '@/components/site/Assistant';
 const items = [
   { label: "Home", href: "/" },
-  { label: "Let's Talk AI", href: "/letstalkai" },
   {
     label: "Services",
     href: "/services",
     children: [
-      { label: "Web & App Development", href: "/services/web-app-development" },
-      { label: "UI/UX Design", href: "/services/ui-ux-design" },
-      { label: "E-commerce (WordPress & Shopify)", href: "/services/ecommerce" },
-      { label: "SaaS & Product Dev", href: "/services/saas-product" },
-      { label: "Cloud & DevOps", href: "/services/cloud-devops" },
-      { label: "Maintenance & Support", href: "/services/maintenance-support" },
+      { label: "Web & App Development", href: "/services#web-app" },
+      { label: "UI/UX Design", href: "/services#ui-design" },
+      { label: "E-commerce (WordPress & Shopify)", href: "/services#ecommerce" },
+      { label: "SaaS & Product Dev", href: "/services#saas" },
+      { label: "Cloud & DevOps", href: "/services#cloud" },
+      { label: "Maintenance & Support", href: "/services#maintenance-support" },
     ],
   },
   {
     label: "Case Studies",
-    href: "/case-studies",
+    href: "/projects",
     children: [
-      { label: "Web Apps", href: "/case-studies/web-apps" },
-      { label: "SaaS", href: "/case-studies/saas" },
-      { label: "E-commerce", href: "/case-studies/ecommerce" },
-      { label: "Enterprise", href: "/case-studies/enterprise" },
+      { label: "Web Apps", href: "/case-studies#case-studies-grid" },
+      { label: "SaaS", href: "/case-studies#case-studies-grid" },
+      { label: "E-commerce", href: "/case-studies#case-studies-grid" },
+      { label: "Enterprise", href: "/case-studies#case-studies-grid" },
     ],
   },
   { label: "Pricing & Plans", href: "/pricing" },
@@ -68,303 +65,27 @@ const items = [
     children: [
       { label: "Get in Touch (form)", href: "/contact#contact-form" },
       { label: "FAQs", href: "/faq" },
-      { label: "Book a Call", href: "https://calendly.com/sagedevs-network/", external: true },
+      { label: "Book a Call", href: business.bookingUrl, external: true },
     ],
   }
 ];
 
-// const socialLinks = [
-//   {
-//     platform: "LinkedIn",
-//     href: "https://www.linkedin.com/company/sagedevs/",
-//     iconPath: "/icons/linkedin_icon.svg",
-//   },
-//   {
-//     platform: "Gmail",
-//     href: "mailto:info@sagedevs.tech",
-//     iconPath: "/icons/gmail_icon.svg",
-//   },
-// ];
-
-// Optimized font loading
-const geistSans = Geist({ 
-  variable: "--font-geist-sans", 
-  subsets: ["latin"],
-  display: "swap", // Changed back to swap for better mobile performance
-  preload: true
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-  preload: true
-});
-
-// ✅ FIXED: Pure CSS background - NO JS state, NO hydration issues
-const StaticBackground = () => (
-  <>
-    {/* Mobile: Simple gradient (always rendered, hidden on desktop) */}
-    <div className="lg:hidden fixed inset-0 z-[-1] bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950" />
-    
-    {/* Desktop: Animated SVG (always rendered, hidden on mobile) */}
-    <div className="hidden lg:block fixed inset-0 z-[-1] pointer-events-none">
-      <svg
-        width="100%"
-        height="100%"
-        className="absolute inset-0"
-        style={{ minHeight: "100vh" }}
-        preserveAspectRatio="none"
-      >
-        <defs>
-          <linearGradient id="tg" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="rgba(34, 197, 94, 0.05)" />
-            <stop offset="50%" stopColor="rgba(59, 130, 246, 0.05)" />
-            <stop offset="100%" stopColor="rgba(147, 51, 234, 0.05)" />
-          </linearGradient>
-          <linearGradient id="tg2" x1="100%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="rgba(236, 72, 153, 0.05)" />
-            <stop offset="50%" stopColor="rgba(245, 101, 101, 0.05)" />
-            <stop offset="100%" stopColor="rgba(251, 191, 36, 0.05)" />
-          </linearGradient>
-        </defs>
-        <line x1="0" y1="0" x2="100%" y2="100%" stroke="url(#tg)" strokeWidth="0.5" />
-        <line x1="100%" y1="0" x2="0" y2="100%" stroke="url(#tg2)" strokeWidth="0.5" />
-        <line x1="0" y1="30%" x2="100%" y2="30%" stroke="rgba(99, 102, 241, 0.05)" strokeWidth="0.5" />
-        <line x1="0" y1="70%" x2="100%" y2="70%" stroke="rgba(16, 185, 129, 0.05)" strokeWidth="0.5" />
-        <line x1="25%" y1="0" x2="25%" y2="100%" stroke="rgba(245, 101, 101, 0.05)" strokeWidth="0.5" />
-        <line x1="75%" y1="0" x2="75%" y2="100%" stroke="rgba(168, 85, 247, 0.05)" strokeWidth="0.5" />
-      </svg>
-    </div>
-  </>
-);
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
-
-  // ✅ FIXED: Simplified scroll handler - no isClient check needed
-  const handleScroll = useCallback(() => {
-    setScrolled(window.scrollY > 20);
-  }, []);
-
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    
-    const debouncedScroll = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(handleScroll, 100);
-    };
-    
-    window.addEventListener("scroll", debouncedScroll, { passive: true });
-    
-    return () => {
-      window.removeEventListener("scroll", debouncedScroll);
-      clearTimeout(timeoutId);
-    };
-  }, [handleScroll]);
-
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [pathname]);
-
-  // ✅ FIXED: No isClient check - cleaner
-  useEffect(() => {
-    document.documentElement.classList.toggle("no-scroll", mobileMenuOpen);
-  }, [mobileMenuOpen]);
-
-  const toggleMobileMenu = useCallback(() => {
-    setMobileMenuOpen((prev) => !prev);
-  }, []);
-
-  return (
-    <html lang="en" className="overflow-x-hidden">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Sage Devs" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="google-site-verification" content="googleb45aa620d0bc55ca" />
-        
-        {/* Preconnect to external domains */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
-        {/* Icons - Fixed paths for public folder */}
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="icon" href="/logo/logofixxed.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png" />
-        <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png" />
-        <link rel="mask-icon" href="/logo/logofixxed.svg" color="#5bbad5" />
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="manifest" href="/manifest.json" />
-        
-        {/* SEO Meta Tags */}
-        <title>Sage Devs - Full Stack Software Agency & UI/UX Design Studio</title>
-        <meta
-          name="description"
-          content="Sage Devs is a global software agency specializing in full stack web development, UI/UX design, and scalable digital solutions using Next.js, React, and modern technologies."
-        />
-        <meta
-          name="keywords"
-          content="software agency, full stack development, web development, UI/UX design, Next.js, React, Tailwind CSS, SaaS development, cloud services, DevOps"
-        />
-        <meta name="author" content="Sage Devs" />
-        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-     
-        {/* Open Graph */}
-        <meta property="og:title" content="Sage Devs - Full Stack Software Agency & UI/UX Studio" />
-        <meta property="og:description" content="Global software agency delivering scalable web apps and exceptional UI/UX design with Next.js, React, and Tailwind CSS." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://sagedevs.tech" />
-        <meta property="og:image" content="https://sagedevs.tech/logo/logofixxed.svg" />
-        <meta property="og:site_name" content="Sage Devs" />
-        <meta property="og:locale" content="en_US" />
-        
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Sage Devs - Full Stack Software Agency" />
-        <meta name="twitter:description" content="Modern, reliable, and scalable digital solutions with focus on web development and UI/UX design." />
-        <meta name="twitter:image" content="https://sagedevs.tech/logo/logofixxed.svg" />
-        <meta name="twitter:site" content="@SageDevs" />
-        
-        {/* Theme & Canonical */}
-        <meta name="theme-color" content="#0f172a" />
-        <link rel="canonical" href="https://sagedevs.tech/" />
-        
-        {/* Performance hints */}
-        <link rel="dns-prefetch" href="https://vercel.live" />
-      </head>
-      
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased font-gilroy relative`} suppressHydrationWarning>
-        
-        <DisableDevTools />
-        
-        {/* ✅ FIXED: Custom cursor - hide via CSS, no JS check */}
-        <div className="hidden lg:block">
-          <Suspense fallback={null}>
-            <CustomCursor />
-          </Suspense>
-        </div>
-
-        {/* ✅ FIXED: Pure CSS background - no state, no hydration issues */}
-        <StaticBackground />
-
-        {/* ✅ FIXED: Navigation not lazy loaded - critical component */}
-        <GooeyNavWithHeader
-          items={items}
-          scrolled={scrolled}
-          mobileMenuOpen={mobileMenuOpen}
-          toggleMobileMenu={toggleMobileMenu}
-        >
-          <Image
-            src="/logo/logofixxed.svg"
-            alt="Sage Devs Logo"
-            width={128}
-            height={128}
-            priority
-            fetchPriority="high"
-            className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32"
-          />
-        </GooeyNavWithHeader>
-
-        <SmoothScroll>
-          <main className="pt-20 lg:pt-24 relative z-[1]">
-            {children}
-          </main>
-        </SmoothScroll>
-
-        {/* Social Icons
-        <aside className="fixed bottom-4 right-4 lg:bottom-8 lg:right-8 z-50" aria-label="Social Media Links">
-          <div className="bg-black/70 border border-white/20 border-dashed rounded-full p-3 lg:p-4 backdrop-blur-sm">
-            <nav className="flex flex-col items-center space-y-4 lg:space-y-5">
-              {socialLinks.map((link) => (
-                <Link
-                  key={link.platform}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Visit our ${link.platform}`}
-                  className="block transition-transform duration-200 hover:scale-105 hover:rotate-6"
-                >
-                  <Image
-                    src={link.iconPath}
-                    alt={`${link.platform} icon`}
-                    width={24}
-                    height={24}
-                    loading="lazy"
-                    className="w-5 h-5 lg:w-6 lg:h-6 object-contain opacity-80 hover:opacity-100"
-                  />
-                </Link>
-              ))}
-            </nav>
-          </div>
-        </aside> */}
-
-        <ChatWidget />
-
-        <Suspense fallback={null}>
-          <Footer />
-        </Suspense>
-
-        {/* Structured Data - moved to body */}
-        <Suspense fallback={null}>
-          <VideoStructuredData />
-        </Suspense>
-
-        {process.env.NODE_ENV === 'production' && (
-          <Suspense fallback={null}>
-            <Analytics />
-          </Suspense>
-        )}
-
-        <div id="modal-root" />
-        
-        {/* Structured data script */}
-        <script 
-          type="application/ld+json" 
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "Sage Devs",
-              "url": "https://sagedevs.tech",
-              "logo": "https://sagedevs.tech/logo/logofixxed.svg",
-              "image": "https://sagedevs.tech/logo/logofixxed.svg",
-              "description": "Full Stack Software Agency specializing in web development, UI/UX design, and scalable digital solutions",
-              "foundingDate": "2023",
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "email": "info@sagedevs.tech",
-                "contactType": "Customer Service"
-              },
-              "sameAs": [
-                "https://github.com/abdulahad-2",
-                "https://www.linkedin.com/company/sagedevs/",
-                "https://x.com/Sage_devs",
-                "https://www.instagram.com/sage_devs/"
-              ],
-              "founder": {
-                "@type": "Person",
-                "name": "Abdul Ahad"
-              },
-              "address": {
-                "@type": "PostalAddress",
-                "addressCountry": "PK"
-              }
-            })
-          }}
-        />
-        
-      </body>
-    </html>
-  );
+export const metadata: Metadata = {
+  metadataBase: new URL('https://sagedevs.tech'),
+  title: { default: 'Sage Devs | Software Development & Design', template: '%s | Sage Devs' },
+  description: 'Software development, web design and AI solutions from Sage Devs. Thoughtfully designed digital products, built with care.',
+  // The existing HTML verification file remains at /googleb45aa620d0bc55ca.html.
+  verification: {
+    ...(process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : {}),
+    ...(process.env.BING_SITE_VERIFICATION ? { other: { 'msvalidate.01': process.env.BING_SITE_VERIFICATION } } : {}),
+  },
+  applicationName: 'Sage Devs',
+  appleWebApp: { capable: true, title: 'Sage Devs', statusBarStyle: 'black-translucent' },
+  icons: { icon: [{ url: brand.favicon }, { url: '/brand/icon-32.png', type: 'image/png', sizes: '32x32' }], apple: brand.appleIcon },
+  manifest: '/manifest.json',
+  robots: { index: true, follow: true },
+};
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#101114' };
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}><body className="glass-site"><a className="skip-link" href="#main-content">Skip to content</a><GooeyNavWithHeader items={items}><Image className="official-wordmark" src={brand.logo} alt="Sage Devs" width={900} height={257} priority /></GooeyNavWithHeader><main id="main-content" tabIndex={-1}>{children}</main><Footer /><Assistant /><Analytics /><JsonLd data={organizationSchema}/></body></html>;
 }

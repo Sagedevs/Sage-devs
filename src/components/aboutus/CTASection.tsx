@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import { business } from '@/lib/business';
 import Link from 'next/link';
 import { ArrowRight, Users, Heart, Zap } from 'lucide-react';
 
@@ -116,7 +117,7 @@ const AboutCTASection = () => {
               <Link href="/contact" className="px-10 py-4 bg-white text-blue-900 hover:bg-gray-100 font-bold rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 transform">
                 Get In Touch
               </Link>
-              <Link href="/contact" className="px-10 py-4 border-2 border-white text-white hover:bg-white/10 font-medium rounded-xl transition-all duration-300 backdrop-blur-sm">
+              <Link href={business.bookingUrl} target="_blank" rel="noopener noreferrer" className="px-10 py-4 border-2 border-white text-white hover:bg-white/10 font-medium rounded-xl transition-all duration-300 backdrop-blur-sm">
                 Schedule a Call
               </Link>
             </div>

@@ -1,0 +1,6 @@
+'use client';
+import { useRef, useState } from 'react';
+export default function Newsletter() {
+ const [status,setStatus]=useState(''); const busy=useRef(false);
+ return <form onSubmit={async event=>{event.preventDefault();if(busy.current)return;busy.current=true;setStatus('Sending…');const form=event.currentTarget;try{const response=await fetch('https://formspree.io/f/xldpndqz',{method:'POST',headers:{Accept:'application/json'},body:new FormData(form),signal:AbortSignal.timeout(20000)});if(!response.ok)throw Error();setStatus('Thank you. Your request has been sent.');form.reset();}catch{setStatus('We couldn’t send your request. Please try again or email info@sagedevs.tech.');}finally{busy.current=false;}}}><input type="hidden" name="source" value="Resources newsletter" /><div className="field"><label htmlFor="newsletter-email">Email address</label><input id="newsletter-email" name="email" type="email" autoComplete="email" placeholder="you@company.com" required /></div><p className="small">Request updates about our resources. See our <a href="/privacy" className="text-link">privacy policy</a>.</p><button className="button" disabled={status==='Sending…'}>Request updates</button><p role="status">{status}</p></form>;
+}

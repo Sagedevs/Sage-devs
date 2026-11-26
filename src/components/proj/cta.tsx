@@ -1,4 +1,5 @@
 "use client";
+import { business } from '@/lib/business';
 
 import React from 'react';
 import Link from 'next/link';
@@ -178,7 +179,7 @@ const ProjectCTA: React.FC = () => {
               </Link>
               
               <a 
-                href="https://calendly.com/sagedevs-info/30min"
+                href={business.bookingUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group px-6 py-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold rounded-xl transition-all duration-300 hover:from-sky-600 hover:to-blue-700 hover:shadow-lg hover:shadow-sky-500/30 text-center"

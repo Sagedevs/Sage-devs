@@ -1,0 +1,6 @@
+import { Fragment } from 'react';
+function inline(text:string){return text.split(/(\*\*.*?\*\*|`[^`]+`)/g).map((part,i)=>part.startsWith('**')?<strong key={i}>{part.slice(2,-2)}</strong>:part.startsWith('`')?<code key={i}>{part.slice(1,-1)}</code>:<Fragment key={i}>{part}</Fragment>)}
+export default function ArticleContent({content}:{content:string}){
+ const sections=content.split(/(```[\s\S]*?```)/g);
+ return <div className="article-body">{sections.map((section,index)=>section.startsWith('```')?<pre key={index}><code>{section.replace(/^```[^\n]*\n/,'').replace(/```$/,'')}</code></pre>:<Fragment key={index}>{section.split(/\n\s*\n/).filter(Boolean).map((block,i)=>{const text=block.trim();if(text.startsWith('#')){const heading=text.replace(/^#+\s*/,'');const level=Math.min((text.match(/^#+/)?.[0].length||1)+1,6);const Tag=`h${level}` as 'h2'|'h3'|'h4'|'h5'|'h6';return <Tag id={`section-${index}-${i}`} key={i}>{inline(heading)}</Tag>;}if(/^[-*]\s/.test(text))return <ul key={i}>{text.split('\n').map((l,j)=><li key={j}>{inline(l.replace(/^[-*]\s/,''))}</li>)}</ul>;if(/^\d+\.\s/.test(text))return <ol key={i}>{text.split('\n').map((l,j)=><li key={j}>{inline(l.replace(/^\d+\.\s/,''))}</li>)}</ol>;return <p key={i}>{inline(text)}</p>;})}</Fragment>)}</div>
+}

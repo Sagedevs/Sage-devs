@@ -1,0 +1,306 @@
+{
+  "checkedOn": "2026-11-26",
+  "pages": 37,
+  "assets": 14,
+  "results": [
+    {
+      "path": "/",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/about",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/blog",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/blog/ai-business-ideas",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/blog/ai-fitness-industry",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/blog/ai-mining-operations",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/blog/css-grid-vs-flexbox",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/blog/custom-vs-off-shelf-ai",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/blog/progressive-web-apps-guide",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/blog/react-vs-vue-2024",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/blog/scalable-nodejs-apis",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/blog/scale-ai-project",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/blog/web-performance-optimization",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/careers",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/case-studies",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/case-studies/14islands-creative-agency",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/case-studies/abhishek-jha-portfolio",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/case-studies/alaro-craft-brewery",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/case-studies/barrel-marketing",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/case-studies/elite-creations-pk",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/case-studies/good-looking-design",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/case-studies/kelvin-melgar-photography",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/case-studies/khanjee-canada",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/case-studies/klmnko-digital-agency",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/case-studies/lingua-nova-institute",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/case-studies/reech-agency",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/case-studies/roberto-coin-jewelry",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/contact",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/faq",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/letstalkai",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/pricing",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/privacy",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/projects",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/resources",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/services",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/sitemap",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/terms",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/manifest.json",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/favicon.ico",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/brand/apple-touch-icon.png",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/brand/icon-192.png",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/brand/icon-512.png",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/brand/icon-maskable-192.png",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/brand/icon-maskable-512.png",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/brand/social-card.png",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/sitemap-0.xml",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/robots.txt",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/googleb45aa620d0bc55ca.html",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/proj/lingua-nova.webp",
+      "status": "200",
+      "error": null
+    },
+    {
+      "path": "/proj/elite-creations.webp",
+      "status": "200",
+      "error": null
+    }
+  ],
+  "redirects": {
+    "/icons/icon-192x192.png": [
+      "HTTP/1.1 308 Permanent Redirect",
+      "location: /brand/icon-192.png",
+      "Refresh: 0;url=/brand/icon-192.png",
+      "Date: Thu, 26 Nov 2026 05:39:22 GMT",
+      "Connection: keep-alive"
+    ],
+    "/icons/icon-512x512.png": [
+      "HTTP/1.1 308 Permanent Redirect",
+      "location: /brand/icon-512.png",
+      "Refresh: 0;url=/brand/icon-512.png",
+      "Date: Thu, 26 Nov 2026 05:39:22 GMT",
+      "Connection: keep-alive"
+    ],
+    "/logo.png": [
+      "HTTP/1.1 308 Permanent Redirect",
+      "location: /brand/sage-devs-wordmark.png",
+      "Refresh: 0;url=/brand/sage-devs-wordmark.png",
+      "Date: Thu, 26 Nov 2026 05:39:22 GMT",
+      "Connection: keep-alive"
+    ],
+    "/og-banner.webp": [
+      "HTTP/1.1 308 Permanent Redirect",
+      "location: /brand/social-card.png",
+      "Refresh: 0;url=/brand/social-card.png",
+      "Date: Thu, 26 Nov 2026 05:39:22 GMT",
+      "Connection: keep-alive"
+    ],
+    "/projects/": [
+      "HTTP/1.1 308 Permanent Redirect",
+      "location: /projects",
+      "Refresh: 0;url=/projects",
+      "Date: Thu, 26 Nov 2026 05:39:22 GMT",
+      "Connection: keep-alive"
+    ]
+  },
+  "wwwRedirect": [
+    "HTTP/1.1 308 Permanent Redirect",
+    "location: https://sagedevs.tech/projects",
+    "Refresh: 0;url=https://sagedevs.tech/projects",
+    "Date: Thu, 26 Nov 2026 05:39:22 GMT",
+    "Connection: keep-alive"
+  ]
+}

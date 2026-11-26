@@ -1,4 +1,5 @@
 "use client";
+import Image from 'next/image';
 import React from 'react';
 import { Users, Heart, Target, Shield, Zap, Award } from 'lucide-react';
 
@@ -259,13 +260,13 @@ const Culture = () => {
                     
                     <div className="flex items-center space-x-3">
                       <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 border-2 border-white/20">
-                        <img 
+                        <Image width={40} height={40} unoptimized
                           src={testimonial.image} 
                           alt={testimonial.name}
                           className="w-full h-full object-cover"
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
-                            target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&background=1e40af&color=fff`;
+                            target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&background=171717&color=fff`;
                           }}
                         />
                       </div>

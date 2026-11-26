@@ -1,8 +1,11 @@
 "use client";
+import { caseStudies, caseStudySlug, featuredCaseIds } from '@/data/caseStudies';
+import { portfolio } from '@/data/portfolio';
 import React, { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 interface GooeyNavChildItem {
   label: string;
@@ -28,9 +31,6 @@ export interface GooeyNavProps {
 
 interface GooeyNavWithHeaderProps {
   items: GooeyNavItem[];
-  scrolled: boolean;
-  mobileMenuOpen: boolean;
-  toggleMobileMenu: () => void;
   children?: React.ReactNode;
 }
 
@@ -91,7 +91,7 @@ type MegaMenuContentMap = {
   [key: string]: MegaMenuItemContent;
 };
 
-// Enhanced Mega Menu Content Data - AppInventiv Style
+// Enhanced Mega Menu Content Data - AI knowledge
 const megaMenuContent: MegaMenuContentMap = {
   "Let's Talk AI": {
     title: "Explore AI Tech Solutions",
@@ -349,11 +349,26 @@ const megaMenuContent: MegaMenuContentMap = {
   }
 };
 
+const navigationLabel = (label: string) => ({ 'Case Studies': 'Work', 'Pricing & Plans': 'Pricing', 'About Us': 'Studio' }[label] ?? label);
+megaMenuContent.Services.categories = megaMenuContent.Services.categories?.filter(category => category.title !== 'Web Development Resources');
+megaMenuContent.Services.title = 'Design. Develop. Go further.';
+megaMenuContent.Services.showcase = { title: 'KLMNKO', subtitle: 'A considered digital experience.', description: 'Explore the design and development behind this project.', image: '/proj/klmnko.webp', href: '/case-studies#case-3' };
+megaMenuContent['Case Studies'].title = 'Different businesses. Shared craft.';
+megaMenuContent['Case Studies'].categories = [
+ {title:'Selected work',items:featuredCaseIds.map(id=>{const study=caseStudies.find(item=>item.id===id)!;return {label:study.title,href:`/case-studies/${caseStudySlug(study)}`,description:study.category,image:study.image};})},
+ {title:'Explore the portfolio',items:[{label:'Home',href:'/',description:'Back to the studio homepage'},{label:'View All Projects',href:'/projects',description:'Every industry. The complete collection.'},{label:'Case studies',href:'/case-studies',description:'A closer look at the work'},{label:'Lingua Nova Institute',href:'/case-studies/lingua-nova-institute',description:'Latest · Education'},{label:'Elite Creations PK',href:'/case-studies/elite-creations-pk',description:'Latest · E-commerce'}]}
+];
+
+
 const GooeyNav: React.FC<GooeyNavProps> = ({
   items,
   initialActiveIndex = 0,
 }) => {
-  const [megaMenuTimeout, setMegaMenuTimeout] = useState<NodeJS.Timeout | null>(null);
+  const reduceMotion = useReducedMotion();
+  const megaMenuTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const triggerRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const focusPanelOnOpen = useRef(false);
+  const navigationRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLUListElement>(null);
   const megaMenuRef = useRef<HTMLDivElement>(null);
@@ -366,89 +381,74 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   });
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const [megaMenuOpen, setMegaMenuOpen] = useState<string | null>(null);
-  const router = useRouter();
+  const pathname = usePathname();
 
-  // Simplified scroll lock - prevents layout shifts
-  useEffect(() => {
-    if (megaMenuOpen) {
-      // Simply prevent scrolling without changing layout
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [megaMenuOpen]);
+  const cancelClose = useCallback(() => {
+    if (megaMenuTimeout.current) clearTimeout(megaMenuTimeout.current);
+    megaMenuTimeout.current = null;
+  }, []);
 
-  // Handle wheel events for the mega menu
-  useEffect(() => {
-    if (!megaMenuRef.current || !megaMenuOpen) return;
-    const megaMenuEl = megaMenuRef.current;
+  const closeMenus = useCallback(() => {
+    cancelClose();
+    setMegaMenuOpen(null);
+    setHoverIndex(null);
+  }, [cancelClose]);
 
-    const handleWheel = (e: WheelEvent) => {
-      const delta = e.deltaY;
-      const canScrollUp = megaMenuEl.scrollTop > 0;
-      const canScrollDown = megaMenuEl.scrollTop + megaMenuEl.clientHeight < megaMenuEl.scrollHeight - 1;
-
-      if ((delta > 0 && canScrollDown) || (delta < 0 && canScrollUp)) {
-        megaMenuEl.scrollTop += delta;
-        e.preventDefault();
-        e.stopPropagation();
-      } else {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    };
-
-    megaMenuEl.addEventListener("wheel", handleWheel, { passive: false });
-    return () => {
-      megaMenuEl.removeEventListener("wheel", handleWheel as EventListener);
-    };
-  }, [megaMenuOpen]);
-
-  // Close mega menu function
-  const closeMegaMenu = useCallback((e: React.MouseEvent) => {
-    const target = e.target as HTMLElement;
-    if (!target || !target.closest) return;
-
-    const articleCard = target.closest('.article-card');
-    if (articleCard) {
-      e.preventDefault();
-      const href = (articleCard as HTMLAnchorElement).getAttribute('href');
-      if (href) {
-        void router.push(href);
-        setMegaMenuOpen(null);
-        window.scrollTo(0, 0);
-      }
-    } else {
-      setMegaMenuOpen(null);
-    }
-  }, [router]);
-
+  const closeMegaMenu = useCallback(() => closeMenus(), [closeMenus]);
   const closeMegaMenuWithDelay = useCallback(() => {
-    if (megaMenuTimeout) {
-      clearTimeout(megaMenuTimeout);
-    }
-    const timeout = setTimeout(() => {
-      setMegaMenuOpen(null);
-    }, 200); // Increased delay for better hover experience
-    setMegaMenuTimeout(timeout);
-  }, [megaMenuTimeout]);
+    cancelClose();
+    megaMenuTimeout.current = setTimeout(closeMenus, 180);
+  }, [cancelClose, closeMenus]);
 
   const handleMouseEnter = useCallback((index: number, itemLabel: string) => {
-    if (megaMenuTimeout) {
-      clearTimeout(megaMenuTimeout);
-      setMegaMenuTimeout(null);
-    }
+    cancelClose();
     setHoverIndex(index);
-    if (megaMenuContent[itemLabel as keyof typeof megaMenuContent]) {
-      setMegaMenuOpen(itemLabel);
-    }
-  }, [megaMenuTimeout]);
+    setMegaMenuOpen(megaMenuContent[itemLabel] ? itemLabel : null);
+  }, [cancelClose]);
 
-  // AppInventiv-style mega menu renderer
+  useEffect(() => {
+    closeMenus();
+    setActiveIndex(items.findIndex(item => (item.label === 'Case Studies' && pathname?.startsWith('/case-studies')) || item.href === pathname || (item.href !== '/' && pathname?.startsWith(`${item.href}/`))));
+  }, [pathname, items, closeMenus]);
+
+  useEffect(() => {
+    if (focusPanelOnOpen.current) {
+      const panel = megaMenuRef.current ?? navigationRef.current?.querySelector('.sage-simple-dropdown');
+      panel?.querySelector<HTMLAnchorElement>('a[href]')?.focus();
+      focusPanelOnOpen.current = false;
+    }
+  }, [megaMenuOpen, hoverIndex]);
+
+  useEffect(() => {
+    const outside = (event: PointerEvent) => {
+      if (!navigationRef.current?.contains(event.target as Node)) closeMenus();
+    };
+    const resize = () => { if (window.innerWidth < 1200) closeMenus(); };
+    document.addEventListener('pointerdown', outside);
+    window.addEventListener('resize', resize);
+    return () => {
+      document.removeEventListener('pointerdown', outside);
+      window.removeEventListener('resize', resize);
+      cancelClose();
+    };
+  }, [closeMenus, cancelClose]);
+
+  const toggleMenu = (index: number, label: string, focus = false) => {
+    cancelClose();
+    focusPanelOnOpen.current = focus;
+    if (megaMenuOpen === label || (hoverIndex === index && !megaMenuContent[label])) {
+      if (focus) {
+        (megaMenuRef.current ?? navigationRef.current?.querySelector('.sage-simple-dropdown'))?.querySelector<HTMLAnchorElement>('a[href]')?.focus();
+      } else closeMenus();
+    } else handleMouseEnter(index, label);
+  };
+
+  const renderWorkMenu = () => <div className="work-menu-layout">
+    <div className="work-menu-directory"><p>{new Set(Object.values(portfolio).flat().map(project=>project.url)).size} projects across {Object.keys(portfolio).length} industries. Explore the full collection or start with a selected collaboration.</p><Link className="button button-glass" href="/projects" onClick={closeMegaMenu}>View All Projects</Link><nav aria-label="Work discovery"><Link href="/" onClick={closeMegaMenu}>Home</Link><Link href="/case-studies" onClick={closeMegaMenu}>Case studies</Link><Link href="/case-studies/lingua-nova-institute" onClick={closeMegaMenu}>Lingua Nova Institute <small>Latest</small></Link><Link href="/case-studies/elite-creations-pk" onClick={closeMegaMenu}>Elite Creations PK <small>Latest</small></Link></nav></div>
+    <div className="work-menu-projects">{featuredCaseIds.map(id=>{const study=caseStudies.find(item=>item.id===id)!;return <Link href={`/case-studies/${caseStudySlug(study)}`} onClick={closeMegaMenu} key={id}><div><Image src={study.image} alt={`${study.title} website preview`} width={600} height={400} sizes="240px"/></div><span>{study.category}</span><strong>{study.title}</strong></Link>;})}</div>
+  </div>;
+
+  // Original AI mega menu renderer
   const renderAppInventivMegaMenu = useCallback((content: MegaMenuItemContent) => (
     <div className="appinventiv-layout">
       {/* Left Sidebar */}
@@ -491,7 +491,6 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
             className="article-card block"
             onClick={closeMegaMenu}
             scroll={false}
-            shallow={true}
           >
             <div className="article-image">
               <Image src={article.image} alt={article.title} width={80} height={80} className="w-full h-full object-cover rounded-md" />
@@ -543,7 +542,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
               onClick={closeMegaMenu}
               className="showcase-button"
             >
-              View Details →
+              View details
             </Link>
           </div>
         )}
@@ -654,7 +653,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
               target="_blank"
   rel="noopener noreferrer"
             >
-              View Details →
+              View details
             </Link>
           </div>
         )}
@@ -688,32 +687,6 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
     });
   }, []);
 
-  const handleClick = useCallback(
-    (e: React.MouseEvent<HTMLLIElement>, index: number) => {
-      if (activeIndex === index) return;
-      const liEl = e.currentTarget;
-      setActiveIndex(index);
-      updateFilterPosition(liEl);
-    },
-    [activeIndex, updateFilterPosition]
-  );
-
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLAnchorElement>, index: number) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        const liEl = e.currentTarget.parentElement;
-        if (liEl) {
-          handleClick(
-            { currentTarget: liEl } as React.MouseEvent<HTMLLIElement>,
-            index
-          );
-        }
-      }
-    },
-    [handleClick]
-  );
-
   useEffect(() => {
     if (!navRef.current || !containerRef.current) return;
     const activeLi = navRef.current.querySelectorAll("li")[activeIndex] as HTMLElement;
@@ -738,696 +711,54 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
     };
   }, [activeIndex, updateFilterPosition]);
 
-  const memoizedStyles = useMemo(
-    () => ({
-      __html: `
-      :root {
-        --color-1: #8B5CF6;
-        --color-2: #3B82F6;
-        --color-3: #FFFFFF;
-        --color-4: #000000;
-      }
-      
-      /* Animated gradient background */
-      @keyframes gradientShift {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-      }
-      
-      .gooey-nav-container {
-        contain: layout style;
-        isolation: isolate;
-        position: relative;
-        z-index: 10;
-      }
-      .gooey-nav-ul {
-        background: linear-gradient(to right, rgba(20, 0, 40, 0.8), rgba(0, 10, 30, 0.8));
-        border-radius: 9999px;
-        padding: 0.5rem 1rem;
-        backdrop-filter: blur(8px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      }
-      .gooey-filter {
-        position: absolute;
-        pointer-events: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: -1;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        contain: layout style;
-        opacity: 1;
-        background: linear-gradient(to right, var(--color-1), var(--color-2));
-        border-radius: 9999px;
-      }
-      .gooey-filter::before {
-        content: "";
-        position: absolute;
-        inset: -20px;
-        z-index: -1;
-        background: transparent;
-      }
-      .gooey-nav-item {
-        position: relative;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        contain: layout style;
-        z-index: 1;
-        color: var(--color-3);
-        padding: 0.4em 0.7em;
-        border-radius: 9999px;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-      }
-      .gooey-nav-item:hover {
-        color: var(--color-3);
-        background: linear-gradient(to right, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2));
-        transform: translateY(-3px) scale(1.02);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      }
-      .gooey-nav-item.active {
-        color: var(--color-4);
-        text-shadow: none;
-        background: linear-gradient(to right, var(--color-3), rgba(255,255,255,0.9));
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-      }
-      .gooey-nav-item.active::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: 9999px;
-        background: transparent;
-        opacity: 0;
-        transform: scale(1);
-        transition: none;
-        z-index: -1;
-      }
-      .gooey-nav-link {
-        display: block;
-        text-decoration: none;
-        color: inherit;
-        outline: none;
-        white-space: nowrap;
-        position: relative;
-        z-index: 1;
-      }
-      .gooey-nav-link:focus-visible {
-        outline: 2px solid var(--color-3);
-        outline-offset: 2px;
-      }
-      
-      /* Enhanced Mega Menu Styles with Animated Background */
-      .mega-menu {
-        position: fixed;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: linear-gradient(-45deg, #0a0e1a, #1a1f2e, #0f1729, #1e2337);
-        background-size: 400% 400%;
-        animation: gradientShift 15s ease infinite;
-        backdrop-filter: blur(20px);
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        z-index: 50;
-        opacity: 0;
-        transform: translateY(-10px);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        pointer-events: none;
-        max-height: 60vh;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        overscroll-behavior: contain;
-      }
-      
-      .mega-menu.open {
-        opacity: 1;
-        transform: translate(-215px, 10px);
-        pointer-events: auto;
-        width: 77rem;
-        border-radius: 20px;
-        box-shadow: 2px 2px 10px #fff;
-      }
-      
-      /* Mobile menu scroll improvements */
-      .mobile-menu-scroll {
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
-        overscroll-behavior: contain;
-      }
+  const memoizedStyles = useMemo(() => ({ __html: `.sage-header{position:sticky;top:0;z-index:110;height:110px;padding:18px 24px;color:var(--sd-ivory);font-family:var(--font-body),sans-serif;pointer-events:none}
+.sage-header-shell{width:min(1440px,100%);margin:auto;position:relative;pointer-events:auto}
+.sage-header-bar{height:74px;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 24px;background:linear-gradient(115deg,rgb(var(--sd-graphite-secondary-rgb) / .94),rgb(var(--sd-graphite-rgb) / .92));border:1px solid rgb(var(--sd-platinum-rgb) / 0.180);border-radius:14px;box-shadow:inset 0 1px 0 rgb(var(--sd-white-rgb) / 0.071),0 16px 48px rgb(var(--sd-obsidian-rgb) / 0.122);backdrop-filter:blur(24px);transition:background .25s,box-shadow .25s}
+.sage-header.is-scrolled .sage-header-bar{background:rgb(var(--sd-graphite-rgb) / 0.961);box-shadow:0 12px 35px rgb(var(--sd-obsidian-rgb) / 0.188)}
+.sage-header-brand{flex-shrink:0}.sage-header-brand a{display:flex;align-items:center}.sage-header-brand img,.sage-mobile-panel-heading img{width:138px;height:44px;object-fit:contain}
+.sage-header-desktop{flex:1;display:flex;justify-content:flex-end;min-width:0}.sage-navigation{min-width:0}.sage-header .gooey-nav-container{position:relative}.sage-header .gooey-nav-ul{display:flex;align-items:center;gap:5px;list-style:none;padding:0;margin:0}
+.sage-header .gooey-nav-item{display:flex;align-items:center;position:relative;color:var(--sd-platinum);border:1px solid transparent;border-radius:8px;white-space:nowrap;transition:background .2s,color .2s}
+.sage-header .gooey-nav-item.active{background:rgb(var(--sd-platinum-rgb) / 0.051);border-color:rgb(var(--sd-platinum-rgb) / 0.094);color:var(--sd-white)}.sage-header .gooey-nav-item:hover{background:rgb(var(--sd-platinum-rgb) / 0.059);color:var(--sd-white)}
+.sage-header .gooey-nav-link{padding:12px 9px;font-size:.875rem;letter-spacing:-.02em;line-height:1.5}.sage-header .gooey-nav-item:last-child{background:var(--sd-platinum);color:var(--sd-graphite-secondary);margin-left:6px;border-color:var(--sd-ivory)}.sage-header .gooey-nav-item:last-child:hover{background:var(--sd-white)}
+.sage-header .sage-nav-disclosure{display:grid;place-items:center;align-self:stretch;width:27px;min-height:44px;border:0;border-radius:6px;background:transparent;color:inherit}.sage-header .sage-nav-disclosure svg{transition:transform .22s}.sage-header .sage-nav-disclosure[aria-expanded=true] svg{transform:rotate(180deg)}.sage-header .sage-nav-disclosure:hover{background:rgb(var(--sd-silver-rgb) / 0.169)}
+.sage-header .gooey-filter{position:absolute;bottom:0;height:1px!important;background:rgb(var(--sd-subtle-rgb) / 0.502);pointer-events:none;transition:left .25s,width .25s;opacity:0}
+.sage-header :is(a,button):focus-visible{outline:2px solid var(--sd-subtle);outline-offset:3px}.sage-header .sage-simple-dropdown{position:absolute;top:calc(100% + 14px);right:0;min-width:245px;display:flex;flex-direction:column;gap:4px;list-style:none;padding:12px;background:rgb(var(--sd-graphite-rgb) / 0.969);backdrop-filter:blur(24px);border:1px solid rgb(var(--sd-platinum-rgb) / 0.188);border-radius:12px;box-shadow:0 20px 50px rgb(var(--sd-obsidian-rgb) / 0.271);animation:sage-menu-reveal .2s ease-out}.sage-simple-dropdown a{font-size:.875rem;min-height:44px;display:flex;align-items:center}
+.sage-header .mega-menu{position:absolute;left:0;right:0;top:calc(100% + 12px);width:100%;max-height:calc(100dvh - 130px);overflow-y:auto;overscroll-behavior:contain;background:radial-gradient(ellipse at 95% 5%,rgb(var(--sd-graphite-secondary-rgb) / 0.533),transparent 65%),linear-gradient(120deg,rgb(var(--sd-graphite-rgb) / 0.988),rgb(var(--sd-ink-rgb) / 0.988));backdrop-filter:blur(28px);border:1px solid rgb(var(--sd-platinum-rgb) / 0.188);border-radius:18px;box-shadow:inset 0 1px 0 rgb(var(--sd-ivory-rgb) / 0.071),0 28px 75px rgb(var(--sd-obsidian-rgb) / 0.333);color:var(--sd-ivory);animation:sage-menu-reveal .22s cubic-bezier(.2,.8,.2,1);scrollbar-color:var(--sd-graphite-secondary) transparent;scrollbar-width:thin}
+.sage-header .mega-menu-heading{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:28px 32px 23px;border-bottom:1px solid rgb(var(--sd-platinum-rgb) / 0.094)}.sage-header .mega-menu-heading span{font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--sd-subtle)}.sage-header .mega-menu-heading h2{font-size:1.75rem;font-weight:500;letter-spacing:-.035em;color:var(--sd-ivory);margin:7px 0 0}.sage-header .mega-menu-heading>a{font-size:.875rem;color:var(--sd-platinum);border-bottom:1px solid var(--sd-silver);padding:9px 0}
+.sage-header .standard-mega-menu-layout{display:grid;grid-template-columns:minmax(0,1fr) 285px;gap:32px;padding:28px 32px 32px}.sage-header .mega-menu-categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 26px;margin:0}.sage-header .mega-menu-category h4{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--sd-silver);margin:0 0 12px;line-height:1.5}.sage-header .category-items{display:flex;flex-direction:column;gap:0}.sage-header .mega-menu-item-container{padding:0 8px;border-radius:7px;transition:background .2s;margin:0;gap:12px;align-items:center}.sage-header .mega-menu-item-container:hover{background:rgb(var(--sd-platinum-rgb) / 0.035)}.sage-header .mega-menu-item{padding:10px 0;display:block;flex:1;min-width:0}.sage-header .mega-menu-item h5{font-size:.9375rem;font-weight:500;line-height:1.4;color:var(--sd-ivory);margin:0}.sage-header .mega-menu-item p{font-size:.8125rem;line-height:1.5;color:var(--sd-subtle);margin:4px 0 0}.sage-header .menu-item-image{width:46px;flex-shrink:0}.sage-header .menu-item-image img{width:46px;height:46px;object-fit:cover;border-radius:6px}
+.sage-header .mega-menu-right-sidebar{align-self:start;min-width:0}.sage-header .mega-menu-showcase{padding:18px;border:1px solid rgb(var(--sd-platinum-rgb) / 0.149);border-radius:12px;background:linear-gradient(145deg,rgb(var(--sd-platinum-rgb) / 0.051),rgb(var(--sd-platinum-rgb) / 0.012));box-shadow:inset 0 1px 0 rgb(var(--sd-ivory-rgb) / 0.039)}.sage-header .showcase-image{overflow:hidden;border-radius:8px;margin-bottom:18px}.sage-header .showcase-image img{width:100%;height:155px;object-fit:cover;margin:0;border-radius:8px;transition:transform .4s}.sage-header .mega-menu-showcase:hover .showcase-image img{transform:scale(1.025)}.sage-header .showcase-title{font-size:1.25rem;line-height:1.2;color:var(--sd-ivory);margin:0 0 10px}.sage-header .showcase-subtitle{font-size:.875rem;line-height:1.5;font-weight:500;color:var(--sd-subtle);margin:0 0 10px}.sage-header .showcase-description{font-size:.8125rem;line-height:1.65;color:var(--sd-subtle);margin:0 0 16px}.sage-header .showcase-features{list-style:none;display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:16px 0}.sage-header .feature-item{font-size:.75rem;line-height:1.4;border:1px solid rgb(var(--sd-platinum-rgb) / 0.102);border-radius:4px;padding:6px 8px;color:var(--sd-platinum)}.sage-header .feature-check{display:none}.sage-header .showcase-button{display:inline-flex;justify-content:center;align-items:center;min-height:44px;padding:10px 16px;border-radius:6px;border:1px solid rgb(var(--sd-platinum-rgb) / 0.251);color:var(--sd-ivory);background:rgb(var(--sd-platinum-rgb) / 0.039);font-size:.875rem;width:100%;margin-top:12px}.sage-header .showcase-button:hover{background:rgb(var(--sd-platinum-rgb) / 0.125)}.sage-header .showcase-stats,.sage-header .showcase-results{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid rgb(var(--sd-platinum-rgb) / 0.102);padding-top:16px;margin-top:16px}.sage-header .stat-value,.sage-header .result-value{font-size:1rem;color:var(--sd-ivory)}.sage-header .stat-label,.sage-header .result-metric{font-size:.75rem;color:var(--sd-subtle);line-height:1.5;margin-top:4px}
+.sage-header .appinventiv-layout{display:grid;grid-template-columns:240px minmax(0,1fr) 285px;gap:28px;padding:28px 32px 32px}.sage-header .mega-menu-left-sidebar{padding-right:20px;border-right:1px solid rgb(var(--sd-platinum-rgb) / 0.094)}.sage-header .mega-menu-left-sidebar h3{font-size:1.2rem;line-height:1.3;margin:0 0 12px;color:var(--sd-ivory)}.sage-header .subtitle{font-size:.875rem;color:var(--sd-subtle);line-height:1.6;margin:0 0 16px}.sage-header .sidebar-nav-item{display:block;padding:11px 0;color:var(--sd-platinum);font-size:.875rem;border-bottom:1px solid rgb(var(--sd-platinum-rgb) / 0.071)}.sage-header .sidebar-nav-item:hover{color:var(--sd-white)}.sage-header .cta-section,.sage-header .mega-menu-cta{margin-top:24px}.sage-header .cta-section h4,.sage-header .cta-title{font-size:1.05rem;line-height:1.5;color:var(--sd-ivory);margin:0 0 10px}.sage-header .cta-section p,.sage-header .cta-description{font-size:.8125rem;line-height:1.6;color:var(--sd-subtle)}.sage-header .cta-button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;font-size:.875rem;color:var(--sd-graphite-secondary);background:var(--sd-platinum);padding:11px 16px;border-radius:6px;width:100%}.sage-header .cta-button:hover{background:var(--sd-white)}
+.sage-header .mega-menu-articles{display:flex;flex-direction:column;gap:12px;min-width:0}.sage-header .article-card{display:flex;align-items:center;gap:16px;padding:12px;border:1px solid rgb(var(--sd-platinum-rgb) / 0.082);border-radius:10px;background:rgb(var(--sd-platinum-rgb) / 0.016);transition:background .2s,border-color .2s}.sage-header .article-card:hover{background:rgb(var(--sd-platinum-rgb) / 0.043);border-color:rgb(var(--sd-platinum-rgb) / 0.208)}.sage-header .article-image{width:80px;height:70px;flex-shrink:0;overflow:hidden;box-shadow:none;border:0}.sage-header .article-image img{width:100%;height:100%;object-fit:cover}.sage-header .article-content h5{font-size:.9375rem;line-height:1.5;color:var(--sd-ivory);margin:0;font-weight:500}
+.sage-mobile-toggle{display:none;align-items:center;gap:12px;min-height:44px;border:1px solid rgb(var(--sd-platinum-rgb) / 0.188);background:rgb(var(--sd-platinum-rgb) / 0.043);border-radius:7px;padding:8px 12px;color:var(--sd-ivory);font-size:.875rem}.sage-mobile-toggle svg{width:19px;height:19px}
+.sage-mobile-panel{position:fixed;inset:0;width:100%;height:100dvh;z-index:120;display:flex;flex-direction:column;visibility:hidden;opacity:0;transform:translateY(-12px);transition:opacity .25s,transform .25s,visibility .25s;pointer-events:none;background:rgb(var(--sd-ink-rgb) / 0.973);backdrop-filter:blur(24px)}.sage-mobile-panel.is-open{visibility:visible;opacity:1;transform:none;pointer-events:auto}.sage-mobile-panel-heading{position:relative;z-index:2;display:flex;flex-shrink:0;align-items:center;justify-content:space-between;gap:20px;padding:20px 24px;border-bottom:1px solid rgb(var(--sd-platinum-rgb) / 0.145)}.sage-mobile-panel-heading button{border-radius:8px;background:rgb(var(--sd-platinum-rgb) / 0.043);padding:10px;border:1px solid rgb(var(--sd-platinum-rgb) / 0.188)}.sage-mobile-panel-heading svg{width:20px;height:20px}.sage-mobile-panel .mobile-menu-scroll{position:relative;overflow-y:auto;overscroll-behavior:contain;flex:1;min-height:0;padding:16px 0 40px}.sage-mobile-items>div{border-bottom:1px solid rgb(var(--sd-platinum-rgb) / 0.094);padding:6px 0}.sage-mobile-items>div>div>a{font-size:1.25rem;font-weight:400;letter-spacing:-.03em;padding:15px 0;color:var(--sd-ivory)}.sage-mobile-items>div>div>button{width:44px;min-height:44px;display:grid;place-items:center;border-radius:7px;background:rgb(var(--sd-platinum-rgb) / 0.031)}.sage-mobile-group{margin:6px 0 20px 0;padding-left:20px;border-color:rgb(var(--sd-silver-rgb) / 0.302)}.sage-mobile-group a{font-size:.9375rem;line-height:1.5;padding:10px 0;color:var(--sd-subtle);display:block}.sage-mobile-group .text-cyan-400{color:var(--sd-subtle);font-size:.75rem;text-transform:uppercase;letter-spacing:.09em;padding-top:14px}.sage-mobile-items .pt-6>a{border-radius:7px;background:var(--sd-platinum);color:var(--sd-graphite-secondary);font-weight:500}.sage-mobile-items [aria-current=page]{color:var(--sd-platinum)}
 
-      /* Hide scrollbar for mobile but keep functionality */
-      .mobile-menu-scroll::-webkit-scrollbar {
-        display: none;
-      }
-
-      .mobile-menu-scroll {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-      }
-      
-      /* Custom Scrollbar for Mega Menu */
-      .mega-menu::-webkit-scrollbar {
-        width: 5px;
-        height: 3px;
-      }
-
-      .mega-menu::-webkit-scrollbar-track {
-        background: #2a334a;
-        border-radius: 10px;
-      }
-
-      .mega-menu::-webkit-scrollbar-thumb {
-        background-color: #60a5fa;
-        border-radius: 10px;
-        border: 1px solid #2a334a;
-      }
-
-      .mega-menu::-webkit-scrollbar-thumb:hover {
-        background-color: #3b82f6;
-      }
-      
-      /* AppInventiv Style Layout */
-      .appinventiv-layout {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 2.5rem;
-        display: grid;
-        grid-template-columns: 250px 1fr 350px;
-        gap: 1.5rem;
-        min-height: 500px;
-        position: relative;
-      }
-      
-      .mega-menu-right-sidebar {
-        position: sticky;
-        top: 2.5rem;
-        height: fit-content;
-      }
-      
-      /* Standard mega menu layout */
-      .standard-mega-menu-layout {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem;
-        display: grid;
-        grid-template-columns: 1fr 350px;
-        gap: 2rem;
-        position: relative;
-      }
-      
-      .mega-menu-categories {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 0.5rem;
-      }
-      
-      .category-items {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-      }
-      
-      .mega-menu-left-sidebar {
-        background: rgba(15, 22, 41, 0.6);
-        border-radius: 16px;
-        padding: 2rem;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-      }
-      
-      .mega-menu-left-sidebar h3 {
-        color: #ffffff;
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-      }
-      
-      .mega-menu-left-sidebar .subtitle {
-        color: #94a3b8;
-        font-size: 0.9rem;
-        margin-bottom: 2rem;
-        line-height: 1.5;
-      }
-      
-      .mega-menu-left-sidebar .cta-section {
-        background: rgba(0, 0, 0, 0.3);
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin-top: 2rem;
-        text-align: center;
-      }
-      
-      .mega-menu-left-sidebar .cta-section h4 {
-        color: #ffffff;
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 0.75rem;
-        line-height: 1.3;
-      }
-      
-      .mega-menu-left-sidebar .cta-section p {
-        color: #cbd5e1;
-        font-size: 0.85rem;
-        margin-bottom: 1.25rem;
-        line-height: 1.4;
-      }
-      
-      .mega-menu-left-sidebar .cta-button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.75rem 1.5rem;
-        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-        color: white;
-        text-decoration: none;
-        border-radius: 8px;
-        font-weight: 500;
-        font-size: 0.9rem;
-        white-space: nowrap;
-        transition: all 0.2s ease;
-        border: none;
-        cursor: pointer;
-        width: 100%;
-      }
-      
-      .mega-menu-left-sidebar .cta-button:hover {
-        background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-      }
-      
-      .sidebar-nav-item {
-        display: block;
-        padding: 0.75rem 0;
-        color: #e2e8f0;
-        text-decoration: none;
-        font-size: 0.95rem;
-        font-weight: 500;
-        transition: all 0.2s ease;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      }
-      
-      .sidebar-nav-item:hover {
-        color: #60a5fa;
-        transform: translateX(4px);
-        border-bottom-color: rgba(96, 165, 250, 0.3);
-      }
-      
-      .sidebar-nav-item:last-child {
-        border-bottom: none;
-      }
-      
-      .mega-menu-articles {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-        padding: 0;
-      }
-      
-      .article-card {
-        display: flex;
-        gap: 1rem;
-        padding: 1.25rem;
-        background: rgba(30, 41, 59, 0.4);
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        transition: all 0.3s ease;
-        text-decoration: none;
-        backdrop-filter: blur(10px);
-      }
-      
-      .article-card:hover {
-        background: rgba(30, 41, 59, 0.6);
-        border-color: rgba(96, 165, 250, 0.3);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-      }
-      
-      .article-image {
-        width: 80px;
-        height: 80px;
-        border-radius: 8px;
-        overflow: hidden;
-        flex-shrink: 0;
-      }
-      .article-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      
-      .article-content {
-        flex: 1;
-      }
-      
-      .article-content h5 {
-        color: #ffffff;
-        font-size: 1rem;
-        font-weight: 600;
-        line-height: 1.3;
-        margin-bottom: 0.5rem;
-      }
-      
-      .article-content p {
-        color: #94a3b8;
-        font-size: 0.85rem;
-        line-height: 1.4;
-      }
-      
-      .mega-menu-category h4 {
-        color: #60a5fa;
-        font-size: 0.875rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin-bottom: 1rem;
-      }
-      
-      /* Showcase Styles */
-      .mega-menu-showcase {
-        background: rgba(15, 22, 41, 0.7);
-        border-radius: 16px;
-        padding: 1.5rem;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        transition: all 0.3s ease;
-        height: 100%;
-        position: sticky;
-        top: 2.5rem;
-        margin-left: auto;
-        width: 100%;
-        max-width: 350px;
-      }
-      
-      .mega-menu-showcase:hover {
-        background: rgba(15, 22, 41, 0.9);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-      }
-      
-      .showcase-image {
-        margin-bottom: 1.25rem;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-      }
-      
-      .showcase-image img {
-        width: 100%;
-        height: auto;
-        border-radius: 8px;
-        transition: transform 0.3s ease;
-      }
-      
-      .mega-menu-showcase:hover .showcase-image img {
-        transform: scale(1.02);
-      }
-      
-      .showcase-title {
-        color: #ffffff;
-        font-size: 1.25rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        line-height: 1.3;
-      }
-      
-      .showcase-subtitle {
-        color: #60a5fa;
-        font-size: 0.9rem;
-        font-weight: 500;
-        margin-bottom: 1rem;
-      }
-      
-      .showcase-description {
-        color: #cbd5e1;
-        font-size: 0.9rem;
-        line-height: 1.5;
-        margin-bottom: 1.5rem;
-      }
-      
-      .showcase-stats {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-      }
-      
-      .stat-item {
-        background: rgba(96, 165, 250, 0.1);
-        padding: 0.75rem;
-        border-radius: 8px;
-        text-align: center;
-      }
-      
-      .stat-value {
-        color: #ffffff;
-        font-size: 1.25rem;
-        font-weight: 700;
-        margin-bottom: 0.25rem;
-      }
-      
-      .stat-label {
-        color: #94a3b8;
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-      
-      .showcase-features h5,
-      .showcase-results h5 {
-        color: #ffffff;
-        font-size: 0.9rem;
-        font-weight: 600;
-        margin-bottom: 0.75rem;
-        display: flex;
-        align-items: center;
-      }
-      
-      .showcase-features h5::before,
-      .showcase-results h5::before {
-        content: '→';
-        color: #60a5fa;
-        margin-right: 0.5rem;
-        font-size: 1.1em;
-      }
-      
-      .feature-list {
-        list-style: none;
-        padding: 0;
-        margin: 0 0 1.5rem 0;
-      }
-      
-      .feature-item {
-        color: #e2e8f0;
-        font-size: 0.9rem;
-        padding: 0.5rem 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        display: flex;
-        align-items: center;
-      }
-      
-      .feature-item::before {
-        content: '✓';
-        color: #60a5fa;
-        margin-right: 0.5rem;
-        font-size: 0.8em;
-      }
-      
-      .result-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5rem 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      }
-      
-      .result-metric {
-        color: #e2e8f0;
-        font-size: 0.9rem;
-      }
-      
-      .result-value {
-        color: #60a5fa;
-        font-weight: 600;
-        background: rgba(96, 165, 250, 0.1);
-        padding: 0.25rem 0.75rem;
-        border-radius: 9999px;
-        font-size: 0.8rem;
-      }
-      
-      .showcase-cta {
-        display: inline-flex;
-        align-items: center;
-        color: #60a5fa;
-        font-weight: 500;
-        font-size: 0.9rem;
-        text-decoration: none;
-        margin-top: 1rem;
-        transition: all 0.2s ease;
-      }
-      
-      .showcase-cta:hover {
-        color: #3b82f6;
-        transform: translateX(4px);
-      }
-      
-      .showcase-cta::after {
-        content: '→';
-        margin-left: 0.5rem;
-        transition: transform 0.2s ease;
-      }
-      
-      .showcase-cta:hover::after {
-        transform: translateX(4px);
-      }
-      
-      /* CTA Styles */
-      .mega-menu-cta {
-        background: transparent;
-        padding: 0;
-        margin-top: 1.5rem;
-      }
-      
-      .cta-title {
-        color: #ffffff;
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-      }
-      
-      .cta-description {
-        color: #cbd5e1;
-        font-size: 0.9rem;
-        margin-bottom: 1rem;
-        line-height: 1.4;
-      }
-      
-      .cta-button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.75rem 1.5rem;
-        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-        color: white;
-        text-decoration: none;
-        border-radius: 8px;
-        font-weight: 500;
-        font-size: 0.9rem;
-        transition: all 0.2s ease;
-        width: 100%;
-        border: none;
-        cursor: pointer;
-        margin-top: 0.5rem;
-      }
-      
-      .cta-button:hover {
-        background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-      }
-      
-      .mega-menu-item {
-        display: block;
-        padding: 0.75rem 0;
-        text-decoration: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        transition: all 0.2s ease;
-      }
-      
-      .mega-menu-item:hover {
-        color: #60a5fa;
-        transform: translateX(8px);
-        border-bottom-color: rgba(96, 165, 250, 0.3);
-      }
-      
-      .mega-menu-item h5 {
-        color: #ffffff;
-        font-size: 1rem;
-        font-weight: 500;
-        margin-bottom: 0.25rem;
-      }
-      
-      .mega-menu-item p {
-        color: #94a3b8;
-        font-size: 0.875rem;
-        line-height: 1.4;
-      }
-      
-      .mega-menu-cta {
-        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-        padding: 1.5rem;
-        text-align: center;
-      }
-      
-      .mega-menu-featured {
-        background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
-        border-radius: 12px;
-        padding: 1.5rem;
-        text-align: center;
-        margin-bottom: 1rem;
-      }
-      
-      @media (max-width: 1024px) {
-        .appinventiv-layout,
-        .standard-mega-menu-layout {
-          height: auto;
-          min-height: 100%;
-          grid-template-columns: 1fr;
-          gap: 2rem;
-          overflow-y: scroll;
-          scrollbar-width: thin;
-          scrollbar-color: rgba(255, 255, 255, 0.1) rgba(0, 0, 0, 0.1);
-        }
-        
-        .mega-menu-showcase,
-        .mega-menu-right-sidebar {
-          margin-top: 2rem;
-        }
-        
-        .mega-menu-categories {
-          grid-template-columns: 1fr;
-        }
-      }
-      
-      @media (prefers-reduced-motion: reduce) {
-        .gooey-filter,
-        .gooey-nav-item,
-        .gooey-nav-item::after,
-        .mega-menu,
-        .mega-menu-item,
-        .article-card {
-          animation: none !important;
-          transition: none !important;
-        }
-      }
-      `
-    }),
-    []
-  );
+.sage-header .sage-brand-asset{display:block;width:54px;height:54px;position:relative;overflow:hidden;flex-shrink:0}.sage-header .sage-brand-asset img{position:absolute;width:110px;height:110px;max-width:none;left:-28px;top:-28px}.sage-header .sage-brand-name{font-family:var(--font-display),sans-serif;color:var(--sd-ivory);font-size:1.2rem;font-weight:500;letter-spacing:-.055em;white-space:nowrap}.sage-header .sage-header-brand>a,.sage-header .sage-mobile-panel-heading a{display:flex;align-items:center;gap:6px}
+@media(min-width:1280px){.sage-header .mega-menu[aria-label="Services menu"] .standard-mega-menu-layout{grid-template-columns:minmax(0,1fr) 240px;gap:24px}.sage-header .mega-menu[aria-label="Services menu"] .mega-menu-categories{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}.sage-header .mega-menu[aria-label="Services menu"] .mega-menu-category h4{min-height:36px}}
+@keyframes sage-menu-reveal{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:none}}
+@media(min-width:1500px){.sage-header .mega-menu-categories{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1199px){.sage-header-desktop{display:none}.sage-mobile-toggle{display:flex}.sage-header{height:100px;padding:14px 20px}.sage-header-bar{height:72px;padding:0 20px}.sage-header .mega-menu{display:none}}
+@media(max-width:600px){.sage-header{height:94px;padding:12px}.sage-header-bar{height:70px;padding:0 16px;border-radius:11px}.sage-header-brand img,.sage-mobile-panel-heading img{width:120px;height:40px}.sage-mobile-panel-heading{padding:17px 24px}.sage-mobile-panel .max-w-xl{padding:0 24px}}
+@media(prefers-reduced-motion:reduce){.sage-header *,.sage-header *::before,.sage-header *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+` }), []);
 
   return (
-    <>
+    <div className="sage-navigation" ref={navigationRef}
+      onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget as Node)) closeMenus(); }}
+      onKeyDown={event => {
+        if (event.key === 'Escape') {
+          const index = items.findIndex(item => item.label === megaMenuOpen);
+          closeMenus();
+          triggerRefs.current[index >= 0 ? index : hoverIndex ?? 0]?.focus();
+        }
+      }}>
       <style dangerouslySetInnerHTML={memoizedStyles} />
       <div className="gooey-nav-container" ref={containerRef}>
 
         {/* Nav */}
-        <nav>
+        <nav aria-label="Main navigation">
           <ul
             ref={navRef}
-            className={`
-              gooey-nav-ul
-              flex-col
-              hidden
-              lg:flex lg:flex-row
-              gap-2 md:gap-3 lg:gap-4 xl:gap-6 list-none p-0 m-0
-              absolute lg:static top-12 left-0 right-0 mx-auto w-max
-              z-20
-              transition-all duration-200
-              bg-transparent
-            `}
+            className="gooey-nav-ul"
           >
             {items.map((item, index) => {
               const hasChildren = Array.isArray(item.children) && item.children.length > 0;
@@ -1435,21 +766,24 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
               
               return (
                 <li
-                  key={`${item.label}-${index}`}
+                  key={`${navigationLabel(item.label)}-${index}`}
                   className={`group relative gooey-nav-item text-xs sm:text-sm md:text-base cursor-pointer ${
                     item.href && activeIndex === index ? "active" : ""
                   }`}
-                  onMouseEnter={() => handleMouseEnter(index, item.label)}
-                  onMouseLeave={() => {
-                    setHoverIndex((prev) => (prev === index ? null : prev));
-                    closeMegaMenuWithDelay();
-                  }}
+                  onMouseEnter={() => { cancelClose(); megaMenuTimeout.current = setTimeout(() => handleMouseEnter(index, item.label), 120); }}
+                  onMouseLeave={closeMegaMenuWithDelay}
                 >
                   {item.href ? (
                     <Link
                       href={item.href}
-                      onKeyDown={(e) => handleKeyDown(e, index)}
+                      aria-current={activeIndex === index ? 'page' : undefined}
+                      onKeyDown={event => {
+                        if (event.key === 'ArrowDown' && (hasChildren || hasMegaMenu)) {
+                          event.preventDefault(); toggleMenu(index, item.label, true);
+                        }
+                      }}
                       onClick={(e) => {
+                        closeMenus();
                         const liEl = e.currentTarget.parentElement as HTMLLIElement | null;
                         if (liEl) {
                           setActiveIndex(index);
@@ -1458,26 +792,37 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
                       }}
                       className={`gooey-nav-link flex items-center gap-1`}
                     >
-                      {item.label}
-                      {(hasChildren || hasMegaMenu) && <span className="text-[10px] opacity-80">▾</span>}
+                      {navigationLabel(item.label)}
+
                     </Link>
                   ) : (
                     <span className={`gooey-nav-link flex items-center gap-1`}>
-                      {item.label}
-                      {(hasChildren || hasMegaMenu) && <span className="text-[10px] opacity-80">▾</span>}
+                      {navigationLabel(item.label)}
+
                     </span>
                   )}
+
+                  {(hasChildren || hasMegaMenu) && <button
+                    ref={node => { triggerRefs.current[index] = node; }}
+                    type="button" className="sage-nav-disclosure"
+                    aria-label={`Explore ${navigationLabel(item.label)}`}
+                    aria-expanded={hasMegaMenu ? megaMenuOpen === item.label : hoverIndex === index}
+                    aria-controls={`sage-menu-${index}`}
+                    onClick={() => toggleMenu(index, item.label)}
+                    onKeyDown={event => { if (event.key === 'ArrowDown') { event.preventDefault(); toggleMenu(index, item.label, true); } }}
+                  ><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" strokeWidth="1.5"/></svg></button>}
 
                   {/* Simple Dropdown for items without mega menu content - desktop hover */}
                   {hasChildren && !hasMegaMenu && hoverIndex === index && (
                     <ul
-                      className="hidden lg:flex absolute top-[110%] left-1/2 -translate-x-1/2 min-w-[220px] flex-col bg-black/80 backdrop-blur-xl border border-white/10 rounded-xl p-2 shadow-xl z-30"
+                      id={`sage-menu-${index}`} className="sage-simple-dropdown"
                     >
                       {item.children!.map((child) => (
                         <li key={child.label}>
                           {child.external ? (
                             <a
                               href={child.href}
+                              onClick={closeMegaMenu}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="block w-full text-left px-3 py-2 rounded-lg text-sm text-white/90 hover:text-cyan-300 hover:bg-white/5"
@@ -1487,6 +832,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
                           ) : (
                             <Link
                               href={child.href}
+                              onClick={closeMegaMenu}
                               className="block w-full text-left px-3 py-2 rounded-lg text-sm text-white/90 hover:text-cyan-300 hover:bg-white/5"
                             >
                               {child.label}
@@ -1505,6 +851,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
                           {child.external ? (
                             <a
                               href={child.href}
+                              onClick={closeMegaMenu}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="block px-3 py-2 rounded-lg text-sm text-white/90 hover:text-cyan-300 hover:bg-white/5"
@@ -1541,17 +888,20 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
       </div>
 
       {/* Enhanced Mega Menu Overlay */}
+      <AnimatePresence>
       {megaMenuOpen && megaMenuContent[megaMenuOpen as keyof typeof megaMenuContent] && (
-        <div 
+        <motion.div
+          key={megaMenuOpen}
+          initial={{ opacity: 0, y: reduceMotion ? 0 : -8, scale: reduceMotion ? 1 : .985 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: reduceMotion ? 0 : -5, transition: { duration: .12 } }}
+          transition={{ duration: reduceMotion ? 0 : .24, ease: [.22, 1, .36, 1] }}
           ref={megaMenuRef}
           className={`mega-menu ${megaMenuOpen ? 'open' : ''} hidden lg:block`}
-          onMouseEnter={() => {
-            if (megaMenuTimeout) {
-              clearTimeout(megaMenuTimeout);
-              setMegaMenuTimeout(null);
-            }
-          }}
-          onMouseLeave={closeMegaMenu}
+          id={`sage-menu-${items.findIndex(item => item.label === megaMenuOpen)}`}
+          role="region" aria-label={`${megaMenuOpen} menu`}
+          onMouseEnter={cancelClose}
+          onMouseLeave={closeMegaMenuWithDelay}
           style={{
             WebkitOverflowScrolling: 'touch',
             overscrollBehavior: 'contain',
@@ -1559,29 +909,33 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
           }}
           tabIndex={-1}
         >
+          <div className="mega-menu-heading"><div><h2>{megaMenuContent[megaMenuOpen].title}</h2></div><Link href={items.find(item => item.label === megaMenuOpen)?.href ?? '/'} onClick={closeMegaMenu}>{megaMenuOpen === 'Case Studies' ? 'View All Projects' : `View all ${megaMenuOpen === "Let's Talk AI" ? 'AI capabilities' : navigationLabel(megaMenuOpen).toLowerCase()}`}</Link></div>
           {(() => {
             const content = megaMenuContent[megaMenuOpen as keyof typeof megaMenuContent];
-            return megaMenuOpen === "Let's Talk AI" 
+            return megaMenuOpen === "Case Studies" ? renderWorkMenu() : megaMenuOpen === "Let's Talk AI"
               ? renderAppInventivMegaMenu(content)
               : renderStandardMegaMenu(content);
           })()}
-        </div>
+        </motion.div>
       )}
-    </>
+      </AnimatePresence>
+    </div>
   );
 };
 
 const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
   items,
-  scrolled,
-  mobileMenuOpen,
-  toggleMobileMenu,
   children,
 }) => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const mobileTriggerRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const toggleMobileMenu = useCallback(() => setMobileMenuOpen(open => !open), []);
   const [openMobileDropdowns, setOpenMobileDropdowns] = useState<{[key: string]: boolean}>({});
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  const router = useRouter();
+
 
   // Reset open dropdowns when mobile menu closes
   useEffect(() => {
@@ -1590,60 +944,31 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
     }
   }, [mobileMenuOpen]);
 
-  // Close mobile menu when clicking outside
+  useEffect(() => { setMobileMenuOpen(false); }, [pathname]);
+
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
-        toggleMobileMenu();
-      }
-    };
+    const scroll = () => setScrolled(window.scrollY > 20);
+    const resize = () => { if (window.innerWidth >= 1200) setMobileMenuOpen(false); };
+    scroll();
+    window.addEventListener('scroll', scroll, { passive: true });
+    window.addEventListener('resize', resize);
+    return () => { window.removeEventListener('scroll', scroll); window.removeEventListener('resize', resize); };
+  }, []);
 
-    if (mobileMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [mobileMenuOpen, toggleMobileMenu]);
-
-  // Prevent body scrolling when mobile menu is open - FIXED VERSION
+  // Only the modal mobile drawer locks scrolling; desktop menus use native scrolling.
   useEffect(() => {
-    if (mobileMenuOpen) {
-      // Store current scroll position
-      const scrollY = window.scrollY;
-      
-      // Apply styles to prevent scrolling
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.left = '0';
-      document.body.style.right = '0';
-      document.body.style.width = '100%';
-    } else {
-      // Restore scrolling
-      const scrollY = document.body.style.top;
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      document.body.style.width = '';
-      
-      // Restore scroll position
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-      }
-    }
-    
+    if (!mobileMenuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    const trigger = mobileTriggerRef.current;
+    const main = document.getElementById('main-content');
+    const previousInert = main?.inert ?? false;
+    document.body.style.overflow = 'hidden';
+    if (main) main.inert = true;
+    closeButtonRef.current?.focus();
     return () => {
-      // Cleanup on unmount
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      document.body.style.width = '';
+      document.body.style.overflow = previousOverflow;
+      if (main) main.inert = previousInert;
+      trigger?.focus();
     };
   }, [mobileMenuOpen]);
 
@@ -1655,16 +980,9 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
   }, []);
 
   const closeMobileMenu = useCallback(() => {
-    toggleMobileMenu();
+    setMobileMenuOpen(false);
     setOpenMobileDropdowns({});
-  }, [toggleMobileMenu]);
-
-  const handleMobileLinkClick = useCallback((href: string, hasChildren: boolean = false) => {
-    if (!hasChildren) {
-      closeMobileMenu();
-      router.push(href);
-    }
-  }, [closeMobileMenu, router]);
+  }, []);
 
   // Get mega menu content for mobile
   const getMobileMegaMenuContent = useCallback((label: string) => {
@@ -1680,16 +998,12 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
     };
   }, []);
 
-  // Base classes that don't change based on state
-  const headerClasses = `fixed top-0 left-0 right-0 z-[9999] transition-all duration-200 ${
-    scrolled || mobileMenuOpen
-      ? "bg-gradient-to-r from-slate-900/95 via-blue-900/90 to-slate-900/95 backdrop-blur-xl border-b border-white/10"
-      : "bg-transparent"
-  }`;
+  const headerClasses = `sage-header ${scrolled ? 'is-scrolled' : ''} ${mobileMenuOpen ? 'is-open' : ''}`;
 
   const activeIndex = useMemo(() => {
     const currentPath = pathname || '';
     const index = items.findIndex((item) => {
+      if (item.label === 'Case Studies' && currentPath.startsWith('/case-studies')) return true;
       if (item.href) {
         return item.href === "/" ? currentPath === "/" : currentPath.startsWith(item.href);
       }
@@ -1698,34 +1012,25 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
       }
       return false;
     });
-    return index === -1 ? 0 : index;
+    return index;
   }, [pathname, items]);
 
   return (
     <header className={headerClasses}>
-      {/* Client-side header background overlay */}
-      <div
-        className={`absolute inset-0 transition-all duration-200 ${
-          scrolled || mobileMenuOpen
-            ? "bg-gradient-to-r from-slate-900/95 via-blue-900/90 to-slate-900/95 backdrop-blur-xl border-b border-white/10"
-            : ""
-        }`}
-      />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex items-center justify-between h-20 lg:h-24 relative">
+      <div className="sage-header-shell">
+        <div className="sage-header-bar">
           {/* Logo */}
-          <div className="flex-shrink-0 z-[10000] ml-4 lg:ml-0 lg:-translate-x-10">
+          <div className="sage-header-brand">
             <Link href="/" className="block">
               {children}
             </Link>
           </div>
 
           {/* Desktop Navigation - Centered */}
-          <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 ml-12 z-[10000]" style={{ transform: 'translateX(60px)' }}>
+          <div className="sage-header-desktop">
             <GooeyNav
               items={items}
-              initialActiveIndex={activeIndex !== -1 ? activeIndex : 0}
+              initialActiveIndex={activeIndex}
             />
           </div>
 
@@ -1733,15 +1038,12 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
           <div className="flex items-center gap-3 relative z-[10001]">
             {/* Mobile Hamburger */}
             <button
-              className={`lg:hidden absolute top-1/2 right-4 transform -translate-y-1/2 z-[10002] p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all duration-200 ${
-                mobileMenuOpen 
-                  ? 'bg-black/30 backdrop-blur-sm border border-white/20 shadow-lg' 
-                  : 'bg-transparent'
-              }`}
+              ref={mobileTriggerRef} className="sage-mobile-toggle"
+              aria-expanded={mobileMenuOpen} aria-controls="sage-mobile-navigation"
               onClick={toggleMobileMenu}
-              aria-label="Toggle mobile menu"
+              aria-label="Open navigation"
             >
-              <svg
+              <span>Menu</span><svg
                 className="h-6 w-6 transition-all duration-300 text-white"
                 fill="none"
                 stroke="currentColor"
@@ -1762,26 +1064,24 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
       {/* Enhanced Mobile Overlay Menu */}
       <div
         ref={mobileMenuRef}
-        className={`lg:hidden fixed inset-0 z-[99999] transition-all duration-300 transform ${
-          mobileMenuOpen
-            ? "opacity-100 pointer-events-auto translate-x-0"
-            : "opacity-0 pointer-events-none translate-x-full"
-        }`}
-        style={{
-          width: '100vw',
-          height: '100vh',
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
+        id="sage-mobile-navigation" role="dialog" aria-modal={mobileMenuOpen ? true : undefined}
+        aria-label="Mobile navigation" aria-hidden={!mobileMenuOpen} inert={!mobileMenuOpen}
+        className={`sage-mobile-panel ${mobileMenuOpen ? 'is-open' : ''}`}
+        onKeyDown={event => {
+          if (event.key === 'Escape') { event.stopPropagation(); closeMobileMenu(); }
+          if (event.key === 'Tab') {
+            const focusable = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('a[href], button')).filter(node => node.getClientRects().length);
+            const first = focusable[0], last = focusable[focusable.length - 1];
+            if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+            else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+          }
         }}
       >
         {/* Background Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/98 via-blue-900/95 to-slate-900/98 backdrop-blur-xl" />
+        <div className="sage-mobile-backdrop" />
         
         {/* Fixed Header with Logo and Close Button */}
-        <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-slate-900/95 via-blue-900/90 to-slate-900/95 backdrop-blur-xl border-b border-white/10 h-20 flex items-center justify-between px-6">
+        <div className="sage-mobile-panel-heading">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" onClick={closeMobileMenu} className="block">
@@ -1791,7 +1091,7 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
           
           {/* Close button - FIXED VISIBILITY */}
           <button
-            onClick={closeMobileMenu}
+            ref={closeButtonRef} onClick={closeMobileMenu}
             className="p-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white/30 transition-all duration-200 shadow-lg"
             aria-label="Close menu"
           >
@@ -1809,7 +1109,7 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
 
         {/* Scrollable Menu Content */}
         <div 
-          className="relative h-full w-full overflow-y-auto mobile-menu-scroll pt-20 pb-8"
+          className="mobile-menu-scroll"
           style={{
             WebkitOverflowScrolling: 'touch',
             scrollBehavior: 'smooth',
@@ -1818,27 +1118,27 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
         >
           <div className="max-w-xl mx-auto px-6">
             {/* Mobile Menu Content */}
-            <div className="space-y-2 bg-gradient-to-r from-slate-900/95 via-blue-900/90 to-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl p-6 mt-4">
+            <div className="sage-mobile-items">
               {/* Render ALL menu items including Home */}
-              {items.map((item) => {
+              {items.map((item, index) => {
                 const hasChildren = (item.children && item.children.length > 0) || 
                   (megaMenuContent[item.label as keyof typeof megaMenuContent] !== undefined);
                 const isDropdownOpen = openMobileDropdowns[item.label] || false;
                 const megaContent = getMobileMegaMenuContent(item.label);
 
                 return (
-                  <div key={item.label} className="space-y-2">
+                  <div key={navigationLabel(item.label)} className="space-y-2">
                     <div className="flex items-center justify-between">
                       {item.href ? (
                         <Link 
                           href={item.href}
-                          onClick={() => handleMobileLinkClick(item.href!, hasChildren)}
+                          onClick={closeMobileMenu} aria-current={pathname === item.href ? 'page' : undefined}
                           className="text-white text-xl font-semibold hover:text-cyan-300 transition-colors flex-1 py-3 px-4 rounded-lg hover:bg-white/5"
                         >
-                          {item.label}
+                          {navigationLabel(item.label)}
                         </Link>
                       ) : (
-                        <span className="text-white text-xl font-semibold flex-1 py-3 px-4">{item.label}</span>
+                        <span className="text-white text-xl font-semibold flex-1 py-3 px-4">{navigationLabel(item.label)}</span>
                       )}
                       
                       {/* Dropdown toggle button - only show if has children */}
@@ -1846,7 +1146,8 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
                         <button
                           onClick={() => toggleMobileDropdown(item.label)}
                           className="p-2 text-white hover:text-cyan-300 transition-colors ml-2"
-                          aria-label={`Toggle ${item.label} dropdown`}
+                          aria-label={`Explore ${navigationLabel(item.label)}`}
+                          aria-expanded={isDropdownOpen} aria-controls={`sage-mobile-group-${index}`}
                         >
                           <svg
                             className={`h-5 w-5 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`}
@@ -1863,7 +1164,7 @@ const GooeyNavWithHeader: React.FC<GooeyNavWithHeaderProps> = ({
                     
                     {/* Dropdown Content - FIXED FOR "Let's Talk AI" */}
                     {isDropdownOpen && hasChildren && (
-                      <div className="space-y-4 mt-2 ml-4 pl-4 border-l border-gray-700">
+                      <div id={`sage-mobile-group-${index}`} className="sage-mobile-group space-y-4 mt-2 ml-4 pl-4 border-l border-gray-700">
                         {/* For regular children without mega menu */}
                         {!megaContent && item.children && item.children.map((child) => (
                           child.external ? (

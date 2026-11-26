@@ -171,32 +171,6 @@ const caseStudies: CaseStudy[] = [
     scope: "Agency website with case study showcase system"
   },
   {
-    id: 7,
-    title: "Barrel Marketing",
-    subtitle: "Calgary Video Production & Marketing Agency",
-    category: "Video Production",
-    image: "/proj/barrel.webp",
-    link: "https://barrelmarketing.com",
-    outcome: "460% increase in video production inquiries",
-    challenge: "Demonstrating dual expertise in video production AND marketing strategy, showcasing diverse portfolio (ECO Canada national campaign, Rocky Mountain properties website, COVID uplifting video, Voyent Alert! SaaS brand positioning), balancing creative showreel with business impact, and differentiating from pure production houses.",
-    solution: "Created dynamic video-first platform with hero showreel, four featured case studies with video integration, 'Strategy + Creativity' methodology, data-driven results alongside creative work, branded video player with custom controls, behind-the-scenes content, and video testimonials.",
-    results: [
-      "Video production inquiries surged 460% as platform showcased creative and strategic capabilities",
-      "Generated $1.8M in new business pipeline within 8 months of launch",
-      "Portfolio videos viewed 2,300+ times monthly with high engagement rates",
-      "89% of prospects watched full case study videos, demonstrating compelling storytelling",
-      "Average project value jumped to $85,000 (156% increase) by attracting enterprise clients",
-      "Client satisfaction reached 94% with video deliverables exceeding expectations",
-      "COVID events industry campaign achieved 87,000 organic views, building significant brand equity",
-      "Voyent Alert! SaaS case study alone generated 14 qualified enterprise leads",
-      "Featured in Calgary's Top 10 Creative Agencies for video excellence",
-      "Successfully positioned beyond typical production houses through strategic marketing integration"
-    ],
-    technologies: ["Vimeo/Wistia Integration", "Custom Video Player", "High-performance Video Streaming", "WordPress", "Animation Libraries", "Video Optimization"],
-    duration: "9-11 weeks",
-    scope: "Complete agency website with video portfolio"
-  },
-  {
     id: 8,
     title: "KhanJee Canada",
     subtitle: "Authentic Pakistani Cuisine & Catering in Montreal",

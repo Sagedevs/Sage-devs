@@ -1,0 +1,13 @@
+'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
+const work = [
+  { name: 'KhanJee Canada', type: 'Hospitality / WordPress', image: '/proj/khanjee.webp', id: 6, headline: 'Character, carried into every detail.', copy: 'A digital presence for Pakistani cuisine and catering in Montreal. The original project brings the restaurant’s identity, menu and services together on WordPress.', tags: ['Brand-led website', 'WordPress', 'Responsive design'] },
+  { name: 'Conso', type: 'Developer tools / Full stack', image: '/proj/projectFour.webp', id: 4, headline: 'A place to explore a language.', copy: 'A programming language and compiler project connecting a React interface with Python, FastAPI and WebSockets. A different kind of challenge, with engineering at its heart.', tags: ['React', 'Python & FastAPI', 'WebSockets'] },
+  { name: 'AceFrame', type: 'Web experience / Next.js', image: '/proj/projectFive.webp', id: 5, headline: 'A focused experience, carefully built.', copy: 'An existing web project built with Next.js and Tailwind CSS. A considered interface with a responsive foundation for screens of every size.', tags: ['Next.js', 'Tailwind CSS', 'Web development'] },
+];
+export default function WorkShowcase(){
+ const [active,setActive]=useState(0);const project=work[active];
+ return <section className="showcase-section" id="selected-work"><div className="shell"><div className="showcase-heading"><div><p className="eyebrow">Selected perspectives</p><h2>The work.<br /><span>In its own light.</span></h2></div><p>Different industries. Different problems.<br />The same attention to the details.</p><Link className="text-link" href="/projects">Explore all projects</Link></div><div className="work-switcher" aria-label="Featured projects">{work.map((item,i)=><button aria-pressed={active===i} aria-controls="featured-project" onClick={()=>setActive(i)} key={item.id}><span>{item.name}</span><span>{item.type}</span></button>)}</div><div id="featured-project" className="featured-project"><div className="featured-project-image"><Image key={project.image} src={project.image} alt={`${project.name} original project presentation`} width={1500} height={900} sizes="(max-width:760px) 100vw, 75vw"/><span className="image-note">{project.name} / Project presentation</span></div><div className="featured-project-caption" aria-live="polite"><div><p className="eyebrow">{project.type}</p><h3>{project.headline}</h3></div><div><p>{project.copy}</p><div className="tags">{project.tags.map(tag=><span key={tag}>{tag}</span>)}</div><Link href={`/case-studies#${project.id}`} className="text-link">Inside the project</Link></div></div></div></div></section>
+}

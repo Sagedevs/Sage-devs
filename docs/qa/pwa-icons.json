@@ -1,0 +1,26 @@
+[
+  {
+    "src": "/brand/icon-192.png",
+    "declared": "192x192",
+    "actual": "192x192",
+    "pass": true
+  },
+  {
+    "src": "/brand/icon-512.png",
+    "declared": "512x512",
+    "actual": "512x512",
+    "pass": true
+  },
+  {
+    "src": "/brand/icon-maskable-192.png",
+    "declared": "192x192",
+    "actual": "192x192",
+    "pass": true
+  },
+  {
+    "src": "/brand/icon-maskable-512.png",
+    "declared": "512x512",
+    "actual": "512x512",
+    "pass": true
+  }
+]

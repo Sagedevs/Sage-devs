@@ -1,141 +1,8 @@
-'use client';
 
-import React, { useEffect, useRef } from 'react';
+
+import React from 'react';
 
 export default function PrivacyPolicy() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    // Store canvas dimensions and context in an object to maintain references
-    const canvasState = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-      context: ctx
-    };
-    
-    // Set initial canvas dimensions
-    canvas.width = canvasState.width;
-    canvas.height = canvasState.height;
-
-    interface Particle {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      radius: number;
-      update(): void;
-      draw(): void;
-    }
-
-    const particles: Particle[] = [];
-    const isMobile = window.innerWidth < 768;
-    const particleCount = isMobile ? 40 : 80;
-
-    class ParticleClass implements Particle {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      radius: number;
-
-      constructor() {
-        this.x = Math.random() * canvasState.width;
-        this.y = Math.random() * canvasState.height;
-        this.vx = (Math.random() - 0.5) * 0.3;
-        this.vy = (Math.random() - 0.5) * 0.3;
-        this.radius = Math.random() * 2 + 1;
-      }
-
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x < 0 || this.x > canvasState.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvasState.height) this.vy *= -1;
-      }
-
-      draw() {
-        if (!canvasState.context) return;
-        canvasState.context.fillStyle = 'rgba(59, 130, 246, 0.5)';
-        canvasState.context.beginPath();
-        canvasState.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        canvasState.context.fill();
-      }
-    }
-
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new ParticleClass());
-    }
-
-    let lastTime = 0;
-    const fps = isMobile ? 30 : 60;
-    const fpsInterval = 1000 / fps;
-
-    let animationId: number;
-    
-    function animate(currentTime: number) {
-      animationId = requestAnimationFrame(animate);
-      
-      const elapsed = currentTime - lastTime;
-      if (elapsed < fpsInterval) return;
-      
-      lastTime = currentTime - (elapsed % fpsInterval);
-
-      if (!canvasState.context) return;
-      // Use a slightly more performant clear method with opacity for trail effect
-      canvasState.context.globalCompositeOperation = 'source-over';
-      canvasState.context.fillStyle = 'rgba(0, 0, 0, 0.05)';
-      canvasState.context.fillRect(0, 0, canvasState.width, canvasState.height);
-      canvasState.context.globalCompositeOperation = 'lighter';
-
-      particles.forEach((particle, i) => {
-        particle.update();
-        particle.draw();
-
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[j].x - particle.x;
-          const dy = particles[j].y - particle.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          const maxDistance = isMobile ? 80 : 120;
-          if (distance < maxDistance && canvasState.context) {
-            canvasState.context.strokeStyle = `rgba(59, 130, 246, ${0.2 * (1 - distance / maxDistance)})`;
-            canvasState.context.lineWidth = 0.5;
-            canvasState.context.beginPath();
-            canvasState.context.moveTo(particle.x, particle.y);
-            canvasState.context.lineTo(particles[j].x, particles[j].y);
-            canvasState.context.stroke();
-          }
-        }
-      });
-    }
-
-    animate(0);
-
-    const handleResize = () => {
-      if (!canvas) return;
-      canvasState.width = window.innerWidth;
-      canvasState.height = window.innerHeight;
-      canvas.width = canvasState.width;
-      canvas.height = canvasState.height;
-    };
-
-    // Set up event listeners
-    window.addEventListener('resize', handleResize);
-    
-    // Cleanup function
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      cancelAnimationFrame(animationId);
-    };
-  }, []);
-
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -193,40 +60,30 @@ export default function PrivacyPolicy() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <div className="relative min-h-screen bg-gradient-to-br from-gray-900 via-blue-950 to-black text-white overflow-x-hidden">
-        <canvas
-          ref={canvasRef}
-          className="fixed top-0 left-0 w-full h-full pointer-events-none"
-          style={{ zIndex: 0 }}
-          aria-hidden="true"
-        />
+      <div className="legal-page privacy-document">
+
         <div className="relative z-10">
-          <main className="container mx-auto px-4 py-12">
-            <article className="max-w-4xl mx-auto">
-             
+          <div className="shell legal-shell">
+            <article className="legal-article">
 
-              {/* Title */}
-              <header className="mb-12 text-center">
-                <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
-                  Privacy Policy
-                </h1>
-                <p className="text-gray-400 text-lg">
-                  <time dateTime="2025-10-01">Last updated: October 1, 2025</time>
-                </p>
+
+              <header className="legal-opening">
+                <div><p className="section-label">SAGE DEVS / PRIVACY</p><h1>Your information.<br/><span>Your privacy.</span></h1><p className="legal-summary">How we collect, use, and protect information when you use our website and services.</p></div>
+                <div className="legal-document-meta"><span>PRIVACY POLICY</span><time dateTime="2025-10-01">Updated October 1, 2025</time><a href="mailto:info@sagedevs.tech">A question about your data? ↗</a></div>
               </header>
-
+              <nav className="legal-contents" aria-label="Privacy policy sections"><span>ON THIS PAGE</span><a href="#privacy-2">Information collected</a><a href="#privacy-3">How we use it</a><a href="#privacy-4">Cookies</a><a href="#privacy-9">Your choices</a><a href="#privacy-15">Contact</a></nav>
               {/* Content */}
-              <div className="space-y-10">
+              <div className="legal-reading">
                 <section className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all">
-                  <h2 className="text-3xl font-semibold text-blue-400 mb-4">1. Introduction</h2>
+                  <h2 id="privacy-1">1. Introduction</h2>
                   <p className="text-gray-200 leading-relaxed">
                     At Sage Devs (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;), we respect your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website at sagedevs.tech, use our full-stack development and UI/UX design services, or interact with us in any capacity.
                   </p>
                 </section>
 
                 <section className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all">
-                  <h2 className="text-3xl font-semibold text-blue-400 mb-6">2. Information We Collect</h2>
-                  
+                  <h2 id="privacy-2">2. Information We Collect</h2>
+
                   <div className="mb-6">
                     <h3 className="text-xl font-medium text-blue-300 mb-3">Personal Information</h3>
                     <p className="text-gray-200 mb-4">We may collect personal information that you voluntarily provide to us, including:</p>
@@ -279,7 +136,7 @@ export default function PrivacyPolicy() {
                 </section>
 
                 <section className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all">
-                  <h2 className="text-3xl font-semibold text-blue-400 mb-4">3. How We Use Your Information</h2>
+                  <h2 id="privacy-3">3. How We Use Your Information</h2>
                   <p className="text-gray-200 mb-4">We use collected information for the following purposes:</p>
                   <ul className="space-y-2 text-gray-200 ml-6">
                     <li className="flex items-start">
@@ -314,7 +171,7 @@ export default function PrivacyPolicy() {
                 </section>
 
                 <section className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all">
-                  <h2 className="text-3xl font-semibold text-blue-400 mb-4">4. Cookies and Tracking Technologies</h2>
+                  <h2 id="privacy-4">4. Cookies and Tracking Technologies</h2>
                   <p className="text-gray-200 mb-4">
                     We use cookies and similar tracking technologies to enhance your browsing experience and collect information about how you use our website:
                   </p>
@@ -338,7 +195,7 @@ export default function PrivacyPolicy() {
                 </section>
 
                 <section className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all">
-                  <h2 className="text-3xl font-semibold text-blue-400 mb-4">5. Information Sharing and Disclosure</h2>
+                  <h2 id="privacy-5">5. Information Sharing and Disclosure</h2>
                   <p className="text-gray-200 mb-4">We may share your information in the following circumstances:</p>
                   <div className="space-y-3 text-gray-200 ml-6">
                     <div>
@@ -360,21 +217,21 @@ export default function PrivacyPolicy() {
                 </section>
 
                 <section className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all">
-                  <h2 className="text-3xl font-semibold text-blue-400 mb-4">6. Data Security</h2>
+                  <h2 id="privacy-6">6. Data Security</h2>
                   <p className="text-gray-200 leading-relaxed">
                     We implement industry-standard technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. These measures include SSL/TLS encryption, secure cloud infrastructure, access controls, regular security audits, and employee training. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.
                   </p>
                 </section>
 
                 <section className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all">
-                  <h2 className="text-3xl font-semibold text-blue-400 mb-4">7. Data Retention</h2>
+                  <h2 id="privacy-7">7. Data Retention</h2>
                   <p className="text-gray-200 leading-relaxed">
                     We retain personal information for as long as necessary to fulfill the purposes outlined in this Privacy Policy, comply with legal obligations, resolve disputes, and enforce our agreements. Retention periods vary depending on the type of information and the purpose for which it was collected. Project-related data may be retained for the duration of the project and for a reasonable period thereafter for warranty and support purposes.
                   </p>
                 </section>
 
                 <section className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all">
-                  <h2 className="text-3xl font-semibold text-blue-400 mb-4">8. Third-Party Services</h2>
+                  <h2 id="privacy-8">8. Third-Party Services</h2>
                   <p className="text-gray-200 mb-4">
                     Our website may contain links to third-party websites or integrate with third-party services. We are not responsible for the privacy practices of these external sites or services. We encourage you to review their privacy policies.
                   </p>
@@ -400,7 +257,7 @@ export default function PrivacyPolicy() {
                 </section>
 
                 <section className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all">
-                  <h2 className="text-3xl font-semibold text-blue-400 mb-4">9. Your Rights and Choices</h2>
+                  <h2 id="privacy-9">9. Your Rights and Choices</h2>
                   <p className="text-gray-200 mb-4">Depending on your location, you may have the following rights regarding your personal information:</p>
                   <div className="space-y-3 text-gray-200 ml-6">
                     <div>
@@ -431,21 +288,21 @@ export default function PrivacyPolicy() {
                 </section>
 
                 <section className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all">
-                  <h2 className="text-3xl font-semibold text-blue-400 mb-4">10. International Data Transfers</h2>
+                  <h2 id="privacy-10">10. International Data Transfers</h2>
                   <p className="text-gray-200 leading-relaxed">
                     Your information may be transferred to and maintained on servers located outside of your country or region, where data protection laws may differ. By using our services, you consent to such transfers in accordance with this Privacy Policy. We take appropriate measures to ensure your information receives adequate protection in accordance with applicable data protection laws.
                   </p>
                 </section>
 
                 <section className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all">
-                  <h2 className="text-3xl font-semibold text-blue-400 mb-4">11. Children&apos;s Privacy</h2>
+                  <h2 id="privacy-11">11. Children&apos;s Privacy</h2>
                   <p className="text-gray-200 leading-relaxed">
                     Our services are not intended for individuals under the age of 18. We do not knowingly collect personal information from children under 18. If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately, and we will take steps to delete such information from our systems.
                   </p>
                 </section>
 
                 <section className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all">
-                  <h2 className="text-3xl font-semibold text-blue-400 mb-4">12. California Privacy Rights (CCPA)</h2>
+                  <h2 id="privacy-12">12. California Privacy Rights (CCPA)</h2>
                   <p className="text-gray-200 mb-4">
                     If you are a California resident, you have additional rights under the California Consumer Privacy Act (CCPA):
                   </p>
@@ -470,7 +327,7 @@ export default function PrivacyPolicy() {
                 </section>
 
                 <section className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all">
-                  <h2 className="text-3xl font-semibold text-blue-400 mb-4">13. GDPR Compliance (European Users)</h2>
+                  <h2 id="privacy-13">13. GDPR Compliance (European Users)</h2>
                   <p className="text-gray-200 mb-4">
                     If you are located in the European Economic Area (EEA), we process your personal data based on the following legal grounds:
                   </p>
@@ -495,14 +352,14 @@ export default function PrivacyPolicy() {
                 </section>
 
                 <section className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all">
-                  <h2 className="text-3xl font-semibold text-blue-400 mb-4">14. Changes to This Privacy Policy</h2>
+                  <h2 id="privacy-14">14. Changes to This Privacy Policy</h2>
                   <p className="text-gray-200 leading-relaxed">
                     We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors. We will notify you of any material changes by posting the new Privacy Policy on this page and updating the &quot;Last updated&quot; date. We encourage you to review this Privacy Policy periodically. Continued use of our services after changes constitutes acceptance of the updated policy.
                   </p>
                 </section>
 
                 <section className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all">
-                  <h2 className="text-3xl font-semibold text-blue-400 mb-4">15. Contact Us</h2>
+                  <h2 id="privacy-15">15. Contact Us</h2>
                   <p className="text-gray-200 mb-6">
                     If you have any questions, concerns, or requests regarding this Privacy Policy or our privacy practices, please contact us:
                   </p>
@@ -533,7 +390,7 @@ export default function PrivacyPolicy() {
                 </section>
               </div>
             </article>
-          </main>
+          </div>
         </div>
       </div>
     </>
