@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { 
-  Code2, 
-  Database, 
-  Smartphone, 
-  Cloud, 
-  Brain, 
+import {
+  Code2,
+  Database,
+  Smartphone,
+  Cloud,
+  Brain,
   Palette,
   Server,
   Globe,
@@ -45,66 +45,8 @@ const TechnologyStack = () => {
   };
 
   useEffect(() => {
-    const loadGSAP = async () => {
-      // If GSAP is already loaded, initialize animations
-      if (window.gsap && window.ScrollTrigger) {
-        initAnimations();
-        setIsLoaded(true);
-        return;
-      }
-
-      try {
-        // Load GSAP
-        await new Promise((resolve, reject) => {
-          if (window.gsap) {
-            resolve(true);
-            return;
-          }
-          const gsapScript = document.createElement('script');
-          gsapScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
-          gsapScript.onload = () => resolve(true);
-          gsapScript.onerror = () => reject(new Error('GSAP failed to load'));
-          document.head.appendChild(gsapScript);
-        });
-
-        // Load ScrollTrigger
-        await new Promise((resolve, reject) => {
-          if (window.ScrollTrigger) {
-            resolve(true);
-            return;
-          }
-          const stScript = document.createElement('script');
-          stScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
-          stScript.onload = () => resolve(true);
-          stScript.onerror = () => reject(new Error('ScrollTrigger failed to load'));
-          document.head.appendChild(stScript);
-        });
-
-        // Small delay to ensure everything is registered
-        setTimeout(() => {
-          initAnimations();
-          setIsLoaded(true);
-        }, 100);
-        
-      } catch (error) {
-        console.error('Failed to load animations:', error);
-        // Fallback to CSS animations
-        initFallbackAnimations();
-        setIsLoaded(true);
-      }
-    };
-
-    loadGSAP();
-
-    return () => {
-      // Cleanup ScrollTrigger on unmount
-      if (window.ScrollTrigger) {
-        window.ScrollTrigger.getAll().forEach((trigger: any) => trigger.kill());
-      }
-    };
-  }, []);
-
-  const initAnimations = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setIsLoaded(true); return; }
+    function initAnimations() {
     const gsap = window.gsap;
     if (!gsap) {
       initFallbackAnimations();
@@ -118,13 +60,13 @@ const TechnologyStack = () => {
 
     // Header animation
     if (headerRef.current) {
-      gsap.fromTo(headerRef.current, 
+      gsap.fromTo(headerRef.current,
         { opacity: 0, y: -50 },
-        { 
-          opacity: 1, 
-          y: 0, 
-          duration: 1, 
-          ease: "power3.out" 
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out"
         }
       );
     }
@@ -132,14 +74,14 @@ const TechnologyStack = () => {
     // Cards animation with section as trigger
     if (sectionRef.current && cardsRef.current.length > 0) {
       const validCards = cardsRef.current.filter(card => card !== null);
-      gsap.fromTo(validCards, 
-        { 
-          opacity: 0, 
+      gsap.fromTo(validCards,
+        {
+          opacity: 0,
           y: 60,
           scale: 0.95
         },
-        { 
-          opacity: 1, 
+        {
+          opacity: 1,
           y: 0,
           scale: 1,
           duration: 0.8,
@@ -157,10 +99,10 @@ const TechnologyStack = () => {
 
     // CTA animation
     if (ctaRef.current) {
-      gsap.fromTo(ctaRef.current, 
+      gsap.fromTo(ctaRef.current,
         { opacity: 0, scale: 0.8, y: 40 },
-        { 
-          opacity: 1, 
+        {
+          opacity: 1,
           scale: 1,
           y: 0,
           duration: 1,
@@ -176,10 +118,10 @@ const TechnologyStack = () => {
 
     // Innovation section animation
     if (innovationRef.current) {
-      gsap.fromTo(innovationRef.current, 
+      gsap.fromTo(innovationRef.current,
         { opacity: 0, x: -80 },
-        { 
-          opacity: 1, 
+        {
+          opacity: 1,
           x: 0,
           duration: 1,
           ease: "power2.out",
@@ -194,14 +136,14 @@ const TechnologyStack = () => {
 
     // Unified ecosystem animation
     if (unifiedRef.current) {
-      gsap.fromTo(unifiedRef.current, 
-        { 
-          opacity: 0, 
+      gsap.fromTo(unifiedRef.current,
+        {
+          opacity: 0,
           x: 80,
           scale: 0.95
         },
-        { 
-          opacity: 1, 
+        {
+          opacity: 1,
           x: 0,
           scale: 1,
           duration: 1,
@@ -261,7 +203,7 @@ const TechnologyStack = () => {
           ease: "power2.out"
         });
       };
-      
+
       const handleMouseLeave = () => {
         gsap.to(card, {
           scale: 1,
@@ -283,7 +225,7 @@ const TechnologyStack = () => {
     }
   };
 
-  const initFallbackAnimations = () => {
+    function initFallbackAnimations() {
     // Simple CSS-based fallback animations
     document.querySelectorAll('.fallback-animate').forEach((el, index) => {
       if (el instanceof HTMLElement) {
@@ -294,6 +236,66 @@ const TechnologyStack = () => {
       }
     });
   };
+    const loadGSAP = async () => {
+      // If GSAP is already loaded, initialize animations
+      if (window.gsap && window.ScrollTrigger) {
+        initAnimations();
+        setIsLoaded(true);
+        return;
+      }
+
+      try {
+        // Load GSAP
+        await new Promise((resolve, reject) => {
+          if (window.gsap) {
+            resolve(true);
+            return;
+          }
+          const gsapScript = document.createElement('script');
+          gsapScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
+          gsapScript.onload = () => resolve(true);
+          gsapScript.onerror = () => reject(new Error('GSAP failed to load'));
+          document.head.appendChild(gsapScript);
+        });
+
+        // Load ScrollTrigger
+        await new Promise((resolve, reject) => {
+          if (window.ScrollTrigger) {
+            resolve(true);
+            return;
+          }
+          const stScript = document.createElement('script');
+          stScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
+          stScript.onload = () => resolve(true);
+          stScript.onerror = () => reject(new Error('ScrollTrigger failed to load'));
+          document.head.appendChild(stScript);
+        });
+
+        // Small delay to ensure everything is registered
+        setTimeout(() => {
+          initAnimations();
+          setIsLoaded(true);
+        }, 100);
+
+      } catch (error) {
+        console.error('Failed to load animations:', error);
+        // Fallback to CSS animations
+        initFallbackAnimations();
+        setIsLoaded(true);
+      }
+    };
+
+    loadGSAP();
+
+    return () => {
+      // Cleanup ScrollTrigger on unmount
+      if (window.ScrollTrigger) {
+        window.ScrollTrigger.getAll().forEach((trigger: any) => trigger.kill());
+      }
+    };
+  }, []);
+
+
 
   const technologies = [
     {
@@ -375,7 +377,7 @@ const TechnologyStack = () => {
             transform: translateY(-15px);
           }
         }
-        
+
         .animate-float {
           animation: float 3s ease-in-out infinite;
         }
@@ -419,9 +421,9 @@ const TechnologyStack = () => {
           animation-delay: 1.5s;
         }
       `}</style>
-      
-      <section 
-        ref={sectionRef} 
+
+      <section
+        ref={sectionRef}
         className="relative py-12 sm:py-16 lg:py-24 bg-slate-950 overflow-hidden px-4 sm:px-6 lg:px-8 xl:px-20 min-h-screen"
       >
         {/* Background Elements */}
@@ -433,18 +435,18 @@ const TechnologyStack = () => {
             <div className="absolute -bottom-32 left-1/3 w-80 h-80 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse" style={{ animationDelay: '4s' }}></div>
           </div>
           {/* Grid Pattern */}
-          <div 
-            className="absolute inset-0 opacity-10" 
-            style={{ 
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` 
+          <div
+            className="absolute inset-0 opacity-10"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
             }}
           ></div>
         </div>
 
         <div className="relative container mx-auto">
           {/* Header Section */}
-          <div 
-            ref={headerRef} 
+          <div
+            ref={headerRef}
             className="text-center mb-12 lg:mb-16 fallback-animate"
             style={!isLoaded ? { opacity: 1, transform: 'none' } : undefined}
           >
@@ -458,7 +460,7 @@ const TechnologyStack = () => {
               </span>
             </h2>
             <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed px-4">
-              Enterprise-grade technologies powering the next generation of digital solutions. 
+              Enterprise-grade technologies powering the next generation of digital solutions.
               Built for scale, performance, and reliability.
             </p>
           </div>
@@ -466,14 +468,14 @@ const TechnologyStack = () => {
           {/* Technology Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12 lg:mb-16">
             {technologies.map((tech, index) => (
-              <div 
+              <div
                 key={index}
                 ref={el => addToCardsRef(el, index)}
                 className="group relative fallback-animate tech-card"
                 style={!isLoaded ? { opacity: 1, transform: 'none' } : undefined}
               >
                 <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg border border-white/10 rounded-2xl lg:rounded-3xl p-6 lg:p-8 hover:border-blue-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20 overflow-hidden h-full flex flex-col">
-                  
+
                   {/* Category Header */}
                   <div className="relative z-10 flex items-center mb-6 lg:mb-8">
                     <div className={`p-3 lg:p-4 rounded-xl lg:rounded-2xl bg-gradient-to-br ${tech.color} text-white mr-4 shadow-lg`}>
@@ -490,7 +492,7 @@ const TechnologyStack = () => {
                   {/* Technology Items */}
                   <div className="relative z-10 space-y-4 flex-1">
                     {tech.items.map((item, itemIndex) => (
-                      <div 
+                      <div
                         key={itemIndex}
                         className="flex items-start space-x-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-blue-500/30 transition-all duration-300 group/item"
                       >
@@ -514,8 +516,8 @@ const TechnologyStack = () => {
           </div>
 
           {/* CTA Section with Links */}
-          <div 
-            ref={ctaRef} 
+          <div
+            ref={ctaRef}
             className="relative bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl lg:rounded-3xl p-8 lg:p-12 text-center mb-16 lg:mb-20 fallback-animate"
             style={!isLoaded ? { opacity: 1, transform: 'none' } : undefined}
           >
@@ -533,13 +535,13 @@ const TechnologyStack = () => {
                 Let our experts architect the perfect technology stack tailored to your business objectives.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a 
+                <a
                   href={contactLink}
                   className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-all duration-300 shadow-lg text-center"
                 >
                   Start Your Project
                 </a>
-                <a 
+                <a
                   href={caseStudiesLink}
                   className="px-8 py-4 border-2 border-white text-white font-semibold rounded-xl hover:bg-white hover:text-blue-600 transition-all duration-300 text-center"
                 >
@@ -552,9 +554,9 @@ const TechnologyStack = () => {
           {/* Innovation & Unified Ecosystem Section */}
           <div className="mt-16 lg:mt-20">
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              
+
               {/* Innovation Text */}
-              <div 
+              <div
                 ref={innovationRef}
                 className="fallback-animate"
                 style={!isLoaded ? { opacity: 1, transform: 'none' } : undefined}
@@ -566,11 +568,11 @@ const TechnologyStack = () => {
                   <div className="h-px bg-gradient-to-r from-blue-500 to-transparent flex-1"></div>
                 </div>
                 <h3 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-                  Innovation at 
+                  Innovation at
                   <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent"> Light Speed</span>
                 </h3>
                 <p className="text-slate-300 text-lg leading-relaxed mb-8">
-                  Our technology stack evolves continuously, integrating cutting-edge solutions 
+                  Our technology stack evolves continuously, integrating cutting-edge solutions
                   to deliver unparalleled performance and user experiences.
                 </p>
                 <div className="flex flex-wrap gap-4">
@@ -584,13 +586,13 @@ const TechnologyStack = () => {
               </div>
 
               {/* Unified Ecosystem Visualization */}
-              <div 
+              <div
                 ref={unifiedRef}
                 className="relative h-full min-h-[400px] fallback-animate"
                 style={!isLoaded ? { opacity: 1, transform: 'none' } : undefined}
               >
                 <div className="relative bg-gradient-to-br from-blue-500/10 to-purple-500/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 overflow-hidden h-full">
-                  
+
                   {/* Floating Icons */}
                   <div className="absolute inset-0">
                     <div className="absolute top-6 right-8 text-blue-400 floating-tech-icon animate-float">
@@ -614,14 +616,14 @@ const TechnologyStack = () => {
                     </div>
                     <div className="text-2xl font-bold text-white mb-2">Unified Ecosystem</div>
                     <div className="text-slate-400">Seamlessly Integrated</div>
-                    
+
                     {/* Fixed Pulse Animation Circles */}
                     <div className="absolute inset-0 flex items-center justify-center -z-10">
-                      <div 
+                      <div
                         ref={pulseCircle1Ref}
                         className="absolute w-32 h-32 border-4 border-blue-400 rounded-full enhanced-pulse"
                       ></div>
-                      <div 
+                      <div
                         ref={pulseCircle2Ref}
                         className="absolute w-40 h-40 border-4 border-blue-300 rounded-full enhanced-pulse-2"
                       ></div>

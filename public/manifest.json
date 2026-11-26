@@ -1,21 +1,42 @@
 {
-  "theme_color": "#000000",
-  "background_color": "#ffffff",
+  "theme_color": "#101114",
+  "background_color": "#101114",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
-  "name": "Sage-Devs",
-  "short_name": "Sage-Devs",
+  "name": "Sage Devs",
+  "short_name": "Sage Devs",
   "icons": [
     {
-      "src": "/icons/icon-192x192.png",
+      "src": "/brand/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "/icons/icon-512x512.png",
+      "src": "/brand/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/brand/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/brand/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
+  ],
+  "id": "/",
+  "description": "Sage Devs \u2014 software development, design and AI automation.",
+  "lang": "en",
+  "categories": [
+    "business",
+    "productivity"
   ]
 }

@@ -1,4 +1,5 @@
 "use client";
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 type Project = {
@@ -194,13 +195,6 @@ const ProjectsSection = () => {
         desc: 'Wix Studio showcases polished and trendy agency sites with user-friendly layouts. The examples are modern, clean, and designed for fast launch. Great if you want quick inspiration for functional portfolio design.', 
         tech: ['WordPress', 'Elementer', 'Javascript'],
         image: '/proj1/wix-Studio-removebg-preview.webp'
-      },
-      { 
-        name: 'Barrel Marketing', 
-        url: 'barrelmarketing.com', 
-        desc: 'Barrel Marketing specializes in professional video production and strategic brand storytelling that resonates with target audiences. The website features their production capabilities through showreels and behind-the-scenes content. Client success stories demonstrate campaign effectiveness across various platforms and media channels. Service breakdowns explain their creative process from concept development to final delivery and performance analytics.', 
-        tech: ['WordPress', 'JavaScript', 'Video Hosting'],
-        image: '/proj1/barrelmarketing-removebg-preview.webp'
       },
       { 
         name: 'Kelvin Melgar', 
@@ -467,7 +461,7 @@ const ProjectsSection = () => {
               {/* Project Image with Fixed Height */}
               <div className="w-full lg:w-1/2">
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/30 group-hover:shadow-blue-600/40 transition-all duration-500 h-80 md:h-96">
-                  <img 
+                  <Image fill sizes="(max-width: 1024px) 100vw, 50vw"
                     src={project.image} 
                     alt={project.name}
                     className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"

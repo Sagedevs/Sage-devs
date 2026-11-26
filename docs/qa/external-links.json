@@ -1,0 +1,450 @@
+{
+  "checkedOn": "2026-11-26",
+  "method": "Read-only GET; HTTP errors and bot blocks require review, not assumed broken pages.",
+  "results": [
+    {
+      "url": "https://14islands.com",
+      "status": "200",
+      "finalUrl": "https://www.14islands.com/",
+      "error": null
+    },
+    {
+      "url": "https://abhishekjha.me",
+      "status": "200",
+      "finalUrl": "https://abhishekjha.me/",
+      "error": null
+    },
+    {
+      "url": "https://absoluteplumbing.com",
+      "status": "200",
+      "finalUrl": "https://absoluteplumbing.com/",
+      "error": null
+    },
+    {
+      "url": "https://adivo.vet",
+      "status": "200",
+      "finalUrl": "https://www.zoetis.com/",
+      "error": null
+    },
+    {
+      "url": "https://aidn.org.au",
+      "status": "200",
+      "finalUrl": "https://aidn.org.au/",
+      "error": null
+    },
+    {
+      "url": "https://alarobrewing.com",
+      "status": "200",
+      "finalUrl": "https://alarobrewing.com/",
+      "error": null
+    },
+    {
+      "url": "https://angular.io",
+      "status": "200",
+      "finalUrl": "https://angular.dev/",
+      "error": null
+    },
+    {
+      "url": "https://barrelmarketing.com",
+      "status": "000",
+      "finalUrl": "https://barrelmarketing.com/",
+      "error": "curl: (6) Could not resolve host: barrelmarketing.com"
+    },
+    {
+      "url": "https://bavalle.myshopify.com",
+      "status": "200",
+      "finalUrl": "https://bavalle.myshopify.com/",
+      "error": null
+    },
+    {
+      "url": "https://benjaminfranklinplumbing.com",
+      "status": "000",
+      "finalUrl": "https://benjaminfranklinplumbing.com/",
+      "error": "curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1)"
+    },
+    {
+      "url": "https://bizworld.org",
+      "status": "200",
+      "finalUrl": "https://bizworld.org/",
+      "error": null
+    },
+    {
+      "url": "https://chipcitycookies.com",
+      "status": "200",
+      "finalUrl": "https://chipcitycookies.com/",
+      "error": null
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+      "status": "200",
+      "finalUrl": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+      "error": null
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+      "status": "200",
+      "finalUrl": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+      "error": null
+    },
+    {
+      "url": "https://eaglelightsautomotive.com",
+      "status": "200",
+      "finalUrl": "https://eaglelightsautomotive.com/",
+      "error": null
+    },
+    {
+      "url": "https://eliburchjewelry.com",
+      "status": "200",
+      "finalUrl": "https://eliburchjewelry.com/",
+      "error": null
+    },
+    {
+      "url": "https://elitecreationspk.com",
+      "status": "200",
+      "finalUrl": "https://elitecreationspk.com/",
+      "error": null
+    },
+    {
+      "url": "https://elitecreationspk.com/",
+      "status": "200",
+      "finalUrl": "https://elitecreationspk.com/",
+      "error": null
+    },
+    {
+      "url": "https://emberjs.com",
+      "status": "200",
+      "finalUrl": "https://emberjs.com/",
+      "error": null
+    },
+    {
+      "url": "https://goodlookingdesign.co.uk",
+      "status": "200",
+      "finalUrl": "https://www.goodlookingdesign.co.uk/",
+      "error": null
+    },
+    {
+      "url": "https://horizonhvacinc.com",
+      "status": "200",
+      "finalUrl": "https://horizonhvacinc.com/",
+      "error": null
+    },
+    {
+      "url": "https://igorvainshtein.com",
+      "status": "200",
+      "finalUrl": "https://igorvainshtein.com/",
+      "error": null
+    },
+    {
+      "url": "https://intensemeals.com",
+      "status": "000",
+      "finalUrl": "https://intensemeals.com/",
+      "error": "curl: (60) SSL: no alternative certificate subject name matches target host name 'intensemeals.com'\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl "
+    },
+    {
+      "url": "https://jakematluck.com",
+      "status": "200",
+      "finalUrl": "https://jakematluck.com/",
+      "error": null
+    },
+    {
+      "url": "https://javascript.com",
+      "status": "200",
+      "finalUrl": "https://www.javascript.com/",
+      "error": null
+    },
+    {
+      "url": "https://jayeecars.co.uk",
+      "status": "200",
+      "finalUrl": "https://jayeecars.co.uk/",
+      "error": null
+    },
+    {
+      "url": "https://julespharma.com",
+      "status": "200",
+      "finalUrl": "https://julespharma.com/",
+      "error": null
+    },
+    {
+      "url": "https://kelvinmelgar.com",
+      "status": "200",
+      "finalUrl": "https://kelvinmelgar.com/",
+      "error": null
+    },
+    {
+      "url": "https://khanjeecanada.com",
+      "status": "200",
+      "finalUrl": "https://khanjeecanada.com/",
+      "error": null
+    },
+    {
+      "url": "https://klmnko.de",
+      "status": "200",
+      "finalUrl": "https://klmnko.de/",
+      "error": null
+    },
+    {
+      "url": "https://linguanovainstitute.com",
+      "status": "200",
+      "finalUrl": "https://linguanovainstitute.com/",
+      "error": null
+    },
+    {
+      "url": "https://linguanovainstitute.com/",
+      "status": "200",
+      "finalUrl": "https://linguanovainstitute.com/",
+      "error": null
+    },
+    {
+      "url": "https://marchand-biere.bzh",
+      "status": "200",
+      "finalUrl": "https://www.marchand-biere.bzh/",
+      "error": null
+    },
+    {
+      "url": "https://meteor.com",
+      "status": "200",
+      "finalUrl": "https://www.meteor.com/",
+      "error": null
+    },
+    {
+      "url": "https://nextjs.org",
+      "status": "200",
+      "finalUrl": "https://nextjs.org/",
+      "error": null
+    },
+    {
+      "url": "https://olhalazarieva.com",
+      "status": "200",
+      "finalUrl": "https://olhalazarieva.com/",
+      "error": null
+    },
+    {
+      "url": "https://pictoncivil.com.au",
+      "status": "200",
+      "finalUrl": "https://pictoncivil.com.au/",
+      "error": null
+    },
+    {
+      "url": "https://priorityib.com.au",
+      "status": "200",
+      "finalUrl": "https://priorityib.com.au/",
+      "error": "curl: (28) Operation timed out after 18006 milliseconds with 647162 bytes received"
+    },
+    {
+      "url": "https://reactjs.org",
+      "status": "200",
+      "finalUrl": "https://react.dev/",
+      "error": null
+    },
+    {
+      "url": "https://reech.agency",
+      "status": "200",
+      "finalUrl": "https://reech.agency/",
+      "error": null
+    },
+    {
+      "url": "https://robertocoin.com",
+      "status": "200",
+      "finalUrl": "https://robertocoin.com/",
+      "error": null
+    },
+    {
+      "url": "https://sagedevs.tech",
+      "status": "200",
+      "finalUrl": "https://sagedevs.tech/",
+      "error": null
+    },
+    {
+      "url": "https://sagedevs.tech/",
+      "status": "200",
+      "finalUrl": "https://sagedevs.tech/",
+      "error": null
+    },
+    {
+      "url": "https://stainedconcept.com",
+      "status": "200",
+      "finalUrl": "https://stainedconcept.com/",
+      "error": null
+    },
+    {
+      "url": "https://terzettostone.co.uk",
+      "status": "200",
+      "finalUrl": "https://terzettostone.co.uk/",
+      "error": null
+    },
+    {
+      "url": "https://theirishplumber.com",
+      "status": "200",
+      "finalUrl": "https://www.theirishplumber.com/",
+      "error": null
+    },
+    {
+      "url": "https://themehfil.ca",
+      "status": "200",
+      "finalUrl": "https://themehfil.ca/",
+      "error": null
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Fai-business-ideas&text=15%20AI%20Business%20Ideas%20in%20Australia%20to%20Kickstart%20Your%20Entrepreneurial%20Journey",
+      "status": "200",
+      "finalUrl": "https://x.com/i/jf/onboarding/web?redirect_after_login=%2Fintent%2Ftweet%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Fai-business-ideas%26text%3D15%2BAI%2BBusiness%2BIdeas%2Bin%2BAustralia%2Bto%2BKickstart%2BYour%2BEntrepreneurial%2BJourney&mode=login",
+      "error": null
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Fai-fitness-industry&text=15%20Use%20Cases%20and%20Examples%20of%20How%20AI%20Is%20Transforming%20the%20Fitness%20Industry",
+      "status": "200",
+      "finalUrl": "https://x.com/i/jf/onboarding/web?redirect_after_login=%2Fintent%2Ftweet%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Fai-fitness-industry%26text%3D15%2BUse%2BCases%2Band%2BExamples%2Bof%2BHow%2BAI%2BIs%2BTransforming%2Bthe%2BFitness%2BIndustry&mode=login",
+      "error": null
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Fai-mining-operations&text=10%20Ways%20AI%20is%20Revolutionizing%20Mining%20Operations%20in%20Australia",
+      "status": "200",
+      "finalUrl": "https://x.com/i/jf/onboarding/web?redirect_after_login=%2Fintent%2Ftweet%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Fai-mining-operations%26text%3D10%2BWays%2BAI%2Bis%2BRevolutionizing%2BMining%2BOperations%2Bin%2BAustralia&mode=login",
+      "error": null
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Fcss-grid-vs-flexbox&text=CSS%20Grid%20vs%20Flexbox%3A%20When%20to%20Use%20Which",
+      "status": "200",
+      "finalUrl": "https://x.com/i/jf/onboarding/web?redirect_after_login=%2Fintent%2Ftweet%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Fcss-grid-vs-flexbox%26text%3DCSS%2BGrid%2Bvs%2BFlexbox%253A%2BWhen%2Bto%2BUse%2BWhich&mode=login",
+      "error": null
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Fcustom-vs-off-shelf-ai&text=Custom%20AI%20or%20Off-the-Shelf%20AI%20%E2%80%93%20Which%20Is%20the%20Right%20Solution%20for%20Your%20Business%3F",
+      "status": "200",
+      "finalUrl": "https://x.com/i/jf/onboarding/web?redirect_after_login=%2Fintent%2Ftweet%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Fcustom-vs-off-shelf-ai%26text%3DCustom%2BAI%2Bor%2BOff-the-Shelf%2BAI%2B%25E2%2580%2593%2BWhich%2BIs%2Bthe%2BRight%2BSolution%2Bfor%2BYour%2BBusiness%253F&mode=login",
+      "error": null
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Fprogressive-web-apps-guide&text=Progressive%20Web%20Apps%3A%20The%20Complete%20Guide",
+      "status": "200",
+      "finalUrl": "https://x.com/i/jf/onboarding/web?redirect_after_login=%2Fintent%2Ftweet%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Fprogressive-web-apps-guide%26text%3DProgressive%2BWeb%2BApps%253A%2BThe%2BComplete%2BGuide&mode=login",
+      "error": null
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Freact-vs-vue-2024&text=React%20vs%20Vue.js%20in%202024%3A%20A%20Complete%20Developer's%20Guide",
+      "status": "200",
+      "finalUrl": "https://x.com/i/jf/onboarding/web?redirect_after_login=%2Fintent%2Ftweet%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Freact-vs-vue-2024%26text%3DReact%2Bvs%2BVue.js%2Bin%2B2024%253A%2BA%2BComplete%2BDeveloper%2527s%2BGuide&mode=login",
+      "error": null
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Fscalable-nodejs-apis&text=Building%20Scalable%20APIs%20with%20Node.js%20and%20Express%3A%20Best%20Practices",
+      "status": "200",
+      "finalUrl": "https://x.com/i/jf/onboarding/web?redirect_after_login=%2Fintent%2Ftweet%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Fscalable-nodejs-apis%26text%3DBuilding%2BScalable%2BAPIs%2Bwith%2BNode.js%2Band%2BExpress%253A%2BBest%2BPractices&mode=login",
+      "error": null
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Fscale-ai-project&text=How%20to%20Scale%20Your%20AI%20Project%20without%20Overspending%3F",
+      "status": "200",
+      "finalUrl": "https://x.com/i/jf/onboarding/web?redirect_after_login=%2Fintent%2Ftweet%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Fscale-ai-project%26text%3DHow%2Bto%2BScale%2BYour%2BAI%2BProject%2Bwithout%2BOverspending%253F&mode=login",
+      "error": null
+    },
+    {
+      "url": "https://twitter.com/intent/tweet?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Fweb-performance-optimization&text=Web%20Performance%20Optimization%3A%20From%203s%20to%20300ms%20Load%20Times",
+      "status": "200",
+      "finalUrl": "https://x.com/i/jf/onboarding/web?redirect_after_login=%2Fintent%2Ftweet%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Fweb-performance-optimization%26text%3DWeb%2BPerformance%2BOptimization%253A%2BFrom%2B3s%2Bto%2B300ms%2BLoad%2BTimes&mode=login",
+      "error": null
+    },
+    {
+      "url": "https://vuejs.org",
+      "status": "200",
+      "finalUrl": "https://vuejs.org/",
+      "error": null
+    },
+    {
+      "url": "https://wa.me/923259684493",
+      "status": "200",
+      "finalUrl": "https://api.whatsapp.com/send/?phone=923259684493&text&type=phone_number&app_absent=0",
+      "error": null
+    },
+    {
+      "url": "https://wa.me/923259684493?text=Hi!%20I%27m%20interested%20in%20your%20development%20services.",
+      "status": "200",
+      "finalUrl": "https://api.whatsapp.com/send/?phone=923259684493&text=Hi%21+I%27m+interested+in+your+development+services.&type=phone_number&app_absent=0",
+      "error": null
+    },
+    {
+      "url": "https://wa.me/923259684493?text=Hi%20there!%20I%20would%20like%20to%20discuss%20a%20project%20with%20you.",
+      "status": "200",
+      "finalUrl": "https://api.whatsapp.com/send/?phone=923259684493&text=Hi+there%21+I+would+like+to+discuss+a+project+with+you.&type=phone_number&app_absent=0",
+      "error": null
+    },
+    {
+      "url": "https://wix.com/studio",
+      "status": "200",
+      "finalUrl": "https://www.wix.com/studio",
+      "error": null
+    },
+    {
+      "url": "https://www.linkedin.com/company/sagedevs/",
+      "status": "403",
+      "finalUrl": "https://www.linkedin.com/company/sagedevs/",
+      "error": null
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Fai-business-ideas",
+      "status": "403",
+      "finalUrl": "https://www.linkedin.com/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2FshareArticle%2F%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Fai-business-ideas",
+      "error": null
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Fai-fitness-industry",
+      "status": "403",
+      "finalUrl": "https://www.linkedin.com/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2FshareArticle%2F%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Fai-fitness-industry",
+      "error": null
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Fai-mining-operations",
+      "status": "403",
+      "finalUrl": "https://www.linkedin.com/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2FshareArticle%2F%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Fai-mining-operations",
+      "error": null
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Fcss-grid-vs-flexbox",
+      "status": "403",
+      "finalUrl": "https://www.linkedin.com/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2FshareArticle%2F%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Fcss-grid-vs-flexbox",
+      "error": null
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Fcustom-vs-off-shelf-ai",
+      "status": "403",
+      "finalUrl": "https://www.linkedin.com/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2FshareArticle%2F%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Fcustom-vs-off-shelf-ai",
+      "error": null
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Fprogressive-web-apps-guide",
+      "status": "403",
+      "finalUrl": "https://www.linkedin.com/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2FshareArticle%2F%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Fprogressive-web-apps-guide",
+      "error": null
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Freact-vs-vue-2024",
+      "status": "403",
+      "finalUrl": "https://www.linkedin.com/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2FshareArticle%2F%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Freact-vs-vue-2024",
+      "error": null
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Fscalable-nodejs-apis",
+      "status": "403",
+      "finalUrl": "https://www.linkedin.com/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2FshareArticle%2F%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Fscalable-nodejs-apis",
+      "error": null
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Fscale-ai-project",
+      "status": "403",
+      "finalUrl": "https://www.linkedin.com/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2FshareArticle%2F%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Fscale-ai-project",
+      "error": null
+    },
+    {
+      "url": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsagedevs.tech%2Fblog%2Fweb-performance-optimization",
+      "status": "403",
+      "finalUrl": "https://www.linkedin.com/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2FshareArticle%2F%3Furl%3Dhttps%253A%252F%252Fsagedevs.tech%252Fblog%252Fweb-performance-optimization",
+      "error": null
+    },
+    {
+      "url": "https://calendly.com/sagedevs-info",
+      "status": "200",
+      "finalUrl": "https://calendly.com/sagedevs-info",
+      "error": null
+    }
+  ]
+}

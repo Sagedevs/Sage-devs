@@ -1,0 +1,12 @@
+import { BreadcrumbSchema } from '@/components/seo/StructuredData';
+import { notFound } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
+import { articles } from '@/data/articles';
+import { pageMetadata } from '@/lib/seo';
+import ArticleContent from '@/components/site/ArticleContent';
+import ShareArticle from '@/components/site/ShareArticle';
+export const dynamicParams = false;
+export function generateStaticParams(){return articles.map(a=>({slug:a.href.split('/').pop()!}));}
+export async function generateMetadata({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const a=articles.find(a=>a.href===`/blog/${slug}`);if(!a)return {};const m=pageMetadata(a.title,a.excerpt,a.href);return {...m,openGraph:{...m.openGraph,type:'article',publishedTime:new Date(a.date).toISOString(),images:[{url:a.image,alt:a.title}]},twitter:{...m.twitter,images:[a.image]}};}
+export default async function ArticlePage({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const index=articles.findIndex(a=>a.href===`/blog/${slug}`);const a=articles[index];if(!a)notFound();return <article className="shell section"><Link href="/blog" className="text-link">Back to the journal</Link><header className="article-header"><p className="eyebrow">{a.category} · {a.date} · {a.readTime}</p><h1>{a.title}</h1><p>{a.excerpt}</p></header><Image className="article-cover" src={a.image} alt={`${a.title} — article cover`} width={1200} height={750} priority sizes="(max-width:760px) 100vw, 900px"/><ArticleContent content={a.content||a.excerpt}/><ShareArticle path={a.href} title={a.title}/><nav className="article-pagination" aria-label="More articles">{[articles[index-1],articles[index+1]].filter(Boolean).map(post=><Link className="text-link" key={post.id} href={post.href}>{post.title}</Link>)}</nav><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({'@context':'https://schema.org','@type':'BlogPosting',headline:a.title,description:a.excerpt,url:`https://sagedevs.tech${a.href}`,image:`https://sagedevs.tech${a.image}`,datePublished:new Date(a.date).toISOString(),author:{'@type':'Organization',name:'Sage Devs',url:'https://sagedevs.tech'},publisher:{'@id':'https://sagedevs.tech/#organization'}}).replace(/</g,'\\u003c')}}/><BreadcrumbSchema items={[{name:'Journal',path:'/blog'},{name:a.title,path:a.href}]}/></article>}

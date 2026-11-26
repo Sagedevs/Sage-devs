@@ -1,0 +1,80 @@
+export const downloads = [
+    {
+      title: 'Admin Dashboard',
+      description: 'Modern and responsive admin dashboard with data visualization, user management, and analytics. Built with React and includes dark mode, charts, and role-based access control.',
+      type: 'Dashboard',
+      category: 'Development',
+      downloads: '2,847',
+      rating: '4.9',
+      fileSize: '12 MB',
+      lastUpdated: '2 days ago',
+      features: ['React Dashboard', 'Data Visualization', 'User Management', 'Dark Mode'],
+      downloadLink: '/resources/admin-dashboard-main.zip',
+      bgPattern: 'design'
+    },
+    {
+      title: 'WhatsApp Clone',
+      description: 'Full-featured WhatsApp web clone with real-time messaging, media sharing, and user authentication. Includes chat functionality, status updates, and responsive design.',
+      type: 'Web Application',
+      category: 'Development',
+      downloads: '3,432',
+      rating: '4.8',
+      fileSize: '15 MB',
+      lastUpdated: '1 week ago',
+      features: ['Real-time Chat', 'Media Sharing', 'User Authentication', 'Responsive Design'],
+      downloadLink: '/resources/watsapp-main.zip',
+      bgPattern: 'social'
+    },
+    {
+      title: 'Shopify App',
+      description: 'Complete Shopify application template with product management, order tracking, and inventory system. Integrates with Shopify API for seamless e-commerce functionality.',
+      type: 'E-commerce App',
+      category: 'Development',
+      downloads: '4,756',
+      rating: '4.9',
+      fileSize: '18 MB',
+      lastUpdated: '3 days ago',
+      features: ['Product Management', 'Order Tracking', 'Shopify API', 'Inventory System'],
+      downloadLink: '/resources/shopify-app-main.zip',
+      bgPattern: 'ecommerce'
+    },
+    {
+      title: 'Video Downloader',
+      description: 'Sage video downloader application that supports multiple platforms. Features include batch downloads, format selection, and quality options with an intuitive interface.',
+      type: 'Utility App',
+      category: 'Development',
+      downloads: '5,203',
+      rating: '4.8',
+      fileSize: '8 MB',
+      lastUpdated: '5 days ago',
+      features: ['Multi-platform Support', 'Batch Downloads', 'Format Selection', 'Quality Options'],
+      downloadLink: '/resources/Sage-video-downloader-master.zip',
+      bgPattern: 'content'
+    },
+    {
+      title: 'Portfolio Template',
+      description: 'Professional portfolio website template with modern design, smooth animations, and project showcases. Perfect for developers and designers to showcase their work.',
+      type: 'Website Template',
+      category: 'Design',
+      downloads: '6,389',
+      rating: '4.9',
+      fileSize: '10 MB',
+      lastUpdated: '1 day ago',
+      features: ['Modern Design', 'Smooth Animations', 'Project Showcase', 'Responsive Layout'],
+      downloadLink: '/resources/portfolio-main.zip',
+      bgPattern: 'brand'
+    },
+    {
+      title: 'AI Resume Analyzer',
+      description: 'AI-powered resume analyzer and generator with intelligent scoring, keyword optimization, and ATS compatibility checks. Helps create professional resumes that get noticed.',
+      type: 'AI Application',
+      category: 'Development',
+      downloads: '7,164',
+      rating: '4.8',
+      fileSize: '14 MB',
+      lastUpdated: '4 days ago',
+      features: ['AI Analysis', 'Resume Generator', 'ATS Compatibility', 'Keyword Optimization'],
+      downloadLink: '/resources/AI-resume-analyzer-generator-main.zip',
+      bgPattern: 'marketing'
+    }
+  ];

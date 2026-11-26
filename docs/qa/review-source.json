@@ -1,0 +1,90 @@
+{
+  "source": "https://sagedevs.tech/",
+  "capturedOn": "2026-11-25",
+  "sourceHtmlSha256": "31d750ac216c19e95d47c6fcf7c40d583149068d4964e2614c0a3bf7a7ec587f",
+  "count": 16,
+  "videoCount": 6,
+  "provenance": "The original site labels these Google reviews. No direct Google review URLs were present. Do not claim independent verification, 100+ reviews, or publish aggregateRating markup.",
+  "checks": [
+    {
+      "author": "Igor Vainshtein",
+      "textMatches": true,
+      "video": null
+    },
+    {
+      "author": "Jake",
+      "textMatches": true,
+      "video": "https://youtube.com/shorts/4gFSVqLk_j0"
+    },
+    {
+      "author": "Bavalle Team",
+      "textMatches": true,
+      "video": null
+    },
+    {
+      "author": "Kelvin Melgar",
+      "textMatches": true,
+      "video": null
+    },
+    {
+      "author": "Ana Kurkina",
+      "textMatches": true,
+      "video": "https://youtu.be/u5LDjn6NdHM"
+    },
+    {
+      "author": "Priority Team",
+      "textMatches": true,
+      "video": null
+    },
+    {
+      "author": "AIDN Leadership",
+      "textMatches": true,
+      "video": null
+    },
+    {
+      "author": "Emily",
+      "textMatches": true,
+      "video": "https://youtu.be/NzExt1Bzdfw"
+    },
+    {
+      "author": "VrdeOS Founders",
+      "textMatches": true,
+      "video": null
+    },
+    {
+      "author": "Mehfil Management",
+      "textMatches": true,
+      "video": null
+    },
+    {
+      "author": "Jason",
+      "textMatches": true,
+      "video": "https://youtu.be/Lr0AhNhmya4"
+    },
+    {
+      "author": "Eli Burch",
+      "textMatches": true,
+      "video": null
+    },
+    {
+      "author": "KhanJee Leadership",
+      "textMatches": true,
+      "video": null
+    },
+    {
+      "author": "Andrew",
+      "textMatches": true,
+      "video": "https://youtu.be/S4a8buevs3I"
+    },
+    {
+      "author": "Jake Matluck",
+      "textMatches": true,
+      "video": null
+    },
+    {
+      "author": "Randy",
+      "textMatches": true,
+      "video": "https://youtu.be/1JaRQCaH6nA"
+    }
+  ]
+}

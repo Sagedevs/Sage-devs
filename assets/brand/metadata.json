@@ -1,0 +1,18 @@
+{
+  "source": "assets/brand/source/sage-devs-wordmark-original.jpeg",
+  "sourceBounds": {
+    "left": 319,
+    "top": 25,
+    "width": 900,
+    "height": 257
+  },
+  "wordmarkDimensions": {
+    "width": 2700,
+    "height": 771
+  },
+  "emblemSourceDimensions": {
+    "width": 211,
+    "height": 257
+  },
+  "note": "PNG extraction retains source artwork and original silver colors. SVG files embed the clean source PNG; they are not editable vector paths. No generated logo variants are used."
+}

@@ -1,0 +1,333 @@
+/* Support and careers share the approved materials, with their own composition. */
+.faq-opening { padding-bottom: 52px; }
+.faq-opening-heading { display: grid; grid-template-columns: 1.25fr 1fr; gap: 90px; align-items: end; }
+.faq-opening h1 { font-size: clamp(3.3rem, 5.3vw, 5rem); margin-bottom: 0; }
+.faq-opening-heading .opening-description { max-width: 390px; font-size: 14px; margin-bottom: 18px; }
+.faq-search { display: flex; align-items: center; gap: 18px; margin-top: 40px; padding: 4px 22px; max-width: 750px; min-height: 64px; background: var(--sd-glass); border: 1px solid var(--sd-line); border-radius: 12px; color: var(--sd-silver); transition: border-color .2s, box-shadow .2s; }
+.faq-search input { min-width: 0; width: 100%; padding: 16px 0; font-size: 14px; background: transparent; border: 0; color: var(--sd-ivory); }
+.faq-search button, .career-search button { min-width: 40px; min-height: 40px; display: grid; place-items: center; background: transparent; border: 0; color: var(--sd-platinum); border-radius: 6px; }
+.faq-topic-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 25px; }
+.faq-topic-grid button { display: flex; text-align: left; align-items: center; gap: 18px; min-height: 96px; padding: 22px; background: transparent; border: 1px solid var(--sd-line); border-radius: 12px; color: var(--sd-platinum); }
+.faq-topic-grid button > span { flex: 1; }
+.faq-topic-grid strong { display: block; font-size: 14px; font-weight: 500; }
+.faq-topic-grid small { display: block; font-size: 11px; color: var(--sd-silver); margin-top: 5px; }
+.faq-topic-grid button:hover, .faq-topic-grid button[aria-pressed=true] { background: var(--sd-glass); border-color: rgb(255 255 255 / .24); }
+.faq-directory { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 80px; padding: 54px 0 90px; border-top: 1px solid var(--sd-line); scroll-margin-top: 110px; }
+.faq-sidebar { position: sticky; top: 135px; align-self: start; }
+.faq-sidebar .section-label { margin-bottom: 25px; }
+.faq-sidebar > button { width: 100%; display: flex; justify-content: space-between; gap: 20px; text-align: left; background: transparent; border: 0; border-radius: 7px; padding: 12px 14px; color: var(--sd-subtle); font-size: 12px; margin-bottom: 4px; }
+.faq-sidebar > button span { color: var(--sd-silver); font-size: 10px; }
+.faq-sidebar > button:hover, .faq-sidebar > button.is-active { background: var(--sd-glass); color: var(--sd-white); }
+.faq-personal-note { margin-top: 36px; padding: 26px 14px 0; border-top: 1px solid var(--sd-line); }
+.faq-personal-note p { font-size: 12px; margin-bottom: 5px; }
+.faq-personal-note .quiet-link { font-size: 12px; }
+.faq-results-heading { display: flex; gap: 20px; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+.faq-results-heading p { font-size: 12px; color: var(--sd-silver); margin: 0; overflow-wrap: anywhere; }
+.faq-results-heading button { display: flex; align-items: center; gap: 8px; background: transparent; border: 0; color: var(--sd-platinum); font-size: 11px; white-space: nowrap; padding: 10px 0; }
+.faq-category { margin-bottom: 48px; }
+.faq-category-heading { display: flex; align-items: baseline; gap: 15px; margin-bottom: 22px; }
+.faq-category-heading > span { font-size: 10px; color: var(--sd-silver); }
+.faq-category-heading h2 { font-size: 27px; line-height: 1.25; margin: 0; }
+.faq-answer { border-bottom: 1px solid var(--sd-line); }
+.faq-answer:first-child { border-top: 1px solid var(--sd-line); }
+.faq-answer h3 { margin: 0; font-family: var(--font-body), sans-serif; }
+.faq-answer h3 > button { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 24px; padding: 23px 0; text-align: left; color: var(--sd-platinum); background: transparent; border: 0; font-size: 14px; line-height: 1.7; letter-spacing: -.01em; }
+.faq-answer h3 > button:hover { color: var(--sd-white); }
+.faq-answer h3 > button svg { flex-shrink: 0; transition: transform .3s var(--sd-ease); }
+.faq-answer.is-open h3 > button svg { transform: rotate(45deg); }
+.faq-answer.is-open h3 > button { color: var(--sd-white); }
+.faq-answer-body { padding: 0 40px 25px 0; }
+.faq-answer-body:not([hidden]) { animation: support-reveal .28s var(--sd-ease); }
+.faq-answer-body p { margin: 0; font-size: 13px; line-height: 1.95; }
+.faq-empty { border: 1px solid var(--sd-line); background: var(--sd-graphite); border-radius: 14px; padding: 40px; }
+.faq-empty h2 { font-size: 30px; margin: 25px 0 16px; }
+.faq-empty p { font-size: 14px; max-width: 400px; margin-bottom: 25px; }
+.faq-next { padding: 70px 0 100px; border-top: 1px solid var(--sd-line); display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: center; }
+.faq-next h2 { font-size: clamp(2.6rem, 4vw, 4rem); margin: 22px 0 0; }
+.faq-next h2 span, .career-process h2 span, .career-culture h2 span { color: var(--sd-silver); }
+.faq-next > div > p:not(.section-label) { font-size: 14px; max-width: 440px; margin-bottom: 26px; line-height: 1.9; }
+.faq-next-links { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 22px; }
+.faq-next-links a { display: flex; align-items: center; gap: 7px; color: var(--sd-platinum); font-size: 11px; min-height: 40px; }
+
+/* The job board and application live in the original Careers component. */
+.careers-intro-grid { display: grid; grid-template-columns: 1.3fr .8fr; gap: 80px; align-items: center; }
+.careers-opening h1 { font-size: clamp(3.2rem, 5.1vw, 4.8rem); }
+.careers-opening .opening-description { max-width: 480px; font-size: 14px; }
+.careers-opening .premium-button { margin-top: 25px; }
+.careers-intro-meta { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 25px; color: var(--sd-silver); font-size: 10px; }
+.careers-intro-meta > span { display: flex; align-items: center; gap: 7px; }
+.careers-studio-note { background: linear-gradient(135deg, rgb(255 255 255 / .07), rgb(255 255 255 / .025)); border: 1px solid var(--sd-line); border-radius: 16px; padding: 32px; }
+.career-team-portraits { display: flex; gap: 7px; margin-bottom: 30px; }
+.career-team-portraits img { width: 64px; height: 76px; object-fit: cover; filter: grayscale(1); border-radius: 7px; background: var(--sd-graphite-secondary); border: 1px solid var(--sd-line); }
+.careers-studio-note h2 { font-size: 32px; line-height: 1.15; margin: 18px 0; }
+.careers-studio-note > p:not(.section-label) { font-size: 13px; line-height: 1.85; max-width: 280px; }
+.careers-studio-note .quiet-link { font-size: 12px; }
+.career-open-count { display: flex; align-items: center; gap: 20px; border-top: 1px solid var(--sd-line); margin-top: 28px; padding-top: 20px; }
+.career-open-count > span { font-family: var(--font-display), sans-serif; font-size: 48px; line-height: 1; color: var(--sd-platinum); letter-spacing: -.06em; }
+.career-open-count > div { flex: 1; font-size: 12px; }
+.career-open-count small { display: inline-block; font-size: 10px; color: var(--sd-silver); margin-top: 5px; }
+.career-board { padding: 65px 0 90px; border-top: 1px solid var(--sd-line); scroll-margin-top: 110px; }
+.career-board-heading { display: flex; justify-content: space-between; align-items: end; gap: 30px; }
+.career-board-heading h2 { font-size: clamp(2.6rem, 4vw, 3.8rem); margin: 18px 0 0; }
+.career-board-heading > p { font-size: 13px; margin: 0; }
+.career-filters { display: flex; gap: 16px; align-items: center; margin: 36px 0; }
+.career-search { display: flex; align-items: center; gap: 14px; padding: 0 16px; background: var(--sd-glass); border: 1px solid var(--sd-line); border-radius: 9px; color: var(--sd-silver); width: 340px; }
+.career-search input { width: 100%; min-width: 0; border: 0; background: transparent; padding: 15px 0; color: var(--sd-ivory); font-size: 13px; }
+.career-location-filter { display: flex; gap: 12px; align-items: center; min-height: 51px; padding: 0 15px; border: 1px solid var(--sd-line); border-radius: 9px; }
+.career-location-filter label { color: var(--sd-silver); font-size: 11px; }
+.career-location-filter select { border: 0; color: var(--sd-platinum); background: transparent; padding: 10px 5px; font-size: 12px; }
+.career-location-filter option, .career-form-fields option { background: var(--sd-graphite); color: var(--sd-ivory); }
+.career-filters > p { font-size: 11px; margin: 0 0 0 auto; color: var(--sd-silver); }
+.career-job { display: grid; grid-template-columns: .95fr 1.4fr auto; gap: 40px; padding: 36px 0; border-top: 1px solid var(--sd-line); align-items: start; }
+.career-job:last-child { border-bottom: 1px solid var(--sd-line); }
+.career-role-number { font-size: 9px; color: var(--sd-silver); }
+.career-job h3 { margin: 12px 0 18px; font-size: 27px; line-height: 1.15; }
+.career-job-title > div { display: flex; flex-wrap: wrap; gap: 10px 15px; font-size: 10px; color: var(--sd-silver); }
+.career-job-title > div span { display: flex; gap: 6px; align-items: center; }
+.career-job-detail > p { font-size: 13px; line-height: 1.9; margin: 4px 0 20px; }
+.career-job-detail ul { display: flex; flex-wrap: wrap; gap: 7px; padding: 0; margin: 0; list-style: none; }
+.career-job-detail li { border: 1px solid var(--sd-line); border-radius: 4px; padding: 4px 9px; font-size: 9px; color: var(--sd-silver); }
+.career-apply { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 46px; padding: 10px 17px; background: var(--sd-glass); border: 1px solid var(--sd-line); border-radius: 8px; font-size: 12px; color: var(--sd-platinum); margin-top: 4px; }
+.career-apply:hover { background: var(--sd-ivory); color: var(--sd-ink); }
+.career-empty { text-align: center; padding: 60px 20px; background: var(--sd-graphite); border-radius: 14px; }
+.career-empty h3 { font-size: 28px; }
+.career-empty p { font-size: 14px; }
+.career-culture { background: var(--sd-graphite); border-block: 1px solid var(--sd-line); padding: 80px 0; }
+.career-culture h2 { font-size: clamp(2.5rem, 4vw, 3.6rem); margin: 20px 0 45px; }
+.career-values { display: grid; grid-template-columns: repeat(4, 1fr); gap: 35px; }
+.career-values article > span { color: var(--sd-silver); font-size: 10px; }
+.career-values h3 { font-size: 25px; margin: 20px 0 15px; line-height: 1.2; }
+.career-values p { font-size: 13px; line-height: 1.85; margin: 0; }
+.career-benefits { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 25px; padding-top: 35px; margin-top: 45px; border-top: 1px solid var(--sd-line); align-items: center; }
+.career-benefits .section-label { margin: 0; }
+.career-benefits > div { display: flex; gap: 12px; align-items: center; font-size: 12px; color: var(--sd-platinum); }
+.career-process { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; padding: 90px 0; }
+.career-process h2 { font-size: clamp(2.4rem, 4vw, 3.5rem); margin: 22px 0; }
+.career-process > div > p:not(.section-label) { font-size: 13px; }
+.career-process ol { padding: 0; margin: 0; list-style: none; }
+.career-process li { display: flex; gap: 22px; border-top: 1px solid var(--sd-line); padding: 24px 0; }
+.career-process li > span { font-size: 10px; color: var(--sd-silver); margin-top: 4px; }
+.career-process h3 { font-size: 23px; margin: 0 0 12px; }
+.career-process li p { font-size: 13px; margin: 0; line-height: 1.8; }
+.career-questions { display: flex; align-items: center; justify-content: space-between; gap: 25px; padding: 36px 0 70px; border-top: 1px solid var(--sd-line); font-size: 14px; color: var(--sd-subtle); }
+.career-questions a { display: flex; align-items: center; gap: 15px; color: var(--sd-platinum); }
+.career-application { padding: 50px 0 80px; border-top: 1px solid var(--sd-line); }
+.career-application-heading { scroll-margin-top: 135px; }
+.career-application-heading:focus { outline: none; }
+.career-application-heading > .quiet-link { margin-bottom: 35px; }
+.career-application-heading h2 { font-size: clamp(2.5rem, 4vw, 3.6rem); margin: 20px 0; }
+.career-application-heading > p:last-child { font-size: 14px; }
+.career-application-grid { display: grid; grid-template-columns: 270px minmax(0, 1fr); gap: 75px; margin-top: 45px; }
+.career-application-grid > aside { position: sticky; top: 135px; align-self: start; padding: 25px; border: 1px solid var(--sd-line); background: var(--sd-glass); border-radius: 12px; }
+.career-application-grid aside h3 { font-size: 26px; line-height: 1.2; margin: 18px 0; }
+.career-application-grid aside > p:not(.section-label) { font-size: 11px; display: flex; align-items: center; gap: 10px; }
+.career-application-note { display: flex; align-items: start; gap: 10px; font-size: 11px; color: var(--sd-silver); border-top: 1px solid var(--sd-line); margin-top: 22px; padding-top: 20px; line-height: 1.8; }
+.career-application-note svg { flex-shrink: 0; margin-top: 4px; }
+.career-form-fields { border: 0; padding: 0; min-width: 0; }
+.career-form-section { border: 1px solid var(--sd-line); padding: 26px 30px 30px; border-radius: 13px; background: var(--sd-graphite); margin: 0 0 38px; min-width: 0; }
+.career-form-section legend { padding: 0 10px; font-size: 22px; font-family: var(--font-display), sans-serif; letter-spacing: -.04em; color: var(--sd-platinum); }
+.career-form-section legend span { font-size: 10px; letter-spacing: 0; color: var(--sd-silver); margin-right: 15px; }
+.career-form-section > p { font-size: 12px; margin-bottom: 24px; }
+.career-field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.career-field-grid .field { margin: 0; }
+.career-field-wide { grid-column: 1 / -1; }
+.career-field-grid .field label { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; font-size: 12px; margin-bottom: 9px; }
+.career-field-grid label span { font-size: 9px; color: var(--sd-silver); }
+.career-field-grid .field :is(input, select, textarea) { background: var(--sd-obsidian); border: 1px solid var(--sd-line); border-radius: 8px; color: var(--sd-ivory); font-size: 14px; padding: 13px 14px; width: 100%; min-width: 0; transition: border-color .2s, box-shadow .2s; }
+.career-field-grid .field textarea { resize: vertical; min-height: 150px; }
+.career-submit > .premium-button { width: 100%; }
+.career-submit p { font-size: 11px; text-align: center; line-height: 1.9; margin-top: 16px; }
+.career-submit a { text-decoration: underline; text-underline-offset: 3px; }
+.career-success { padding: 40px; background: var(--sd-glass); border: 1px solid var(--sd-line); border-radius: 16px; max-width: 650px; margin-top: 35px; }
+.career-success h3 { font-size: 30px; margin-top: 25px; }
+.career-success p { font-size: 14px; line-height: 1.9; margin: 18px 0 25px; }
+
+/* The native dialog handles focus containment, Escape and background inertness. */
+.glass-site .sage-chat { margin: 0; inset: auto 24px 24px auto; width: min(430px, calc(100vw - 32px)); max-width: none; height: min(680px, calc(100dvh - 48px)); max-height: none; padding: 0; border-radius: 21px; border: 1px solid rgb(255 255 255 / .16); background: rgb(27 29 33 / .97); color: var(--sd-ivory); box-shadow: 0 24px 90px rgb(0 0 0 / .4), inset 0 1px 0 rgb(255 255 255 / .07); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); overflow: hidden; }
+.glass-site .sage-chat[open] { display: flex; flex-direction: column; animation: chat-entrance .28s var(--sd-ease); }
+.glass-site .sage-chat:not([open]) { display: none; }
+.sage-chat::backdrop { background: rgb(0 0 0 / .18); }
+.glass-site .sage-chat > .chat-header { display: flex; gap: 13px; align-items: center; padding: 20px; background: transparent; border-bottom: 1px solid var(--sd-line); flex-shrink: 0; }
+.chat-brand-icon { width: 39px; height: 44px; display: grid; place-items: center; }
+.chat-brand-icon img { width: 26px; height: 32px; object-fit: contain; }
+.glass-site .sage-chat .chat-header > div { flex: 1; }
+.glass-site .sage-chat .chat-header h2 { font-size: 20px; line-height: 1.2; margin: 0 0 3px; }
+.glass-site .sage-chat .chat-header div > span { color: var(--sd-silver); font-size: 10px; }
+.glass-site .sage-chat .chat-header button { display: grid; place-items: center; height: 36px; width: 36px; flex-shrink: 0; border-radius: 50%; border: 1px solid transparent; background: transparent; color: var(--sd-subtle); padding: 0; }
+.glass-site .sage-chat .chat-header button:hover { background: var(--sd-glass); color: var(--sd-white); }
+.glass-site .sage-chat .chat-scroll { padding: 25px 24px; flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--sd-graphite-secondary) transparent; }
+.chat-welcome .section-label { font-size: 8px; color: var(--sd-silver); margin-bottom: 20px; }
+.chat-welcome h3 { font-size: 35px; line-height: 1.1; margin: 0 0 18px; }
+.chat-welcome h3 > span { color: var(--sd-silver); }
+.chat-welcome > p:not(.section-label) { font-size: 13px; line-height: 1.85; margin-bottom: 25px; max-width: 330px; }
+.glass-site .chat-actions { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.glass-site .chat-actions > * { display: flex; align-items: center; gap: 15px; text-align: left; min-height: 73px; padding: 15px; border: 1px solid var(--sd-line); border-radius: 11px; color: var(--sd-ivory); background: rgb(255 255 255 / .035); }
+.glass-site .chat-actions > *:hover { background: rgb(255 255 255 / .08); border-color: rgb(255 255 255 / .2); }
+.chat-actions > * > span:not(.chat-work-symbol) { flex: 1; font-size: 13px; }
+.chat-actions small { display: block; font-size: 10px; color: var(--sd-silver); margin-top: 4px; }
+.chat-actions svg { flex-shrink: 0; color: var(--sd-subtle); }
+.chat-work-symbol { font-size: 23px; width: 18px; color: var(--sd-subtle); }
+.chat-quick-links { display: flex; align-items: center; gap: 24px; margin-top: 18px; }
+.chat-quick-links a { display: flex; align-items: center; gap: 8px; color: var(--sd-subtle); font-size: 10px; min-height: 40px; }
+.glass-site .chat-message { padding: 0; background: transparent; color: var(--sd-ivory); border: 0; border-radius: 0; margin: 0 22px 25px 0; animation: support-reveal .22s var(--sd-ease); }
+.glass-site .chat-message > span { color: var(--sd-silver); font-size: 8px; letter-spacing: .1em; }
+.glass-site .chat-message p { margin-top: 8px; font-size: 13px; line-height: 1.85; color: var(--sd-platinum); overflow-wrap: anywhere; }
+.glass-site .chat-message.user { margin: 0 0 25px 35px; padding: 14px 17px; background: rgb(255 255 255 / .07); border: 1px solid var(--sd-line); border-radius: 14px 14px 4px 14px; }
+.glass-site .chat-message.user p { color: var(--sd-ivory); }
+.chat-thinking { font-size: 11px; color: var(--sd-silver); display: flex; align-items: center; gap: 12px; margin-bottom: 25px; }
+.chat-thinking > span { display: flex; align-items: center; gap: 4px; }
+.chat-thinking i { width: 4px; height: 4px; border-radius: 50%; background: var(--sd-silver); animation: chat-thinking 1.2s ease-in-out infinite; }
+.chat-thinking i:nth-child(2) { animation-delay: .15s; }
+.chat-thinking i:nth-child(3) { animation-delay: .3s; }
+.chat-conversation-actions { display: flex; gap: 16px; flex-wrap: wrap; padding-top: 12px; border-top: 1px solid var(--sd-line); }
+.chat-conversation-actions > *, .chat-retry { display: inline-flex; align-items: center; gap: 7px; min-height: 40px; border: 0; background: transparent; color: var(--sd-platinum); padding: 0; font-size: 10px; }
+.chat-compose { flex-shrink: 0; padding: 12px 16px 14px; border-top: 1px solid var(--sd-line); background: rgb(16 17 20 / .3); }
+.glass-site .chat-input { padding: 12px; gap: 10px; border: 1px solid var(--sd-line); border-radius: 12px; background: var(--sd-obsidian); display: flex; align-items: end; transition: border-color .2s, box-shadow .2s; }
+.glass-site .chat-input textarea { padding: 3px 0; min-width: 0; width: 100%; min-height: 45px; max-height: 110px; background: transparent; border: 0; resize: none; font-family: inherit; font-size: 13px; color: var(--sd-ivory); line-height: 1.7; }
+.glass-site .chat-input button { display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 50%; background: var(--sd-ivory); color: var(--sd-ink); flex-shrink: 0; padding: 0; }
+.glass-site .chat-input button:disabled { background: var(--sd-graphite-secondary); color: var(--sd-silver); opacity: .65; cursor: default; }
+.glass-site .chat-disclosure { background: transparent; padding: 10px 0 0; text-align: center; color: var(--sd-silver); font-size: 9px; line-height: 1.6; margin: 0; }
+.chat-back { display: flex; align-items: center; gap: 8px; background: none; border: 0; padding: 0; min-height: 35px; color: var(--sd-platinum); font-size: 11px; margin-bottom: 20px; }
+.glass-site .chat-lead { margin: 0; padding: 0; border: 0; }
+.chat-lead .section-label { font-size: 8px; }
+.glass-site .chat-lead h3 { font-size: 30px; line-height: 1.13; margin: 20px 0 16px; }
+.glass-site .chat-lead > p:not(.section-label) { font-size: 12px; line-height: 1.8; margin-bottom: 22px; }
+.glass-site .chat-lead .field label { display: flex; justify-content: space-between; font-size: 11px; gap: 15px; }
+.chat-lead label > span { font-size: 9px; color: var(--sd-silver); }
+.glass-site .chat-lead .field :is(input, textarea) { padding: 12px; border: 1px solid var(--sd-line); border-radius: 8px; background: var(--sd-obsidian); color: var(--sd-ivory); font-size: 13px; transition: border-color .2s, box-shadow .2s; }
+.glass-site .chat-lead .field textarea { min-height: 90px; resize: vertical; }
+.chat-primary, .chat-secondary { display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; min-height: 47px; border-radius: 9px; padding: 12px 16px; background: var(--sd-ivory); color: var(--sd-ink); border: 1px solid transparent; font-size: 12px; }
+.chat-secondary { background: var(--sd-glass); border-color: var(--sd-line); color: var(--sd-platinum); }
+.chat-primary:disabled { opacity: .65; cursor: wait; }
+.glass-site .chat-lead > .chat-lead-privacy { font-size: 9px; text-align: center; line-height: 1.9; margin: 15px 0 0; color: var(--sd-silver); }
+.chat-lead-privacy a { text-decoration: underline; text-underline-offset: 3px; }
+.chat-lead-success { padding: 25px 0; }
+.chat-lead-success h3 { font-size: 30px; margin: 25px 0 18px; }
+.chat-lead-success p { font-size: 13px; line-height: 1.85; margin-bottom: 30px; }
+.glass-site .assistant-launch { display: flex; gap: 12px; align-items: center; border-radius: 50px; min-height: 48px; }
+
+/* Subtle focus within each input surface, with a separate keyboard button ring. */
+.glass-site .footer-connect form { border: 1px solid var(--sd-line); border-radius: 10px; background: rgb(255 255 255 / .025); padding: 0 5px 0 15px; transition: border-color .2s, box-shadow .2s, background .2s; }
+.glass-site .footer-connect input { min-width: 0; padding: 15px 0; color: var(--sd-ivory); caret-color: var(--sd-platinum); }
+.glass-site .footer-connect button { border-radius: 7px; }
+.glass-site .footer-connect button:hover { background: var(--sd-glass); color: var(--sd-white); }
+.glass-site :is(.footer-connect form, .faq-search, .career-search, .chat-input):focus-within { border-color: rgb(217 217 213 / .5); box-shadow: 0 0 0 3px rgb(217 217 213 / .06); }
+.glass-site :is(.footer-connect input, .faq-search input, .career-search input, .chat-input textarea):is(:focus, :focus-visible) { outline: none; box-shadow: none; }
+.glass-site :is(.career-field-grid .field, .chat-lead .field) :is(input, select, textarea):focus { outline: none; border-color: rgb(217 217 213 / .55); box-shadow: 0 0 0 3px rgb(217 217 213 / .07); }
+.glass-site :is(.faq-search, .career-search) input::-webkit-search-cancel-button { -webkit-appearance: none; }
+.glass-site :is(.footer-connect, .chat-lead, .career-field-grid) input:-webkit-autofill { -webkit-text-fill-color: var(--sd-ivory); box-shadow: 0 0 0 1000px var(--sd-obsidian) inset; caret-color: var(--sd-platinum); }
+@keyframes support-reveal { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@keyframes chat-entrance { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes chat-thinking { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+@media (max-width: 1100px) {
+  .faq-opening-heading { gap: 45px; }
+  .faq-topic-grid button { gap: 12px; padding: 18px; }
+  .faq-topic-grid small { font-size: 10px; }
+  .faq-directory { grid-template-columns: 210px minmax(0, 1fr); gap: 40px; }
+  .faq-next { gap: 40px; }
+  .careers-intro-grid { gap: 40px; grid-template-columns: 1.2fr .9fr; }
+  .careers-opening h1 { font-size: 3.5rem; }
+  .career-job { grid-template-columns: 1fr 1.3fr; gap: 25px 40px; }
+  .career-apply { grid-column: 2; justify-self: start; margin-top: 0; }
+  .career-values { grid-template-columns: repeat(2, 1fr); gap: 35px; }
+  .career-benefits > .section-label { width: 100%; }
+  .career-process { gap: 50px; }
+  .career-application-grid { grid-template-columns: 220px minmax(0, 1fr); gap: 35px; }
+  .career-application-grid > aside { padding: 22px; }
+  .career-form-section { padding: 22px; }
+}
+@media (max-width: 760px) {
+  .faq-opening-heading { grid-template-columns: 1fr; gap: 25px; }
+  .faq-opening h1 { font-size: 3.1rem; }
+  .faq-opening-heading .opening-description { font-size: 13px; }
+  .faq-search { margin-top: 25px; padding: 3px 15px; gap: 12px; min-height: 58px; }
+  .faq-search input { font-size: 16px; }
+  .faq-search input::placeholder { font-size: 12px; }
+  .faq-search > svg { width: 18px; flex-shrink: 0; }
+  .faq-topic-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 20px; }
+  .faq-topic-grid button { display: block; min-height: 130px; padding: 18px 14px; position: relative; }
+  .faq-topic-grid button > svg:first-child { margin-bottom: 15px; width: 21px; }
+  .faq-topic-grid button > svg:last-child { position: absolute; right: 13px; top: 18px; width: 13px; }
+  .faq-topic-grid strong { font-size: 12px; }
+  .faq-topic-grid small { font-size: 10px; line-height: 1.5; max-width: 140px; }
+  .faq-directory { display: block; padding: 30px 0 40px; }
+  .faq-sidebar { position: static; display: flex; gap: 6px; overflow-x: auto; padding: 4px 3px 15px; margin-bottom: 15px; scrollbar-width: thin; }
+  .faq-sidebar > .section-label, .faq-personal-note { display: none; }
+  .faq-sidebar > button { width: auto; white-space: nowrap; gap: 12px; margin: 0; padding: 12px; flex-shrink: 0; font-size: 11px; }
+  .faq-results-heading { margin: 20px 0 30px; gap: 15px; align-items: start; }
+  .faq-results-heading p { font-size: 11px; }
+  .faq-results-heading button { padding: 0; font-size: 10px; }
+  .faq-category-heading h2 { font-size: 23px; }
+  .faq-category-heading { align-items: start; gap: 12px; }
+  .faq-category-heading > span { margin-top: 5px; }
+  .faq-answer h3 > button { padding: 20px 0; font-size: 13px; gap: 20px; line-height: 1.7; }
+  .faq-answer-body { padding: 0 10px 24px 0; }
+  .faq-answer-body p { font-size: 13px; line-height: 1.85; }
+  .faq-empty { padding: 26px; }
+  .faq-empty h2 { font-size: 27px; }
+  .faq-next { grid-template-columns: 1fr; gap: 26px; padding: 45px 0 65px; }
+  .faq-next h2 { font-size: 2.7rem; }
+  .faq-next-links { gap: 10px 18px; }
+  .careers-intro-grid { grid-template-columns: 1fr; gap: 35px; }
+  .careers-opening h1 { font-size: 3rem; }
+  .careers-opening .opening-description { font-size: 13px; }
+  .careers-intro-meta { font-size: 9px; gap: 10px 20px; }
+  .careers-studio-note { padding: 25px; }
+  .career-team-portraits { margin-bottom: 25px; }
+  .career-team-portraits img { width: 55px; height: 66px; }
+  .careers-studio-note h2 { font-size: 31px; }
+  .career-open-count { padding-top: 20px; }
+  .career-board { padding: 45px 0 60px; }
+  .career-board-heading { display: block; }
+  .career-board-heading h2 { font-size: 2.7rem; }
+  .career-board-heading > p { margin-top: 20px; font-size: 12px; }
+  .career-board-heading > p br { display: none; }
+  .career-filters { flex-wrap: wrap; gap: 12px; margin: 25px 0; }
+  .career-search { width: 100%; }
+  .career-search input { font-size: 16px; }
+  .career-search input::placeholder { font-size: 13px; }
+  .career-location-filter { gap: 6px; padding: 0 10px; }
+  .career-location-filter select { font-size: 16px; max-width: 156px; }
+  .career-location-filter label { font-size: 10px; }
+  .career-filters > p { font-size: 10px; }
+  .career-job { grid-template-columns: 1fr; gap: 20px; padding: 28px 0; }
+  .career-job h3 { font-size: 27px; margin-top: 10px; }
+  .career-job-detail > p { font-size: 13px; margin-top: 0; }
+  .career-apply { grid-column: auto; width: fit-content; font-size: 12px; }
+  .career-culture { padding: 55px 0; }
+  .career-culture h2 { font-size: 2.5rem; margin-bottom: 35px; }
+  .career-values { gap: 30px 20px; }
+  .career-values h3 { font-size: 23px; margin-top: 15px; }
+  .career-values p { font-size: 12px; }
+  .career-benefits { gap: 25px 15px; justify-content: start; }
+  .career-benefits > div { width: calc(50% - 15px); font-size: 11px; gap: 10px; }
+  .career-process { grid-template-columns: 1fr; gap: 30px; padding: 55px 0; }
+  .career-process h2 { font-size: 2.6rem; }
+  .career-process h3 { font-size: 24px; }
+  .career-questions { align-items: start; flex-direction: column; gap: 15px; font-size: 13px; padding-bottom: 50px; }
+  .career-application { padding: 35px 0 50px; }
+  .career-application-heading h2 { font-size: 2.8rem; }
+  .career-application-grid { grid-template-columns: 1fr; gap: 38px; margin-top: 30px; }
+  .career-application-grid > aside { position: static; }
+  .career-form-section { padding: 20px 17px 24px; margin-bottom: 32px; }
+  .career-form-section legend { font-size: 22px; padding: 0 6px; }
+  .career-form-section legend span { font-size: 9px; margin-right: 10px; }
+  .career-field-grid { grid-template-columns: 1fr; gap: 20px; }
+  .career-field-grid .field :is(input, select, textarea) { font-size: 16px; }
+  .career-field-grid .field label { font-size: 12px; }
+  .career-success { padding: 25px; }
+  .glass-site .footer-connect input { font-size: 16px; }
+  .glass-site .sage-chat { inset: auto 10px max(10px, env(safe-area-inset-bottom)) 10px; width: calc(100vw - 20px); height: min(690px, calc(100dvh - 30px)); border-radius: 18px; }
+  .glass-site .sage-chat > .chat-header { padding: 16px 18px; }
+  .glass-site .sage-chat .chat-scroll { padding: 22px 20px; }
+  .chat-welcome h3 { font-size: 34px; }
+  .glass-site .chat-input textarea, .glass-site .chat-lead .field :is(input, textarea) { font-size: 16px; }
+  .chat-input textarea::placeholder { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .faq-answer h3 > button svg, .faq-topic-grid button, .career-apply { transition: none; }
+  .faq-answer-body:not([hidden]), .glass-site .sage-chat[open], .glass-site .chat-message, .chat-thinking i { animation: none; }
+}
+@media (forced-colors: active) {
+  .glass-site :is(.footer-connect input, .faq-search input, .career-search input, .chat-input textarea):focus-visible { outline: 2px solid Highlight; outline-offset: 2px; }
+}

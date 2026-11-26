@@ -1,6 +1,11 @@
-"use client";
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { Briefcase, Clock, CheckCircle, ChevronDown, ChevronUp, ArrowLeft, Search, MapPin, Users, Zap, Heart, TrendingUp } from 'lucide-react';
+'use client';
+
+import { useEffect, useRef, useState, type FormEvent } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowDown, ArrowLeft, ArrowUpRight, Briefcase, Check, CheckCircle2, Clock3, Search, X, MapPin, Heart, BookOpen, Laptop } from 'lucide-react';
+import { team } from '@/data/team';
+import { founderPortrait } from '@/lib/founder';
 
 interface JobPosting {
   title: string;
@@ -10,49 +15,7 @@ interface JobPosting {
   location: string;
 }
 
-export default function CareerApplication() {
-  const [formData, setFormData] = useState<{
-    fullName: string;
-    email: string;
-    phone: string;
-    location: string;
-    position: string;
-    experience: string;
-    currentRole: string;
-    currentCompany: string;
-    portfolio: string;
-    linkedin: string;
-    github: string;
-    availability: string;
-    expectedSalary: string;
-    noticePeriod: string;
-    coverLetter: string;
-    skills: string;
-    education: string;
-    referral: string;
-    [key: string]: string;
-  }>({
-    fullName: '', email: '', phone: '', location: '', position: '',
-    experience: '', currentRole: '', currentCompany: '', portfolio: '',
-    linkedin: '', github: '', availability: '', expectedSalary: '',
-    noticePeriod: '', coverLetter: '', skills: '', education: '', referral: ''
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [showForm, setShowForm] = useState(false);
-  const [selectedJob, setSelectedJob] = useState<string>('');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [expandedSections, setExpandedSections] = useState({
-    personal: true,
-    position: true,
-    links: false,
-    employment: false,
-    skills: false,
-    coverLetter: false
-  });
-
-  const jobPostings: JobPosting[] = [
+export const jobPostings: JobPosting[] = [
     {
   title: 'Sales Consultant',
   description: 'Find and connect with potential clients, pitch Sage Devs’ web and digital solutions, and help close deals. You’ll identify leads, build relationships, and coordinate with the tech team once clients are ready to start projects. Commission-based with potential for fixed + commission after proven success.',
@@ -97,676 +60,107 @@ export default function CareerApplication() {
   
   ];
 
-  const filteredJobs = jobPostings.filter(job =>
-    job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    job.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    job.techStack.some(tech => tech.toLowerCase().includes(searchQuery.toLowerCase()))
-  );
+type ApplicationData = Record<'fullName' | 'email' | 'phone' | 'location' | 'position' | 'experience' | 'currentRole' | 'currentCompany' | 'portfolio' | 'linkedin' | 'github' | 'availability' | 'expectedSalary' | 'noticePeriod' | 'coverLetter' | 'skills' | 'education' | 'referral', string>;
+const emptyApplication: ApplicationData = { fullName: '', email: '', phone: '', location: '', position: '', experience: '', currentRole: '', currentCompany: '', portfolio: '', linkedin: '', github: '', availability: '', expectedSalary: '', noticePeriod: '', coverLetter: '', skills: '', education: '', referral: '' };
+type ApplicationField = { name: keyof ApplicationData; label: string; type?: string; required?: boolean; placeholder?: string; autoComplete?: string; options?: [string, string][]; wide?: boolean };
+const applicationSections: { title: string; note: string; fields: ApplicationField[] }[] = [
+  { title: 'A little about you', note: 'Start with the essentials.', fields: [
+    { name: 'fullName', label: 'Full name', required: true, autoComplete: 'name' },
+    { name: 'email', label: 'Email address', type: 'email', required: true, autoComplete: 'email' },
+    { name: 'phone', label: 'Phone number', type: 'tel', required: true, autoComplete: 'tel' },
+    { name: 'location', label: 'Location', required: true, placeholder: 'City, country', autoComplete: 'address-level2' },
+  ] },
+  { title: 'Your experience', note: 'Help us understand your background.', fields: [
+    { name: 'position', label: 'Position', required: true, options: jobPostings.map(job => [job.title, job.title]) },
+    { name: 'experience', label: 'Years of experience', required: true, options: [['0-1', '0–1 years'], ['1-3', '1–3 years'], ['3-5', '3–5 years'], ['5-10', '5–10 years'], ['10+', '10+ years']] },
+    { name: 'currentRole', label: 'Current role', autoComplete: 'organization-title' },
+    { name: 'currentCompany', label: 'Current company', autoComplete: 'organization' },
+    { name: 'skills', label: 'Key skills', required: true, placeholder: 'The tools and skills you work with', wide: true },
+    { name: 'education', label: 'Education', required: true, placeholder: 'Your education or relevant qualifications', wide: true },
+  ] },
+  { title: 'Your work, in your words', note: 'Share what you’d like us to know.', fields: [
+    { name: 'portfolio', label: 'Portfolio URL', type: 'url', placeholder: 'https://' },
+    { name: 'linkedin', label: 'LinkedIn profile', type: 'url', placeholder: 'https://linkedin.com/in/' },
+    { name: 'github', label: 'GitHub profile', type: 'url', placeholder: 'https://github.com/' },
+    { name: 'coverLetter', label: 'Why Sage Devs?', type: 'textarea', required: true, wide: true, placeholder: 'Tell us why this role interests you and what you would bring to the team.' },
+  ] },
+  { title: 'The practical details', note: 'Availability and expectations.', fields: [
+    { name: 'availability', label: 'Availability', required: true, options: [['immediate', 'Immediate'], ['2-weeks', '2 weeks'], ['1-month', '1 month'], ['2-months', '2 months'], ['3-months', '3+ months']] },
+    { name: 'expectedSalary', label: 'Expected salary (PKR)', required: true, placeholder: 'Your expected range' },
+    { name: 'noticePeriod', label: 'Notice period', placeholder: 'e.g. 1 month' },
+    { name: 'referral', label: 'How did you hear about us?', options: [['linkedin', 'LinkedIn'], ['website', 'Company website'], ['referral', 'Employee referral'], ['job-board', 'Job board'], ['social-media', 'Social media'], ['other', 'Other']] },
+  ] },
+];
+const hiringSteps = [
+  ['Application review', 'We review your experience, skills, and interest in the role.'],
+  ['Initial screening', 'A 30-minute conversation about your background and goals.'],
+  ['Technical / portfolio review', 'An opportunity to show your work through practical evaluation.'],
+  ['Meet the team', 'Get to know the people you could be working with.'],
+  ['The offer', 'Discuss the role, expectations, and next steps together.'],
+];
 
-  const toggleSection = (section: keyof typeof expandedSections) => {
-    setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
-  };
+export default function CareerApplication() {
+  const [formData, setFormData] = useState<ApplicationData>({ ...emptyApplication });
+  const [showForm, setShowForm] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [location, setLocation] = useState('all');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const pending = useRef(false);
+  const applicationRef = useRef<HTMLDivElement>(null);
+  const positionsRef = useRef<HTMLElement>(null);
+  const returnFocus = useRef<HTMLButtonElement | null>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
+  const filteredJobs = jobPostings.filter(job => `${job.title} ${job.description} ${job.techStack.join(' ')}`.toLowerCase().includes(searchQuery.trim().toLowerCase()) && (location === 'all' || job.location.toLowerCase().includes(location)));
+  const selectedJob = jobPostings.find(job => job.title === formData.position);
 
-  const handleApplyClick = (jobTitle: string) => {
-    setSelectedJob(jobTitle);
-    setFormData(prev => ({ ...prev, position: jobTitle }));
-    setShowForm(true);
-    setTimeout(() => {
-      document.getElementById('application-form')?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    const formDataToSend = new FormData();
-    
-    Object.keys(formData).forEach(key => {
-      if (formData[key]) {
-        formDataToSend.append(key, formData[key]);
-      }
-    });
-
-    try {
-      const response = await fetch('https://formspree.io/f/mnnggbpp', {
-        method: 'POST',
-        body: formDataToSend,
-        headers: {
-          'Accept': 'application/json'
-        }
-      });
-
-      if (response.ok) {
-        setSubmitSuccess(true);
-        setFormData({
-          fullName: '', email: '', phone: '', location: '', position: '',
-          experience: '', currentRole: '', currentCompany: '', portfolio: '',
-          linkedin: '', github: '', availability: '', expectedSalary: '',
-          noticePeriod: '', coverLetter: '', skills: '', education: '', referral: ''
-        });
-        setTimeout(() => {
-          setSubmitSuccess(false);
-          setShowForm(false);
-          scrollToTop();
-        }, 5000);
-      }
-    } catch {
-      alert('Error submitting form. Please try again.');
-    } finally {
-      setIsSubmitting(false);
+  useEffect(() => {
+    if (showForm) {
+      applicationRef.current?.focus({ preventScroll: true });
+      applicationRef.current?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
     }
-  };
+  }, [showForm]);
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900">
-      {/* Header */}
-      <div className="bg-black/30 backdrop-blur-sm border-b border-white/5 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-white">Join Sage Devs</h1>
-              <p className="text-blue-200 mt-1 text-sm sm:text-base">Shape the future of digital innovation</p>
-            </div>
-            {showForm && (
-              <button
-                onClick={() => {
-                  setShowForm(false);
-                  scrollToTop();
-                }}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 rounded-lg transition-colors text-sm"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span className="hidden sm:inline">Back to Positions</span>
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
+  function apply(job: JobPosting, trigger: HTMLButtonElement) {
+    returnFocus.current = trigger;
+    setFormData(previous => ({ ...previous, position: job.title }));
+    setSubmitSuccess(false); setSubmitError(''); setShowForm(true);
+  }
+  function backToPositions() {
+    setShowForm(false);
+    requestAnimationFrame(() => {
+      const button = positionsRef.current?.querySelector<HTMLButtonElement>(`[data-role-index="${jobPostings.findIndex(job => job.title === formData.position)}"]`);
+      (button || returnFocus.current)?.focus({ preventScroll: true });
+      positionsRef.current?.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    });
+  }
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (pending.current) return;
+    if (!event.currentTarget.reportValidity()) return;
+    pending.current = true; setIsSubmitting(true); setSubmitError('');
+    const data = new FormData(event.currentTarget);
+    try {
+      const response = await fetch('https://formspree.io/f/mnnggbpp', { method: 'POST', body: data, headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(20000) });
+      if (!response.ok) throw new Error('Submission failed');
+      setSubmitSuccess(true);
+      setFormData(previous => ({ ...emptyApplication, position: previous.position }));
+      applicationRef.current?.focus({ preventScroll: true });
+      applicationRef.current?.scrollIntoView({ block: 'start', behavior: 'auto' });
+    } catch {
+      setSubmitError('We couldn’t send your application. Your information is still here. Please try again or email info@sagedevs.tech.');
+    } finally { pending.current = false; setIsSubmitting(false); }
+  }
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        {!showForm ? (
-          <div className="grid lg:grid-cols-5 gap-6 sm:gap-8">
-            {/* Left Section - Career Info */}
-            <div className="lg:col-span-2 space-y-6">
-              {/* Why Join Us */}
-              <div className="bg-gradient-to-br from-blue-900/30 to-slate-900/30 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-blue-500/20">
-                <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">Why Join Sage Devs?</h2>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0">
-                      <Briefcase className="w-5 h-5 text-blue-400" />
-                    </div>
-                    <div>
-                      <h3 className="text-white font-semibold mb-1">Cutting-Edge Projects</h3>
-                      <p className="text-gray-300 text-sm">Work on innovative solutions that push technological boundaries</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0">
-                      <Clock className="w-5 h-5 text-blue-400" />
-                    </div>
-                    <div>
-                      <h3 className="text-white font-semibold mb-1">Flexible Work Culture</h3>
-                      <p className="text-gray-300 text-sm">Remote options and flexible hours for work-life balance</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0">
-                      <TrendingUp className="w-5 h-5 text-blue-400" />
-                    </div>
-                    <div>
-                      <h3 className="text-white font-semibold mb-1">Growth Opportunities</h3>
-                      <p className="text-gray-300 text-sm">Continuous learning and clear career progression paths</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0">
-                      <Users className="w-5 h-5 text-blue-400" />
-                    </div>
-                    <div>
-                      <h3 className="text-white font-semibold mb-1">Collaborative Environment</h3>
-                      <p className="text-gray-300 text-sm">Work with talented professionals in a supportive team culture</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Perks */}
-              <div className="bg-gradient-to-br from-blue-900/30 to-slate-900/30 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-blue-500/20">
-                <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">Perks & Benefits</h2>
-                <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                  <div className="text-center p-3 sm:p-4 bg-black/20 rounded-lg border border-white/5">
-                    <Heart className="w-6 h-6 text-red-400 mx-auto mb-2" />
-                    <p className="text-gray-300 text-xs sm:text-sm font-medium">Health Coverage</p>
-                  </div>
-                  <div className="text-center p-3 sm:p-4 bg-black/20 rounded-lg border border-white/5">
-                    <Briefcase className="w-6 h-6 text-blue-400 mx-auto mb-2" />
-                    <p className="text-gray-300 text-xs sm:text-sm font-medium">Learning Budget</p>
-                  </div>
-                  <div className="text-center p-3 sm:p-4 bg-black/20 rounded-lg border border-white/5">
-                    <Clock className="w-6 h-6 text-green-400 mx-auto mb-2" />
-                    <p className="text-gray-300 text-xs sm:text-sm font-medium">Flexible PTO</p>
-                  </div>
-                  <div className="text-center p-3 sm:p-4 bg-black/20 rounded-lg border border-white/5">
-                    <Zap className="w-6 h-6 text-yellow-400 mx-auto mb-2" />
-                    <p className="text-gray-300 text-xs sm:text-sm font-medium">Tech Equipment</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Hiring Process */}
-              <div className="bg-gradient-to-br from-slate-900/30 to-blue-900/30 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-blue-500/20">
-                <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">Our Hiring Process</h2>
-                <div className="space-y-4">
-                  <div className="flex gap-3">
-                    <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 text-blue-400 font-semibold text-sm">1</div>
-                    <div>
-                      <h4 className="text-white font-medium text-sm">Application Review</h4>
-                      <p className="text-gray-400 text-xs mt-1">We review your application within 3-5 business days</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-3">
-                    <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 text-blue-400 font-semibold text-sm">2</div>
-                    <div>
-                      <h4 className="text-white font-medium text-sm">Initial Screening</h4>
-                      <p className="text-gray-400 text-xs mt-1">30-minute call to discuss your background and goals</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-3">
-                    <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 text-blue-400 font-semibold text-sm">3</div>
-                    <div>
-                      <h4 className="text-white font-medium text-sm">Technical/Portfolio Review</h4>
-                      <p className="text-gray-400 text-xs mt-1">Assess your skills through practical evaluation</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-3">
-                    <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 text-blue-400 font-semibold text-sm">4</div>
-                    <div>
-                      <h4 className="text-white font-medium text-sm">Team Interview</h4>
-                      <p className="text-gray-400 text-xs mt-1">Meet your potential team members and leadership</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-3">
-                    <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 text-blue-400 font-semibold text-sm">5</div>
-                    <div>
-                      <h4 className="text-white font-medium text-sm">Offer</h4>
-                      <p className="text-gray-400 text-xs mt-1">Receive your offer and join the team!</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Section - Open Positions */}
-            <div className="lg:col-span-3">
-              <div className="bg-gradient-to-br from-slate-900/40 to-blue-900/40 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-blue-500/20">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                  <div>
-                    <h2 className="text-xl sm:text-2xl font-bold text-white">Open Positions</h2>
-                    <p className="text-gray-300 text-sm mt-1">{filteredJobs.length} positions available</p>
-                  </div>
-                  <div className="relative flex-1 sm:max-w-xs">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <input
-                      type="text"
-                      placeholder="Search positions..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-10 pr-4 py-2 bg-black/30 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  {filteredJobs.map((job, index) => (
-                    <div key={index} className="bg-black/20 rounded-xl border border-white/5 hover:border-blue-500/30 transition-all overflow-hidden">
-                      <div className="p-4 sm:p-6">
-                        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-3">
-                          <div className="flex-1">
-                            <h3 className="text-lg sm:text-xl font-semibold text-white mb-2">{job.title}</h3>
-                            <div className="flex flex-wrap items-center gap-2 mb-3">
-                              <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs font-medium">
-                                <Briefcase className="w-3 h-3" />
-                                {job.type}
-                              </span>
-                              <span className="inline-flex items-center gap-1 px-2 py-1 bg-green-500/20 text-green-300 rounded text-xs font-medium">
-                                <MapPin className="w-3 h-3" />
-                                {job.location}
-                              </span>
-                            </div>
-                            <p className="text-gray-300 text-sm leading-relaxed mb-3">{job.description}</p>
-                            <div className="flex flex-wrap gap-2">
-                              {job.techStack.map((tech, idx) => (
-                                <span key={idx} className="px-2 py-1 bg-slate-700/50 text-gray-300 rounded text-xs">
-                                  {tech}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                        <button
-                          onClick={() => handleApplyClick(job.title)}
-                          className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-lg transition-all duration-200 shadow-lg shadow-blue-500/20 text-sm"
-                        >
-                          Apply Now
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {filteredJobs.length === 0 && (
-                  <div className="text-center py-12">
-                    <Search className="w-12 h-12 text-gray-600 mx-auto mb-4" />
-                    <p className="text-gray-400">No positions found matching your search.</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div id="application-form" className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-br from-slate-900/40 to-blue-900/40 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-blue-500/20">
-              <div className="mb-6">
-                <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Application Form</h2>
-                <p className="text-gray-300 text-sm">Applying for: <span className="text-blue-400 font-semibold">{selectedJob}</span></p>
-              </div>
-
-              {submitSuccess && (
-                <div className="mb-6 p-4 bg-green-500/20 border border-green-500/30 rounded-lg">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-green-200 font-semibold mb-1">Application Submitted Successfully!</p>
-                      <p className="text-green-300 text-sm">Thank you for applying. We&apos;ll review your application and reach out within 1-2 weeks if your profile matches our requirements.</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Personal Information */}
-                <div className="bg-black/20 rounded-xl p-4 sm:p-6 border border-white/5">
-                  <button
-                    type="button"
-                    onClick={() => toggleSection('personal')}
-                    className="w-full flex items-center justify-between mb-4"
-                  >
-                    <h3 className="text-base sm:text-lg font-semibold text-white">Personal Information</h3>
-                    {expandedSections.personal ? <ChevronUp className="w-5 h-5 text-gray-400" /> : <ChevronDown className="w-5 h-5 text-gray-400" />}
-                  </button>
-                  {expandedSections.personal && (
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">Full Name *</label>
-                        <input
-                          type="text"
-                          name="fullName"
-                          value={formData.fullName}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 bg-black/30 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="John Doe"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">Email Address *</label>
-                        <input
-                          type="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 bg-black/30 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="john@example.com"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">Phone Number *</label>
-                        <input
-                          type="tel"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 bg-black/30 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="+92 300 1234567"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">Location *</label>
-                        <input
-                          type="text"
-                          name="location"
-                          value={formData.location}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 bg-black/30 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Lahore, Pakistan"
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Position Details */}
-                <div className="bg-black/20 rounded-xl p-4 sm:p-6 border border-white/5">
-                  <button
-                    type="button"
-                    onClick={() => toggleSection('position')}
-                    className="w-full flex items-center justify-between mb-4"
-                  >
-                    <h3 className="text-base sm:text-lg font-semibold text-white">Position & Experience</h3>
-                    {expandedSections.position ? <ChevronUp className="w-5 h-5 text-gray-400" /> : <ChevronDown className="w-5 h-5 text-gray-400" />}
-                  </button>
-                  {expandedSections.position && (
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">Years of Experience *</label>
-                        <select
-                          name="experience"
-                          value={formData.experience}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 bg-black/30 border border-blue-500/30 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                        >
-                          <option value="">Select experience</option>
-                          <option value="0-1">0-1 years</option>
-                          <option value="1-3">1-3 years</option>
-                          <option value="3-5">3-5 years</option>
-                          <option value="5-10">5-10 years</option>
-                          <option value="10+">10+ years</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">Current Role</label>
-                        <input
-                          type="text"
-                          name="currentRole"
-                          value={formData.currentRole}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 bg-black/30 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Senior Developer"
-                        />
-                      </div>
-                      <div className="sm:col-span-2">
-                        <label className="block text-sm font-medium text-gray-300 mb-2">Current Company</label>
-                        <input
-                          type="text"
-                          name="currentCompany"
-                          value={formData.currentCompany}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 bg-black/30 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Tech Company Inc."
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Professional Links */}
-                <div className="bg-black/20 rounded-xl p-4 sm:p-6 border border-white/5">
-                  <button
-                    type="button"
-                    onClick={() => toggleSection('links')}
-                    className="w-full flex items-center justify-between mb-4"
-                  >
-                    <h3 className="text-base sm:text-lg font-semibold text-white">Professional Links</h3>
-                    {expandedSections.links ? <ChevronUp className="w-5 h-5 text-gray-400" /> : <ChevronDown className="w-5 h-5 text-gray-400" />}
-                  </button>
-                  {expandedSections.links && (
-                    <div className="grid sm:grid-cols-3 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">Portfolio URL</label>
-                        <input
-                          type="url"
-                          name="portfolio"
-                          value={formData.portfolio}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 bg-black/30 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="https://portfolio.com"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">LinkedIn Profile</label>
-                        <input
-                          type="url"
-                          name="linkedin"
-                          value={formData.linkedin}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 bg-black/30 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="https://linkedin.com/in/..."
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">GitHub Profile</label>
-                        <input
-                          type="url"
-                          name="github"
-                          value={formData.github}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 bg-black/30 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="https://github.com/..."
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Employment Details */}
-                <div className="bg-black/20 rounded-xl p-4 sm:p-6 border border-white/5">
-                  <button
-                    type="button"
-                    onClick={() => toggleSection('employment')}
-                    className="w-full flex items-center justify-between mb-4"
-                  >
-                    <h3 className="text-base sm:text-lg font-semibold text-white">Employment Details</h3>
-                    {expandedSections.employment ? <ChevronUp className="w-5 h-5 text-gray-400" /> : <ChevronDown className="w-5 h-5 text-gray-400" />}
-                  </button>
-                  {expandedSections.employment && (
-                    <div className="grid sm:grid-cols-3 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">Availability *</label>
-                        <select
-                          name="availability"
-                          value={formData.availability}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 bg-black/30 border border-blue-500/30 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                        >
-                          <option value="">Select availability</option>
-                          <option value="immediate">Immediate</option>
-                          <option value="2-weeks">2 Weeks</option>
-                          <option value="1-month">1 Month</option>
-                          <option value="2-months">2 Months</option>
-                          <option value="3-months">3+ Months</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">Expected Salary (PKR) *</label>
-                        <input
-                          type="text"
-                          name="expectedSalary"
-                          value={formData.expectedSalary}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 bg-black/30 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="150,000 - 200,000"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">Notice Period</label>
-                        <input
-                          type="text"
-                          name="noticePeriod"
-                          value={formData.noticePeriod}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 bg-black/30 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="1 month"
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Skills & Education */}
-                <div className="bg-black/20 rounded-xl p-4 sm:p-6 border border-white/5">
-                  <button
-                    type="button"
-                    onClick={() => toggleSection('skills')}
-                    className="w-full flex items-center justify-between mb-4"
-                  >
-                    <h3 className="text-base sm:text-lg font-semibold text-white">Skills & Education</h3>
-                    {expandedSections.skills ? <ChevronUp className="w-5 h-5 text-gray-400" /> : <ChevronDown className="w-5 h-5 text-gray-400" />}
-                  </button>
-                  {expandedSections.skills && (
-                    <div className="space-y-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">Key Skills *</label>
-                        <input
-                          type="text"
-                          name="skills"
-                          value={formData.skills}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 bg-black/30 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="React, Node.js, TypeScript, UI/UX Design..."
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">Education *</label>
-                        <input
-                          type="text"
-                          name="education"
-                          value={formData.education}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 bg-black/30 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                          placeholder="Bachelor's in Computer Science"
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Cover Letter */}
-                <div className="bg-black/20 rounded-xl p-4 sm:p-6 border border-white/5">
-                  <button
-                    type="button"
-                    onClick={() => toggleSection('coverLetter')}
-                    className="w-full flex items-center justify-between mb-4"
-                  >
-                    <h3 className="text-base sm:text-lg font-semibold text-white">Cover Letter </h3>
-                    {expandedSections.coverLetter ? <ChevronUp className="w-5 h-5 text-gray-400" /> : <ChevronDown className="w-5 h-5 text-gray-400" />}
-                  </button>
-                  {expandedSections.coverLetter && (
-                    <div className="space-y-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
-                          Why Sage Devs? *
-                        </label>
-                        <textarea
-                          name="coverLetter"
-                          value={formData.coverLetter}
-                          onChange={handleInputChange}
-                          required
-                          rows={6}
-                          className="w-full px-4 py-3 bg-black/30 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none"
-                          placeholder="Tell us why you're interested in joining Sage Devs and what makes you a great fit for this role..."
-                        />
-                      </div>
-
-                      
-                    </div>
-                  )}
-                </div>
-
-                {/* Referral */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    How did you hear about us?
-                  </label>
-                  <select
-                    name="referral"
-                    value={formData.referral}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-black/30 border border-blue-500/30 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                  >
-                    <option value="">Select an option</option>
-                    <option value="linkedin">LinkedIn</option>
-                    <option value="website">Company Website</option>
-                    <option value="referral">Employee Referral</option>
-                    <option value="job-board">Job Board</option>
-                    <option value="social-media">Social Media</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-
-                {/* Submit Button */}
-                <div className="pt-4">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/20"
-                  >
-                    {isSubmitting ? 'Submitting Application...' : 'Submit Application'}
-                  </button>
-                  <p className="text-gray-400 text-xs text-center mt-4">
-                    By submitting this form, you agree to our privacy policy and terms of service
-                  </p>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Footer */}
-      <div className="bg-black/30 backdrop-blur-sm border-t border-white/5 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gray-400 text-sm">
-            Questions about the application process? Contact us at{' '}
-            <a href="mailto:info@sagedevs.tech" className="text-blue-400 hover:text-blue-300 transition-colors">
-              info@sagedevs.tech
-            </a>
-          </p>
-        </div>
-      </div>
-
-      {/* JSON-LD Structured Data for SEO */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "JobPosting",
-          hiringOrganization: {
-            "@type": "Organization",
-            name: "Sage Devs",
-            sameAs: "https://sagedevs.tech"
-          },
-          jobLocation: jobPostings.map(job => ({
-            "@type": "Place",
-            address: {
-              "@type": "PostalAddress",
-              addressLocality: job.location.split('/')[0].trim(),
-              addressCountry: "PK"
-            }
-          })),
-          title: jobPostings.map(job => job.title),
-          description: jobPostings.map(job => job.description),
-          employmentType: jobPostings.map(job => job.type.toUpperCase().replace('-', '_')),
-          datePosted: new Date().toISOString()
-        })}
-      </script>
-    </div>
-  );
+  return <div className="careers-page">
+    <section className="route-opening careers-opening"><div className="shell careers-intro-grid"><div><p className="section-label">CAREERS AT SAGE DEVS</p><h1>Bring your curiosity.<br/><span>Build your next chapter.</span></h1><p className="opening-description">For people who care about the details. Join a team working across design, engineering, and the business of building better digital experiences.</p><a href="#positions" className="premium-button" onClick={() => { if (showForm) backToPositions(); }}>Explore open roles <ArrowDown size={16}/></a><div className="careers-intro-meta"><span><MapPin size={13}/>Lahore & beyond</span><span>Remote and hybrid opportunities</span></div></div><div className="careers-studio-note"><div className="career-team-portraits">{team.slice(0, 3).map(member => <Image key={member.name} src={member.image} alt={member.name} width={120} height={150} sizes="120px"/>)}</div><p className="section-label">THE PEOPLE BEHIND THE WORK</p><h2>Good work starts<br/>with good people.</h2><p>Different disciplines. Shared attention to craft. Get to know the team you could be part of.</p><Link className="quiet-link" href="/about#team">Meet the studio <ArrowUpRight size={16}/></Link><div className="career-open-count"><span>{String(jobPostings.length).padStart(2, '0')}</span><div>Open roles<br/><small>Find where you fit</small></div><ArrowDown size={19}/></div></div></div></section>
+    {!showForm ? <>
+      <section className="shell career-board" id="positions" ref={positionsRef} aria-labelledby="positions-title"><div className="career-board-heading"><div><p className="section-label">YOUR NEXT OPPORTUNITY</p><h2 id="positions-title">Find your place.</h2></div><p>Explore the roles.<br/>Bring your perspective.</p></div><div className="career-filters"><div className="career-search"><Search size={18}/><label className="sr-only" htmlFor="career-search">Search careers</label><input ref={searchRef} id="career-search" type="search" placeholder="Search by role or skill" value={searchQuery} onChange={event => setSearchQuery(event.target.value)}/>{searchQuery && <button aria-label="Clear career search" onClick={() => { setSearchQuery(''); searchRef.current?.focus(); }}><X size={16}/></button>}</div><div className="career-location-filter"><label htmlFor="career-location-filter">Location</label><select id="career-location-filter" value={location} onChange={event => setLocation(event.target.value)}><option value="all">All locations</option><option value="remote">Remote</option><option value="lahore">Lahore</option><option value="hybrid">Hybrid</option></select></div><p role="status" aria-live="polite">{filteredJobs.length} {filteredJobs.length === 1 ? 'role' : 'roles'} available</p></div><div className="career-jobs">{filteredJobs.map(job => <article className="career-job" key={job.title} id={`role-${jobPostings.indexOf(job)}`}><div className="career-job-title"><span className="career-role-number">{String(jobPostings.indexOf(job) + 1).padStart(2, '0')}</span><h3>{job.title}</h3><div><span><Briefcase size={13}/>{job.type}</span><span><MapPin size={13}/>{job.location}</span></div></div><div className="career-job-detail"><p>{job.description}</p><ul>{job.techStack.map(skill => <li key={skill}>{skill}</li>)}</ul></div><button className="career-apply" data-role-index={jobPostings.indexOf(job)} onClick={event => apply(job, event.currentTarget)} aria-label={`Apply for ${job.title}`}>Apply for role <ArrowUpRight size={17}/></button></article>)}</div>{!filteredJobs.length && <div className="career-empty"><h3>No roles match just yet.</h3><p>Try another skill or broaden the location filter.</p><button className="quiet-link" onClick={() => { setSearchQuery(''); setLocation('all'); }}>Show all open roles <ArrowUpRight size={15}/></button></div>}</section>
+      <section className="career-culture"><div className="shell"><div className="career-culture-heading"><p className="section-label">ROOM TO DO YOUR BEST WORK</p><h2>The work matters.<br/><span>So does how we work.</span></h2></div><div className="career-values">{[['Projects that stretch you', 'Work across software and design challenges, with space to learn as you build.'], ['Flexibility with purpose', 'Remote options and flexible hours that make room for focused work.'], ['Keep moving forward', 'Continuous learning and opportunities to grow your skills and responsibilities.'], ['Better, together', 'Share ideas, ask questions, and work alongside people who care about the outcome.']].map(([title, description], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{description}</p></article>)}</div><div className="career-benefits"><p className="section-label">PERKS & BENEFITS</p>{[{ label: 'Health coverage', icon: Heart }, { label: 'Learning budget', icon: BookOpen }, { label: 'Flexible PTO', icon: Clock3 }, { label: 'Tech equipment', icon: Laptop }].map(benefit => <div key={benefit.label}><benefit.icon size={20} strokeWidth={1.3}/>{benefit.label}</div>)}</div></div></section>
+      <section className="shell career-process"><div><p className="section-label">HOW WE GET TO KNOW YOU</p><h2>A conversation.<br/><span>Then the next step.</span></h2><p>Here’s what our hiring process looks like.</p><Link className="career-founder-link" href="/about#founder"><Image src={founderPortrait.compact} alt="Abdul Ahad" width={72} height={72} sizes="72px" loading="lazy"/><span><strong>Abdul Ahad</strong><small>Founder &amp; CEO</small><span>Meet our founder <ArrowUpRight size={13}/></span></span></Link></div><ol>{hiringSteps.map(([title, description], index) => <li key={title}><span>0{index + 1}</span><div><h3>{title}</h3><p>{description}</p></div></li>)}</ol></section>
+    </> : <section className="shell career-application" id="application-form"><div ref={applicationRef} tabIndex={-1} className="career-application-heading"><button className="quiet-link" disabled={isSubmitting} onClick={backToPositions}><ArrowLeft size={16}/>Back to positions</button><p className="section-label">YOUR NEXT CHAPTER</p><h2>{submitSuccess ? 'Application received.' : 'Let’s get to know you.'}</h2><p>{submitSuccess ? 'Thank you for taking the time to introduce yourself.' : 'A few details about you, your experience, and the work you want to do.'}</p></div>{submitSuccess ? <div className="career-success" role="status"><CheckCircle2 size={36} strokeWidth={1.2}/><h3>Thank you for applying.</h3><p>Your application for {formData.position} has been sent. The team will review it and reach out if your profile matches the role.</p><button className="premium-button" onClick={backToPositions}>Back to open roles <ArrowUpRight size={16}/></button></div> : <div className="career-application-grid"><aside><p className="section-label">YOU’RE APPLYING FOR</p><h3>{formData.position}</h3><p><MapPin size={14}/>{selectedJob?.location}</p><p><Briefcase size={14}/>{selectedJob?.type}</p><div className="career-application-note"><Check size={16}/><span>Required fields are marked with an asterisk. You can return to the roles without losing your draft.</span></div></aside><form onSubmit={handleSubmit} aria-label="Career application"><fieldset disabled={isSubmitting} className="career-form-fields">{applicationSections.map((section, index) => <fieldset key={section.title} className="career-form-section"><legend><span>0{index + 1}</span>{section.title}</legend><p>{section.note}</p><div className="career-field-grid">{section.fields.map(field => <div className={`field ${field.wide ? 'career-field-wide' : ''}`} key={field.name}><label htmlFor={`career-${field.name}`}>{field.label}{field.required ? ' *' : <span>Optional</span>}</label>{field.options ? <select id={`career-${field.name}`} name={field.name} required={field.required} value={formData[field.name]} onChange={event => setFormData(previous => ({ ...previous, [field.name]: event.target.value }))}><option value="">Select an option</option>{field.options.map(([value, label]) => <option value={value} key={value}>{label}</option>)}</select> : field.type === 'textarea' ? <textarea id={`career-${field.name}`} name={field.name} required={field.required} value={formData[field.name]} onChange={event => setFormData(previous => ({ ...previous, [field.name]: event.target.value }))} rows={6} maxLength={6000} placeholder={field.placeholder}/> : <input id={`career-${field.name}`} name={field.name} type={field.type || 'text'} required={field.required} value={formData[field.name]} onChange={event => setFormData(previous => ({ ...previous, [field.name]: event.target.value }))} autoComplete={field.autoComplete} maxLength={field.type === 'url' ? 2000 : field.type === 'email' ? 254 : 500} placeholder={field.placeholder}/>}</div>)}</div></fieldset>)}</fieldset>{submitError && <p className="form-status error" role="alert">{submitError}</p>}<div className="career-submit"><button type="submit" className="premium-button" disabled={isSubmitting}>{isSubmitting ? 'Sending application…' : 'Send application'}<ArrowUpRight size={17}/></button><p>By submitting, you agree to our <Link href="/privacy">privacy policy</Link> and <Link href="/terms">terms of service</Link>.</p></div></form></div>}</section>}
+    <section className="shell career-questions"><span>Questions about joining us?</span><a href="mailto:info@sagedevs.tech">info@sagedevs.tech <ArrowUpRight size={17}/></a></section>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'ItemList', name: 'Open roles at Sage Devs', itemListElement: jobPostings.map((job, index) => ({ '@type': 'ListItem', position: index + 1, name: job.title, url: `https://sagedevs.tech/careers#role-${index}` })) }).replace(/</g, '\\u003c') }}/>
+  </div>;
 }

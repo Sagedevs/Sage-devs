@@ -1,12 +1,13 @@
 "use client";
 
+import Link from 'next/link';
 import React, { useEffect, useState, useCallback } from 'react';
 import { ShoppingCart, Brain, Code, TrendingUp, Users, Star, Target, RotateCcw, Handshake, CheckCircle, Zap, Globe, ArrowRight, Monitor, FileText } from 'lucide-react';
 
 const HeroSection = () => {
   const [currentService, setCurrentService] = useState(0);
   const [, setMousePosition] = useState({ x: 0, y: 0 });
-  
+
   const services = [
     { title: "E-commerce Stores", desc: "Converting visitors to sales", icon: ShoppingCart },
     { title: "WordPress Sites", desc: "Scalable business solutions", icon: Monitor },
@@ -39,50 +40,50 @@ const HeroSection = () => {
           33% { transform: translateY(-10px) rotate(1deg); }
           66% { transform: translateY(5px) rotate(-1deg); }
         }
-        
+
         @keyframes floatSlow {
           0%, 100% { transform: translateY(0px) scale(1); }
           50% { transform: translateY(-15px) scale(1.05); }
         }
-        
+
         @keyframes pulse {
           0%, 100% { opacity: 0.4; }
           50% { opacity: 1; }
         }
-        
+
         @keyframes slideInLeft {
           0% { opacity: 0; transform: translateX(-50px); }
           100% { opacity: 1; transform: translateX(0); }
         }
-        
+
         @keyframes slideInRight {
           0% { opacity: 0; transform: translateX(50px); }
           100% { opacity: 1; transform: translateX(0); }
         }
-        
+
         .animate-float { animation: float 6s ease-in-out infinite; }
         .animate-float-slow { animation: floatSlow 8s ease-in-out infinite; }
         .animate-pulse-custom { animation: pulse 3s ease-in-out infinite; }
         .animate-slide-left { animation: slideInLeft 0.8s ease-out; }
         .animate-slide-right { animation: slideInRight 0.8s ease-out; }
-        
+
         .gradient-text {
           background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #1d4ed8 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
         }
-        
+
         .glass-card {
           background: rgba(255, 255, 255, 0.05);
           backdrop-filter: blur(20px);
           border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
+
         .glow-effect {
           box-shadow: 0 0 40px rgba(59, 130, 246, 0.3);
         }
-        
+
         @media (max-width: 1024px) {
           .animate-float { animation: none; }
           .animate-float-slow { animation: none; }
@@ -94,14 +95,14 @@ const HeroSection = () => {
         <div className="absolute inset-0">
           {/* Main Gradient Background */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-950/50 via-black to-slate-900"></div>
-          
+
           {/* Animated Gradient Orbs */}
           <div className="absolute inset-0 opacity-30">
             <div className="absolute -top-40 -left-40 w-80 h-80 bg-blue-600 rounded-full blur-3xl animate-pulse"></div>
             <div className="absolute top-1/2 -right-40 w-96 h-96 bg-blue-500 rounded-full blur-3xl animate-pulse-custom" style={{animationDelay: '2s'}}></div>
             <div className="absolute -bottom-40 left-1/3 w-72 h-72 bg-indigo-600 rounded-full blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
           </div>
-          
+
           {/* Animated Network Grid */}
           <div className="absolute inset-0 opacity-20">
             <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -113,7 +114,7 @@ const HeroSection = () => {
               <rect width="100%" height="100%" fill="url(#grid)" />
             </svg>
           </div>
-          
+
           {/* Moving Light Beam */}
           <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-50 animate-pulse"></div>
         </div>
@@ -123,7 +124,7 @@ const HeroSection = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Hero Content Grid */}
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-screen py-12 sm:py-16 lg:py-20">
-              
+
               {/* Left Column - Content */}
               <div className="space-y-6 lg:space-y-8 animate-slide-left order-2 lg:order-1">
                 {/* Badge */}
@@ -148,13 +149,13 @@ const HeroSection = () => {
 
                 {/* Description */}
                 <p className="text-lg sm:text-xl text-gray-300 leading-relaxed max-w-2xl">
-                  We&apos;re an elite 20-member development team crafting high-converting websites, 
+                  We&apos;re an elite 20-member development team crafting high-converting websites,
                   e-commerce platforms, and intelligent web solutions that drive measurable business growth.
                 </p>
 
                 {/* CTA Buttons */}
 <div className="flex flex-col sm:flex-row gap-3 lg:gap-4">
-  <a 
+  <a
     href="/contact"
     className="group relative px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl transition-all duration-300 overflow-hidden glow-effect hover:shadow-blue-500/50 text-sm lg:text-base"
   >
@@ -164,8 +165,8 @@ const HeroSection = () => {
     </span>
     <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
   </a>
-  
-  <a 
+
+  <Link
     href="/case-studies"
     className="group px-6 lg:px-8 py-3 lg:py-4 glass-card hover:bg-white/10 border border-white/20 hover:border-blue-500/50 text-white font-semibold rounded-xl transition-all duration-300 text-sm lg:text-base"
   >
@@ -173,7 +174,7 @@ const HeroSection = () => {
       <FileText className="w-4 h-4 lg:w-5 lg:h-5 mr-2" />
       View Case Studies
     </span>
-  </a>
+  </Link>
 </div>
                 {/* Service Showcase Card */}
                 <div className="glass-card rounded-xl lg:rounded-2xl p-4 lg:p-6 space-y-3 lg:space-y-4">
@@ -181,8 +182,8 @@ const HeroSection = () => {
                     <h3 className="text-base lg:text-lg font-semibold text-blue-300">Our Expertise</h3>
                     <div className="flex space-x-1 lg:space-x-2">
                       {services.map((_, index) => (
-                        <div 
-                          key={index} 
+                        <div
+                          key={index}
                           className={`w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full transition-all duration-300 ${
                             index === currentService ? 'bg-blue-400 w-4 lg:w-6' : 'bg-gray-600'
                           }`}
@@ -190,11 +191,11 @@ const HeroSection = () => {
                       ))}
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center space-x-3 lg:space-x-4 transition-all duration-500">
                     <div className="w-10 h-10 lg:w-12 lg:h-12 bg-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                      {React.createElement(services[currentService].icon, { 
-                        className: "w-5 h-5 lg:w-6 lg:h-6 text-blue-400" 
+                      {React.createElement(services[currentService].icon, {
+                        className: "w-5 h-5 lg:w-6 lg:h-6 text-blue-400"
                       })}
                     </div>
                     <div className="min-w-0">
@@ -241,7 +242,7 @@ const HeroSection = () => {
                   {/* Floating Achievement Cards - Visible on all screens but simplified on mobile */}
                   <div>
                     {/* Top Left */}
-                    <div 
+                    <div
                       className="absolute -top-8 sm:-top-16 lg:-top-24 -left-16 sm:-left-24 lg:-left-36 animate-float"
                       style={{animationDelay: '0s'}}
                     >
@@ -259,7 +260,7 @@ const HeroSection = () => {
                     </div>
 
                     {/* Top Right */}
-                    <div 
+                    <div
                       className="absolute -top-6 sm:-top-12 lg:-top-20 -right-20 sm:-right-28 lg:-right-40 animate-float"
                       style={{animationDelay: '1s'}}
                     >
@@ -277,7 +278,7 @@ const HeroSection = () => {
                     </div>
 
                     {/* Left Side */}
-                    <div 
+                    <div
                       className="absolute top-6 sm:top-12 lg:top-20 -left-20 sm:-left-32 lg:-left-44 animate-float"
                       style={{animationDelay: '2s'}}
                     >
@@ -295,7 +296,7 @@ const HeroSection = () => {
                     </div>
 
                     {/* Right Side */}
-                    <div 
+                    <div
                       className="absolute top-10 sm:top-16 lg:top-24 -right-24 sm:-right-32 lg:-right-48 animate-float"
                       style={{animationDelay: '3s'}}
                     >
@@ -313,7 +314,7 @@ const HeroSection = () => {
                     </div>
 
                     {/* Bottom Left */}
-                    <div 
+                    <div
                       className="absolute -bottom-6 sm:-bottom-12 lg:-bottom-20 -left-18 sm:-left-28 lg:-left-40 animate-float"
                       style={{animationDelay: '4s'}}
                     >
@@ -331,7 +332,7 @@ const HeroSection = () => {
                     </div>
 
                     {/* Bottom Right */}
-                    <div 
+                    <div
                       className="absolute -bottom-4 sm:-bottom-8 lg:-bottom-16 -right-26 sm:-right-36 lg:-right-44 animate-float"
                       style={{animationDelay: '5s'}}
                     >
@@ -428,11 +429,11 @@ const HeroSection = () => {
                   <div className="w-12 h-12 lg:w-16 lg:h-16 bg-blue-500/20 rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-4 lg:mb-6 group-hover:scale-110 transition-transform">
                     <benefit.icon className="w-6 h-6 lg:w-8 lg:h-8 text-blue-400" />
                   </div>
-                  
+
                   <div className="inline-flex items-center px-3 py-1 bg-blue-900/50 border border-blue-500/30 rounded-full text-xs lg:text-sm text-blue-300 mb-3 lg:mb-4">
                     {benefit.highlight}
                   </div>
-                  
+
                   <h3 className="text-lg lg:text-xl font-bold text-white mb-3 lg:mb-4">{benefit.title}</h3>
                   <p className="text-sm lg:text-base text-gray-400 leading-relaxed">{benefit.description}</p>
                 </div>

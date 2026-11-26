@@ -1,4 +1,5 @@
 "use client";
+import { business, businessHoursAnswer } from '@/lib/business';
 import React, { useState } from 'react';
 import { 
   Headset, FileText, Video, MessageSquare, BookOpen, Zap, 
@@ -34,20 +35,20 @@ const SupportCenter = () => {
       {
         type: 'Live Chat',
         icon: <MessageSquare className="w-6 h-6" />,
-        availability: '24/7',
-        responseTime: '< 2 minutes',
+        availability: `${business.hours.days}, ${business.hours.range}`,
+        responseTime: 'During team working hours',
         languages: ['English', 'Urdu'],
-        status: 'online',
+        status: 'scheduled',
         link: LINKS.liveChat,
         buttonText: 'Start Chat on WhatsApp'
       },
       {
         type: 'Phone Support',
         icon: <Phone className="w-6 h-6" />,
-        availability: 'Mon-Sun 9AM-11PM PKT',
-        responseTime: 'Immediate',
+        availability: `${business.hours.days}, ${business.hours.range}`,
+        responseTime: 'During team working hours',
         languages: ['English', 'Urdu'],
-        status: 'online',
+        status: 'scheduled',
         number: '+92 325 9684493',
         link: LINKS.phone,
         buttonText: 'Call Now'
@@ -55,10 +56,10 @@ const SupportCenter = () => {
       {
         type: 'Email Support',
         icon: <Mail className="w-6 h-6" />,
-        availability: '24/7',
-        responseTime: '< 4 hours',
+        availability: `${business.hours.days}, ${business.hours.range}`,
+        responseTime: 'During team working hours',
         languages: ['English', 'Urdu'],
-        status: 'online',
+        status: 'scheduled',
         email: 'info@sagedevs.tech',
         link: LINKS.email,
         buttonText: 'Send Email'
@@ -117,15 +118,15 @@ const SupportCenter = () => {
     },
     {
       question: 'What are your working hours?',
-      answer: 'We offer 24/7 email support with <4 hour response time. Phone support is available from 9AM to 11PM Pakistan Time, 7 days a week. Live chat via WhatsApp is available 24/7.'
+      answer: businessHoursAnswer
     },
     {
       question: 'How can I contact your team?',
-      answer: 'You can reach us through multiple channels: WhatsApp chat, phone call at +92 325 9684493, or email at info@sagedevs.tech. We typically respond within minutes during business hours.'
+      answer: 'You can reach us through multiple channels: WhatsApp chat, phone call at +92 325 9684493, or email at info@sagedevs.tech. Our team responds during working hours.'
     },
     {
       question: 'What support do you offer?',
-      answer: 'We offer 24/7 WhatsApp support, email support with <4 hour response time, phone support during extended hours, comprehensive resources, and personalized consultation for your projects.'
+      answer: `We offer WhatsApp, email and phone support during ${business.hours.days}, ${business.hours.range} (${business.hours.timezone}), along with project resources and consultation.`
     },
     {
       question: 'How do I report a bug or issue?',
@@ -423,7 +424,7 @@ const SupportCenter = () => {
             <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
               <Clock className="w-6 h-6 text-blue-400" />
             </div>
-            <div className="text-2xl font-bold text-white mb-1">24/7</div>
+            <div className="text-2xl font-bold text-white mb-1">{business.hours.range}</div>
             <div className="text-gray-400 text-sm">WhatsApp Support</div>
           </div>
           <div className="text-center">

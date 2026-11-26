@@ -1,0 +1,43 @@
+{
+  "source": "assets/people/source/founder-portrait-original.png",
+  "sourceSha256": "0913a018caa3ffe25534030e77b1a1032bb2cde05fd69dcb9ae1e0ddc402f979",
+  "originalDimensions": {
+    "width": 1086,
+    "height": 1448
+  },
+  "monochromeMaster": "assets/people/edits/founder-portrait-monochrome-master.png",
+  "treatment": "Built-in image edit: identity-preserving monochrome grade; no face replacement, intentional sharpening, skin smoothing or upscaling.",
+  "portraitCrop": {
+    "left": 31,
+    "top": 168,
+    "width": 1024,
+    "height": 1280
+  },
+  "compactCrop": {
+    "left": 265,
+    "top": 345,
+    "width": 490,
+    "height": 490
+  },
+  "outputs": [
+    {
+      "file": "public/people/abdul-ahad-founder.webp",
+      "width": 1024,
+      "height": 1280,
+      "bytes": 157970
+    },
+    {
+      "file": "public/people/abdul-ahad-founder.avif",
+      "width": 1024,
+      "height": 1280,
+      "bytes": 97153
+    },
+    {
+      "file": "public/people/abdul-ahad-founder-compact.webp",
+      "width": 240,
+      "height": 240,
+      "bytes": 9242
+    }
+  ],
+  "webEncoding": "Neutral grayscale normalization, then crop and WebP/AVIF encoding. No upscaling, sharpening, denoising or face reshaping."
+}
