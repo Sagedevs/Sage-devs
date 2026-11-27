@@ -22,7 +22,7 @@ const services: ServiceItem[] = [
     features: ["Progressive Web Apps", "Cross-platform Mobile", "API Development", "Real-time Features"],
     technologies: ["React", "Next.js", "Node.js", "React Native"],
     icon: Code,
-    href: "/services#web-app",
+    href: "/services/web-development",
     stats: "100+ Projects"
   },
   {
@@ -32,7 +32,7 @@ const services: ServiceItem[] = [
     features: ["Workflow Automation", "Predictive Analytics", "AI Assistants", "Custom ML Models"],
     technologies: ["OpenAI", "TensorFlow", "LangChain", "Python"],
     icon: Brain,
-    href: "/services#ai-solutions",
+    href: "/services/ai-automation",
     stats: "10x Productivity"
   },
   {
@@ -42,17 +42,17 @@ const services: ServiceItem[] = [
     features: ["Multi-tenant Architecture", "Subscription Billing", "Analytics Dashboard", "API Integration"],
     technologies: ["AWS", "Stripe", "PostgreSQL", "Redis"],
     icon: Zap,
-    href: "/services#saas",
+    href: "/services/saas-development",
     stats: "50+ SaaS Apps"
   },
   {
-    title: "E-commerce Solutions",
+    title: "Shopify & E-commerce",
     subtitle: "Digital Commerce Platforms",
     description: "High-converting online stores with advanced inventory management, payment processing, and comprehensive customer analytics.",
     features: ["Payment Integration", "Inventory Management", "SEO Optimization", "Mobile Commerce"],
     technologies: ["Shopify", "WooCommerce", "Stripe", "PayPal"],
     icon: ShoppingCart,
-    href: "/services#ecommerce",
+    href: "/services/shopify-development",
     stats: "150+ Stores"
   },
   {
@@ -72,7 +72,7 @@ const services: ServiceItem[] = [
     features: ["Custom Themes", "Plugin Development", "Performance Optimization", "Security Hardening"],
     technologies: ["WordPress", "PHP", "MySQL", "WP CLI"],
     icon: Globe,
-    href: "/services#wordpress",
+    href: "/services/wordpress-development",
     stats: "200+ WP Sites"
   },
   {
@@ -82,7 +82,7 @@ const services: ServiceItem[] = [
     features: ["User Research", "Wireframing", "Prototyping", "Usability Testing"],
     technologies: ["Figma", "Adobe XD", "Principle", "InVision"],
     icon: Palette,
-    href: "/services#ui-design",
+    href: "/services/ui-ux-design",
     stats: "98% User Satisfaction"
   },
   {
@@ -109,10 +109,10 @@ const services: ServiceItem[] = [
 
 
 const groups = [
- { name: 'Design & brand', note: 'Make a lasting first impression.', indices: [6,7], headline: 'Make every interaction feel considered.' },
- { name: 'Web & mobile', note: 'Beautiful on the surface. Solid underneath.', indices: [0,2,5], headline: 'From ambitious idea to exceptional product.' },
- { name: 'Commerce', note: 'An experience worth coming back to.', indices: [3], headline: 'Turn browsers into your next customers.' },
+ { name: 'Web & software', note: 'Custom products. A solid foundation.', indices: [0,2], headline: 'From ambitious idea to exceptional product.' },
+ { name: 'WordPress & Shopify', note: 'Distinctive websites. Considered commerce.', indices: [5,3], headline: 'Your brand. A platform built around it.' },
  { name: 'AI & automation', note: 'Put intelligence to work.', indices: [1], headline: 'Less busywork. More possibility.' },
+ { name: 'Design & brand', note: 'Make a lasting first impression.', indices: [6,7], headline: 'Make every interaction feel considered.' },
  { name: 'Cloud & support', note: 'Built for what comes next.', indices: [4,8], headline: 'Keep your business moving, reliably.' },
 ];
 export default function Services() {
@@ -122,7 +122,7 @@ export default function Services() {
  return <section id="services" className="premium-section services-studio"><div className="premium-shell">
   <div className="section-topline"><p className="section-label">01 / WHAT WE DO</p><Link href="/services" className="quiet-link">All capabilities <ArrowUpRight size={17}/></Link></div>
   <div className="section-heading-row"><h2>Big-picture thinking.<br/><em>Every-detail execution.</em></h2><p>One team, from the first sketch to the next release. Explore how we can help you build something that matters.</p></div>
-  <div className="service-explorer glass-panel"><div className="service-options" role="tablist" aria-label="Service categories" aria-orientation="vertical">{groups.map((item,index)=><button key={item.name} id={`service-tab-${index}`} role="tab" aria-selected={active===index} aria-controls="service-panel" tabIndex={active===index?0:-1} onClick={()=>setActive(index)} onKeyDown={event=>{let next=index;if(event.key==='ArrowDown')next=(index+1)%groups.length;else if(event.key==='ArrowUp')next=(index-1+groups.length)%groups.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=groups.length-1;else return;event.preventDefault();setActive(next);document.getElementById(`service-tab-${next}`)?.focus();}}><span className="service-number">0{index+1}</span><span><strong>{item.name}</strong><small>{item.note}</small></span><ArrowUpRight size={20}/></button>)}</div>
+  <div className="service-explorer glass-panel"><div className="service-options" role="tablist" aria-label="Service categories" aria-orientation="vertical">{groups.map((item,index)=><button key={item.name} id={`service-tab-${index}`} role="tab" aria-selected={active===index} aria-controls="service-panel" tabIndex={active===index?0:-1} onClick={()=>setActive(index)} onKeyDown={event=>{let next=index;if((event.key==='ArrowDown'||event.key==='ArrowRight'))next=(index+1)%groups.length;else if((event.key==='ArrowUp'||event.key==='ArrowLeft'))next=(index-1+groups.length)%groups.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=groups.length-1;else return;event.preventDefault();setActive(next);document.getElementById(`service-tab-${next}`)?.focus();}}><span className="service-number">0{index+1}</span><span><strong>{item.name}</strong><small>{item.note}</small></span><ArrowUpRight size={20}/></button>)}</div>
   <div id="service-panel" className="service-detail" role="tabpanel" tabIndex={0} aria-labelledby={`service-tab-${active}`}><div key={active} className="detail-reveal"><div className="service-symbol" aria-hidden="true">{(()=>{const Icon=selected[0].icon;return <Icon size={38} strokeWidth={1}/>;})()}</div><p className="section-label">{group.name}</p><h3>{group.headline}</h3><p>{selected[0].description}</p><div className="service-features">{selected.flatMap(service=>service.features).slice(0,6).map(feature=><span key={feature}><Plus size={13}/>{feature}</span>)}</div><div className="service-detail-links">{selected.map(service=><Link className="quiet-link" key={service.title} href={service.href}>{service.title}<ArrowUpRight size={15}/></Link>)}</div><div className="service-stack">{[...new Set(selected.flatMap(service=>service.technologies))].slice(0,5).join(' / ')}</div></div></div></div>
  </div></section>;
 }

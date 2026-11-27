@@ -8,9 +8,9 @@ const ts = require('typescript');
 const { NextRequest } = require('next/server');
 const source = fs.readFileSync(path.join(__dirname, '../src/app/api/chat/route.ts'), 'utf8');
 const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
-function loadRoute({ key, fetch: fetchMock = async () => { throw new Error('Unexpected provider call'); } } = {}) {
+function loadRoute({ key, model, logs = [], fetch: fetchMock = async () => { throw new Error('Unexpected provider call'); } } = {}) {
   const module = { exports: {} };
-  vm.runInNewContext(compiled, { module, exports: module.exports, require, process: { env: key ? { OPENROUTER_API_KEY: key } : {} }, fetch: fetchMock, AbortSignal, Map, Date, JSON, Error, console });
+  vm.runInNewContext(compiled, { module, exports: module.exports, require, process: { env: key ? { OPENROUTER_API_KEY: key, OPENROUTER_MODEL: model } : {} }, fetch: fetchMock, AbortSignal, Map, Date, JSON, Error, console: { error: (...args) => logs.push(args) } });
   return module.exports.POST;
 }
 function request(body = { message: 'How do we start a project?' }, headers = {}) {
@@ -44,12 +44,48 @@ test('preserves bounded conversation context behind the server instruction', asy
 });
 test('provides a useful fallback without an API key and on provider failure', async () => {
   const noKey = await loadRoute()(request());
-  assert.match((await noKey.json()).reply, /info@sagedevs.tech/);
+  assert.equal(noKey.status, 503);
+  assert.equal((await noKey.json()).error, 'assistant_unavailable');
   const offline = await loadRoute({ key: 'test-only-key', fetch: async () => { throw new Error('Offline'); } })(request());
-  assert.match((await offline.json()).reply, /couldn’t reach/);
+  assert.equal(offline.status, 503);
+  assert.equal((await offline.json()).error, 'assistant_unavailable');
 });
 test('enforces the existing per-instance request limit', async () => {
   const route = loadRoute();
-  for (let i = 0; i < 8; i++) assert.equal((await route(request())).status, 200);
+  for (let i = 0; i < 8; i++) assert.equal((await route(request())).status, 503);
   assert.equal((await route(request())).status, 429);
+});
+
+test('uses an available default model and supports a server-side model override', async () => {
+  for (const model of [undefined, 'test/configured-model']) {
+    let body;
+    const route = loadRoute({ key: ' test-key ', model, fetch: async (_url, init) => {
+      assert.equal(init.headers.Authorization, 'Bearer test-key');
+      body = JSON.parse(init.body);
+      return { ok: true, json: async () => ({ choices: [{ message: { content: 'Hello' } }] }) };
+    } });
+    const response = await route(request());
+    assert.equal(response.status, 200);
+    assert.equal(body.model, model || 'openai/gpt-4o-mini');
+    assert.equal(response.headers.get('cache-control'), 'no-store');
+  }
+});
+test('reports upstream failures without leaking provider data or logging conversation content', async () => {
+  for (const status of [401, 402, 404, 429, 500]) {
+    const logs = [];
+    const route = loadRoute({ key: 'secret-test-key', logs, fetch: async () => ({ ok: false, status, json: async () => ({ error: { message: 'private upstream detail' } }) }) });
+    const response = await route(request({ message: 'private customer message' }));
+    assert.equal(response.status, 503);
+    const text = await response.text();
+    assert.match(text, /assistant_unavailable/);
+    assert.doesNotMatch(text, /private|secret-test-key/);
+    assert.equal(logs[0][1].upstreamStatus, status);
+    assert.doesNotMatch(JSON.stringify(logs), /private|secret-test-key/);
+  }
+});
+test('rejects empty or malformed provider responses instead of recording a successful conversation', async () => {
+  for (const body of [{}, { choices: [] }, { choices: [{ message: { content: ' ' } }] }, { error: { code: 500 } }]) {
+    const route = loadRoute({ key: 'test-key', fetch: async () => ({ ok: true, json: async () => body }) });
+    assert.equal((await route(request())).status, 503);
+  }
 });

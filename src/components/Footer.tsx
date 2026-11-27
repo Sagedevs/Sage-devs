@@ -22,10 +22,11 @@ export default function Footer(){
   ], []);
 
   const services: LinkItem[] = useMemo(() => [
-    { label: "Web & App Development", href: "/services#web-app" },
-    { label: "UI/UX Design", href: "/services#ui-design" },
-    { label: "E-commerce (WordPress & Shopify)", href: "/services#ecommerce" },
-    { label: "SaaS & Product Dev", href: "/services#saas" },
+    { label: "Web & App Development", href: "/services/web-development" },
+    { label: "UI/UX Design", href: "/services/ui-ux-design" },
+    { label: "WordPress Development", href: "/services/wordpress-development" },
+    { label: "Shopify Development", href: "/services/shopify-development" },
+    { label: "SaaS & Product Dev", href: "/services/saas-development" },
     { label: "Cloud & DevOps", href: "/services#cloud" },
     { label: "Maintenance & Support", href: "/services#maintenance-support" },
   ], []);

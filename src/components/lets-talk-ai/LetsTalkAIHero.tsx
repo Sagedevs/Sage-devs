@@ -438,7 +438,7 @@ const LetsTalkAIHero = () => {
 </Link>
 
 <Link 
-  href="/services#ai-solutions" 
+  href="/services/ai-automation" 
   className="group relative px-8 lg:px-12 py-4 lg:py-5 border-2 border-blue-500/50 text-blue-300 text-base lg:text-lg font-bold rounded-xl transition-all duration-300 hover:border-blue-400 hover:bg-blue-950/30 hover:text-white hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25 backdrop-blur-sm inline-flex justify-center"
 >
   <span className="relative z-10 tracking-wide">Explore AI Solutions</span>

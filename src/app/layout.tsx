@@ -6,6 +6,7 @@ import localFont from 'next/font/local';
 import { brand } from '@/lib/brand';
 const displayFont = localFont({src:'../../public/fonts/space-grotesk-latin-wght-normal.woff2',variable:'--font-display',display:'swap'});
 const bodyFont = localFont({src:'../../public/fonts/manrope-latin-wght-normal.woff2',variable:'--font-body',display:'swap'});
+import ConversionEvents from '@/components/site/ConversionEvents';
 import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 import './tokens.css';
@@ -22,10 +23,11 @@ const items = [
     label: "Services",
     href: "/services",
     children: [
-      { label: "Web & App Development", href: "/services#web-app" },
-      { label: "UI/UX Design", href: "/services#ui-design" },
-      { label: "E-commerce (WordPress & Shopify)", href: "/services#ecommerce" },
-      { label: "SaaS & Product Dev", href: "/services#saas" },
+      { label: "Web & App Development", href: "/services/web-development" },
+      { label: "UI/UX Design", href: "/services/ui-ux-design" },
+      { label: "WordPress Development", href: "/services/wordpress-development" },
+    { label: "Shopify Development", href: "/services/shopify-development" },
+      { label: "SaaS & Product Dev", href: "/services/saas-development" },
       { label: "Cloud & DevOps", href: "/services#cloud" },
       { label: "Maintenance & Support", href: "/services#maintenance-support" },
     ],
@@ -87,5 +89,5 @@ export const metadata: Metadata = {
 };
 export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#101114' };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}><body className="glass-site"><a className="skip-link" href="#main-content">Skip to content</a><GooeyNavWithHeader items={items}><Image className="official-wordmark" src={brand.logo} alt="Sage Devs" width={900} height={257} priority /></GooeyNavWithHeader><main id="main-content" tabIndex={-1}>{children}</main><Footer /><Assistant /><Analytics /><JsonLd data={organizationSchema}/></body></html>;
+  return <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}><body className="glass-site"><a className="skip-link" href="#main-content">Skip to content</a><GooeyNavWithHeader items={items}><Image className="official-wordmark" src={brand.logo} alt="Sage Devs" width={900} height={257} priority /></GooeyNavWithHeader><main id="main-content" tabIndex={-1}>{children}</main><Footer /><Assistant /><Analytics /><ConversionEvents/><JsonLd data={organizationSchema}/></body></html>;
 }
