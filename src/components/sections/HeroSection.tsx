@@ -24,7 +24,7 @@ export default function HeroSection() {
       <div className="hero-copy">
         <p className="section-label hero-reveal"><span className="status-dot" /> INDEPENDENT DESIGN & DEVELOPMENT STUDIO</p>
         <h1 id="hero-title" className="hero-reveal">Digital excellence.<br /><em>Engineered.</em></h1>
-        <p className="hero-lede hero-reveal">Distinctive websites. Powerful applications. Intelligent solutions. We bring design and engineering together to move your business forward.</p>
+        <p className="hero-lede hero-reveal">Custom software. WordPress websites. Shopify stores. We bring design and engineering together to build digital experiences that move your business forward.</p>
         <div className="hero-links hero-reveal"><Link className="premium-button" href="/contact">Start a project <ArrowUpRight size={18}/></Link><a className="button button-glass" href="#selected-work">Explore our work <ArrowDown size={16}/></a></div>
         <div className="hero-footline hero-reveal"><span>Based in Lahore.<br/><strong>Building for the world.</strong></span><a href={business.bookingUrl} target="_blank" rel="noopener noreferrer">Have an idea in mind?<br/><strong>Let’s talk it through <ArrowUpRight size={13}/></strong></a></div>
       </div>
@@ -35,6 +35,6 @@ export default function HeroSection() {
         <span className="identity-coordinate">SAGE DEVS — DIGITAL CRAFT</span>
       </div>
     </div>
-    <div className="premium-shell hero-capabilities"><span>Design with intent.</span><span>Develop with precision.</span><span>Grow with confidence.</span><Link className="button button-glass" href="/about">Discover the studio <ArrowDown size={14}/></Link></div>
+    <div className="premium-shell hero-capabilities"><span><strong>500+</strong> projects delivered.</span><span>Thoughtful design.</span><span>Dependable engineering.</span><Link className="button button-glass" href="/about">Discover the studio <ArrowDown size={14}/></Link></div>
   </section>;
 }

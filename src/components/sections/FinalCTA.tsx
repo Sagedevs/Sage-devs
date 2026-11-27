@@ -1,5 +1,6 @@
 "use client";
 import BusinessHours from '@/components/site/BusinessHours';
+import { recordConversion } from '@/lib/conversions';
 import { business } from '@/lib/business';
 import React, { useState, ChangeEvent, useRef } from 'react';
 import Link from 'next/link';
@@ -44,7 +45,7 @@ export default function AgencyCTA(){
       );
 
       if (response.status === 200) {
-        setSubmitStatus('success');
+        setSubmitStatus('success'); recordConversion('contact_submission', { form: 'homepage' });
         formRef.current?.reset();
         setFormData({ name: '', email: '', company: '', budget: '', message: '' });
       } else {

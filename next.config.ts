@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   async redirects() {
     return [
+      { source: '/services/website-development', destination: '/services/web-development', permanent: true },
       { source: '/:path*', has: [{ type: 'host', value: 'www.sagedevs.tech' }], destination: 'https://sagedevs.tech/:path*', permanent: true },
       { source: '/icons/icon-192x192.png', destination: '/brand/icon-192.png', permanent: true },
       { source: '/icons/icon-512x512.png', destination: '/brand/icon-512.png', permanent: true },

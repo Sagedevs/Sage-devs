@@ -1,4 +1,5 @@
-// App Router owns navigation and scrolling; this entrance never delays routing.
+import SiteMotion from '@/components/site/SiteMotion';
+// App Router owns navigation, focus and scroll restoration. No navigation interception.
 export default function Template({ children }: { children: React.ReactNode }) {
-  return <div className="route-transition">{children}</div>;
+  return <SiteMotion>{children}</SiteMotion>;
 }
