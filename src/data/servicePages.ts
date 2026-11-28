@@ -1,10 +1,11 @@
+import { supportingServicePages } from './supportingServicePages';
 export interface ServicePage {
   slug: string; capability: string; title: string; heading: string; description: string;
   intro: string; blueprint: string; stages: string[]; technologies: string[];
   scope: { title: string; text: string }[];
   process: { title: string; text: string }[];
   faqs: { question: string; answer: string }[];
-  cases: number[]; related: string[];
+  cases: number[]; related: string[]; portfolioDomains?: string[]; workLabel?: string;
 }
 export const servicePages: ServicePage[] = [
   {
@@ -29,7 +30,7 @@ export const servicePages: ServicePage[] = [
       { question: 'Should I choose a custom application or WordPress?', answer: 'WordPress is often appropriate for content-led websites. A custom application makes sense when your permissions, data model or workflows go beyond a content management system. We compare both against your requirements during discovery.' },
       { question: 'Can you improve an existing website?', answer: 'Yes. We first inspect the code, hosting and integrations, then recommend improvements or a phased migration. Working functionality and useful content form part of that assessment.' },
       { question: 'How are cost and delivery dates decided?', answer: 'The scope, integrations, content readiness and review process determine the estimate. We agree deliverables and milestones in a proposal before development starts.' },
-    ], cases: [1, 10], related: ['wordpress-development', 'saas-development', 'ui-ux-design'],
+    ], cases: [1, 2, 3, 6, 10], portfolioDomains: ['olhalazarieva.com'], related: ['wordpress-development', 'saas-development', 'ui-ux-design'],
   },
   {
     slug: 'wordpress-development', capability: 'wordpress', title: 'WordPress Website Development',
@@ -53,10 +54,10 @@ export const servicePages: ServicePage[] = [
       { question: 'Can we edit the website ourselves?', answer: 'Yes. The editing workflow is part of the scope. We choose templates and content fields your team can use without needing to change the underlying code for routine updates.' },
       { question: 'Do you build WooCommerce stores?', answer: 'Yes. We scope the catalog, payment options, delivery rules and integrations before building. Third-party fees and plugin licenses are clarified in the proposal.' },
       { question: 'Are hosting and maintenance included?', answer: 'That depends on the selected package and agreed proposal. Hosting, licenses, backups and ongoing maintenance are itemized so you know which responsibilities sit with each team.' },
-    ], cases: [11, 12], related: ['shopify-development', 'web-development', 'ui-ux-design'],
+    ], cases: [8, 9, 11, 12, 4, 10], related: ['shopify-development', 'web-development', 'ui-ux-design'],
   },
   {
-    slug: 'shopify-development', capability: 'ecommerce', title: 'Shopify Store Development',
+    slug: 'shopify-development', capability: 'shopify', title: 'Shopify Store Development',
     heading: 'Shopify stores. Made to move.',
     description: 'Shopify development by Sage Devs: branded storefronts, product discovery, theme customization and integrations for businesses selling online.',
     intro: 'Make it easy for customers to understand your products and move toward a purchase. We design and develop Shopify storefronts with a clear catalog, a strong brand and a dependable shopping experience.',
@@ -77,7 +78,7 @@ export const servicePages: ServicePage[] = [
       { question: 'Should we use Shopify or WooCommerce?', answer: 'Shopify offers a managed commerce platform; WooCommerce suits teams that want commerce within WordPress and more control over hosting. Catalog complexity, existing systems and ongoing ownership help determine the choice.' },
       { question: 'Can you customize the checkout?', answer: 'Available checkout customizations depend on your Shopify plan and supported platform features. We confirm the options before promising a specific checkout behavior.' },
       { question: 'Are Shopify subscriptions and app fees included?', answer: 'Platform subscriptions, paid apps and transaction fees are separate from development unless the proposal explicitly includes them. We identify expected third-party costs during scoping.' },
-    ], cases: [5], related: ['wordpress-development', 'ui-ux-design', 'web-development'],
+    ], cases: [5], portfolioDomains: ['chipcitycookies.com','stainedconcept.com','eliburchjewelry.com','jakematluck.com','eaglelightsautomotive.com'], related: ['wordpress-development', 'ui-ux-design', 'web-development'],
   },
   {
     slug: 'saas-development', capability: 'saas', title: 'SaaS & Product Development',
@@ -101,7 +102,7 @@ export const servicePages: ServicePage[] = [
       { question: 'Can you start with an MVP?', answer: 'Yes. A focused MVP is often the right starting point. We agree which workflows are essential for a useful release and move lower-priority features to a later roadmap.' },
       { question: 'Can you work with an existing product team?', answer: 'Yes. We can contribute a defined part of the product or work across design and engineering. Responsibilities, repository access and review practices are agreed before work starts.' },
       { question: 'Will the first release support unlimited growth?', answer: 'No architecture removes the need for ongoing capacity planning. We design for the expected usage and revisit performance, infrastructure and data decisions as the product develops.' },
-    ], cases: [], related: ['web-development', 'ui-ux-design', 'ai-automation'],
+    ], cases: [], portfolioDomains: ['reech.agency','14islands.com','linguanovainstitute.com','elitecreationspk.com'], workLabel: 'More websites from the studio', related: ['web-development', 'ui-ux-design', 'ai-automation'],
   },
   {
     slug: 'ai-automation', capability: 'ai-solutions', title: 'AI Automation & Integration',
@@ -125,7 +126,7 @@ export const servicePages: ServicePage[] = [
       { question: 'Do we need to train a custom model?', answer: 'Often an existing model with the right context and integrations is enough. We compare that approach with rules-based automation and custom training against your data, privacy and quality requirements.' },
       { question: 'How do you handle incorrect AI answers?', answer: 'The workflow needs explicit limits, evaluation and fallback behavior. High-impact decisions should have suitable human review; a fluent response alone is not evidence that an answer is correct.' },
       { question: 'What determines the operating cost?', answer: 'Request volume, context size, model choice, retries and connected services all affect cost. We estimate these during the pilot and define limits before wider use.' },
-    ], cases: [], related: ['web-development', 'saas-development', 'wordpress-development'],
+    ], cases: [], portfolioDomains: ['reech.agency','14islands.com','linguanovainstitute.com','elitecreationspk.com'], workLabel: 'More websites from the studio', related: ['web-development', 'saas-development', 'wordpress-development'],
   },
   {
     slug: 'mobile-app-development', capability: 'mobile', title: 'Mobile App Development',
@@ -149,7 +150,7 @@ export const servicePages: ServicePage[] = [
       { question: 'Can one app support iOS and Android?', answer: 'React Native can share substantial application code across both. Device integrations and platform-specific requirements still need their own implementation and testing where appropriate.' },
       { question: 'Do you guarantee app-store approval?', answer: 'No. Apple and Google control their review processes. We can prepare the agreed release materials and address technical feedback within the project scope.' },
       { question: 'Can the app connect to our existing backend?', answer: 'Yes, subject to reviewing the available APIs, authentication and data permissions. Any backend changes are identified during discovery.' },
-    ], cases: [], related: ['web-development', 'ui-ux-design', 'saas-development'],
+    ], cases: [], portfolioDomains: ['reech.agency','14islands.com','linguanovainstitute.com','elitecreationspk.com'], workLabel: 'More websites from the studio', related: ['web-development', 'ui-ux-design', 'saas-development'],
   },
   {
     slug: 'ui-ux-design', capability: 'ui-design', title: 'UI/UX Design Services',
@@ -173,9 +174,11 @@ export const servicePages: ServicePage[] = [
       { question: 'Can you design without developing the website?', answer: 'Yes. Design can be a defined engagement with an agreed set of screens, prototypes and handover materials, or part of a combined design and development project.' },
       { question: 'What if we already have a brand identity?', answer: 'We use your existing brand assets and guidelines as the starting point, then adapt them into an interface system that works across content and screen sizes.' },
       { question: 'How are revisions managed?', answer: 'The proposal sets the review stages and included revisions. We consolidate feedback at each stage and agree changes that introduce new scope before proceeding.' },
-    ], cases: [2, 9], related: ['web-development', 'wordpress-development', 'shopify-development'],
+    ], cases: [1, 2, 3, 9, 10], portfolioDomains: ['olhalazarieva.com'], related: ['web-development', 'wordpress-development', 'shopify-development'],
   },
 ];
+servicePages.push(...supportingServicePages);
+
 export const serviceHref = (capability: string) => {
   const page = servicePages.find(item => item.capability === capability);
   return page ? `/services/${page.slug}` : `/services#${capability}`;

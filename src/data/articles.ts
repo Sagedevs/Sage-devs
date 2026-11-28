@@ -154,7 +154,7 @@ AI is not just changing the fitness industry – it's revolutionizing how we thi
     image: "/blog/4.webp",
     href: "/blog/ai-business-ideas",
     category: "Business Innovation",
-    excerpt: "Innovative AI business opportunities specifically tailored for the Australian market and ecosystem.",
+    excerpt: "Explore AI business ideas for Australia, with practical questions about customer demand, data access, evaluation and the cost of building a useful pilot.",
     date: "Mar 8, 2024",
     readTime: "12 min read",
     content: `# AI Business Opportunities in Australia
@@ -475,7 +475,7 @@ Choose **Grid** when you need control over both rows and columns. Choose **Flexb
     image: "/blog/9.webp",
     href: "/blog/progressive-web-apps-guide",
     category: "Mobile Development",
-    excerpt: "Learn how to build fast, reliable, and engaging Progressive Web Apps that work across all devices.",
+    excerpt: "Learn how progressive web apps use caching, offline behavior and installation features, with practical considerations for reliable mobile web experiences.",
     date: "Feb 25, 2024",
     readTime: "13 min read",
     content: `# Progressive Web Apps (PWAs): The Complete Guide

@@ -1,9 +1,36 @@
 {
   "kind": "production HTML / metadata / local links (not browser rendering)",
-  "pages": 36,
-  "booking_links": 86,
-  "external_links": 72,
+  "pages": 48,
+  "booking_links": 110,
+  "external_links": 74,
   "issues": [],
+  "editorial_warnings": [
+    [
+      "/blog",
+      "short-description",
+      80
+    ],
+    [
+      "/careers",
+      "short-description",
+      79
+    ],
+    [
+      "/privacy",
+      "short-description",
+      78
+    ],
+    [
+      "/blog/ai-business-ideas",
+      "short-description",
+      99
+    ],
+    [
+      "/blog/progressive-web-apps-guide",
+      "short-description",
+      98
+    ]
+  ],
   "routes": [
     "/",
     "/about",
@@ -39,6 +66,18 @@
     "/projects",
     "/resources",
     "/services",
+    "/services/ai-automation",
+    "/services/brand-identity",
+    "/services/cloud-devops",
+    "/services/digital-strategy",
+    "/services/ecommerce-development",
+    "/services/maintenance-support",
+    "/services/mobile-app-development",
+    "/services/saas-development",
+    "/services/shopify-development",
+    "/services/ui-ux-design",
+    "/services/web-development",
+    "/services/wordpress-development",
     "/sitemap",
     "/terms"
   ]

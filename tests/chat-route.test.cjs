@@ -66,7 +66,7 @@ test('uses an available default model and supports a server-side model override'
     } });
     const response = await route(request());
     assert.equal(response.status, 200);
-    assert.equal(body.model, model || 'openai/gpt-4o-mini');
+    assert.equal(body.model, model || 'openrouter/free');
     assert.equal(response.headers.get('cache-control'), 'no-store');
   }
 });

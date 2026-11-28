@@ -1,7 +1,9 @@
 'use client';
 import { useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function SiteMotion({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
   const root = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -31,6 +33,6 @@ export default function SiteMotion({ children }: { children: React.ReactNode }) 
     media.addEventListener('change', onPreference);
     node.addEventListener('focusin', onFocus);
     return () => { revealAll(); media.removeEventListener('change', onPreference); node.removeEventListener('focusin', onFocus); };
-  }, []);
-  return <div ref={root} className="route-transition">{children}</div>;
+  }, [pathname]);
+  return <div key={pathname} ref={root} className="route-transition">{children}</div>;
 }

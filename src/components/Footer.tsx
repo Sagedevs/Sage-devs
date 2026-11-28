@@ -27,8 +27,8 @@ export default function Footer(){
     { label: "WordPress Development", href: "/services/wordpress-development" },
     { label: "Shopify Development", href: "/services/shopify-development" },
     { label: "SaaS & Product Dev", href: "/services/saas-development" },
-    { label: "Cloud & DevOps", href: "/services#cloud" },
-    { label: "Maintenance & Support", href: "/services#maintenance-support" },
+    { label: "Cloud & DevOps", href: "/services/cloud-devops" },
+    { label: "Maintenance & Support", href: "/services/maintenance-support" },
   ], []);
 
 
