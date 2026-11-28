@@ -6,7 +6,7 @@ export default function ContactForm({ ai = false }: { ai?: boolean }) {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const pending = useRef(false);
   const confirmation = useRef<HTMLDivElement>(null);
-  useEffect(() => { if (status === 'success') confirmation.current?.focus({ preventScroll: true }); }, [status]);
+  useEffect(() => { if (status === 'success') { const node = confirmation.current; node?.focus({ preventScroll: true }); node?.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); } }, [status]);
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (pending.current) return;

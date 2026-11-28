@@ -2340,8 +2340,8 @@ body.glass-site::before {
 .ambient-light-work span {background:radial-gradient(ellipse at 25% 65%,rgb(166 167 170 / .06),transparent 55%)}
 .ambient-light[data-running=true] span {animation-play-state:running}
 @keyframes studio-light-drift {from{transform:translate3d(-3%,0,0);opacity:.6}to{transform:translate3d(3%,3%,0);opacity:1}}
-.route-transition {animation:route-arrive var(--sd-duration-enter) var(--sd-ease)}
-@keyframes route-arrive {from{opacity:.55}to{opacity:1}}
+.route-transition {animation:route-arrive .65s var(--sd-ease) both}
+@keyframes route-arrive {from{opacity:.65;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes surface-arrive {from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 :is(.project-dialog,.video-dialog)[open] {animation:surface-arrive var(--sd-duration-medium) var(--sd-ease)}
 @media(max-width:900px){.home-faq-layout{grid-template-columns:minmax(0,1fr);gap:36px}.home-faq-intro p:not(.section-label){max-width:50ch}}
@@ -2475,3 +2475,21 @@ body.glass-site::before {
 .project-deliverables li {border-top:1px solid rgb(255 255 255 / .12);padding-top:18px;line-height:1.8;color:var(--sd-subtle)}
 @media(max-width:760px) {.service-landing-grid,.service-scope-grid,.service-process,.service-work{grid-template-columns:minmax(0,1fr)}.service-blueprint{margin-top:12px}.service-scope-grid{gap:22px}.service-process{gap:24px}.confirmation-actions{align-items:flex-start;flex-direction:column}.service-landing h1{max-width:100%}}
 @media(prefers-reduced-motion:reduce) {[data-motion]{opacity:1!important;transform:none!important;transition:none!important}.route-transition > .route-opening .opening-description,.route-transition > .route-opening .opening-actions,.contact-confirmation{animation:none!important}.service-work img{transition:none!important}.service-work a:hover img{transform:none!important}}
+
+.navigation-progress {position:fixed;inset:0 0 auto;height:2px;z-index:1000;pointer-events:none;opacity:0;transition:opacity .2s}
+.navigation-progress span {display:block;width:100%;height:100%;background:var(--sd-platinum);transform:scaleX(0);transform-origin:left;box-shadow:0 0 10px rgb(245 245 242 / .2)}
+.navigation-progress.is-loading {opacity:1}
+.navigation-progress.is-loading span {animation:navigation-advance 8s cubic-bezier(.1,.8,.2,1) forwards}
+.navigation-progress.is-complete {opacity:1}
+.navigation-progress.is-complete span {transform:scaleX(1);transition:transform .2s}
+@keyframes navigation-advance {from{transform:scaleX(.08)}to{transform:scaleX(.88)}}
+.service-work a > span {align-items:flex-start;flex-direction:column;gap:8px}
+.service-work a small {font-size:.75rem;color:var(--sd-silver)}
+.service-blueprint {animation:blueprint-arrive .8s var(--sd-ease) both}
+.service-blueprint li {animation:blueprint-line .65s var(--sd-ease) both}
+.service-blueprint li:nth-child(2) {animation-delay:.06s}
+.service-blueprint li:nth-child(3) {animation-delay:.12s}
+.service-blueprint li:nth-child(4) {animation-delay:.18s}
+@keyframes blueprint-arrive {from{opacity:.3;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes blueprint-line {from{opacity:0;transform:translateX(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.navigation-progress{display:none}.service-blueprint,.service-blueprint li{animation:none!important}.route-transition{transform:none!important;animation:none!important}}

@@ -8,13 +8,14 @@ SITE='https://sagedevs.tech'
 BOOKING='https://calendly.com/sagedevs-info'
 class Page(HTMLParser):
  def __init__(self):
-  super().__init__();self.ids=[];self.links=[];self.images=[];self.h1=0;self.meta={};self.canonical=[];self.title='';self.in_title=False;self.in_schema=False;self.schema_text='';self.schemas=[];self.controls=[];self.text=[]
+  super().__init__();self.ids=[];self.links=[];self.images=[];self.h1=0;self.meta={};self.canonical=[];self.title='';self.in_title=False;self.in_schema=False;self.schema_text='';self.schemas=[];self.controls=[];self.text=[];self.headings=[]
  def handle_starttag(self,tag,attrs):
   a=dict(attrs)
   if a.get('id'):self.ids.append(a['id'])
   if tag=='a' and a.get('href'):self.links.append(a)
   if tag=='img':self.images.append(a)
   if tag=='h1':self.h1+=1
+  if tag in ['h1','h2','h3','h4','h5','h6']:self.headings.append(int(tag[1]))
   if tag=='meta':self.meta[a.get('name',a.get('property',''))]=a.get('content','')
   if tag=='link' and a.get('rel')=='canonical':self.canonical.append(a.get('href'))
   if tag=='title':self.in_title=True
@@ -36,9 +37,13 @@ for file in ROOT.rglob('*.html'):
  route='/'+str(file.relative_to(ROOT)).removesuffix('.html')
  if route=='/index':route='/'
  p=Page();p.feed(file.read_text());pages[route]=p
-issues=[];external=set();bookings=0;seen_titles={};seen_descriptions={}
+issues=[];warnings=[];external=set();bookings=0;seen_titles={};seen_descriptions={}
 for route,p in pages.items():
  if p.h1!=1:issues.append([route,'h1-count',p.h1])
+ for previous,current in zip(p.headings,p.headings[1:]):
+  if current>previous+1:issues.append([route,'heading-jump',previous,current])
+ if len(p.title)>65:warnings.append([route,'long-title',len(p.title)])
+ if len(p.meta.get('description',''))<100:warnings.append([route,'short-description',len(p.meta.get('description',''))])
  if len(p.ids)!=len(set(p.ids)):issues.append([route,'duplicate-ids'])
  expected=SITE if route=='/' else SITE+route
  if p.canonical!=[expected]:issues.append([route,'canonical',p.canonical])
@@ -80,7 +85,19 @@ else:
  for control in home.controls:
   if control.get('aria-expanded') not in ['true','false'] or control['aria-controls'] not in home.ids:issues.append(['/','invalid-homepage-faq-relationship'])
 if not pages:issues.append(['build','no-generated-html'])
-report={'kind':'production HTML / metadata / local links (not browser rendering)','pages':len(pages),'booking_links':bookings,'external_links':len(external),'issues':issues,'routes':sorted(pages)}
+# Check the generated sitemap against the actual canonical build output.
+import xml.etree.ElementTree as ET
+sitemap_urls=set()
+for sitemap in Path('public').glob('sitemap-*.xml'):
+ try:
+  sitemap_urls.update(node.text.rstrip('/') for node in ET.parse(sitemap).iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc'))
+ except ET.ParseError:issues.append(['sitemap','invalid-xml',str(sitemap)])
+expected_urls={SITE if route=='/' else SITE+route for route in pages}
+if sitemap_urls!=expected_urls:issues.append(['sitemap','route-mismatch',sorted(expected_urls-sitemap_urls),sorted(sitemap_urls-expected_urls)])
+robots=Path('public/robots.txt').read_text() if Path('public/robots.txt').exists() else ''
+if 'Disallow: /api/' not in robots or 'Sitemap: https://sagedevs.tech/sitemap.xml' not in robots:issues.append(['robots','missing-crawl-directives'])
+
+report={'kind':'production HTML / metadata / local links (not browser rendering)','pages':len(pages),'booking_links':bookings,'external_links':len(external),'issues':issues,'editorial_warnings':warnings,'routes':sorted(pages)}
 Path('docs/qa/production-audit.json').write_text(json.dumps(report,indent=2)+'\n')
 Path('/tmp/sage-external-links.json').write_text(json.dumps(sorted(external)))
 print(json.dumps(report,indent=2))

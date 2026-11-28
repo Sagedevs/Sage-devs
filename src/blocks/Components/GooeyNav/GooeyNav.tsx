@@ -186,7 +186,7 @@ const megaMenuContent: MegaMenuContentMap = {
           { label: "Web & App Development", href: "/services/web-development", description: "Custom web and mobile applications" },
           { label: "SaaS & Product Dev", href: "/services/saas-development", description: "Scalable software solutions" },
           { label: "Shopify Development", href: "/services/shopify-development", description: "Branded stores & commerce integrations" },
-          { label: "Cloud & DevOps", href: "/services#cloud", description: "Infrastructure & deployment" },
+          { label: "Cloud & DevOps", href: "/services/cloud-devops", description: "Infrastructure & deployment" },
           {
             label: "WordPress Services",
             href: "/services/wordpress-development",
@@ -263,9 +263,9 @@ const megaMenuContent: MegaMenuContentMap = {
         title: "Design & Strategy",
         items: [
           { label: "UI/UX Design", href: "/services/ui-ux-design", description: "User-centered design approach" },
-          { label: "Digital Strategy", href: "/services#digital-strategy", description: "Business transformation planning" },
-          { label: "Brand Identity", href: "/services#brand-identity", description: "Complete brand solutions" },
-          { label: "Maintenance & Support", href: "/services#maintenance-support", description: "Ongoing technical support" }
+          { label: "Digital Strategy", href: "/services/digital-strategy", description: "Business transformation planning" },
+          { label: "Brand Identity", href: "/services/brand-identity", description: "Complete brand solutions" },
+          { label: "Maintenance & Support", href: "/services/maintenance-support", description: "Ongoing technical support" }
         ]
       }
     ],
@@ -281,7 +281,7 @@ const megaMenuContent: MegaMenuContentMap = {
       subtitle: "E-commerce Excellence",
       description: "Custom e-commerce solutions that drive sales and enhance user experience. From Shopify to custom builds.",
       image: "/proj/ecomerce.webp",
-      href: "/services#ecommerce",
+      href: "/services/ecommerce-development",
       features: [
         "Payment Integration",
         "Inventory Management",

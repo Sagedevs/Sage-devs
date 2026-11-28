@@ -62,7 +62,7 @@ const services: ServiceItem[] = [
     features: ["CI/CD Pipelines", "Auto Scaling", "Monitoring", "Security"],
     technologies: ["AWS", "Docker", "Kubernetes", "GitHub Actions"],
     icon: Cloud,
-    href: "/services#cloud",
+    href: "/services/cloud-devops",
     stats: "99.9% Uptime"
   },
   {
@@ -92,7 +92,7 @@ const services: ServiceItem[] = [
     features: ["Logo Design", "Brand Guidelines", "Visual Identity", "Brand Strategy"],
     technologies: ["Illustrator", "Photoshop", "Figma", "Brand Tools"],
     icon: Sparkles,
-    href: "/services#brand-identity",
+    href: "/services/brand-identity",
     stats: "150+ Brands"
   },
   {
@@ -102,7 +102,7 @@ const services: ServiceItem[] = [
     features: ["24/7 Monitoring", "Security Updates", "Performance Tuning", "Backup Management"],
     technologies: ["Monitoring Tools", "Security Suites", "Backup Systems"],
     icon: Wrench,
-    href: "/services#maintenance-support",
+    href: "/services/maintenance-support",
     stats: "24/7 Support"
   }
 ];
